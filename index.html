@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MEX MAPA — Control total de tu flota de renta en tiempo real</title>
+<meta name="description" content="Plataforma operativa para empresas de renta de autos: mapa visual del patio, cuadre diario, predicción de demanda, alertas y trazabilidad total." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ink:        #0b0f14;
+    --ink-2:      #111820;
+    --paper:      #f4f1ea;
+    --paper-2:    #ecE7db;
+    --rule:       #1a2230;
+    --accent:     #ff4122;   /* rojo-naranja señalético */
+    --accent-2:   #ffb400;   /* amarillo industrial */
+    --ok:         #14b870;
+    --warn:       #ff8a00;
+    --muted:      #6b7280;
+    --muted-2:    #9aa3af;
+    --mono:       'JetBrains Mono', ui-monospace, monospace;
+    --display:    'Archivo Black', 'Manrope', sans-serif;
+    --body:       'Manrope', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  img, svg { display: block; max-width: 100%; }
+
+  /* ————— GRID OVERLAY DECORATIVO ————— */
+  .grain {
+    position: fixed; inset: 0; pointer-events: none; z-index: 1;
+    opacity: .06; mix-blend-mode: multiply;
+    background-image:
+      radial-gradient(circle at 1px 1px, #000 1px, transparent 0);
+    background-size: 3px 3px;
+  }
+
+  /* ————— CONTENEDOR ————— */
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 2; }
+
+  /* ————— TOP BAR ————— */
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 32px; max-width: 1280px; margin: 0 auto;
+    position: relative; z-index: 10;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--display); font-size: 20px; letter-spacing: .02em;
+  }
+  .logo-mark {
+    width: 34px; height: 34px; background: var(--ink); color: var(--accent-2);
+    display: grid; place-items: center;
+    font-family: var(--display); font-size: 13px;
+    transform: rotate(-4deg);
+  }
+  .nav-right { display: flex; gap: 28px; align-items: center; font-size: 13px; font-weight: 600; }
+  .nav-right a { position: relative; padding-bottom: 3px; }
+  .nav-right a::after {
+    content: ""; position: absolute; bottom: 0; left: 0; height: 2px;
+    width: 0; background: var(--accent); transition: width .25s ease;
+  }
+  .nav-right a:hover::after { width: 100%; }
+  .btn-top {
+    background: var(--ink); color: var(--paper); padding: 10px 18px;
+    font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  }
+
+  /* ————— HERO ————— */
+  .hero { padding: 60px 0 100px; position: relative; }
+  .hero::before {
+    content: ""; position: absolute; top: 40px; right: -80px;
+    width: 420px; height: 420px; border-radius: 50%;
+    background: radial-gradient(circle, var(--accent-2) 0%, transparent 65%);
+    opacity: .35; z-index: 0;
+  }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .18em;
+    color: var(--ink); background: rgba(11,15,20,.06);
+    padding: 6px 12px; border: 1px solid rgba(11,15,20,.1);
+    margin-bottom: 30px;
+  }
+  .eyebrow .dot { width: 8px; height: 8px; background: var(--ok); border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(20,184,112,.6); animation: pulse 2s infinite; }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(20,184,112,.6); }
+    70%  { box-shadow: 0 0 0 10px rgba(20,184,112,0); }
+    100% { box-shadow: 0 0 0 0 rgba(20,184,112,0); }
+  }
+
+  h1.display {
+    font-family: var(--display);
+    font-size: clamp(44px, 8vw, 104px);
+    line-height: .92;
+    letter-spacing: -.02em;
+    margin: 0 0 28px;
+    max-width: 12ch;
+  }
+  h1 .strike {
+    position: relative; display: inline-block;
+    color: var(--accent);
+  }
+  h1 .strike::after {
+    content: ""; position: absolute; left: -4%; right: -4%;
+    top: 52%; height: 10px; background: var(--ink);
+    transform: rotate(-2deg);
+    animation: strikeIn 1s .4s both cubic-bezier(.7,0,.2,1);
+  }
+  @keyframes strikeIn { from { transform: scaleX(0) rotate(-2deg); transform-origin: left; } to { transform: scaleX(1) rotate(-2deg); } }
+
+  .hero-grid {
+    display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center;
+  }
+  .lead {
+    font-size: clamp(16px, 1.4vw, 20px); color: #2a323d;
+    max-width: 52ch; margin: 0 0 36px;
+  }
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 18px 28px; font-weight: 800; font-size: 14px;
+    letter-spacing: .08em; text-transform: uppercase;
+    transition: transform .15s ease, box-shadow .15s ease;
+    cursor: pointer; border: none;
+  }
+  .btn:hover { transform: translate(-2px, -2px); }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .btn-primary:hover { box-shadow: 8px 8px 0 var(--ink); }
+  .btn-ghost {
+    background: transparent; color: var(--ink);
+    border: 2px solid var(--ink);
+  }
+  .btn-ghost:hover { background: var(--ink); color: var(--paper); }
+  .btn .arrow { transition: transform .2s ease; }
+  .btn:hover .arrow { transform: translateX(4px); }
+
+  /* Hero card — mock del sistema */
+  .hero-card {
+    background: var(--ink); color: var(--paper);
+    padding: 24px; border-radius: 4px;
+    box-shadow: 20px 20px 0 rgba(255,65,34,.15);
+    font-family: var(--mono); font-size: 12px;
+    position: relative;
+    transform: rotate(1deg);
+  }
+  .hero-card::before {
+    content: "● ● ●"; position: absolute; top: 12px; left: 18px;
+    color: #3a4250; letter-spacing: 4px; font-size: 10px;
+  }
+  .hero-card-head {
+    margin-top: 20px; padding-bottom: 14px;
+    border-bottom: 1px dashed #2c3644;
+    display: flex; justify-content: space-between; text-transform: uppercase; letter-spacing: .1em; font-size: 10px; color: var(--muted-2);
+  }
+  .hero-grid-spots {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin: 18px 0;
+  }
+  .spot-mock {
+    aspect-ratio: 1/1.1; border: 1px solid #2a3340;
+    display: grid; place-items: center;
+    font-size: 11px; font-weight: 700;
+    position: relative;
+  }
+  .spot-mock.ok   { background: rgba(20,184,112,.15); color: #22dd88; }
+  .spot-mock.warn { background: rgba(255,138,0,.15); color: #ffb065; }
+  .spot-mock.bad  { background: rgba(255,65,34,.15); color: #ff7055; }
+  .spot-mock.empty{ color: #3a4250; border-style: dashed; }
+  .spot-mock:nth-child(7)  { animation: blink 2.5s infinite; }
+  @keyframes blink {
+    0%, 100% { box-shadow: inset 0 0 0 0 var(--accent-2); }
+    50%      { box-shadow: inset 0 0 0 2px var(--accent-2); }
+  }
+  .hero-card-foot {
+    display: flex; justify-content: space-between; font-size: 10px;
+    color: var(--muted-2); text-transform: uppercase; letter-spacing: .12em;
+  }
+  .hero-card-foot .live { color: var(--ok); }
+  .hero-card-foot .live::before { content: "● "; animation: pulse 1.5s infinite; }
+
+  .hero-points {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    margin: 0 0 34px;
+  }
+  .hero-pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 14px; border-radius: 999px;
+    background: rgba(11,15,20,.06);
+    border: 1px solid rgba(11,15,20,.12);
+    font-size: 12px; font-weight: 700; color: #25303d;
+  }
+  .hero-pill b {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: .16em; color: var(--accent);
+  }
+
+  .hero-visual {
+    position: relative; min-height: 0;
+  }
+  .hero-surface {
+    position: relative; padding: 14px 0 72px 34px;
+  }
+  .hero-shot {
+    position: absolute; overflow: hidden;
+    padding: 14px; border-radius: 26px;
+    background: #111827;
+    border: 1px solid rgba(11,15,20,.14);
+    box-shadow: 0 30px 80px rgba(11,15,20,.18);
+  }
+  .hero-shot img {
+    width: 100%; height: 100%; object-fit: contain;
+    border-radius: 18px;
+    background: #0f172a;
+  }
+  .hero-shot-main {
+    position: relative;
+    inset: auto;
+    min-height: 540px;
+    width: 100%;
+    transform: rotate(-1deg);
+  }
+  .hero-shot-summary {
+    width: 46%;
+    right: -8px; bottom: 0; top: auto;
+    z-index: 3; transform: rotate(4deg);
+  }
+  .hero-shot-side {
+    display: none;
+  }
+  .hero-shot-label {
+    position: absolute; left: 24px; top: 22px; z-index: 2;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 12px; border-radius: 999px;
+    background: rgba(11,15,20,.78); color: #fff;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .hero-shot-label::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--ok); box-shadow: 0 0 0 6px rgba(20,184,112,.14);
+  }
+
+  .proof-strip {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 18px; margin-top: 46px;
+  }
+  .proof-card {
+    background: rgba(255,255,255,.72);
+    border: 1px solid rgba(11,15,20,.12);
+    border-radius: 24px;
+    padding: 14px;
+    box-shadow: 0 18px 50px rgba(11,15,20,.08);
+  }
+  .proof-thumb {
+    overflow: hidden; border-radius: 18px;
+    border: 1px solid rgba(11,15,20,.08);
+    background: #fff;
+    margin-bottom: 14px;
+  }
+  .proof-thumb img {
+    width: 100%; height: 220px; object-fit: contain;
+    transition: transform .35s ease;
+    background: #fff;
+  }
+  .proof-card:hover .proof-thumb img { transform: scale(1.03); }
+  .proof-kicker {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .16em;
+    color: var(--accent); text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .proof-card h3 {
+    margin: 0 0 8px; font-family: var(--display);
+    font-size: 24px; line-height: 1.02; letter-spacing: -.01em;
+  }
+  .proof-card p {
+    margin: 0; font-size: 14px; color: #44505f;
+  }
+
+  .gallery-intro {
+    display: grid; grid-template-columns: 1.1fr .9fr;
+    gap: 32px; align-items: start;
+    margin-bottom: 38px;
+  }
+  .gallery-intro p {
+    margin: 0; font-size: 18px; color: #2a323d;
+    max-width: 56ch;
+  }
+  .gallery-tags {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    justify-content: flex-start;
+  }
+  .gallery-tag {
+    display: inline-flex; align-items: center;
+    padding: 9px 14px; border-radius: 999px;
+    border: 1px solid rgba(11,15,20,.12);
+    background: rgba(255,255,255,.7);
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: .08em; color: #25303d;
+  }
+
+  .screens-grid {
+    display: grid; grid-template-columns: repeat(12, 1fr);
+    gap: 22px;
+  }
+  .screen-card {
+    grid-column: span 6;
+    background: rgba(255,255,255,.82);
+    border: 1px solid rgba(11,15,20,.1);
+    border-radius: 28px;
+    padding: 18px;
+    box-shadow: 0 24px 60px rgba(11,15,20,.08);
+    overflow: hidden;
+  }
+  .screen-card.dark-card {
+    background: linear-gradient(160deg, #0f1728 0%, #18213a 100%);
+    color: var(--paper);
+  }
+  .screen-card.featured { grid-column: span 7; }
+  .screen-card.tall { grid-column: span 5; }
+  .screen-card.narrow { grid-column: span 4; }
+  .screen-card.wide {
+    grid-column: span 12;
+    display: grid; grid-template-columns: .86fr 1.14fr;
+    gap: 20px; align-items: center;
+  }
+  .screen-image {
+    position: relative; overflow: hidden;
+    border-radius: 22px;
+    border: 1px solid rgba(11,15,20,.08);
+    background: #eef2f8;
+  }
+  .screen-card .screen-image { max-height: 470px; }
+  .screen-card.tall .screen-image { max-height: 540px; }
+  .screen-card.wide .screen-image { max-height: 520px; }
+  .screen-image img {
+    width: 100%; height: 100%; object-fit: contain;
+    transition: transform .4s ease;
+    background: #eef2f8;
+  }
+  .screen-card:hover .screen-image img { transform: scale(1.02); }
+
+  .screen-copy {
+    padding: 8px 6px 6px;
+  }
+  .screen-kicker {
+    display: inline-flex; align-items: center;
+    padding: 7px 11px; border-radius: 999px;
+    background: rgba(255,65,34,.1); color: var(--accent);
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: .16em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .dark-card .screen-kicker {
+    background: rgba(255,180,0,.12);
+    color: var(--accent-2);
+  }
+  .screen-copy h3 {
+    margin: 0 0 10px; font-family: var(--display);
+    font-size: clamp(24px, 2.4vw, 42px);
+    line-height: .98; letter-spacing: -.02em;
+  }
+  .screen-copy p {
+    margin: 0; font-size: 15px; color: #435062;
+  }
+  .dark-card .screen-copy p { color: rgba(244,241,234,.78); }
+  .screen-list {
+    list-style: none; padding: 0; margin: 18px 0 0;
+  }
+  .screen-list li {
+    display: flex; gap: 10px; align-items: start;
+    padding: 9px 0; border-top: 1px dashed rgba(11,15,20,.14);
+    font-size: 13px; color: #364151;
+  }
+  .dark-card .screen-list li {
+    color: rgba(244,241,234,.82);
+    border-top-color: rgba(244,241,234,.14);
+  }
+  .screen-list li::before {
+    content: "→"; color: var(--accent); font-weight: 800;
+    flex-shrink: 0;
+  }
+  .screen-note {
+    margin-top: 18px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: .12em; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .dark-card .screen-note { color: rgba(244,241,234,.52); }
+
+  .admin-wall {
+    grid-column: span 12;
+    padding: 24px;
+    background: linear-gradient(180deg, rgba(255,255,255,.85) 0%, rgba(255,255,255,.7) 100%);
+  }
+  .admin-wall-head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 26px; margin-bottom: 22px;
+  }
+  .admin-wall-head p {
+    max-width: 52ch; margin: 0; font-size: 15px; color: #44505f;
+  }
+  .admin-mini-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .admin-mini {
+    background: rgba(255,255,255,.9);
+    border: 1px solid rgba(11,15,20,.08);
+    border-radius: 22px;
+    padding: 12px;
+  }
+  .admin-mini .screen-image {
+    max-height: 178px;
+    margin-bottom: 12px;
+  }
+  .admin-mini h4 {
+    margin: 0 0 4px; font-size: 14px; font-weight: 800;
+    letter-spacing: -.01em;
+  }
+  .admin-mini p {
+    margin: 0; font-size: 12px; color: #5f6a79;
+  }
+
+  /* ————— TICKER ————— */
+  .ticker {
+    background: var(--ink); color: var(--paper);
+    padding: 18px 0; overflow: hidden; white-space: nowrap;
+    font-family: var(--display); font-size: 24px; letter-spacing: .04em;
+    border-top: 2px solid var(--accent); border-bottom: 2px solid var(--accent);
+  }
+  .ticker-track {
+    display: inline-block;
+    animation: ticker 35s linear infinite;
+  }
+  .ticker span { margin: 0 32px; }
+  .ticker .sep { color: var(--accent-2); }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ————— SECCIÓN PROBLEMA ————— */
+  section { padding: 110px 0; position: relative; }
+  section.alt { background: var(--paper-2); }
+  section.dark { background: var(--ink); color: var(--paper); }
+
+  .section-head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 40px; margin-bottom: 60px; border-bottom: 2px solid var(--ink); padding-bottom: 24px;
+  }
+  section.dark .section-head { border-bottom-color: var(--paper); }
+  .section-num {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .2em;
+    color: var(--muted); text-transform: uppercase;
+  }
+  section.dark .section-num { color: var(--accent-2); }
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: .95; margin: 10px 0 0; letter-spacing: -.015em;
+    max-width: 18ch;
+  }
+
+  /* Problema grid */
+  .problem-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;
+    background: var(--ink);
+    border: 2px solid var(--ink);
+  }
+  .problem-cell {
+    background: var(--paper); padding: 40px 32px;
+    position: relative;
+    transition: background .2s ease;
+  }
+  section.alt .problem-cell { background: var(--paper-2); }
+  .problem-cell:hover { background: var(--accent-2); }
+  .problem-cell .n {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .2em;
+    color: var(--muted); margin-bottom: 20px;
+  }
+  .problem-cell h3 {
+    font-family: var(--display); font-size: 22px; line-height: 1.15;
+    margin: 0 0 14px;
+  }
+  .problem-cell p { margin: 0; font-size: 14px; color: #2a323d; }
+
+  /* ————— FEATURES ————— */
+  .feat-grid {
+    display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px;
+  }
+  .feat {
+    grid-column: span 6;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.1);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: all .3s ease;
+  }
+  .feat:hover {
+    background: rgba(255,180,0,.08);
+    border-color: var(--accent-2);
+    transform: translateY(-4px);
+  }
+  .feat.big { grid-column: span 8; }
+  .feat.sm  { grid-column: span 4; }
+  @media (max-width: 900px) {
+    .feat, .feat.big, .feat.sm { grid-column: span 12; }
+  }
+
+  .feat-tag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .2em;
+    color: var(--accent-2); margin-bottom: 16px;
+    display: inline-block; padding: 3px 8px; border: 1px solid var(--accent-2);
+  }
+  .feat h3 {
+    font-family: var(--display); font-size: 26px; line-height: 1.1;
+    margin: 0 0 12px; letter-spacing: -.01em;
+  }
+  .feat p { font-size: 14px; color: var(--muted-2); margin: 0 0 20px; }
+  .feat ul { list-style: none; padding: 0; margin: 0; font-size: 13px; color: var(--paper); }
+  .feat ul li { padding: 8px 0; border-bottom: 1px dashed #2a3340; display: flex; gap: 12px; align-items: start; }
+  .feat ul li::before {
+    content: "→"; color: var(--accent); font-weight: 700; flex-shrink: 0;
+  }
+  .feat ul li:last-child { border-bottom: none; }
+
+  /* Icono decorativo dentro de feature */
+  .feat-icon {
+    position: absolute; right: -20px; bottom: -30px;
+    font-family: var(--display); font-size: 140px; line-height: 1;
+    color: rgba(255,255,255,.03); pointer-events: none;
+    transition: all .3s ease;
+  }
+  .feat:hover .feat-icon { color: rgba(255,180,0,.15); }
+
+  /* ————— BENEFICIOS ————— */
+  .benefits {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  }
+  @media (max-width: 900px) { .benefits { grid-template-columns: 1fr; } }
+
+  .metric {
+    padding: 30px 0; border-top: 2px solid var(--ink);
+    display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center;
+  }
+  .metric-num {
+    font-family: var(--display);
+    font-size: clamp(56px, 8vw, 96px);
+    line-height: 1; color: var(--accent);
+    letter-spacing: -.04em;
+  }
+  .metric-num .unit { font-size: 40%; color: var(--ink); margin-left: 4px; }
+  .metric-text strong {
+    display: block; font-size: 18px; font-weight: 800; margin-bottom: 6px;
+  }
+  .metric-text span { font-size: 14px; color: #2a323d; }
+
+  /* ————— CÓMO FUNCIONA ————— */
+  .flow {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    counter-reset: flow;
+  }
+  @media (max-width: 900px) { .flow { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .flow { grid-template-columns: 1fr; } }
+
+  .step {
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    padding: 28px 22px; position: relative;
+    transition: all .2s ease;
+  }
+  .step:hover { transform: translate(-4px, -4px); box-shadow: 8px 8px 0 var(--accent); }
+  .step::before {
+    counter-increment: flow;
+    content: "0" counter(flow);
+    display: block; font-family: var(--display); font-size: 36px;
+    color: var(--accent); margin-bottom: 12px;
+  }
+  .step h4 { font-family: var(--display); font-size: 18px; margin: 0 0 10px; letter-spacing: -.01em; }
+  .step p { font-size: 13px; color: var(--muted); margin: 0; }
+
+  /* ————— MÓDULOS (pestañas) ————— */
+  .modules-list {
+    display: grid; grid-template-columns: 1fr; gap: 0;
+    border-top: 1px solid rgba(255,255,255,.15);
+  }
+  .module-row {
+    display: grid; grid-template-columns: 80px 1fr 2fr 60px; gap: 30px;
+    padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,.15);
+    align-items: center; transition: all .2s ease; cursor: default;
+  }
+  .module-row:hover { background: rgba(255,180,0,.05); padding-left: 20px; }
+  .module-row .mnum {
+    font-family: var(--mono); font-size: 13px; color: var(--accent-2); letter-spacing: .15em;
+  }
+  .module-row h4 {
+    font-family: var(--display); font-size: 24px; margin: 0; letter-spacing: -.01em;
+  }
+  .module-row .desc { font-size: 14px; color: var(--muted-2); margin: 0; }
+  .module-row .cta-mini {
+    text-align: right; font-family: var(--mono); font-size: 14px; color: var(--accent);
+    transition: transform .2s ease;
+  }
+  .module-row:hover .cta-mini { transform: translateX(6px); }
+  @media (max-width: 720px) {
+    .module-row { grid-template-columns: 1fr; gap: 6px; }
+    .module-row .cta-mini { text-align: left; }
+  }
+
+  /* ————— ROLES ————— */
+  .roles {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 0;
+    border: 2px solid var(--ink);
+  }
+  @media (max-width: 900px) { .roles { grid-template-columns: 1fr; } }
+  .role {
+    padding: 34px 28px; border-right: 1px solid var(--ink);
+    background: var(--paper);
+  }
+  .role:last-child { border-right: none; }
+  .role .tag { font-family: var(--mono); font-size: 11px; letter-spacing: .18em; color: var(--muted); }
+  .role h4 { font-family: var(--display); font-size: 22px; margin: 8px 0 14px; letter-spacing: -.01em; }
+  .role p { font-size: 14px; color: #2a323d; margin: 0 0 18px; }
+  .role ul { list-style: none; padding: 0; margin: 0; font-size: 13px; }
+  .role ul li { padding: 6px 0; color: #3a434f; }
+  .role ul li::before { content: "● "; color: var(--accent); margin-right: 6px; }
+
+  /* ————— STACK TECNOLÓGICO ————— */
+  .stack-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    margin-top: 40px;
+  }
+  @media (max-width: 720px) { .stack-grid { grid-template-columns: 1fr 1fr; } }
+
+  .stack-card {
+    padding: 24px; background: var(--paper-2);
+    border-left: 4px solid var(--accent);
+  }
+  .stack-card h5 { font-family: var(--display); font-size: 15px; margin: 0 0 6px; letter-spacing: .01em; }
+  .stack-card p { margin: 0; font-size: 12px; color: var(--muted); font-family: var(--mono); }
+
+  /* ————— CTA FINAL ————— */
+  .cta-final {
+    background: var(--accent); color: #fff;
+    padding: 100px 40px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-final::before {
+    content: "MEX MAPA · MEX MAPA · MEX MAPA · MEX MAPA · MEX MAPA";
+    position: absolute; top: 20px; left: -5%; right: -5%;
+    font-family: var(--display); font-size: 90px;
+    color: rgba(255,255,255,.08); letter-spacing: .04em; white-space: nowrap;
+    pointer-events: none;
+  }
+  .cta-final h2 {
+    font-family: var(--display); font-size: clamp(40px, 6vw, 76px);
+    line-height: .95; margin: 0 0 24px; letter-spacing: -.02em;
+    position: relative; z-index: 2; max-width: 16ch; margin-left: auto; margin-right: auto;
+  }
+  .cta-final p { font-size: 18px; margin: 0 auto 36px; max-width: 52ch; opacity: .92; position: relative; z-index: 2; }
+  .cta-final .btn-primary { background: var(--ink); box-shadow: 6px 6px 0 rgba(0,0,0,.25); }
+  .cta-final .btn-primary:hover { box-shadow: 8px 8px 0 rgba(0,0,0,.35); }
+
+  /* ————— FOOTER ————— */
+  footer {
+    background: var(--ink); color: var(--paper);
+    padding: 60px 0 30px;
+  }
+  .foot-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+    padding-bottom: 40px; border-bottom: 1px solid #1d2733;
+  }
+  @media (max-width: 720px) { .foot-grid { grid-template-columns: 1fr; } }
+  .foot-brand { font-family: var(--display); font-size: 36px; letter-spacing: -.01em; }
+  .foot-brand span { color: var(--accent); }
+  .foot-col h6 {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .2em;
+    color: var(--muted-2); text-transform: uppercase; margin: 0 0 14px;
+  }
+  .foot-col ul { list-style: none; padding: 0; margin: 0; font-size: 14px; }
+  .foot-col ul li { padding: 4px 0; }
+  .foot-col ul li a:hover { color: var(--accent-2); }
+  .foot-bottom {
+    display: flex; justify-content: space-between; padding-top: 24px;
+    font-family: var(--mono); font-size: 11px; color: var(--muted-2); letter-spacing: .1em;
+  }
+
+  /* ————— RESPONSIVE HERO ————— */
+  @media (max-width: 1080px) {
+    .hero-shot-main { min-height: 500px; }
+    .hero-shot-summary { width: 50%; right: 0; }
+  }
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .nav-right a:not(.btn-top) { display: none; }
+    .hero-visual { min-height: auto; }
+    .hero-surface { display: grid; gap: 18px; }
+    .hero-shot,
+    .hero-shot-main,
+    .hero-shot-summary,
+    .hero-shot-side {
+      position: relative; inset: auto; left: auto; right: auto; top: auto; bottom: auto;
+      width: 100%; transform: none;
+    }
+    .hero-surface { padding: 0; }
+    .hero-shot-main { min-height: 0; }
+    .proof-strip,
+    .gallery-intro { grid-template-columns: 1fr; }
+    .screens-grid { grid-template-columns: 1fr; }
+    .screen-card,
+    .screen-card.featured,
+    .screen-card.tall,
+    .screen-card.narrow,
+    .screen-card.wide,
+    .admin-wall { grid-column: span 1; }
+    .screen-card.wide { grid-template-columns: 1fr; }
+    .admin-wall-head { flex-direction: column; align-items: start; }
+    .admin-mini-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .wrap, .topbar { padding-left: 18px; padding-right: 18px; }
+    .btn { width: 100%; justify-content: center; }
+    .hero-pill { width: 100%; justify-content: flex-start; }
+    .proof-thumb img { height: 180px; }
+    .admin-mini-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- ============ TOP BAR ============ -->
+<header class="topbar">
+  <div class="logo">
+    <div class="logo-mark">MX</div>
+    <div>MEX<span style="color:var(--accent);">·</span>MAPA</div>
+  </div>
+  <nav class="nav-right">
+    <a href="#problema">Problema</a>
+    <a href="#solucion">Solución</a>
+    <a href="#galeria">Pantallas</a>
+    <a href="#modulos">Módulos</a>
+    <a href="#beneficios">Beneficios</a>
+    <a href="#contacto" class="btn-top">Agendar demo</a>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> SISTEMA EN PRODUCCIÓN · MULTI-PLAZA</div>
+        <h1 class="display">
+          Tu patio <span class="strike">sin cuadernos</span>. Tu flota en tiempo real.
+        </h1>
+        <p class="lead">
+          <strong>MEX MAPA</strong> ya corre con pantallas reales para mapa en vivo, gestión de unidades, auditoría operativa, bitácoras, mensajería interna y administración multi-plaza. Todo conectado, trazable y listo para operar desde celular, tablet o escritorio.
+        </p>
+        <div class="hero-points">
+          <span class="hero-pill"><b>LIVE</b> mapa del patio con cajones reales</span>
+          <span class="hero-pill"><b>TRACE</b> historial con usuario, IP y ubicación</span>
+          <span class="hero-pill"><b>ADMIN</b> catálogos, roles, plazas y accesos</span>
+        </div>
+        <div class="cta-row">
+          <a href="#contacto" class="btn btn-primary">Solicitar demo <span class="arrow">→</span></a>
+          <a href="#galeria" class="btn btn-ghost">Ver pantallas reales</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-surface">
+          <figure class="hero-shot hero-shot-main">
+            <span class="hero-shot-label">Mapa del patio en vivo</span>
+            <img src="assets/screenshots/mapa-vivo.png" alt="Pantalla real del mapa del patio con unidades y cajones en tiempo real" />
+          </figure>
+          <figure class="hero-shot hero-shot-summary">
+            <img src="assets/screenshots/resumen-flota.png" alt="Resumen rapido de flota sobre el mapa del patio" />
+          </figure>
+          <figure class="hero-shot hero-shot-side">
+            <img src="assets/screenshots/gestion-flota.png" alt="Gestion de flota con filtros, estados, placas y ubicaciones" />
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="proof-strip">
+      <article class="proof-card">
+        <div class="proof-thumb">
+          <img src="assets/screenshots/gestion-flota.png" alt="Gestion de unidades con filtros de estado, categoria, modelo y ubicacion" />
+        </div>
+        <span class="proof-kicker">Pantalla real · flota</span>
+        <h3>Gestión de unidades sin doble captura</h3>
+        <p>Listado vivo con filtros por categoría, modelo, placas, gasolina, estado y ubicación. Todo conectado al mapa.</p>
+      </article>
+      <article class="proof-card">
+        <div class="proof-thumb">
+          <img src="assets/screenshots/auditoria-sistema.png" alt="Auditoria del sistema con historial del mapa y la flota" />
+        </div>
+        <span class="proof-kicker">Pantalla real · auditoría</span>
+        <h3>Historial de cada acción operativa</h3>
+        <p>Notas, cambios de estado, movimientos y modificaciones quedan registrados para que sepas qué pasó y quién lo hizo.</p>
+      </article>
+      <article class="proof-card">
+        <div class="proof-thumb">
+          <img src="assets/screenshots/mensajes-internos.png" alt="Mensajes internos con archivos y notas de voz dentro del sistema" />
+        </div>
+        <span class="proof-kicker">Pantalla real · mensajes</span>
+        <h3>Mensajería interna integrada</h3>
+        <p>Archivos, audios, chats restaurables y conversación operativa sin salir del ecosistema del mapa.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TICKER ============ -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>TRAZABILIDAD TOTAL</span><span class="sep">✦</span>
+    <span>MULTI-PLAZA</span><span class="sep">✦</span>
+    <span>TIEMPO REAL</span><span class="sep">✦</span>
+    <span>PWA INSTALABLE</span><span class="sep">✦</span>
+    <span>CUADRE AUTOMÁTICO</span><span class="sep">✦</span>
+    <span>PREDICCIÓN DE DEMANDA</span><span class="sep">✦</span>
+    <span>ALERTAS INTELIGENTES</span><span class="sep">✦</span>
+    <span>TRAZABILIDAD TOTAL</span><span class="sep">✦</span>
+    <span>MULTI-PLAZA</span><span class="sep">✦</span>
+    <span>TIEMPO REAL</span><span class="sep">✦</span>
+    <span>PWA INSTALABLE</span><span class="sep">✦</span>
+    <span>CUADRE AUTOMÁTICO</span><span class="sep">✦</span>
+    <span>PREDICCIÓN DE DEMANDA</span><span class="sep">✦</span>
+    <span>ALERTAS INTELIGENTES</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<!-- ============ PROBLEMA ============ -->
+<section id="problema" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num">/ 01 — El problema</div>
+        <h2 class="section-title">Operar un patio de renta con herramientas de 1995.</h2>
+      </div>
+    </div>
+
+    <div class="problem-grid">
+      <div class="problem-cell">
+        <div class="n">01 · INFORMACIÓN DISPERSA</div>
+        <h3>Nadie sabe dónde está cada auto.</h3>
+        <p>Pizarrones, radios, WhatsApp y cuadernos. Mover una unidad toma 3 llamadas y un viaje innecesario al patio.</p>
+      </div>
+      <div class="problem-cell">
+        <div class="n">02 · CUADRES MANUALES</div>
+        <h3>Horas perdidas cada turno.</h3>
+        <p>El encargado sale tarde porque el cuadre entre reservas, regresos y estado del patio se hace a mano. Errores garantizados.</p>
+      </div>
+      <div class="problem-cell">
+        <div class="n">03 · SIN TRAZABILIDAD</div>
+        <h3>¿Quién movió qué, cuándo?</h3>
+        <p>Cuando hay un faltante, una llanta ponchada o un daño, nadie se hace responsable. No hay historial. No hay evidencia.</p>
+      </div>
+      <div class="problem-cell">
+        <div class="n">04 · DOCUMENTACIÓN VENCIDA</div>
+        <h3>Multas y unidades fuera de servicio.</h3>
+        <p>Seguros, verificaciones, tarjetas de circulación. Se vencen sin avisar. La flota pierde disponibilidad y tú pierdes dinero.</p>
+      </div>
+      <div class="problem-cell">
+        <div class="n">05 · MULTI-PLAZA INVISIBLE</div>
+        <h3>Cada sucursal es una isla.</h3>
+        <p>Si operas varias plazas, no tienes una sola pantalla que te diga qué pasa en todas. Cada una reporta diferente, si reporta.</p>
+      </div>
+      <div class="problem-cell">
+        <div class="n">06 · SIN PREDICCIÓN</div>
+        <h3>Te quedas corto, o te sobra.</h3>
+        <p>Sin visibilidad de la demanda del día siguiente, preparas de más o de menos. El costo operativo se dispara.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOLUCIÓN / FEATURES ============ -->
+<section id="solucion" class="dark">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num">/ 02 — La solución</div>
+        <h2 class="section-title">Una plataforma. Cero cuadernos. Total control.</h2>
+      </div>
+    </div>
+
+    <div class="feat-grid">
+      <div class="feat big">
+        <span class="feat-tag">★ MÓDULO ESTRELLA</span>
+        <h3>Mapa visual del patio en tiempo real</h3>
+        <p>Cada cajón, cada unidad, cada estado — en una sola pantalla. Arrastra y suelta para mover autos. Clasifica por categoría, color, modelo o disponibilidad. Lo que ves es lo que hay, ahora mismo.</p>
+        <ul>
+          <li>Drag &amp; drop con validación automática de categorías y permisos</li>
+          <li>Filtros instantáneos: listo, sucio, mantenimiento, traslado, taller</li>
+          <li>Heatmap de ocupación histórica por cajón</li>
+          <li>Sincronización en vivo entre todos los dispositivos conectados</li>
+        </ul>
+        <div class="feat-icon">★</div>
+      </div>
+
+      <div class="feat sm">
+        <span class="feat-tag">MULTI-PLAZA</span>
+        <h3>Todas tus sucursales en un tablero</h3>
+        <p>Un solo inicio de sesión, todas las plazas. Vista global para dirección, vista local para operación.</p>
+        <div class="feat-icon">◆</div>
+      </div>
+
+      <div class="feat sm">
+        <span class="feat-tag">CUADRE</span>
+        <h3>Cierre de turno en minutos</h3>
+        <p>Pega reservas, pega regresos, el sistema cuadra contra el patio real y genera el reporte en PDF.</p>
+        <div class="feat-icon">▲</div>
+      </div>
+
+      <div class="feat big">
+        <span class="feat-tag">INTELIGENCIA OPERATIVA</span>
+        <h3>Predicción de demanda + cola de preparación</h3>
+        <p>El sistema lee tus reservas del día siguiente, calcula cuántas unidades necesitas por categoría y te genera la cola de preparación con checklist. Lavado, gasolina, documentos, revisión. Nada se escapa.</p>
+        <ul>
+          <li>Predicción por plaza y por categoría con exportación a Excel y PDF</li>
+          <li>Checklist editable por unidad en cola</li>
+          <li>Reordenamiento por prioridad y asignación a operativos</li>
+          <li>Notificación push al responsable cuando es su turno</li>
+        </ul>
+        <div class="feat-icon">◉</div>
+      </div>
+
+      <div class="feat">
+        <span class="feat-tag">ALERTAS</span>
+        <h3>Avisos que llegan antes del problema</h3>
+        <p>Documentos por vencer, mantenimientos programados, incidencias abiertas, unidades sin movimiento. Push a los roles correctos en el momento correcto.</p>
+        <div class="feat-icon">!</div>
+      </div>
+
+      <div class="feat">
+        <span class="feat-tag">KANBAN</span>
+        <h3>Incidencias que no se pierden</h3>
+        <p>Tarjetas en columnas: abierta, en proceso, resuelta, cerrada. Asigna responsable, adjunta notas, cierra con evidencia. Todo auditable.</p>
+        <div class="feat-icon">▣</div>
+      </div>
+
+      <div class="feat">
+        <span class="feat-tag">PWA</span>
+        <h3>Instalable como app nativa</h3>
+        <p>En celular, tablet o computadora. Sin pasar por tienda de aplicaciones. Funciona offline y sincroniza cuando regresa el internet.</p>
+        <div class="feat-icon">◈</div>
+      </div>
+
+      <div class="feat">
+        <span class="feat-tag">API REST</span>
+        <h3>Se conecta con tu sistema de rentas</h3>
+        <p>Recibe reservas automáticamente vía webhook. Expone disponibilidad a tu página, a tu ERP o a tu call center mediante API autenticada.</p>
+        <div class="feat-icon">{ }</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALERÍA REAL ============ -->
+<section id="galeria" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num">/ 03 — Pantallas reales</div>
+        <h2 class="section-title">No son renders: así se ve el sistema trabajando.</h2>
+      </div>
+    </div>
+
+    <div class="gallery-intro">
+      <p>
+        Estas son capturas reales del proyecto en operación. El valor de MEX MAPA no está en prometer funcionalidades bonitas, sino en enseñar cómo conviven mapa, flota, auditoría, bitácoras, mensajería y administración dentro del mismo sistema.
+      </p>
+      <div class="gallery-tags">
+        <span class="gallery-tag">Mapa en vivo</span>
+        <span class="gallery-tag">Resumen de flota</span>
+        <span class="gallery-tag">Gestión de unidades</span>
+        <span class="gallery-tag">Auditoría del sistema</span>
+        <span class="gallery-tag">Bitácora de incidencias</span>
+        <span class="gallery-tag">Mensajes internos</span>
+        <span class="gallery-tag">Editor de mapa</span>
+        <span class="gallery-tag">Panel administrativo</span>
+      </div>
+    </div>
+
+    <div class="screens-grid">
+      <article class="screen-card wide dark-card">
+        <div class="screen-copy">
+          <span class="screen-kicker">Operación central</span>
+          <h3>Mapa visual en tiempo real para dirigir el patio.</h3>
+          <p>La vista principal enseña ocupación, estado, disponibilidad y ubicación real de cada unidad. No es un tablero abstracto: es el patio tal como está en ese momento.</p>
+          <ul class="screen-list">
+            <li>Control de cajones y zonas como taller, lavado, oficinas o entrada/salida.</li>
+            <li>Colores y tarjetas por unidad para identificar estado, gasolina y alertas operativas.</li>
+            <li>Acceso instantáneo al contexto de cada movimiento desde la misma pantalla.</li>
+          </ul>
+          <div class="screen-note">Captura real · vista principal del mapa</div>
+        </div>
+        <figure class="screen-image">
+          <img src="assets/screenshots/mapa-vivo.png" alt="Mapa en vivo del patio con unidades, zonas y contadores en tiempo real" />
+        </figure>
+      </article>
+
+      <article class="screen-card featured">
+        <figure class="screen-image">
+          <img src="assets/screenshots/gestion-flota.png" alt="Gestion de flota con filtros por categoria, modelo, placas, estado y ubicacion" />
+        </figure>
+        <div class="screen-copy">
+          <span class="screen-kicker">Gestión de unidades</span>
+          <h3>Control granular de la flota.</h3>
+          <p>Listado operativo con filtros rápidos para pasar de una vista global a una búsqueda puntual por MVA, modelo, categoría, placas, gasolina, estado o ubicación.</p>
+        </div>
+      </article>
+
+      <article class="screen-card tall">
+        <figure class="screen-image">
+          <img src="assets/screenshots/resumen-flota.png" alt="Resumen rapido de flota con total de vehiculos, estado listo y unidades fuera" />
+        </figure>
+        <div class="screen-copy">
+          <span class="screen-kicker">Resumen rápido</span>
+          <h3>Estado instantáneo de la flota.</h3>
+          <p>Modal de lectura rápida para saber cuántas unidades tienes en patio, fuera, listas o no arrendables sin salir del mapa.</p>
+        </div>
+      </article>
+
+      <article class="screen-card narrow">
+        <figure class="screen-image">
+          <img src="assets/screenshots/historial-mapa.png" alt="Historial de actividad del mapa con movimientos, origen real y usuario" />
+        </figure>
+        <div class="screen-copy">
+          <span class="screen-kicker">Historial del mapa</span>
+          <h3>Movimiento por movimiento.</h3>
+          <p>Registro con fecha, acción, origen real, ubicación/estado y usuario responsable.</p>
+        </div>
+      </article>
+
+      <article class="screen-card narrow">
+        <figure class="screen-image">
+          <img src="assets/screenshots/auditoria-sistema.png" alt="Auditoria del sistema con historial operativo del mapa y la flota" />
+        </figure>
+        <div class="screen-copy">
+          <span class="screen-kicker">Auditoría del sistema</span>
+          <h3>Trazabilidad de mapa y flota.</h3>
+          <p>Historial operativo de notas, cambios y modificaciones con ubicación visible y evidencia contextual.</p>
+        </div>
+      </article>
+
+      <article class="screen-card narrow">
+        <figure class="screen-image">
+          <img src="assets/screenshots/bitacora-gestion.png" alt="Bitacora de gestion con acciones sobre usuarios, plazas y cambios globales" />
+        </figure>
+        <div class="screen-copy">
+          <span class="screen-kicker">Bitácora de gestión</span>
+          <h3>Cambios administrativos auditables.</h3>
+          <p>Usuarios, solicitudes, bloqueos, alertas y catálogos globales en un solo historial de control.</p>
+        </div>
+      </article>
+
+      <article class="screen-card featured dark-card">
+        <figure class="screen-image">
+          <img src="assets/screenshots/bitacora-incidencias.png" alt="Bitacora para incidencias operativas con prioridades, estados y adjuntos" />
+        </figure>
+        <div class="screen-copy">
+          <span class="screen-kicker">Incidencias operativas</span>
+          <h3>Bitácora con prioridad, adjuntos y cierre real.</h3>
+          <p>Las incidencias no se pierden entre llamadas ni mensajes sueltos. Aquí se levantan, se clasifican, se asignan y se cierran con evidencia.</p>
+          <ul class="screen-list">
+            <li>Prioridades visibles: crítica, alta, media y baja.</li>
+            <li>Archivos adjuntos, notas y responsables dentro de cada tarjeta.</li>
+            <li>Vista de historial y creación de nuevas incidencias desde el mismo módulo.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="screen-card tall">
+        <figure class="screen-image">
+          <img src="assets/screenshots/mensajes-internos.png" alt="Mensajes internos con archivos y notas de voz dentro del sistema" />
+        </figure>
+        <div class="screen-copy">
+          <span class="screen-kicker">Mensajes internos</span>
+          <h3>Comunicación sin salir del flujo operativo.</h3>
+          <p>Chat con archivos, audios, restauración de archivados y conversación directa entre miembros del equipo.</p>
+        </div>
+      </article>
+
+      <article class="screen-card wide">
+        <div class="screen-copy">
+          <span class="screen-kicker">Editor de mapa</span>
+          <h3>El layout del patio se puede editar cuando quieras.</h3>
+          <p>El editor permite redibujar cajones, áreas, filas, etiquetas y rectángulos sin depender de un proveedor externo ni romper la operación diaria.</p>
+          <ul class="screen-list">
+            <li>Selección múltiple, inspector lateral y ajustes finos de posición.</li>
+            <li>Herramientas para agregar cajones, áreas, etiquetas y geometrías.</li>
+            <li>Guardado directo de cambios sobre el plano activo.</li>
+          </ul>
+        </div>
+        <figure class="screen-image">
+          <img src="assets/screenshots/editor-mapa.png" alt="Editor de mapa con herramientas para cajones, areas y seleccion directa" />
+        </figure>
+      </article>
+
+      <article class="screen-card">
+        <figure class="screen-image">
+          <img src="assets/screenshots/mi-perfil.png" alt="Configuraciones del perfil con notificaciones, privacidad y accesos rapidos" />
+        </figure>
+        <div class="screen-copy">
+          <span class="screen-kicker">Mi perfil</span>
+          <h3>Notificaciones, sesión y preferencias personales.</h3>
+          <p>Configuraciones reales de perfil para push, mensajes, misión de cuadre, dispositivos activos y atajos rápidos.</p>
+        </div>
+      </article>
+
+      <article class="screen-card">
+        <figure class="screen-image">
+          <img src="assets/screenshots/empresa-admin.png" alt="Panel administrativo para editar logo, nombre y colores de la empresa" />
+        </figure>
+        <div class="screen-copy">
+          <span class="screen-kicker">Empresa y branding</span>
+          <h3>Panel administrador para editar información de empresa.</h3>
+          <p>Logo, nombre, paleta de colores y correos corporativos desde una vista de administración pensada para operación real.</p>
+        </div>
+      </article>
+
+      <article class="screen-card admin admin-wall">
+        <div class="admin-wall-head">
+          <div>
+            <span class="screen-kicker">Panel administrativo</span>
+            <h3 style="margin:0; font-family:var(--display); font-size:clamp(28px,3vw,48px); line-height:.96;">Catálogos, usuarios, roles y accesos en un solo back office.</h3>
+          </div>
+          <p>La administración cubre plazas, ubicaciones, estados, categorías, modelos, gasolina, usuarios, edición de roles y el buzón para aprobar accesos al sistema. No son piezas aisladas: forman un panel completo para operar varias plazas con control fino.</p>
+        </div>
+
+        <div class="admin-mini-grid">
+          <article class="admin-mini">
+            <div class="screen-image"><img src="assets/screenshots/plazas.png" alt="Catalogo de plazas dentro del panel administrativo" /></div>
+            <h4>Plazas</h4>
+            <p>Alta, orden y edición de plazas y responsables.</p>
+          </article>
+          <article class="admin-mini">
+            <div class="screen-image"><img src="assets/screenshots/ubicaciones.png" alt="Catalogo de ubicaciones y responsables dentro del panel administrativo" /></div>
+            <h4>Ubicaciones</h4>
+            <p>Control de ubicaciones operativas, plazas base y responsables asignados.</p>
+          </article>
+          <article class="admin-mini">
+            <div class="screen-image"><img src="assets/screenshots/estados.png" alt="Catalogo de estados de unidades en el panel administrativo" /></div>
+            <h4>Estados</h4>
+            <p>Configuración del orden y color operativo de cada estado.</p>
+          </article>
+          <article class="admin-mini">
+            <div class="screen-image"><img src="assets/screenshots/categorias.png" alt="Catalogo de categorias vehiculares en el panel administrativo" /></div>
+            <h4>Categorías</h4>
+            <p>Familias de unidades con relación a modelos y reglas.</p>
+          </article>
+          <article class="admin-mini">
+            <div class="screen-image"><img src="assets/screenshots/modelos.png" alt="Catalogo de modelos de vehiculos dentro del panel administrativo" /></div>
+            <h4>Modelos</h4>
+            <p>Inventario base enlazado con categoría operativa.</p>
+          </article>
+          <article class="admin-mini">
+            <div class="screen-image"><img src="assets/screenshots/gasolinas.png" alt="Catalogo de niveles de gasolina para el sistema" /></div>
+            <h4>Gasolina</h4>
+            <p>Niveles editables con porcentajes y semáforo visual.</p>
+          </article>
+          <article class="admin-mini">
+            <div class="screen-image"><img src="assets/screenshots/usuarios.png" alt="Seccion de usuarios con detalle de identidad, rol y plazas permitidas" /></div>
+            <h4>Usuarios</h4>
+            <p>Ficha completa con rol, plazas y permisos individuales.</p>
+          </article>
+          <article class="admin-mini">
+            <div class="screen-image"><img src="assets/screenshots/roles-permisos.png" alt="Editor de roles y permisos dentro del panel administrativo" /></div>
+            <h4>Roles y permisos</h4>
+            <p>Permisos por módulo, alcance y nivel de control administrativo.</p>
+          </article>
+          <article class="admin-mini">
+            <div class="screen-image"><img src="assets/screenshots/aprobacion-accesos.png" alt="Buzon para aprobacion de accesos al sistema" /></div>
+            <h4>Aprobación de accesos</h4>
+            <p>Buzón dedicado para solicitudes pendientes, aprobadas o rechazadas.</p>
+          </article>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CÓMO FUNCIONA ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num">/ 04 — Cómo funciona</div>
+        <h2 class="section-title">De pizarrón a plataforma en 4 pasos.</h2>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="step">
+        <h4>Configuración</h4>
+        <p>Cargamos tu catálogo de unidades, tus plazas, tu equipo y el layout visual de cada patio. En días, no meses.</p>
+      </div>
+      <div class="step">
+        <h4>Accesos</h4>
+        <p>Cada colaborador entra con su rol: operario, coordinador, supervisor, jefe de plaza, admin. Ve solo lo que le corresponde.</p>
+      </div>
+      <div class="step">
+        <h4>Operación</h4>
+        <p>El equipo opera desde el mapa. Cada movimiento queda registrado con usuario, hora y contexto. Sin doble captura.</p>
+      </div>
+      <div class="step">
+        <h4>Decisiones</h4>
+        <p>Dirección consulta dashboards, reportes automáticos por correo, KPIs por plaza. Decide con datos, no con anécdotas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BENEFICIOS ============ -->
+<section id="beneficios" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num">/ 05 — Qué ganas</div>
+        <h2 class="section-title">Beneficios que se miden en dinero y tiempo.</h2>
+      </div>
+    </div>
+
+    <div class="benefits">
+      <div>
+        <div class="metric">
+          <div class="metric-num">-70<span class="unit">%</span></div>
+          <div class="metric-text">
+            <strong>Menos tiempo en cuadres</strong>
+            <span>Lo que antes tomaba 2 horas al día, ahora son 15 minutos. El encargado sale a tiempo.</span>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">+25<span class="unit">%</span></div>
+          <div class="metric-text">
+            <strong>Más unidades disponibles</strong>
+            <span>Mejor preparación, menos autos parados por documentos vencidos o mantenimientos olvidados.</span>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">100<span class="unit">%</span></div>
+          <div class="metric-text">
+            <strong>Trazabilidad de movimientos</strong>
+            <span>Cada auto tiene historial con usuario y hora. Las incidencias tienen responsable.</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="metric">
+          <div class="metric-num">24<span class="unit">/7</span></div>
+          <div class="metric-text">
+            <strong>Visibilidad desde cualquier lugar</strong>
+            <span>Dirección revisa la operación desde el celular mientras viaja. Sin llamar al supervisor.</span>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">0<span class="unit">$</span></div>
+          <div class="metric-text">
+            <strong>Cero hardware especial</strong>
+            <span>Corre en los celulares, tablets y PCs que ya tienes. Se instala como app en un tap.</span>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">∞</div>
+          <div class="metric-text">
+            <strong>Escala con tu operación</strong>
+            <span>1 plaza o 20. 50 autos o 2,000. La plataforma crece contigo sin migración.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MÓDULOS ============ -->
+<section id="modulos" class="dark">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num">/ 06 — Módulos incluidos</div>
+        <h2 class="section-title">Todo lo que una operación de renta necesita, bajo un mismo techo.</h2>
+      </div>
+    </div>
+
+    <div class="modules-list">
+      <div class="module-row">
+        <div class="mnum">M·01</div>
+        <h4>Mapa del Patio</h4>
+        <p class="desc">Vista visual interactiva con drag & drop. Arrastra unidades entre cajones con validación automática.</p>
+        <div class="cta-mini">→</div>
+      </div>
+      <div class="module-row">
+        <div class="mnum">M·02</div>
+        <h4>Gestión de Flota</h4>
+        <p class="desc">Alta, baja, edición, asignación de modelos, categorías, ubicaciones y estados por plaza.</p>
+        <div class="cta-mini">→</div>
+      </div>
+      <div class="module-row">
+        <div class="mnum">M·03</div>
+        <h4>Cuadre Diario</h4>
+        <p class="desc">Procesa reservas y regresos, valida contra el patio, genera reporte PDF y lo archiva.</p>
+        <div class="cta-mini">→</div>
+      </div>
+      <div class="module-row">
+        <div class="mnum">M·04</div>
+        <h4>Predicción de Demanda</h4>
+        <p class="desc">Estima unidades necesarias por categoría usando histórico y reservas confirmadas.</p>
+        <div class="cta-mini">→</div>
+      </div>
+      <div class="module-row">
+        <div class="mnum">M·05</div>
+        <h4>Cola de Preparación</h4>
+        <p class="desc">Checklist operativo por unidad con estado en tiempo real. Lavado, gasolina, docs, revisión.</p>
+        <div class="cta-mini">→</div>
+      </div>
+      <div class="module-row">
+        <div class="mnum">M·06</div>
+        <h4>Incidencias Kanban</h4>
+        <p class="desc">Tablero visual de reportes y problemas. Asignación, seguimiento y cierre con evidencia.</p>
+        <div class="cta-mini">→</div>
+      </div>
+      <div class="module-row">
+        <div class="mnum">M·07</div>
+        <h4>Mensajería Interna</h4>
+        <p class="desc">Chat por plaza, por rol o directo. Adjunta fotos del patio sin salir del sistema.</p>
+        <div class="cta-mini">→</div>
+      </div>
+      <div class="module-row">
+        <div class="mnum">M·08</div>
+        <h4>Alertas &amp; Notificaciones Push</h4>
+        <p class="desc">Avisos a roles específicos cuando pasa algo importante. Deep links directos al contexto.</p>
+        <div class="cta-mini">→</div>
+      </div>
+      <div class="module-row">
+        <div class="mnum">M·09</div>
+        <h4>Panel Administrativo</h4>
+        <p class="desc">Configuración por plaza, usuarios, permisos granulares, roles, catálogos de modelos y estados.</p>
+        <div class="cta-mini">→</div>
+      </div>
+      <div class="module-row">
+        <div class="mnum">M·10</div>
+        <h4>Reportes Automáticos</h4>
+        <p class="desc">Correo diario a dirección con KPIs de cada plaza. Sin que nadie los arme a mano.</p>
+        <div class="cta-mini">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROLES ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num">/ 07 — Pensado para cada rol</div>
+        <h2 class="section-title">Cada quien ve lo que necesita, hace lo que le toca.</h2>
+      </div>
+    </div>
+
+    <div class="roles">
+      <div class="role">
+        <div class="tag">OPERACIÓN</div>
+        <h4>Operario · Checador</h4>
+        <p>El que mueve los autos en el patio. Necesita rapidez y claridad.</p>
+        <ul>
+          <li>Mover unidades con un gesto</li>
+          <li>Marcar estado (listo / sucio / daño)</li>
+          <li>Reportar incidencias con foto</li>
+          <li>Ver checklist de preparación</li>
+        </ul>
+      </div>
+      <div class="role">
+        <div class="tag">MANDO MEDIO</div>
+        <h4>Supervisor · Coordinador</h4>
+        <p>El que organiza el turno y responde por lo que pasa.</p>
+        <ul>
+          <li>Ver todo el patio en vivo</li>
+          <li>Asignar incidencias y unidades</li>
+          <li>Cerrar cuadre del turno</li>
+          <li>Controlar preparación del día siguiente</li>
+        </ul>
+      </div>
+      <div class="role">
+        <div class="tag">DIRECCIÓN</div>
+        <h4>Jefe de Plaza · Admin · Dirección</h4>
+        <p>El que decide con números y necesita el panorama completo.</p>
+        <ul>
+          <li>KPIs por plaza y multi-plaza</li>
+          <li>Reportes automáticos por correo</li>
+          <li>Gestión de usuarios y permisos</li>
+          <li>Configuración operativa global</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STACK ============ -->
+<section class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num">/ 08 — Tecnología</div>
+        <h2 class="section-title">Construido sobre infraestructura de clase mundial.</h2>
+      </div>
+    </div>
+    <p style="max-width:70ch; font-size:17px; color:#2a323d; margin: 0 0 20px;">
+      No reinventamos la rueda. MEX MAPA se apoya en los servicios de Google para que tu información esté segura, disponible y escale sin que tú te preocupes por servidores.
+    </p>
+
+    <div class="stack-grid">
+      <div class="stack-card">
+        <h5>Firebase Hosting</h5>
+        <p>CDN global · SSL incluido</p>
+      </div>
+      <div class="stack-card">
+        <h5>Firestore</h5>
+        <p>Base de datos en tiempo real</p>
+      </div>
+      <div class="stack-card">
+        <h5>Firebase Auth</h5>
+        <p>Autenticación segura · roles</p>
+      </div>
+      <div class="stack-card">
+        <h5>Cloud Functions</h5>
+        <p>Backend serverless escalable</p>
+      </div>
+      <div class="stack-card">
+        <h5>Cloud Storage</h5>
+        <p>Fotos · PDFs · adjuntos</p>
+      </div>
+      <div class="stack-card">
+        <h5>FCM Push</h5>
+        <p>Notificaciones nativas</p>
+      </div>
+      <div class="stack-card">
+        <h5>PWA</h5>
+        <p>Instalable · offline-ready</p>
+      </div>
+      <div class="stack-card">
+        <h5>Sentry</h5>
+        <p>Monitoreo de errores</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section id="contacto" class="cta-final">
+  <h2>Deja de operar a ciegas. Empieza a dirigir con datos.</h2>
+  <p>Agenda una demo de 30 minutos. Te mostramos la plataforma con tu caso real: tus plazas, tus categorías, tu flujo. Sin compromiso, sin letras chicas.</p>
+  <a href="mailto:contacto@mex-mapa.com?subject=Quiero una demo de MEX MAPA" class="btn btn-primary">Agendar mi demo <span class="arrow">→</span></a>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">MEX<span>·</span>MAPA</div>
+        <p style="max-width: 46ch; color: var(--muted-2); font-size:14px; margin-top:16px;">
+          Plataforma operativa para empresas de renta de autos. Control de patio, flota y operación multi-plaza en tiempo real.
+        </p>
+      </div>
+      <div class="foot-col">
+        <h6>Plataforma</h6>
+        <ul>
+          <li><a href="#modulos">Módulos</a></li>
+          <li><a href="#beneficios">Beneficios</a></li>
+          <li><a href="#solucion">Características</a></li>
+          <li><a href="#contacto">Demo</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h6>Contacto</h6>
+        <ul>
+          <li>contacto@mex-mapa.com</li>
+          <li>Guanajuato, México</li>
+          <li><a href="https://github.com/NicolasNeg/mex-mapa">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 MEX MAPA · HECHO EN MÉXICO</span>
+      <span>V138 · LIVE</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
