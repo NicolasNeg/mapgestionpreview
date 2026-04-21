@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MapGestion — Sandbox Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --ink: #111318;
+  --ink-soft: #3a3e4a;
+  --ink-muted: #7b8092;
+  --paper: #f5f3ef;
+  --paper-2: #ece9e3;
+  --white: #ffffff;
+  --line: rgba(17,19,24,0.1);
+  --lime: #c8f135;
+  --lime-dark: #8aaa0c;
+  --sky: #2b7fff;
+  --sky-soft: #dbeafe;
+  --teal: #1ab39a;
+  --teal-soft: #d0f5ef;
+  --coral: #ff5c47;
+  --coral-soft: #ffe4e0;
+  --amber: #f59e0b;
+  --amber-soft: #fef3c7;
+  --purple: #7c3aed;
+  --purple-soft: #ede9fe;
+  --sidebar-w: 220px;
+  --panel-w: 280px;
+  --topbar-h: 52px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+button{font:inherit;cursor:pointer;border:none;background:none;}
+
+/* TOPBAR */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:var(--topbar-h);
+  background:var(--ink);
+  display:flex;align-items:center;gap:0;
+  z-index:100;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.topbar-logo{
+  width:var(--sidebar-w);
+  display:flex;align-items:center;gap:10px;
+  padding:0 18px;
+  border-right:1px solid rgba(255,255,255,0.07);
+  flex-shrink:0;
+}
+.topbar-logo-mark{
+  width:26px;height:26px;border-radius:5px;background:var(--lime);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.topbar-logo-name{font-size:14px;font-weight:700;color:var(--white);}
+.topbar-center{
+  flex:1;display:flex;align-items:center;gap:10px;padding:0 18px;
+}
+.topbar-plaza{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:20px;
+  padding:5px 12px 5px 8px;
+  font-size:13px;font-weight:600;color:var(--white);
+  cursor:pointer;
+}
+.topbar-plaza-dot{width:8px;height:8px;border-radius:50%;background:var(--lime);}
+.topbar-search{
+  flex:1;max-width:360px;
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:8px;
+  padding:6px 12px;
+}
+.topbar-search input{
+  background:none;border:none;outline:none;
+  font-size:13px;color:var(--white);width:100%;
+}
+.topbar-search input::placeholder{color:rgba(255,255,255,0.3);}
+.topbar-search svg{opacity:0.35;flex-shrink:0;}
+.topbar-right{
+  display:flex;align-items:center;gap:6px;
+  padding:0 14px;
+}
+.topbar-btn{
+  width:34px;height:34px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,0.5);
+  transition:background 0.12s,color 0.12s;
+  position:relative;
+}
+.topbar-btn:hover{background:rgba(255,255,255,0.08);color:var(--white);}
+.topbar-btn .badge{
+  position:absolute;top:5px;right:5px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--coral);border:1.5px solid var(--ink);
+}
+.topbar-avatar{
+  width:30px;height:30px;border-radius:50%;
+  background:var(--lime);display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:var(--ink);margin-left:4px;
+  cursor:pointer;flex-shrink:0;
+}
+
+/* LAYOUT */
+.app{
+  position:fixed;
+  top:var(--topbar-h);left:0;right:0;bottom:0;
+  display:flex;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:var(--sidebar-w);
+  background:var(--white);
+  border-right:1px solid var(--line);
+  display:flex;flex-direction:column;
+  flex-shrink:0;
+  overflow:hidden;
+}
+.sidebar-section{padding:16px 12px 8px;border-bottom:1px solid var(--line);}
+.sidebar-label{
+  font-family:'DM Mono',monospace;
+  font-size:9px;font-weight:500;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--ink-muted);
+  padding:0 6px;margin-bottom:6px;
+}
+.sidebar-nav{display:flex;flex-direction:column;gap:2px;}
+.sidebar-item{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 10px;border-radius:8px;
+  font-size:13px;font-weight:500;color:var(--ink-soft);
+  transition:background 0.12s,color 0.12s;
+  cursor:pointer;
+}
+.sidebar-item:hover{background:var(--paper);color:var(--ink);}
+.sidebar-item.active{background:var(--paper-2);color:var(--ink);font-weight:700;}
+.sidebar-item-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.ic-sky{background:var(--sky-soft);}
+.ic-lime{background:rgba(200,241,53,0.18);}
+.ic-coral{background:var(--coral-soft);}
+.ic-teal{background:var(--teal-soft);}
+.ic-amber{background:var(--amber-soft);}
+.ic-purple{background:var(--purple-soft);}
+.ic-muted{background:var(--paper-2);}
+.sidebar-item-count{
+  margin-left:auto;
+  font-family:'DM Mono',monospace;font-size:10px;
+  background:var(--paper);border-radius:20px;
+  padding:2px 7px;color:var(--ink-muted);
+}
+.sidebar-item-count.red{background:var(--coral-soft);color:var(--coral);}
+.sidebar-filters{padding:12px;border-bottom:1px solid var(--line);}
+.filter-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;
+  background:var(--paper);border:1.5px solid var(--line);
+  cursor:pointer;margin:3px 2px;transition:all 0.12s;
+}
+.filter-chip:hover,.filter-chip.active{border-color:var(--ink);background:var(--ink);color:var(--white);}
+.filter-chip .dot{width:6px;height:6px;border-radius:50%;}
+.sidebar-legend{padding:12px;}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--ink-muted);margin-bottom:6px;}
+.legend-color{width:12px;height:12px;border-radius:3px;}
+
+/* MAP MAIN */
+.map-main{
+  flex:1;position:relative;overflow:hidden;
+  background:#eef1f7;
+}
+.map-toolbar{
+  position:absolute;top:12px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:4px;
+  background:var(--white);border:1px solid var(--line);
+  border-radius:10px;padding:4px;box-shadow:0 4px 16px rgba(17,19,24,0.1);
+  z-index:10;
+}
+.map-tool-btn{
+  width:32px;height:32px;border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink-muted);font-size:15px;
+  transition:background 0.12s,color 0.12s;
+}
+.map-tool-btn:hover{background:var(--paper);color:var(--ink);}
+.map-tool-btn.active{background:var(--ink);color:var(--white);}
+.map-tool-sep{width:1px;background:var(--line);height:20px;margin:0 2px;}
+.map-zoom{
+  position:absolute;bottom:20px;right:20px;
+  display:flex;flex-direction:column;gap:4px;z-index:10;
+}
+.map-zoom-btn{
+  width:34px;height:34px;background:var(--white);
+  border:1px solid var(--line);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:var(--ink-soft);
+  box-shadow:0 2px 8px rgba(17,19,24,0.07);
+  transition:box-shadow 0.12s,background 0.12s;
+  font-weight:700;
+}
+.map-zoom-btn:hover{box-shadow:0 4px 14px rgba(17,19,24,0.13);background:var(--paper);}
+.map-coords{
+  position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+  background:rgba(17,19,24,0.75);backdrop-filter:blur(8px);
+  border-radius:20px;padding:5px 14px;
+  font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.6);
+  z-index:10;pointer-events:none;
+}
+
+/* MAP CANVAS */
+.map-canvas{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(rgba(17,19,24,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17,19,24,0.04) 1px, transparent 1px);
+  background-size:32px 32px;
+  overflow:hidden;
+}
+.map-viewport{
+  position:absolute;
+  transform-origin:top left;
+  width:100%;height:100%;
+}
+
+/* ZONES */
+.zone{
+  position:absolute;
+  border-radius:12px;
+  border:2px solid;
+  transition:box-shadow 0.2s;
+}
+.zone:hover{box-shadow:0 0 0 3px rgba(43,127,255,0.2);}
+.zone-label{
+  position:absolute;top:-22px;left:0;
+  font-family:'DM Mono',monospace;
+  font-size:9px;font-weight:500;letter-spacing:0.1em;
+  text-transform:uppercase;white-space:nowrap;
+  opacity:0.7;
+}
+
+/* CAJONES (slots) */
+.cajon{
+  position:absolute;
+  width:56px;height:72px;
+  border-radius:8px;
+  border:1.5px solid;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:3px;
+  cursor:pointer;
+  transition:transform 0.15s,box-shadow 0.15s,border-color 0.15s;
+  overflow:hidden;
+}
+.cajon:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(17,19,24,0.16);}
+.cajon.selected{box-shadow:0 0 0 3px var(--sky),0 6px 20px rgba(43,127,255,0.2);}
+.cajon-num{
+  font-family:'DM Mono',monospace;font-size:8px;font-weight:500;
+  opacity:0.6;letter-spacing:0.08em;
+}
+.cajon-mva{font-size:9px;font-weight:700;letter-spacing:0.04em;text-align:center;line-height:1.2;}
+.cajon-estado{
+  font-size:7px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;
+  padding:2px 5px;border-radius:10px;
+}
+
+/* estado colors */
+.s-listo{background:#d0f5ef;border-color:rgba(26,179,154,0.4);color:var(--ink);}
+.s-listo .cajon-estado{background:rgba(26,179,154,0.2);color:#0f7a6a;}
+.s-sucio{background:#fff8e8;border-color:rgba(245,158,11,0.4);color:var(--ink);}
+.s-sucio .cajon-estado{background:rgba(245,158,11,0.2);color:#a16207;}
+.s-mantenimiento{background:#ede9fe;border-color:rgba(124,58,237,0.4);color:var(--ink);}
+.s-mantenimiento .cajon-estado{background:rgba(124,58,237,0.2);color:#5b21b6;}
+.s-traslado{background:#dbeafe;border-color:rgba(43,127,255,0.4);color:var(--ink);}
+.s-traslado .cajon-estado{background:rgba(43,127,255,0.2);color:#1d4ed8;}
+.s-resguardo{background:var(--coral-soft);border-color:rgba(255,92,71,0.4);color:var(--ink);}
+.s-resguardo .cajon-estado{background:rgba(255,92,71,0.2);color:#c2410c;}
+.s-vacio{background:var(--paper-2);border-color:var(--line);color:var(--ink-muted);}
+.s-vacio .cajon-mva{color:var(--ink-muted);font-style:italic;}
+
+/* LABELS on map */
+.map-label{
+  position:absolute;
+  font-family:'DM Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--ink-muted);background:rgba(245,243,239,0.8);
+  padding:3px 8px;border-radius:4px;
+  pointer-events:none;white-space:nowrap;
+}
+
+/* PATH / CAMINO */
+.camino{
+  position:absolute;
+  background:rgba(43,127,255,0.05);
+  border:1px dashed rgba(43,127,255,0.2);
+  border-radius:6px;
+  pointer-events:none;
+  display:flex;align-items:center;justify-content:center;
+}
+.camino-text{
+  font-family:'DM Mono',monospace;font-size:8px;
+  color:rgba(43,127,255,0.5);letter-spacing:0.1em;text-transform:uppercase;
+}
+
+/* PANEL LATERAL */
+.panel{
+  width:var(--panel-w);
+  background:var(--white);
+  border-left:1px solid var(--line);
+  display:flex;flex-direction:column;
+  flex-shrink:0;
+  overflow:hidden;
+  transition:transform 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+.panel.hidden{transform:translateX(100%);}
+.panel-header{
+  padding:16px 16px 12px;
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.panel-title{font-size:14px;font-weight:700;}
+.panel-close{
+  width:26px;height:26px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink-muted);
+  transition:background 0.12s;
+}
+.panel-close:hover{background:var(--paper);color:var(--ink);}
+.panel-body{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:14px;}
+.panel-body::-webkit-scrollbar{width:4px;}
+.panel-body::-webkit-scrollbar-track{background:transparent;}
+.panel-body::-webkit-scrollbar-thumb{background:var(--paper-2);border-radius:4px;}
+.panel-section{}
+.panel-section-label{
+  font-family:'DM Mono',monospace;font-size:9px;font-weight:500;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--ink-muted);margin-bottom:8px;
+}
+.panel-field{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;}
+.panel-field-label{font-size:11px;font-weight:600;color:var(--ink-soft);}
+.panel-field-val{
+  padding:8px 10px;border-radius:8px;font-size:13px;font-weight:500;
+  background:var(--paper);border:1.5px solid var(--line);
+  outline:none;transition:border-color 0.15s;
+  color:var(--ink);
+}
+.panel-field-val:focus{border-color:var(--sky);background:var(--white);}
+select.panel-field-val{cursor:pointer;}
+textarea.panel-field-val{resize:none;min-height:64px;font-size:12px;}
+.panel-estado-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;}
+.estado-pill{
+  padding:7px 6px;border-radius:8px;text-align:center;
+  font-size:11px;font-weight:700;cursor:pointer;
+  border:1.5px solid transparent;transition:all 0.12s;
+}
+.estado-pill.active,.estado-pill:hover{border-color:var(--ink);}
+.ep-listo{background:var(--teal-soft);color:#0f7a6a;}
+.ep-sucio{background:var(--amber-soft);color:#a16207;}
+.ep-manto{background:var(--purple-soft);color:#5b21b6;}
+.ep-traslado{background:var(--sky-soft);color:#1d4ed8;}
+.ep-resguardo{background:var(--coral-soft);color:#c2410c;}
+.ep-venta{background:rgba(17,19,24,0.07);color:var(--ink);}
+.panel-actions{padding:12px 16px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px;}
+.btn-save{
+  width:100%;padding:10px;border-radius:8px;
+  background:var(--ink);color:var(--white);
+  font-size:13px;font-weight:700;
+  transition:background 0.15s,transform 0.15s;
+}
+.btn-save:hover{background:#222;transform:translateY(-1px);}
+.btn-save:active{transform:translateY(0);}
+.btn-history{
+  width:100%;padding:9px;border-radius:8px;
+  background:var(--paper);color:var(--ink-soft);
+  font-size:12px;font-weight:600;
+  border:1px solid var(--line);
+  transition:background 0.15s;
+}
+.btn-history:hover{background:var(--paper-2);}
+
+/* MINI MAP BADGE */
+.mini-badge{
+  position:absolute;
+  background:var(--white);border:1px solid var(--line);
+  border-radius:12px;padding:8px 12px;
+  box-shadow:0 4px 16px rgba(17,19,24,0.1);
+  display:flex;align-items:center;gap:8px;
+  pointer-events:none;z-index:20;
+  white-space:nowrap;
+}
+.mini-badge-icon{
+  width:26px;height:26px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;flex-shrink:0;
+}
+.mini-badge strong{font-size:12px;font-weight:700;}
+.mini-badge span{font-size:10px;color:var(--ink-muted);}
+
+/* STATUS BAR */
+.statusbar{
+  position:absolute;bottom:0;left:0;right:0;
+  height:28px;background:rgba(17,19,24,0.75);backdrop-filter:blur(8px);
+  display:flex;align-items:center;gap:0;
+  border-top:1px solid rgba(255,255,255,0.04);
+  z-index:10;padding:0 12px;
+}
+.status-item{
+  display:flex;align-items:center;gap:5px;
+  padding:0 12px;border-right:1px solid rgba(255,255,255,0.06);
+  font-family:'DM Mono',monospace;font-size:9px;font-weight:500;
+  color:rgba(255,255,255,0.45);
+  height:100%;
+}
+.status-item:last-child{border-right:none;margin-left:auto;}
+.status-dot{width:6px;height:6px;border-radius:50%;}
+.sd-green{background:var(--teal);}
+.sd-amber{background:var(--amber);}
+.sd-red{background:var(--coral);}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:48px;left:50%;transform:translateX(-50%) translateY(0);
+  background:var(--ink);color:var(--white);
+  border-radius:10px;padding:10px 18px;
+  font-size:13px;font-weight:600;
+  box-shadow:0 8px 24px rgba(17,19,24,0.25);
+  z-index:999;opacity:0;pointer-events:none;
+  transition:opacity 0.2s,transform 0.2s;
+  display:flex;align-items:center;gap:8px;
+  white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-8px);}
+.toast-icon{font-size:16px;}
+
+/* LIVE PULSE on updated cajon */
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(26,179,154,0.6);}
+  70%{box-shadow:0 0 0 8px rgba(26,179,154,0);}
+  100%{box-shadow:0 0 0 0 rgba(26,179,154,0);}
+}
+.cajon.updated{animation:pulse 0.8s ease;}
+
+/* DEMO BADGE */
+.demo-badge{
+  position:fixed;top:calc(var(--topbar-h) + 10px);right:10px;
+  background:var(--lime);color:var(--ink);
+  font-family:'DM Mono',monospace;
+  font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  padding:4px 10px;border-radius:20px;
+  z-index:200;
+}
+
+/* SCROLLBAR global */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--paper-3);border-radius:4px;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .sidebar{display:none;}
+  :root{--panel-w:260px;}
+}
+@media(max-width:640px){
+  .panel{position:fixed;top:var(--topbar-h);right:0;bottom:0;z-index:50;border-radius:16px 0 0 0;}
+  .topbar-search{display:none;}
+  :root{--panel-w:90vw;}
+}
+</style>
+</head>
+<body>
+
+<div class="demo-badge">● SANDBOX DEMO</div>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="topbar-logo">
+    <div class="topbar-logo-mark">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <rect x="1" y="1" width="5" height="5" rx="1.5" fill="#111318"/>
+        <rect x="8" y="1" width="5" height="5" rx="1.5" fill="#111318" opacity="0.5"/>
+        <rect x="1" y="8" width="5" height="5" rx="1.5" fill="#111318" opacity="0.3"/>
+        <rect x="8" y="8" width="5" height="5" rx="1.5" fill="#111318" opacity="0.8"/>
+      </svg>
+    </div>
+    <span class="topbar-logo-name">MapGestion</span>
+  </div>
+  <div class="topbar-center">
+    <div class="topbar-plaza">
+      <span class="topbar-plaza-dot"></span>
+      Plaza Monterrey
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><polyline points="3,4.5 6,7.5 9,4.5"/></svg>
+    </div>
+    <div class="topbar-search">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="4"/><line x1="9.5" y1="9.5" x2="12" y2="12" stroke-linecap="round"/></svg>
+      <input type="text" placeholder="Buscar unidad, MVA, estado..." id="searchInput" oninput="handleSearch(this.value)"/>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <button class="topbar-btn" onclick="showToast('🔔 Sin alertas nuevas')">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a4 4 0 0 1 4 4v2.5l1 1.5H3l1-1.5V6a4 4 0 0 1 4-4z"/><path d="M6.5 13a1.5 1.5 0 0 0 3 0"/></svg>
+    </button>
+    <button class="topbar-btn" onclick="showToast('⚙️ Configuración')">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41"/></svg>
+    </button>
+    <div class="topbar-avatar" onclick="showToast('👤 Admin — Jefe Patio')">JP</div>
+  </div>
+</header>
+
+<!-- APP SHELL -->
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-nav">
+        <div class="sidebar-item active">
+          <div class="sidebar-item-icon ic-sky">🗺️</div>
+          Mapa Patio
+          <span class="sidebar-item-count">47</span>
+        </div>
+        <div class="sidebar-item" onclick="showToast('📋 Vista Gestión')">
+          <div class="sidebar-item-icon ic-lime">📋</div>
+          Gestión
+        </div>
+        <div class="sidebar-item" onclick="showToast('🚨 Alertas')">
+          <div class="sidebar-item-icon ic-coral">🚨</div>
+          Alertas
+          <span class="sidebar-item-count red">3</span>
+        </div>
+        <div class="sidebar-item" onclick="showToast('🕓 Historial')">
+          <div class="sidebar-item-icon ic-muted">🕓</div>
+          Historial
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-filters">
+      <div class="sidebar-label">Filtrar por estado</div>
+      <div>
+        <span class="filter-chip active" onclick="filterEstado('all',this)">Todos</span>
+        <span class="filter-chip" onclick="filterEstado('listo',this)"><span class="dot" style="background:var(--teal)"></span>Listo</span>
+        <span class="filter-chip" onclick="filterEstado('sucio',this)"><span class="dot" style="background:var(--amber)"></span>Sucio</span>
+        <span class="filter-chip" onclick="filterEstado('mantenimiento',this)"><span class="dot" style="background:var(--purple)"></span>Manto</span>
+        <span class="filter-chip" onclick="filterEstado('traslado',this)"><span class="dot" style="background:var(--sky)"></span>Traslado</span>
+      </div>
+    </div>
+
+    <div style="padding:12px;flex:1;overflow-y:auto;">
+      <div class="sidebar-label">Unidades en patio</div>
+      <div id="unitList" style="display:flex;flex-direction:column;gap:4px;"></div>
+    </div>
+
+    <div class="sidebar-legend">
+      <div class="sidebar-label">Leyenda</div>
+      <div class="legend-item"><div class="legend-color" style="background:var(--teal-soft);border:1px solid rgba(26,179,154,0.4)"></div>LISTO</div>
+      <div class="legend-item"><div class="legend-color" style="background:var(--amber-soft);border:1px solid rgba(245,158,11,0.4)"></div>SUCIO</div>
+      <div class="legend-item"><div class="legend-color" style="background:var(--purple-soft);border:1px solid rgba(124,58,237,0.4)"></div>MANTENIMIENTO</div>
+      <div class="legend-item"><div class="legend-color" style="background:var(--sky-soft);border:1px solid rgba(43,127,255,0.4)"></div>TRASLADO</div>
+      <div class="legend-item"><div class="legend-color" style="background:var(--coral-soft);border:1px solid rgba(255,92,71,0.4)"></div>RESGUARDO</div>
+      <div class="legend-item"><div class="legend-color" style="background:var(--paper-2);border:1px solid var(--line)"></div>VACÍO</div>
+    </div>
+  </aside>
+
+  <!-- MAP MAIN -->
+  <main class="map-main" id="mapMain">
+    <div class="map-toolbar">
+      <button class="map-tool-btn active" title="Seleccionar">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2l8 5-4.5 1-2 4z" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="map-tool-btn" title="Mover" onclick="showToast('🖐 Modo mover activado')">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 2v10M2 7h10M5 4l-3 3 3 3M9 4l3 3-3 3"/></svg>
+      </button>
+      <div class="map-tool-sep"></div>
+      <button class="map-tool-btn" title="Leyenda" onclick="showToast('📌 Leyenda visible')">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="4" height="4" rx="1"/><rect x="8" y="2" width="4" height="4" rx="1"/><rect x="2" y="8" width="4" height="4" rx="1"/><rect x="8" y="8" width="4" height="4" rx="1"/></svg>
+      </button>
+      <button class="map-tool-btn" title="Exportar" onclick="showToast('📥 Exportando CSV...')">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 9V2M4 6l3 3 3-3"/><path d="M2 11h10" stroke-linecap="round"/></svg>
+      </button>
+      <div class="map-tool-sep"></div>
+      <button class="map-tool-btn" title="Tiempo real — activo" style="color:var(--teal);" onclick="toggleRealtime()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="3"/><circle cx="7" cy="7" r="5" opacity="0.4"/></svg>
+      </button>
+    </div>
+
+    <div class="map-canvas" id="mapCanvas">
+      <div class="map-viewport" id="mapViewport"></div>
+    </div>
+
+    <!-- Floating badges -->
+    <div class="mini-badge" style="top:70px;left:16px;" id="liveIndicator">
+      <div class="mini-badge-icon" style="background:var(--teal-soft);">🟢</div>
+      <div style="display:flex;flex-direction:column;">
+        <strong>En vivo</strong>
+        <span id="liveCount">47 unidades</span>
+      </div>
+    </div>
+
+    <div class="mini-badge" style="top:70px;right:306px;" id="statsPanel">
+      <div style="display:flex;gap:12px;">
+        <div style="text-align:center;">
+          <div style="font-size:18px;font-weight:700;color:var(--teal);" id="countListo">-</div>
+          <div style="font-size:9px;color:var(--ink-muted);font-family:'DM Mono',monospace;text-transform:uppercase;">Listo</div>
+        </div>
+        <div style="width:1px;background:var(--line);"></div>
+        <div style="text-align:center;">
+          <div style="font-size:18px;font-weight:700;color:var(--amber);" id="countSucio">-</div>
+          <div style="font-size:9px;color:var(--ink-muted);font-family:'DM Mono',monospace;text-transform:uppercase;">Sucio</div>
+        </div>
+        <div style="width:1px;background:var(--line);"></div>
+        <div style="text-align:center;">
+          <div style="font-size:18px;font-weight:700;color:var(--purple);" id="countManto">-</div>
+          <div style="font-size:9px;color:var(--ink-muted);font-family:'DM Mono',monospace;text-transform:uppercase;">Manto</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-zoom">
+      <button class="map-zoom-btn" onclick="zoom(1.15)">+</button>
+      <button class="map-zoom-btn" onclick="zoom(0.87)">−</button>
+      <button class="map-zoom-btn" style="font-size:11px;font-weight:700;" onclick="resetZoom()">↺</button>
+    </div>
+    <div class="map-coords" id="mapCoords">x: 0 · y: 0</div>
+
+    <div class="statusbar">
+      <div class="status-item"><span class="status-dot sd-green"></span>Firestore — conectado</div>
+      <div class="status-item"><span class="status-dot sd-green"></span>Realtime activo</div>
+      <div class="status-item" id="lastUpdateStatus">Última actualización: —</div>
+      <div class="status-item">Plaza MTY · v2.4.1</div>
+    </div>
+  </main>
+
+  <!-- SIDE PANEL -->
+  <aside class="panel hidden" id="sidePanel">
+    <div class="panel-header">
+      <div>
+        <div style="font-size:10px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-muted);margin-bottom:2px;" id="panelCajonNum">Cajón #—</div>
+        <div class="panel-title" id="panelMva">—</div>
+      </div>
+      <button class="panel-close" onclick="closePanel()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="2" y1="2" x2="12" y2="12"/><line x1="12" y1="2" x2="2" y2="12"/></svg>
+      </button>
+    </div>
+
+    <div class="panel-body">
+      <div class="panel-section">
+        <div class="panel-section-label">Datos del vehículo</div>
+        <div class="panel-field">
+          <div class="panel-field-label">MVA</div>
+          <input class="panel-field-val" id="fieldMva" type="text" placeholder="Ej: MVA-0142"/>
+        </div>
+        <div class="panel-field">
+          <div class="panel-field-label">Modelo</div>
+          <select class="panel-field-val" id="fieldModelo">
+            <option>Tiguan 2023</option><option>Jetta 2024</option><option>Taos 2023</option>
+            <option>Passat 2022</option><option>Golf 2024</option><option>ID.4 2024</option>
+          </select>
+        </div>
+        <div class="panel-field">
+          <div class="panel-field-label">Categoría</div>
+          <select class="panel-field-val" id="fieldCategoria">
+            <option>SUV</option><option>Sedán</option><option>Hatchback</option><option>Compacto</option><option>Eléctrico</option>
+          </select>
+        </div>
+        <div class="panel-field">
+          <div class="panel-field-label">Placas</div>
+          <input class="panel-field-val" id="fieldPlacas" type="text" placeholder="Ej: ABC-123-X"/>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="panel-section-label">Estado actual</div>
+        <div class="panel-estado-grid" id="estadoGrid">
+          <div class="estado-pill ep-listo" onclick="selectEstado('LISTO',this)">✓ LISTO</div>
+          <div class="estado-pill ep-sucio" onclick="selectEstado('SUCIO',this)">⚠ SUCIO</div>
+          <div class="estado-pill ep-manto" onclick="selectEstado('MANTENIMIENTO',this)">🔧 MANTO</div>
+          <div class="estado-pill ep-traslado" onclick="selectEstado('TRASLADO',this)">→ TRASLADO</div>
+          <div class="estado-pill ep-resguardo" onclick="selectEstado('RESGUARDO',this)">🔒 RESGUARDO</div>
+          <div class="estado-pill ep-venta" onclick="selectEstado('VENTA',this)">$ VENTA</div>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="panel-section-label">Operación</div>
+        <div class="panel-field">
+          <div class="panel-field-label">Gasolina</div>
+          <select class="panel-field-val" id="fieldGasolina">
+            <option>N/A</option><option>1/4</option><option>2/4</option><option>3/4</option><option>4/4</option>
+          </select>
+        </div>
+        <div class="panel-field">
+          <div class="panel-field-label">Notas</div>
+          <textarea class="panel-field-val" id="fieldNotas" placeholder="Observaciones del vehículo..."></textarea>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="panel-section-label">Auditoría</div>
+        <div style="font-size:11px;color:var(--ink-muted);line-height:1.6;" id="auditInfo">
+          Cargando...
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-actions">
+      <button class="btn-save" onclick="saveUnit()">Guardar cambios</button>
+      <button class="btn-history" onclick="showToast('🕓 Historial de movimientos')">Ver historial</button>
+    </div>
+  </aside>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toastIcon"></span>
+  <span id="toastMsg"></span>
+</div>
+
+<script>
+/* ── DATOS SIMULADOS ─────────────────────────────── */
+const ESTADOS = ['LISTO','SUCIO','MANTENIMIENTO','TRASLADO','RESGUARDO','VACIO'];
+const MODELOS = ['Tiguan 2023','Jetta 2024','Taos 2023','Passat 2022','Golf 2024','ID.4 2024'];
+const CATEGORIAS = ['SUV','Sedán','Hatchback','Compacto','Eléctrico'];
+const GASOLINA = ['N/A','1/4','2/4','3/4','4/4'];
+
+function rnd(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function rndInt(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
+function mvaRand(){ return 'MVA-'+String(rndInt(1,9999)).padStart(4,'0'); }
+function placasRand(){ const l='ABCDEFGHJKLMNPQRSTUVWXYZ';return l[rndInt(0,l.length-1)]+l[rndInt(0,l.length-1)]+l[rndInt(0,l.length-1)]+'-'+rndInt(100,999)+'-'+l[rndInt(0,l.length-1)]; }
+
+const zonas = [
+  { id:'A', label:'Zona A — Disponibles', x:32, y:40, w:320, h:200, color:'rgba(26,179,154,0.08)', border:'rgba(26,179,154,0.3)', cols:5, rows:2, startSlot:1 },
+  { id:'B', label:'Zona B — Servicio',    x:390, y:40, w:260, h:200, color:'rgba(245,158,11,0.07)', border:'rgba(245,158,11,0.3)', cols:4, rows:2, startSlot:11 },
+  { id:'C', label:'Zona C — Traslado',    x:690, y:40, w:200, h:200, color:'rgba(43,127,255,0.07)', border:'rgba(43,127,255,0.3)', cols:3, rows:2, startSlot:19 },
+  { id:'D', label:'Zona D — Varios',      x:32,  y:280, w:440, h:200, color:'rgba(124,58,237,0.06)', border:'rgba(124,58,237,0.25)', cols:7, rows:2, startSlot:25 },
+  { id:'E', label:'Zona E — Externos',    x:510, y:280, w:380, h:200, color:'rgba(255,92,71,0.06)', border:'rgba(255,92,71,0.25)', cols:6, rows:2, startSlot:39 },
+];
+
+// Generar unidades
+let units = [];
+let slotCounter = 1;
+zonas.forEach(z => {
+  const total = z.cols * z.rows;
+  for(let i=0;i<total;i++){
+    const isEmpty = Math.random() < 0.18;
+    units.push({
+      slotId: z.id + String(slotCounter).padStart(2,'0'),
+      zona: z.id,
+      slotIndex: i,
+      mva: isEmpty ? '' : mvaRand(),
+      modelo: rnd(MODELOS),
+      categoria: rnd(CATEGORIAS),
+      placas: isEmpty ? '' : placasRand(),
+      estado: isEmpty ? 'VACIO' : rnd(['LISTO','LISTO','LISTO','SUCIO','SUCIO','MANTENIMIENTO','TRASLADO','RESGUARDO']),
+      gasolina: rnd(GASOLINA),
+      notas: '',
+      lastBy: rnd(['J.Torres','M.López','C.Ruiz','A.García']),
+      lastAt: new Date(Date.now() - rndInt(0,7200)*1000),
+      version: rndInt(1,20),
+    });
+    slotCounter++;
+  }
+});
+
+let selectedUnit = null;
+let currentFilter = 'all';
+let realtimeActive = true;
+let currentScale = 1;
+let currentTx = 0, currentTy = 0;
+let isDragging = false;
+let dragStart = {x:0,y:0};
+
+function estadoClass(e){
+  const m = {LISTO:'s-listo',SUCIO:'s-sucio',MANTENIMIENTO:'s-mantenimiento',TRASLADO:'s-traslado',RESGUARDO:'s-resguardo',VACIO:'s-vacio'};
+  return m[e] || 's-vacio';
+}
+function estadoShort(e){
+  const m = {LISTO:'LISTO',SUCIO:'SUCIO',MANTENIMIENTO:'MANTO',TRASLADO:'TRAS',RESGUARDO:'RESGUARDO',VACIO:''};
+  return m[e]||'';
+}
+
+/* ── RENDER MAP ──────────────────────────────────── */
+function renderMap(){
+  const vp = document.getElementById('mapViewport');
+  vp.innerHTML = '';
+
+  // Caminos
+  const caminos = [
+    {x:360,y:30,w:22,h:460,label:'PASILLO 1'},
+    {x:670,y:30,w:22,h:460,label:'PASILLO 2'},
+    {x:30,y:250,w:870,h:22,label:'CALLE CENTRAL'},
+  ];
+  caminos.forEach(c=>{
+    const el = document.createElement('div');
+    el.className='camino';
+    el.style.cssText=`left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h}px;`;
+    if(c.w > c.h){
+      el.innerHTML=`<span class="camino-text">${c.label}</span>`;
+    }
+    vp.appendChild(el);
+  });
+
+  // Zonas y cajones
+  zonas.forEach(z=>{
+    const zEl = document.createElement('div');
+    zEl.className='zone';
+    zEl.style.cssText=`left:${z.x}px;top:${z.y}px;width:${z.w}px;height:${z.h}px;background:${z.color};border-color:${z.border};`;
+    zEl.innerHTML=`<span class="zone-label">${z.label}</span>`;
+    vp.appendChild(zEl);
+
+    const zoneUnits = units.filter(u=>u.zona===z.id);
+    const padX=16, padY=28, gapX=8, gapY=10;
+    const cW=56, cH=72;
+
+    zoneUnits.forEach((u,i)=>{
+      const col = i % z.cols;
+      const row = Math.floor(i / z.cols);
+      const cx = z.x + padX + col*(cW+gapX);
+      const cy = z.y + padY + row*(cH+gapY);
+
+      const visible = matchesFilter(u);
+      const c = document.createElement('div');
+      c.className=`cajon ${estadoClass(u.estado)}`;
+      c.id=`cajon-${u.slotId}`;
+      c.style.cssText=`left:${cx}px;top:${cy}px;opacity:${visible?1:0.2};`;
+      c.innerHTML=`
+        <div class="cajon-num">${u.slotId}</div>
+        ${u.estado!=='VACIO'?`<div class="cajon-mva">${u.mva}</div><div class="cajon-estado">${estadoShort(u.estado)}</div>`:'<div class="cajon-mva">—</div>'}
+      `;
+      c.onclick=()=>selectUnit(u);
+      vp.appendChild(c);
+    });
+  });
+
+  updateCounts();
+  renderUnitList();
+}
+
+function matchesFilter(u){
+  if(currentFilter==='all') return true;
+  return u.estado.toLowerCase()===currentFilter;
+}
+
+/* ── SIDEBAR UNIT LIST ───────────────────────────── */
+function renderUnitList(){
+  const list = document.getElementById('unitList');
+  const filtered = units.filter(u=>u.estado!=='VACIO' && matchesFilter(u)).slice(0,20);
+  list.innerHTML = filtered.map(u=>`
+    <div onclick="selectUnit(${JSON.stringify(u).replace(/"/g,'&quot;')})" style="padding:8px 10px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:background 0.1s;" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
+      <div style="width:8px;height:8px;border-radius:50%;background:${estadoColor(u.estado)};flex-shrink:0;"></div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${u.mva}</div>
+        <div style="font-size:10px;color:var(--ink-muted);">${u.modelo}</div>
+      </div>
+      <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink-muted);">${u.slotId}</div>
+    </div>
+  `).join('');
+}
+
+function estadoColor(e){
+  const m={LISTO:'#1ab39a',SUCIO:'#f59e0b',MANTENIMIENTO:'#7c3aed',TRASLADO:'#2b7fff',RESGUARDO:'#ff5c47',VACIO:'#c0c4cc'};
+  return m[e]||'#c0c4cc';
+}
+
+/* ── COUNTS ──────────────────────────────────────── */
+function updateCounts(){
+  const c = {LISTO:0,SUCIO:0,MANTENIMIENTO:0};
+  units.forEach(u=>{ if(c[u.estado]!==undefined) c[u.estado]++; });
+  document.getElementById('countListo').textContent=c.LISTO;
+  document.getElementById('countSucio').textContent=c.SUCIO;
+  document.getElementById('countManto').textContent=c.MANTENIMIENTO;
+  const total = units.filter(u=>u.estado!=='VACIO').length;
+  document.getElementById('liveCount').textContent=`${total} unidades`;
+}
+
+/* ── SELECT UNIT ────────────────────────────────── */
+function selectUnit(u){
+  if(typeof u === 'string') u = JSON.parse(u);
+  selectedUnit = u;
+
+  // Clear previous selection
+  document.querySelectorAll('.cajon.selected').forEach(c=>c.classList.remove('selected'));
+  const el = document.getElementById(`cajon-${u.slotId}`);
+  if(el){ el.classList.add('selected'); scrollToCajon(el); }
+
+  // Fill panel
+  document.getElementById('panelCajonNum').textContent=`Cajón ${u.slotId} · Zona ${u.zona}`;
+  document.getElementById('panelMva').textContent=u.mva||'Vacío';
+  document.getElementById('fieldMva').value=u.mva;
+  document.getElementById('fieldPlacas').value=u.placas;
+  document.getElementById('fieldNotas').value=u.notas;
+
+  // Modelo
+  const mSel=document.getElementById('fieldModelo');
+  for(let i=0;i<mSel.options.length;i++) if(mSel.options[i].text===u.modelo){mSel.selectedIndex=i;break;}
+
+  // Categoría
+  const cSel=document.getElementById('fieldCategoria');
+  for(let i=0;i<cSel.options.length;i++) if(cSel.options[i].text===u.categoria){cSel.selectedIndex=i;break;}
+
+  // Gasolina
+  const gSel=document.getElementById('fieldGasolina');
+  for(let i=0;i<gSel.options.length;i++) if(gSel.options[i].text===u.gasolina){gSel.selectedIndex=i;break;}
+
+  // Estado pills
+  document.querySelectorAll('.estado-pill').forEach(p=>p.classList.remove('active'));
+  const eMap={LISTO:'ep-listo',SUCIO:'ep-sucio',MANTENIMIENTO:'ep-manto',TRASLADO:'ep-traslado',RESGUARDO:'ep-resguardo',VENTA:'ep-venta'};
+  document.querySelectorAll('.estado-pill').forEach(p=>{
+    if(p.classList.contains(eMap[u.estado])) p.classList.add('active');
+  });
+
+  // Audit info
+  const mins = Math.round((Date.now()-u.lastAt.getTime())/60000);
+  document.getElementById('auditInfo').innerHTML=`
+    <div>Última modificación: <strong>hace ${mins<1?'< 1':mins} min</strong></div>
+    <div>Por: <strong>${u.lastBy}</strong></div>
+    <div>Versión: <strong>v${u.version}</strong></div>
+    <div>Plaza: <strong>MTY</strong></div>
+  `;
+
+  document.getElementById('sidePanel').classList.remove('hidden');
+}
+
+function scrollToCajon(el){
+  const rect=el.getBoundingClientRect();
+  const main=document.getElementById('mapMain').getBoundingClientRect();
+  if(rect.left<main.left||rect.right>main.right||rect.top<main.top||rect.bottom>main.bottom){
+    // nudge viewport toward cajon
+    const cx=parseFloat(el.style.left)+28;
+    const cy=parseFloat(el.style.top)+36;
+    currentTx = (document.getElementById('mapMain').clientWidth/2 - cx*currentScale);
+    currentTy = (document.getElementById('mapMain').clientHeight/2 - cy*currentScale - 40);
+    applyTransform();
+  }
+}
+
+function closePanel(){
+  document.getElementById('sidePanel').classList.add('hidden');
+  document.querySelectorAll('.cajon.selected').forEach(c=>c.classList.remove('selected'));
+  selectedUnit=null;
+}
+
+/* ── ESTADO SELECTION ────────────────────────────── */
+function selectEstado(estado, el){
+  document.querySelectorAll('.estado-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  if(selectedUnit) selectedUnit.estado=estado;
+}
+
+/* ── SAVE ────────────────────────────────────────── */
+function saveUnit(){
+  if(!selectedUnit) return;
+  selectedUnit.mva = document.getElementById('fieldMva').value;
+  selectedUnit.modelo = document.getElementById('fieldModelo').value;
+  selectedUnit.categoria = document.getElementById('fieldCategoria').value;
+  selectedUnit.placas = document.getElementById('fieldPlacas').value;
+  selectedUnit.gasolina = document.getElementById('fieldGasolina').value;
+  selectedUnit.notas = document.getElementById('fieldNotas').value;
+  selectedUnit.lastBy = 'Admin';
+  selectedUnit.lastAt = new Date();
+  selectedUnit.version++;
+
+  // Update unit in array
+  const idx = units.findIndex(u=>u.slotId===selectedUnit.slotId);
+  if(idx>-1) units[idx]={...selectedUnit};
+
+  renderMap();
+
+  // Pulse the updated cajon
+  const el=document.getElementById(`cajon-${selectedUnit.slotId}`);
+  if(el){ el.classList.add('updated'); el.classList.add('selected'); setTimeout(()=>el.classList.remove('updated'),900); }
+
+  updateLastUpdate();
+  showToast('✅ Cambios guardados — v'+selectedUnit.version);
+  document.getElementById('panelMva').textContent=selectedUnit.mva||'Vacío';
+}
+
+/* ── FILTER ──────────────────────────────────────── */
+function filterEstado(estado, el){
+  currentFilter=estado;
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  renderMap();
+}
+
+/* ── SEARCH ──────────────────────────────────────── */
+function handleSearch(val){
+  if(!val.trim()){ currentFilter='all'; renderMap(); return; }
+  const q=val.toLowerCase();
+  units.forEach(u=>{
+    const match=(u.mva+u.modelo+u.placas+u.estado).toLowerCase().includes(q);
+    const el=document.getElementById(`cajon-${u.slotId}`);
+    if(el) el.style.opacity=match?1:0.15;
+  });
+}
+
+/* ── ZOOM / PAN ──────────────────────────────────── */
+function zoom(factor){
+  currentScale = Math.max(0.4, Math.min(2.2, currentScale*factor));
+  applyTransform();
+}
+function resetZoom(){
+  currentScale=1;currentTx=0;currentTy=0;
+  applyTransform();
+}
+function applyTransform(){
+  document.getElementById('mapViewport').style.transform=`translate(${currentTx}px,${currentTy}px) scale(${currentScale})`;
+}
+
+const mapCanvas = document.getElementById('mapCanvas');
+mapCanvas.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const factor = e.deltaY<0?1.08:0.93;
+  zoom(factor);
+},{passive:false});
+
+mapCanvas.addEventListener('mousedown',e=>{
+  if(e.target===mapCanvas||e.target.classList.contains('map-viewport')||e.target.classList.contains('map-canvas')){
+    isDragging=true;
+    dragStart={x:e.clientX-currentTx,y:e.clientY-currentTy};
+    mapCanvas.style.cursor='grabbing';
+  }
+});
+document.addEventListener('mousemove',e=>{
+  if(!isDragging) return;
+  currentTx=e.clientX-dragStart.x;
+  currentTy=e.clientY-dragStart.y;
+  applyTransform();
+  document.getElementById('mapCoords').textContent=`x: ${-Math.round(currentTx/currentScale)} · y: ${-Math.round(currentTy/currentScale)}`;
+});
+document.addEventListener('mouseup',()=>{ isDragging=false; mapCanvas.style.cursor=''; });
+
+/* ── REALTIME SIMULATION ─────────────────────────── */
+function updateLastUpdate(){
+  const now=new Date();
+  document.getElementById('lastUpdateStatus').textContent=`Última actualización: ${now.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}`;
+}
+
+function simulateRealtimeUpdate(){
+  if(!realtimeActive) return;
+  const eligible=units.filter(u=>u.estado!=='VACIO'&&(!selectedUnit||u.slotId!==selectedUnit.slotId));
+  if(!eligible.length) return;
+  const u=eligible[rndInt(0,eligible.length-1)];
+  const prevEstado=u.estado;
+  const opts=['LISTO','SUCIO','MANTENIMIENTO','TRASLADO'];
+  u.estado=opts[rndInt(0,opts.length-1)];
+  u.lastAt=new Date();
+  u.version++;
+
+  renderMap();
+  updateLastUpdate();
+
+  const el=document.getElementById(`cajon-${u.slotId}`);
+  if(el){ el.classList.add('updated'); setTimeout(()=>el.classList.remove('updated'),900); }
+
+  // Occasionally show a toast
+  if(Math.random()<0.3){
+    showToast(`🔄 ${u.mva} → ${u.estado}`);
+  }
+}
+
+function toggleRealtime(){
+  realtimeActive=!realtimeActive;
+  showToast(realtimeActive?'🟢 Tiempo real activo':'⏸ Tiempo real pausado');
+  document.getElementById('liveIndicator').querySelector('strong').textContent=realtimeActive?'En vivo':'Pausado';
+  document.getElementById('liveIndicator').querySelector('.mini-badge-icon').textContent=realtimeActive?'🟢':'⏸';
+}
+
+setInterval(simulateRealtimeUpdate, 3800);
+
+/* ── TOAST ───────────────────────────────────────── */
+let toastTimer=null;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  const parts=msg.split(' ');
+  const icon=parts[0].match(/[\u{1F300}-\u{1FFFF}]|[☀-⟿]/u)?parts[0]:'ℹ';
+  const text=parts[0].match(/[\u{1F300}-\u{1FFFF}]|[☀-⟿]/u)?parts.slice(1).join(' '):msg;
+  document.getElementById('toastIcon').textContent=icon;
+  document.getElementById('toastMsg').textContent=text;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+/* ── INIT ────────────────────────────────────────── */
+renderMap();
+updateLastUpdate();
+showToast('🗺️ Mapa cargado — Plaza Monterrey');
+</script>
+</body>
+</html>
