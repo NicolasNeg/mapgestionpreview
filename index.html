@@ -1858,12 +1858,31 @@ function handleForm(e) {
 }
 
 // Sandbox modal
-function openSandbox() {
+let sandboxLoaded = false;
+
+async function openSandbox() {
   const overlay = document.getElementById('sandboxOverlay');
   const frame = document.getElementById('sandboxFrame');
-  if (!frame.src || frame.src === window.location.href) {
-    frame.src = 'sandbox-mapa.html';
+
+  if (!sandboxLoaded) {
+    // Show loading state while fetching
+    frame.srcdoc = `<html><body style="margin:0;background:#111318;display:flex;align-items:center;justify-content:center;height:100vh;font-family:system-ui;color:rgba(255,255,255,0.4);font-size:14px;gap:10px;"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#c8f135" stroke-width="2"><path d="M10 2a8 8 0 1 0 0 16A8 8 0 0 0 10 2z" opacity="0.2"/><path d="M10 2a8 8 0 0 1 8 8" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0 10 10" to="360 10 10" dur="0.8s" repeatCount="indefinite"/></path></svg>Cargando sandbox...</body></html>`;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    try {
+      const res = await fetch('sandbox-mapa.html');
+      if (!res.ok) throw new Error('fetch failed');
+      const html = await res.text();
+      frame.srcdoc = html;
+      sandboxLoaded = true;
+    } catch {
+      // Fallback: open in new tab if fetch fails (e.g. file:// protocol)
+      frame.srcdoc = `<html><body style="margin:0;background:#111318;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:system-ui;color:rgba(255,255,255,0.5);font-size:14px;gap:16px;text-align:center;padding:32px;"><div style="font-size:32px;">🔗</div><div style="color:white;font-size:16px;font-weight:700;">Abrí el sandbox en una nueva pestaña</div><div>El sandbox no puede cargarse en este contexto.</div><button onclick="window.parent.openInNewTab()" style="margin-top:8px;padding:12px 24px;background:#c8f135;color:#111318;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">Abrir en nueva pestaña →</button></body></html>`;
+    }
+    return;
   }
+
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
