@@ -1222,6 +1222,321 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   .sandbox-modal-url { display: none; }
 }
 
+/* ── INDUSTRY SECTION ────────────────────────────────────── */
+.industry-section { background: var(--white); }
+.industry-head { max-width: 680px; margin-bottom: 52px; }
+.industry-head .label { margin-bottom: 12px; }
+.industry-title { font-size: clamp(28px, 3.5vw, 40px); margin-top: 10px; }
+.industry-title em { color: var(--coral); }
+.industry-sub { font-size: 16px; color: var(--ink-soft); line-height: 1.65; margin-top: 16px; max-width: 540px; }
+.industry-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.industry-card {
+  border: 1px solid var(--line); border-radius: var(--r-md); padding: 26px;
+  background: var(--paper); transition: box-shadow 0.18s, transform 0.18s, border-color 0.18s;
+}
+.industry-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); border-color: rgba(17,19,24,0.18); }
+.industry-card.feat {
+  grid-column: span 3; background: var(--ink); color: var(--white);
+  border-color: transparent; display: grid;
+  grid-template-columns: 100px 1fr auto; gap: 28px; align-items: center;
+}
+.industry-card.feat:hover { transform: translateY(-2px); border-color: transparent; }
+.ic-num {
+  font-family: var(--f-display); font-size: 11px; font-weight: 600;
+  color: var(--ink-muted); letter-spacing: 0.06em; margin-bottom: 14px;
+}
+.industry-card.feat .ic-num {
+  font-size: 56px; font-weight: 300; line-height: 1;
+  color: rgba(255,255,255,0.18); margin-bottom: 0; text-align: center;
+}
+.industry-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.industry-card.feat h3 { font-family: var(--f-display); font-size: 22px; font-weight: 300; color: var(--white); }
+.industry-card p { font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0; }
+.industry-card.feat p { color: rgba(255,255,255,0.52); }
+.ic-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.ic-tag {
+  display: inline-flex; align-items: center; padding: 4px 10px; border-radius: var(--r-full);
+  background: rgba(200,241,53,0.1); border: 1px solid rgba(200,241,53,0.22);
+  color: var(--lime); font-family: var(--f-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.08em;
+}
+@media (max-width: 900px) {
+  .industry-card.feat { grid-column: span 1; grid-template-columns: 1fr; }
+  .industry-card.feat .ic-num { display: none; }
+  .industry-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) { .industry-grid { grid-template-columns: 1fr; } }
+
+/* ── FAQ ─────────────────────────────────────────────────── */
+.faq-section { background: var(--paper-2); }
+.faq-head { max-width: 560px; margin-bottom: 48px; }
+.faq-head .label { margin-bottom: 12px; }
+.faq-title { font-size: clamp(28px, 3.5vw, 40px); margin-top: 10px; }
+.faq-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 2px; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line);
+}
+.faq-item { background: var(--white); cursor: pointer; border-bottom: 1px solid var(--line); }
+.faq-item:nth-last-child(-n+2) { border-bottom: none; }
+.faq-q {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 22px 24px; font-size: 15px; font-weight: 700;
+  color: var(--ink); user-select: none;
+}
+.faq-chevron { flex-shrink: 0; transition: transform 0.22s; color: var(--ink-muted); }
+.faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--sky); }
+.faq-a { padding: 0 24px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
+.faq-item.open .faq-a { padding: 0 24px 22px; max-height: 300px; }
+.faq-a p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; margin: 0; }
+.faq-a strong { color: var(--ink); }
+@media (max-width: 768px) {
+  .faq-grid { grid-template-columns: 1fr; }
+  .faq-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .faq-item:last-child { border-bottom: none; }
+}
+
+/* ── SCREENSHOTS GALLERY ─────────────────────────────────── */
+.screens-section { background: var(--paper-2); }
+.screens-head { margin-bottom: 48px; }
+.screens-head .label { margin-bottom: 12px; }
+.screens-title { font-size: clamp(28px, 3.5vw, 40px); margin-top: 10px; }
+.screens-note {
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  max-width: 560px;
+}
+.screens-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 14px;
+}
+.sc-card {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+}
+.sc-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); border-color: rgba(43,127,255,0.2); }
+.sc-card.span-6 { grid-column: span 6; }
+.sc-card.span-4 { grid-column: span 4; }
+.sc-card.span-8 { grid-column: span 8; }
+.sc-card.span-12 { grid-column: span 12; }
+.sc-card.span-3 { grid-column: span 3; }
+.sc-card.dark { background: linear-gradient(160deg, #111318 0%, #1a2540 100%); }
+.sc-card-content { padding: 16px 18px 18px; }
+.sc-card-label { font-family: var(--f-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sky); }
+.sc-card.dark .sc-card-label { color: #93c5fd; }
+.sc-card-title { font-family: var(--f-display); font-size: clamp(18px, 2.2vw, 26px); font-weight: 300; line-height: 1.1; margin: 8px 0 6px; letter-spacing: -0.02em; }
+.sc-card.dark .sc-card-title { color: var(--white); }
+.sc-card-desc { font-size: 13px; line-height: 1.6; color: var(--ink-soft); }
+.sc-card.dark .sc-card-desc { color: rgba(255,255,255,0.55); }
+.sc-frame {
+  position: relative;
+  width: 100%;
+  border: none;
+  background: #dfe8f6;
+  cursor: zoom-in;
+  display: block;
+  overflow: hidden;
+}
+.sc-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #eff4fb;
+  transition: transform 0.2s ease;
+}
+.sc-frame:hover img { transform: scale(1.02); }
+.sc-frame::after {
+  content: '+ Ver';
+  position: absolute;
+  bottom: 10px; right: 10px;
+  padding: 6px 10px;
+  border-radius: var(--r-full);
+  background: rgba(17,19,24,0.8);
+  color: var(--white);
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+}
+.sc-frame:hover::after { opacity: 1; transform: translateY(0); }
+.sc-card.span-12 { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); }
+.sc-card.span-12 .sc-frame { min-height: 280px; }
+@media (max-width: 900px) {
+  .sc-card.span-6, .sc-card.span-4, .sc-card.span-8, .sc-card.span-3 { grid-column: span 12; }
+  .sc-card.span-12 { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .screens-grid { grid-template-columns: 1fr; }
+  .sc-card { grid-column: span 1 !important; }
+  .sc-card.span-12 { grid-template-columns: 1fr; }
+}
+
+/* Admin mini cards */
+.sc-admin-wall { grid-column: span 12; }
+.sc-admin-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  padding: 18px;
+}
+.sc-admin-head { padding: 18px 18px 0; }
+.sc-admin-mini {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 10px;
+  cursor: pointer;
+  transition: box-shadow 0.15s, transform 0.15s, border-color 0.15s;
+}
+.sc-admin-mini:hover { box-shadow: var(--shadow-sm); transform: translateY(-2px); border-color: rgba(43,127,255,0.2); }
+.sc-mini-frame {
+  height: 110px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #dfe8f6;
+  margin-bottom: 8px;
+}
+.sc-mini-frame img { width: 100%; height: 100%; object-fit: contain; background: #eff4fb; }
+.sc-admin-mini h4 { font-size: 12px; font-weight: 700; margin-bottom: 2px; color: var(--ink); }
+.sc-admin-mini p { font-size: 11px; color: var(--ink-muted); line-height: 1.4; }
+@media (max-width: 768px) { .sc-admin-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .sc-admin-grid { grid-template-columns: 1fr; } }
+
+/* ── LIGHTBOX MODAL ──────────────────────────────────────── */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 8000;
+  background: rgba(17,19,24,0.82);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+.lightbox-overlay.open { opacity: 1; pointer-events: all; }
+.lightbox-modal {
+  width: min(1100px, 100%);
+  max-height: calc(100vh - 40px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 14px;
+  padding: 16px;
+  border-radius: var(--r-lg);
+  background: linear-gradient(160deg, #111318 0%, #1a2540 100%);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 40px 120px rgba(0,0,0,0.5);
+  transform: translateY(20px) scale(0.98);
+  transition: transform 0.28s cubic-bezier(0.34,1.28,0.64,1);
+}
+.lightbox-overlay.open .lightbox-modal { transform: translateY(0) scale(1); }
+.lightbox-img-wrap {
+  border-radius: var(--r-md);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  min-height: 300px;
+}
+.lightbox-img-wrap img {
+  max-width: 100%;
+  max-height: calc(100vh - 160px);
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  background: var(--white);
+}
+.lightbox-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: var(--white);
+}
+.lightbox-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.lightbox-kicker {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #93c5fd;
+  background: rgba(147,197,253,0.1);
+  border: 1px solid rgba(147,197,253,0.14);
+  padding: 5px 10px;
+  border-radius: var(--r-full);
+}
+.lightbox-close {
+  width: 40px; height: 40px;
+  border-radius: var(--r-sm);
+  border: none;
+  background: rgba(255,255,255,0.08);
+  color: var(--white);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.12s;
+}
+.lightbox-close:hover { background: rgba(255,255,255,0.14); }
+.lightbox-title {
+  font-family: var(--f-display);
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.lightbox-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.65;
+  margin: 0;
+}
+.lightbox-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: auto;
+}
+.lightbox-nav-btn {
+  height: 44px;
+  border-radius: var(--r-sm);
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: var(--white);
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.lightbox-nav-btn:hover { background: rgba(255,255,255,0.1); }
+@media (max-width: 768px) {
+  .lightbox-modal { grid-template-columns: 1fr; max-height: calc(100vh - 20px); }
+  .lightbox-img-wrap img { max-height: 50vh; }
+  .lightbox-nav { grid-template-columns: 1fr; }
+}
+
 </style>
 </head>
 <body>
@@ -1246,6 +1561,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <a href="#beneficios">Beneficios</a>
       <a href="#como-funciona">Cómo funciona</a>
       <a href="#demo">Demo</a>
+      <a href="#pantallas">Pantallas</a>
       <a href="#contacto">Contacto</a>
     </nav>
 
@@ -1424,6 +1740,69 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   </div>
 </div>
 
+<!-- INDUSTRY / VERTICAL -->
+<section class="section industry-section">
+  <div class="container">
+    <div class="industry-head">
+      <span class="label">Para quién es</span>
+      <h2 class="display industry-title">
+        Hecho para <em>operaciones de patio</em><br>vehicular en México
+      </h2>
+      <p class="industry-sub">
+        MapGestion nació para resolver un problema específico: gestionar flotas de arrendamiento con múltiples plazas, roles operativos y trazabilidad completa. No es una herramienta genérica adaptada — es el sistema que el sector necesitaba.
+      </p>
+    </div>
+
+    <div class="industry-grid">
+
+      <article class="industry-card feat">
+        <div class="ic-num">01</div>
+        <div>
+          <h3>Mapa de patio en tiempo real</h3>
+          <p>Visualiza cada cajón, cada unidad y cada estado operativo en vivo. La grilla del patio se actualiza automáticamente cuando un operador mueve o cambia el estado de un vehículo — sin recargar, sin confusión, sin llamadas innecesarias.</p>
+        </div>
+        <div class="ic-tags">
+          <span class="ic-tag">32+ cajones</span>
+          <span class="ic-tag">5 zonas</span>
+          <span class="ic-tag">8 estados</span>
+          <span class="ic-tag">Tiempo real</span>
+        </div>
+      </article>
+
+      <article class="industry-card">
+        <div class="ic-num">02</div>
+        <h3>Gestión multi-plaza</h3>
+        <p>Monterrey, CDMX, Guadalajara — cada plaza opera de forma independiente pero desde la misma plataforma. Cada operador accede únicamente a su ubicación asignada.</p>
+      </article>
+
+      <article class="industry-card">
+        <div class="ic-num">03</div>
+        <h3>Cuadre de flota</h3>
+        <p>El módulo de reconciliación valida unidades de renta vs. externos y mantiene el cuadre operativo al día, sin planillas de Excel ni dobles capturas.</p>
+      </article>
+
+      <article class="industry-card">
+        <div class="ic-num">04</div>
+        <h3>Control de incidencias</h3>
+        <p>Reporta, prioriza y cierra incidencias directamente sobre la unidad. Adjuntos, estados y resolución en un flujo limpio que no interrumpe la operación.</p>
+      </article>
+
+      <article class="industry-card">
+        <div class="ic-num">05</div>
+        <h3>Roles operativos reales</h3>
+        <p>Jefe de patio, operador, supervisor y admin. Cada rol ve solo lo que necesita, edita solo lo que le corresponde, y no necesita pedir accesos a IT.</p>
+      </article>
+
+      <article class="industry-card">
+        <div class="ic-num">06</div>
+        <h3>Offline y mobile</h3>
+        <p>PWA con capacidad offline. En el patio la señal no siempre es estable — el sistema lo sabe y sigue funcionando, sincronizando cuando vuelve la conexión.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
 <!-- PROBLEM / SOLUTION -->
 <section class="section problem-section">
   <div class="container problem-inner">
@@ -1568,7 +1947,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   <div class="container">
     <div class="video-head">
       <span class="label">Demo interactiva</span>
-      <h2 class="display video-title">Probalo vos mismo</h2>
+      <h2 class="display video-title">Probalo ahora mismo</h2>
       <p class="video-sub">Sin registro. Sin datos reales. Un sandbox completo del sistema funcionando en tiempo real.</p>
     </div>
 
@@ -1642,6 +2021,231 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   </div>
 </section>
 
+<!-- SCREENSHOTS GALLERY -->
+<section class="section screens-section" id="pantallas">
+  <div class="container">
+    <div class="screens-head">
+      <span class="label">Pantallas reales</span>
+      <h2 class="display screens-title">Explora el producto sin salir de aquí</h2>
+      <p class="screens-note">Haz clic en cualquier captura para verla en detalle. Todas las vistas son del sistema real funcionando.</p>
+    </div>
+
+    <div class="screens-grid">
+
+      <!-- 01 Mapa en vivo — wide dark -->
+      <article class="sc-card span-12 dark">
+        <div class="sc-card-content">
+          <span class="sc-card-label">01 · mapa en vivo</span>
+          <h3 class="sc-card-title">Vista visual del mapa principal.</h3>
+          <p class="sc-card-desc">El producto abre con contexto, no con fricción. La interfaz principal deja claro el estado general y prioriza la lectura rápida.</p>
+        </div>
+        <button class="sc-frame" type="button" data-src="assets/screenshots/mapa-vivo.png" data-title="Mapa en vivo" data-kicker="01 · mapa en vivo" data-desc="Vista central del producto con lectura inmediata del mapa, estados y contexto visual del trabajo.">
+          <img src="assets/screenshots/mapa-vivo.png" alt="Mapa en vivo de MapGestion" />
+        </button>
+      </article>
+
+      <!-- 02 Gestión de unidades — span 8 -->
+      <article class="sc-card span-8">
+        <button class="sc-frame" type="button" data-src="assets/screenshots/gestion-flota.png" data-title="Gestión de unidades" data-kicker="02 · gestión de unidades" data-desc="Pantalla de gestión con filtros y mejor lectura de estados, categorías, placas y ubicaciones.">
+          <img src="assets/screenshots/gestion-flota.png" alt="Gestión de unidades" style="min-height:260px;" />
+        </button>
+        <div class="sc-card-content">
+          <span class="sc-card-label">02 · gestión de unidades</span>
+          <h3 class="sc-card-title">Control detallado sin saturar la interfaz.</h3>
+          <p class="sc-card-desc">La información importante aparece con más orden y mejor jerarquía visual para buscar, filtrar y decidir más rápido.</p>
+        </div>
+      </article>
+
+      <!-- 03 Resumen de flota — span 4 -->
+      <article class="sc-card span-4">
+        <button class="sc-frame" type="button" data-src="assets/screenshots/resumen-flota.png" data-title="Resumen de flota" data-kicker="03 · resumen de flota" data-desc="Resumen visual y rápido del estado general para tomar decisiones sin salir del contexto principal.">
+          <img src="assets/screenshots/resumen-flota.png" alt="Resumen de flota" style="min-height:260px;" />
+        </button>
+        <div class="sc-card-content">
+          <span class="sc-card-label">03 · resumen de flota</span>
+          <h3 class="sc-card-title">Lectura inmediata del estado general.</h3>
+          <p class="sc-card-desc">Ideal para saber en segundos qué está listo y qué requiere atención sin navegar de más.</p>
+        </div>
+      </article>
+
+      <!-- 04 Historial — span 4 -->
+      <article class="sc-card span-4">
+        <button class="sc-frame" type="button" data-src="assets/screenshots/historial-mapa.png" data-title="Historial operativo" data-kicker="04 · historial operativo" data-desc="Registro con fecha, acción, origen real, ubicación y usuario para seguimiento fino del flujo.">
+          <img src="assets/screenshots/historial-mapa.png" alt="Historial operativo" style="min-height:220px;" />
+        </button>
+        <div class="sc-card-content">
+          <span class="sc-card-label">04 · historial operativo</span>
+          <h3 class="sc-card-title">Seguimiento claro de cada movimiento.</h3>
+          <p class="sc-card-desc">Dirección y operación pueden revisar cambios con mejor contexto y menos interpretación manual.</p>
+        </div>
+      </article>
+
+      <!-- 05 Bitácora gestión — span 4 -->
+      <article class="sc-card span-4">
+        <button class="sc-frame" type="button" data-src="assets/screenshots/bitacora-gestion.png" data-title="Bitácora de gestión" data-kicker="05 · bitácora de gestión" data-desc="Historial de movimientos administrativos sobre usuarios, plazas, bloqueos, solicitudes y cambios globales.">
+          <img src="assets/screenshots/bitacora-gestion.png" alt="Bitácora de gestión" style="min-height:220px;" />
+        </button>
+        <div class="sc-card-content">
+          <span class="sc-card-label">05 · bitácora de gestión</span>
+          <h3 class="sc-card-title">Control administrativo más transparente.</h3>
+          <p class="sc-card-desc">Una bitácora bien presentada transmite control, confianza y madurez de producto.</p>
+        </div>
+      </article>
+
+      <!-- 06 Auditoría — span 4 -->
+      <article class="sc-card span-4">
+        <button class="sc-frame" type="button" data-src="assets/screenshots/auditoria-sistema.png" data-title="Auditoría del sistema" data-kicker="06 · auditoría del sistema" data-desc="Registro de trazabilidad visual para mapa y flota con mejor seguimiento contextual.">
+          <img src="assets/screenshots/auditoria-sistema.png" alt="Auditoría del sistema" style="min-height:220px;" />
+        </button>
+        <div class="sc-card-content">
+          <span class="sc-card-label">06 · auditoría del sistema</span>
+          <h3 class="sc-card-title">Trazabilidad lista para auditoría.</h3>
+          <p class="sc-card-desc">Cuando el producto muestra su historial con claridad, también comunica seriedad y confianza operativa.</p>
+        </div>
+      </article>
+
+      <!-- 07 Incidencias — wide dark -->
+      <article class="sc-card span-12 dark">
+        <div class="sc-card-content">
+          <span class="sc-card-label">07 · incidencias operativas</span>
+          <h3 class="sc-card-title">Incidencias con prioridad, adjuntos y cierre real.</h3>
+          <p class="sc-card-desc">Este módulo comunica que el producto no solo visualiza trabajo: también lo ordena, lo documenta y le da continuidad.</p>
+        </div>
+        <button class="sc-frame" type="button" data-src="assets/screenshots/bitacora-incidencias.png" data-title="Bitácora de incidencias" data-kicker="07 · incidencias operativas" data-desc="Vista de incidencias con prioridad, adjuntos y estados para equipos que necesitan orden y continuidad.">
+          <img src="assets/screenshots/bitacora-incidencias.png" alt="Bitácora de incidencias" style="min-height:280px;" />
+        </button>
+      </article>
+
+      <!-- 08 Mensajes internos — span 8 -->
+      <article class="sc-card span-8">
+        <button class="sc-frame" type="button" data-src="assets/screenshots/mensajes-internos.png" data-title="Mensajes internos" data-kicker="08 · mensajes internos" data-desc="Conversación operativa integrada con audios y archivos sin salir del flujo principal.">
+          <img src="assets/screenshots/mensajes-internos.png" alt="Mensajes internos" style="min-height:260px;" />
+        </button>
+        <div class="sc-card-content">
+          <span class="sc-card-label">08 · mensajes internos</span>
+          <h3 class="sc-card-title">Colaboración dentro del mismo producto.</h3>
+          <p class="sc-card-desc">La mensajería integrada evita fricción, reduce saltos entre apps y mejora la continuidad del trabajo compartido.</p>
+        </div>
+      </article>
+
+      <!-- 09 Editor de mapa — span 4 -->
+      <article class="sc-card span-4">
+        <button class="sc-frame" type="button" data-src="assets/screenshots/editor-mapa.png" data-title="Editor de mapa" data-kicker="09 · editor de mapa" data-desc="Editor visual con herramientas, inspector y control directo para modificar el layout sin romper el flujo.">
+          <img src="assets/screenshots/editor-mapa.png" alt="Editor de mapa" style="min-height:260px;" />
+        </button>
+        <div class="sc-card-content">
+          <span class="sc-card-label">09 · editor de mapa</span>
+          <h3 class="sc-card-title">Un editor que comunica velocidad y control.</h3>
+          <p class="sc-card-desc">El layout del patio se puede ajustar cuando haga falta, sin procesos lentos ni vistas poco amigables.</p>
+        </div>
+      </article>
+
+      <!-- 10 Mi perfil — span 6 -->
+      <article class="sc-card span-6">
+        <button class="sc-frame" type="button" data-src="assets/screenshots/mi-perfil.png" data-title="Mi perfil" data-kicker="10 · mi perfil" data-desc="Configuración personal con notificaciones, privacidad y accesos rápidos dentro del producto.">
+          <img src="assets/screenshots/mi-perfil.png" alt="Mi perfil" style="min-height:220px;" />
+        </button>
+        <div class="sc-card-content">
+          <span class="sc-card-label">10 · mi perfil</span>
+          <h3 class="sc-card-title">Preferencias claras para cada usuario.</h3>
+          <p class="sc-card-desc">Hasta los módulos de configuración ayudan a que el producto se sienta pulido y confiable.</p>
+        </div>
+      </article>
+
+      <!-- 11 Empresa — span 6 -->
+      <article class="sc-card span-6">
+        <button class="sc-frame" type="button" data-src="assets/screenshots/empresa-admin.png" data-title="Panel de empresa" data-kicker="11 · empresa" data-desc="Panel de administración para editar logo, nombre, colores y datos clave de empresa.">
+          <img src="assets/screenshots/empresa-admin.png" alt="Panel de empresa" style="min-height:220px;" />
+        </button>
+        <div class="sc-card-content">
+          <span class="sc-card-label">11 · empresa</span>
+          <h3 class="sc-card-title">Branding y control desde administración.</h3>
+          <p class="sc-card-desc">Una vista administrativa bien resuelta transmite producto serio, adaptable y listo para crecer.</p>
+        </div>
+      </article>
+
+      <!-- 12–20 Panel administrativo -->
+      <article class="sc-card sc-admin-wall span-12">
+        <div class="sc-admin-head">
+          <span class="sc-card-label">12–20 · panel administrativo</span>
+          <h3 class="sc-card-title" style="font-size:clamp(20px,2.5vw,30px);margin-top:8px;">Catálogos, usuarios, roles y accesos en un mismo back office.</h3>
+        </div>
+        <div class="sc-admin-grid">
+          <article class="sc-admin-mini" data-src="assets/screenshots/plazas.png" data-title="Plazas" data-kicker="12 · panel administrativo" data-desc="Alta, orden y gestión de plazas dentro del back office.">
+            <div class="sc-mini-frame"><img src="assets/screenshots/plazas.png" alt="Plazas" /></div>
+            <h4>Plazas</h4>
+            <p>Alta y orden de plazas y responsables.</p>
+          </article>
+          <article class="sc-admin-mini" data-src="assets/screenshots/ubicaciones.png" data-title="Ubicaciones" data-kicker="13 · panel administrativo" data-desc="Gestión de ubicaciones, plazas base y responsables para el mapa.">
+            <div class="sc-mini-frame"><img src="assets/screenshots/ubicaciones.png" alt="Ubicaciones" /></div>
+            <h4>Ubicaciones</h4>
+            <p>Control de ubicaciones y responsables asignados.</p>
+          </article>
+          <article class="sc-admin-mini" data-src="assets/screenshots/estados.png" data-title="Estados" data-kicker="14 · panel administrativo" data-desc="Configuración de estados y jerarquía operativa del sistema.">
+            <div class="sc-mini-frame"><img src="assets/screenshots/estados.png" alt="Estados" /></div>
+            <h4>Estados</h4>
+            <p>Orden y color operativo por estado.</p>
+          </article>
+          <article class="sc-admin-mini" data-src="assets/screenshots/categorias.png" data-title="Categorías" data-kicker="15 · panel administrativo" data-desc="Catálogo de categorías vehiculares y reglas base.">
+            <div class="sc-mini-frame"><img src="assets/screenshots/categorias.png" alt="Categorías" /></div>
+            <h4>Categorías</h4>
+            <p>Familias de unidades y reglas base.</p>
+          </article>
+          <article class="sc-admin-mini" data-src="assets/screenshots/modelos.png" data-title="Modelos" data-kicker="16 · panel administrativo" data-desc="Catálogo de modelos enlazados con categorías y estructura del producto.">
+            <div class="sc-mini-frame"><img src="assets/screenshots/modelos.png" alt="Modelos" /></div>
+            <h4>Modelos</h4>
+            <p>Inventario base conectado con categoría.</p>
+          </article>
+          <article class="sc-admin-mini" data-src="assets/screenshots/gasolinas.png" data-title="Gasolina" data-kicker="17 · panel administrativo" data-desc="Niveles visuales de gasolina dentro de la administración del sistema.">
+            <div class="sc-mini-frame"><img src="assets/screenshots/gasolinas.png" alt="Gasolina" /></div>
+            <h4>Gasolina</h4>
+            <p>Niveles con lectura visual y porcentajes.</p>
+          </article>
+          <article class="sc-admin-mini" data-src="assets/screenshots/usuarios.png" data-title="Usuarios" data-kicker="18 · panel administrativo" data-desc="Vista detallada de usuarios, roles, plazas y permisos dentro del sistema.">
+            <div class="sc-mini-frame"><img src="assets/screenshots/usuarios.png" alt="Usuarios" /></div>
+            <h4>Usuarios</h4>
+            <p>Ficha completa de identidad, rol y acceso.</p>
+          </article>
+          <article class="sc-admin-mini" data-src="assets/screenshots/roles-permisos.png" data-title="Roles y permisos" data-kicker="19 · panel administrativo" data-desc="Editor de roles y permisos para controlar alcance y acciones del equipo.">
+            <div class="sc-mini-frame"><img src="assets/screenshots/roles-permisos.png" alt="Roles y permisos" /></div>
+            <h4>Roles y permisos</h4>
+            <p>Permisos por módulo, nivel y alcance.</p>
+          </article>
+          <article class="sc-admin-mini" data-src="assets/screenshots/aprobacion-accesos.png" data-title="Aprobación de accesos" data-kicker="20 · panel administrativo" data-desc="Buzón para aprobar accesos y solicitudes dentro del sistema.">
+            <div class="sc-mini-frame"><img src="assets/screenshots/aprobacion-accesos.png" alt="Aprobación de accesos" /></div>
+            <h4>Aprobación de accesos</h4>
+            <p>Solicitudes pendientes, aprobadas y rechazadas.</p>
+          </article>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX MODAL -->
+<div class="lightbox-overlay" id="lightboxOverlay" onclick="handleLightboxClick(event)">
+  <div class="lightbox-modal" id="lightboxModal">
+    <div class="lightbox-img-wrap">
+      <img id="lightboxImg" src="" alt="" />
+    </div>
+    <div class="lightbox-panel">
+      <div class="lightbox-top">
+        <span class="lightbox-kicker" id="lightboxKicker"></span>
+        <button class="lightbox-close" onclick="closeLightbox()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="2" y1="2" x2="12" y2="12"/><line x1="12" y1="2" x2="2" y2="12"/></svg>
+        </button>
+      </div>
+      <h3 class="lightbox-title" id="lightboxTitle"></h3>
+      <p class="lightbox-desc" id="lightboxDesc"></p>
+      <div class="lightbox-nav">
+        <button class="lightbox-nav-btn" onclick="lightboxStep(-1)">← Anterior</button>
+        <button class="lightbox-nav-btn" onclick="lightboxStep(1)">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- TESTIMONIALS -->
 <section class="section testi-section">
   <div class="container">
@@ -1701,7 +2305,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       </p>
       <div class="cta-actions">
         <a href="#contacto" class="btn btn-lime">Solicitar una demo</a>
-        <a href="mailto:hola@mapgestion.app" class="btn btn-outline" style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.15);">hola@mapgestion.app</a>
+        <a href="mailto:propyocontacto@gmail.com" class="btn btn-outline" style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.15);">hola@mapgestion.app</a>
       </div>
       <div class="cta-trust">
         <div class="cta-trust-item">
@@ -1717,6 +2321,67 @@ textarea.form-input { resize: vertical; min-height: 80px; }
           Onboarding incluido
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq-section">
+  <div class="container">
+    <div class="faq-head">
+      <span class="label">Preguntas frecuentes</span>
+      <h2 class="display faq-title">Lo que preguntan antes de arrancar</h2>
+    </div>
+    <div class="faq-grid">
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          ¿Cuánto tiempo toma la implementación?
+          <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="faq-a"><p>En la mayoría de los casos, <strong>menos de una semana</strong>. El onboarding incluye la configuración del mapa de patio, carga inicial de la flota y capacitación del equipo operativo. No hay instalación de software — todo funciona desde el navegador.</p></div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          ¿Qué estados operativos maneja el sistema?
+          <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="faq-a"><p>El sistema gestiona <strong>8 estados</strong>: Listo, Sucio, Mantenimiento, Traslado, Resguardo, Venta, Retenida y Externo. Cada estado tiene color, lógica de acceso y afecta el cuadre de flota de forma distinta.</p></div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          ¿Funciona bien en mobile?
+          <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="faq-a"><p>Sí. La interfaz está optimizada para trabajo en campo desde teléfono. El mapa, el panel de edición y el historial funcionan correctamente en pantallas pequeñas. Además, la app se puede instalar como <strong>PWA</strong> en el dispositivo.</p></div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          ¿Qué pasa si se va la conexión a internet?
+          <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="faq-a"><p>El sistema funciona en modo offline. Los cambios realizados sin conexión se sincronizan automáticamente cuando vuelve la señal. <strong>No se pierden datos</strong> ni se interrumpe la operación del patio.</p></div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          ¿Puedo gestionar múltiples plazas desde una sola cuenta?
+          <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="faq-a"><p>Sí. El sistema soporta <strong>múltiples plazas de forma independiente</strong>. Los roles de supervisión pueden tener visibilidad entre plazas, mientras que los operadores solo acceden a la plaza asignada. Los datos de cada plaza están completamente aislados.</p></div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">
+          ¿Mis datos están seguros?
+          <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="faq-a"><p>Los datos se almacenan en <strong>Firebase (Google Cloud)</strong> con reglas de seguridad por rol y por plaza. Cada operación queda registrada en el historial de auditoría. El acceso requiere autenticación y está segmentado por permisos configurables.</p></div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1795,7 +2460,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <div>
         <div class="footer-col-title">Contacto</div>
         <div class="footer-links">
-          <a href="mailto:hola@mapgestion.app">hola@mapgestion.app</a>
+          <a href="mailto:propyocontacto@gmail.com">propyocontacto@gmail.com</a>
           <a href="#">WhatsApp</a>
           <a href="#contacto">Solicitar demo</a>
         </div>
@@ -1810,7 +2475,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
     </div>
   </div>
 </footer>
-
+  
 <!-- SANDBOX MODAL -->
 <div class="sandbox-overlay" id="sandboxOverlay" onclick="handleOverlayClick(event)">
   <div class="sandbox-modal" id="sandboxModal">
@@ -1843,6 +2508,12 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 </div>
 
 <script>
+function toggleFaq(el) {
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(f => f.classList.remove('open'));
+  if (!isOpen) el.classList.add('open');
+}
+
 function toggleNav() {
   const nav = document.getElementById('mobileNav');
   nav.classList.toggle('open');
@@ -1899,6 +2570,64 @@ function openInNewTab() {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeSandbox();
 });
+
+// ── Lightbox ──────────────────────────────────────────────
+const lightboxItems = [];
+let lightboxIndex = 0;
+
+function buildLightboxItems() {
+  document.querySelectorAll('.sc-frame[data-src], .sc-admin-mini[data-src]').forEach(el => {
+    lightboxItems.push({
+      src: el.dataset.src,
+      title: el.dataset.title,
+      kicker: el.dataset.kicker,
+      desc: el.dataset.desc
+    });
+    el.addEventListener('click', () => {
+      openLightbox(lightboxItems.length - 1);
+    });
+  });
+}
+
+function openLightbox(idx) {
+  lightboxIndex = idx;
+  renderLightbox();
+  document.getElementById('lightboxOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderLightbox() {
+  const item = lightboxItems[lightboxIndex];
+  document.getElementById('lightboxImg').src = item.src;
+  document.getElementById('lightboxImg').alt = item.title;
+  document.getElementById('lightboxTitle').textContent = item.title;
+  document.getElementById('lightboxKicker').textContent = item.kicker;
+  document.getElementById('lightboxDesc').textContent = item.desc;
+}
+
+function closeLightbox() {
+  document.getElementById('lightboxOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleLightboxClick(e) {
+  if (e.target === document.getElementById('lightboxOverlay')) closeLightbox();
+}
+
+function lightboxStep(dir) {
+  lightboxIndex = (lightboxIndex + dir + lightboxItems.length) % lightboxItems.length;
+  renderLightbox();
+}
+
+document.addEventListener('keydown', e => {
+  const overlay = document.getElementById('lightboxOverlay');
+  if (!overlay.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowRight') lightboxStep(1);
+  if (e.key === 'ArrowLeft') lightboxStep(-1);
+});
+
+buildLightboxItems();
 
 // Subtle scroll-triggered fade-in for cards
 const observer = new IntersectionObserver((entries) => {

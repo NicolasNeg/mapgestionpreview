@@ -593,6 +593,136 @@ button{cursor:pointer;}
 }
 .btn-secondary:hover{background:#e2e8f0;}
 
+/* ── ONBOARDING OVERLAY ──────────────────────────────────── */
+.onboard-overlay{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(7,15,28,.82);backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;padding:24px;
+  transition:opacity .3s;
+}
+.onboard-overlay.hidden{opacity:0;pointer-events:none;}
+.onboard-modal{
+  width:100%;max-width:480px;
+  background:#fff;border-radius:24px;
+  padding:34px;box-shadow:0 40px 120px rgba(0,0,0,.5);
+  animation:popIn .35s cubic-bezier(.16,1,.3,1) both;
+}
+.onboard-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(200,241,53,.1);border:1px solid rgba(200,241,53,.25);
+  border-radius:999px;padding:4px 12px;margin-bottom:20px;
+  font-family:'Inter',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:#9dc50f;
+}
+.onboard-pill-dot{width:7px;height:7px;border-radius:50%;background:#c8f135;animation:pip 1.8s ease infinite;}
+.onboard-title{font-size:22px;font-weight:900;color:#0f172a;line-height:1.15;margin-bottom:8px;letter-spacing:-.02em;}
+.onboard-sub{font-size:14px;color:#64748b;line-height:1.65;margin-bottom:24px;}
+.onboard-steps{display:flex;flex-direction:column;gap:14px;margin-bottom:28px;}
+.onboard-step{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:14px 16px;border-radius:14px;
+  background:#f8fafc;border:1px solid #e2e8f0;
+}
+.onboard-step-icon{font-size:22px;flex-shrink:0;margin-top:1px;}
+.onboard-step-title{font-size:14px;font-weight:700;color:#0f172a;margin-bottom:3px;}
+.onboard-step-desc{font-size:12px;color:#64748b;line-height:1.5;}
+.onboard-btn{
+  width:100%;padding:14px;border-radius:12px;
+  background:linear-gradient(135deg,#1a73e8,#0d5bc4);
+  color:#fff;font-size:14px;font-weight:900;letter-spacing:.3px;
+  box-shadow:0 6px 20px rgba(26,115,232,.3);transition:all .15s;
+}
+.onboard-btn:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(26,115,232,.38);}
+
+/* ── GESTION VIEW ────────────────────────────────────────── */
+.gestion-overlay{
+  position:fixed;inset:0;z-index:600;
+  background:#0f172a;
+  display:flex;flex-direction:column;
+  transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+.gestion-overlay.open{transform:translateX(0);}
+.gestion-header{
+  display:flex;align-items:center;gap:14px;
+  padding:0 20px;height:56px;
+  background:linear-gradient(135deg,#0d2a54,#0f3460);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  flex-shrink:0;
+}
+.gestion-title{font-size:14px;font-weight:900;color:#fff;letter-spacing:.5px;text-transform:uppercase;}
+.gestion-sub{font-size:12px;color:rgba(255,255,255,.4);margin-left:4px;}
+.gestion-close{
+  margin-left:auto;width:34px;height:34px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.5);transition:all .12s;
+}
+.gestion-close:hover{background:rgba(255,255,255,.08);color:#fff;}
+.gestion-toolbar{
+  display:flex;align-items:center;gap:10px;padding:12px 20px;
+  background:#0f1825;border-bottom:1px solid rgba(255,255,255,.05);
+  flex-shrink:0;flex-wrap:wrap;
+}
+.gestion-search{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;padding:0 12px;height:34px;flex:1;max-width:300px;
+}
+.gestion-search input{background:none;color:#fff;font-size:12px;width:100%;}
+.gestion-search input::placeholder{color:rgba(255,255,255,.3);}
+.gestion-filter-btn{
+  padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;
+  border:1.5px solid rgba(255,255,255,.1);color:rgba(148,163,184,.8);
+  cursor:pointer;transition:all .15s;background:rgba(255,255,255,.04);
+}
+.gestion-filter-btn.active{border-color:rgba(26,115,232,.6);color:#60a5fa;background:rgba(26,115,232,.15);}
+.gestion-body{flex:1;overflow:auto;padding:20px;}
+.gestion-table{width:100%;border-collapse:separate;border-spacing:0 4px;min-width:700px;}
+.gestion-table th{
+  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(148,163,184,.5);padding:8px 14px;text-align:left;
+}
+.gtr{
+  background:rgba(255,255,255,.04);border-radius:10px;
+  cursor:pointer;transition:background .12s;
+}
+.gtr:hover{background:rgba(255,255,255,.08);}
+.gtr td{
+  padding:12px 14px;font-size:12px;color:#e2e8f0;font-weight:600;
+  border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04);
+}
+.gtr td:first-child{border-left:1px solid rgba(255,255,255,.04);border-radius:10px 0 0 10px;}
+.gtr td:last-child{border-right:1px solid rgba(255,255,255,.04);border-radius:0 10px 10px 0;}
+.g-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:3px 9px;border-radius:999px;
+  font-size:10px;font-weight:900;letter-spacing:.4px;text-transform:uppercase;color:#fff;
+}
+.g-muted{color:rgba(148,163,184,.5);}
+.gestion-empty{text-align:center;padding:60px 20px;color:rgba(148,163,184,.4);font-size:14px;}
+.gestion-stats{
+  display:flex;align-items:center;gap:20px;
+  padding:10px 20px;background:#0f1825;border-top:1px solid rgba(255,255,255,.05);
+  font-size:11px;color:rgba(148,163,184,.6);flex-shrink:0;
+}
+.gestion-stats strong{color:#e2e8f0;}
+
+/* ── SHORTCUT HINT ───────────────────────────────────────── */
+.shortcut-hint{
+  position:fixed;bottom:46px;right:12px;z-index:300;
+  background:#1e293b;border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;padding:12px 14px;
+  box-shadow:0 8px 24px rgba(0,0,0,.4);
+  font-size:11px;color:rgba(148,163,184,.8);
+  display:flex;flex-direction:column;gap:5px;
+  opacity:0;pointer-events:none;transition:opacity .18s;
+}
+.shortcut-hint.visible{opacity:1;}
+.sh-row{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.sh-key{
+  padding:2px 7px;border-radius:4px;background:#0f172a;border:1px solid rgba(255,255,255,.12);
+  font-family:monospace;font-size:10px;color:#94a3b8;
+}
+
 /* ── SANDBOX BADGE ───────────────────────────────────────── */
 .sandbox-stamp{
   position:fixed;top:calc(var(--header-h) + 8px);right:10px;z-index:200;
@@ -670,23 +800,23 @@ button{cursor:pointer;}
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="1,4 6,1 12,4 17,1 17,14 12,17 6,14 1,17"/><line x1="6" y1="1" x2="6" y2="14"/><line x1="12" y1="4" x2="12" y2="17"/></svg>
       <span class="nav-item-label">Mapa de patio</span>
     </div>
-    <div class="nav-item" onclick="toast('📋 Módulo Gestión — próximamente')">
+    <div class="nav-item" onclick="openGestion()">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="3" width="12" height="12" rx="2"/><line x1="6" y1="7" x2="12" y2="7"/><line x1="6" y1="10" x2="10" y2="10"/></svg>
-      <span class="nav-item-label">Gestión</span>
+      <span class="nav-item-label">Gestión de flota</span>
     </div>
-    <div class="nav-item" onclick="toast('🚚 Módulo Flota — próximamente')">
+    <div class="nav-item" onclick="toast('🚚 Traslado registrado — MVA-' + String(Math.floor(Math.random()*9000)+1000) + ' en ruta a Plaza GDL')">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="1" y="7" width="11" height="8" rx="1.5"/><path d="M12 10h3l2 3v2h-5V10z"/><circle cx="4.5" cy="15.5" r="1.5"/><circle cx="13.5" cy="15.5" r="1.5"/></svg>
-      <span class="nav-item-label">Flota</span>
+      <span class="nav-item-label">Traslados</span>
     </div>
     <div class="nav-sep"></div>
     <div class="nav-item" onclick="toggleHistory()">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="9" cy="9" r="7"/><polyline points="9,5 9,9 12,12"/></svg>
       <span class="nav-item-label">Historial</span>
     </div>
-    <div class="nav-item" onclick="toast('⚠️ 3 alertas activas')">
+    <div class="nav-item" onclick="showAlertas()">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 2l7 13H2L9 2z"/><line x1="9" y1="8" x2="9" y2="11"/><circle cx="9" cy="14" r=".5" fill="currentColor"/></svg>
       <span class="nav-badge"></span>
-      <span class="nav-item-label">Alertas</span>
+      <span class="nav-item-label">Alertas (3)</span>
     </div>
     <div class="nav-sep"></div>
     <div class="nav-item" onclick="toast('⚙️ Configuración del sistema')">
@@ -783,6 +913,9 @@ button{cursor:pointer;}
       </div>
       <div class="stat-item" style="border-right:none;">
         Total <span class="stat-num" id="sTotal">-</span>
+      </div>
+      <div class="stat-item" style="border-right:none;">
+        Cuadre <span class="stat-num" id="sCuadre" style="color:#c8f135;">-</span>
       </div>
       <div class="stat-item">
         <div class="live-badge" id="liveBadge">
@@ -944,6 +1077,92 @@ button{cursor:pointer;}
   </div>
 </div>
 
+<!-- ONBOARDING OVERLAY -->
+<div class="onboard-overlay" id="onboardOverlay">
+  <div class="onboard-modal">
+    <div class="onboard-pill">
+      <span class="onboard-pill-dot"></span>
+      Sandbox en vivo
+    </div>
+    <h2 class="onboard-title">Bienvenido al sandbox de MapGestion</h2>
+    <p class="onboard-sub">Este es el sistema real funcionando con datos de prueba — Plaza Monterrey con 32 cajones y flota activa. Explora sin miedo, nada aquí afecta datos reales.</p>
+    <div class="onboard-steps">
+      <div class="onboard-step">
+        <div class="onboard-step-icon">🗺️</div>
+        <div>
+          <div class="onboard-step-title">Haz clic en cualquier vehículo</div>
+          <div class="onboard-step-desc">Se abre el panel lateral con MVA, modelo, estado, gasolina y trazabilidad completa del registro.</div>
+        </div>
+      </div>
+      <div class="onboard-step">
+        <div class="onboard-step-icon">✏️</div>
+        <div>
+          <div class="onboard-step-title">Cambia el estado y guarda</div>
+          <div class="onboard-step-desc">Selecciona un estado operativo (Listo, Sucio, Traslado…) y presiona Guardar o <kbd style="background:#f1f5f9;border-radius:4px;padding:1px 5px;font-size:11px;">Ctrl+S</kbd>.</div>
+        </div>
+      </div>
+      <div class="onboard-step">
+        <div class="onboard-step-icon">⚡</div>
+        <div>
+          <div class="onboard-step-title">El tiempo real ya está activo</div>
+          <div class="onboard-step-desc">Los estados cambian automáticamente simulando una operación real. También podés explorar la vista Gestión desde el menú lateral.</div>
+        </div>
+      </div>
+    </div>
+    <button class="onboard-btn" onclick="closeOnboard()">Empezar a explorar →</button>
+  </div>
+</div>
+
+<!-- GESTION VIEW -->
+<div class="gestion-overlay" id="gestionOverlay">
+  <div class="gestion-header">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="3" width="12" height="12" rx="2"/><line x1="6" y1="7" x2="12" y2="7"/><line x1="6" y1="10" x2="10" y2="10"/></svg>
+    <span class="gestion-title">Gestión de flota</span>
+    <span class="gestion-sub">· Plaza Monterrey</span>
+    <button class="gestion-close" onclick="closeGestion()">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="2" y1="2" x2="12" y2="12"/><line x1="12" y1="2" x2="2" y2="12"/></svg>
+    </button>
+  </div>
+  <div class="gestion-toolbar">
+    <div class="gestion-search">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1.5"><circle cx="5.5" cy="5.5" r="3.5"/><line x1="8.5" y1="8.5" x2="11.5" y2="11.5" stroke-linecap="round"/></svg>
+      <input type="text" placeholder="Buscar MVA, placas, modelo..." oninput="filterGestion(this.value)" id="gestionSearch"/>
+    </div>
+    <span class="gestion-filter-btn active" onclick="setGFilter('all',this)">Todos</span>
+    <span class="gestion-filter-btn" onclick="setGFilter('LISTO',this)">Listo</span>
+    <span class="gestion-filter-btn" onclick="setGFilter('SUCIO',this)">Sucio</span>
+    <span class="gestion-filter-btn" onclick="setGFilter('MANTENIMIENTO',this)">Manto</span>
+    <span class="gestion-filter-btn" onclick="setGFilter('TRASLADO',this)">Traslado</span>
+    <span class="gestion-filter-btn" onclick="setGFilter('RESGUARDO',this)">Resguardo</span>
+  </div>
+  <div class="gestion-body">
+    <table class="gestion-table">
+      <thead>
+        <tr>
+          <th>Cajón</th>
+          <th>MVA</th>
+          <th>Modelo</th>
+          <th>Categoría</th>
+          <th>Estado</th>
+          <th>Gasolina</th>
+          <th>Operador</th>
+          <th>Últ. modificación</th>
+        </tr>
+      </thead>
+      <tbody id="gestionBody"></tbody>
+    </table>
+  </div>
+  <div class="gestion-stats" id="gestionStats"></div>
+</div>
+
+<!-- SHORTCUT HINT -->
+<div class="shortcut-hint" id="shortcutHint">
+  <div class="sh-row"><span>Guardar cambio</span><span class="sh-key">Ctrl+S</span></div>
+  <div class="sh-row"><span>Cerrar panel</span><span class="sh-key">Esc</span></div>
+  <div class="sh-row"><span>Buscar</span><span class="sh-key">Ctrl+F</span></div>
+  <div class="sh-row"><span>Cerrar gestión</span><span class="sh-key">G</span></div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toastEl"></div>
 
@@ -974,11 +1193,26 @@ const ZONES = [
 let units = {}; // keyed by slotId
 let slotCounter = 1;
 
+const ALL_ESTADOS_FULL = ['LISTO','SUCIO','MANTENIMIENTO','TRASLADO','RESGUARDO','VENTA','RETENIDA','EXTERNO'];
+
 ZONES.forEach(z => {
   for(let i=0; i<z.cols; i++){
     const sid = z.id + String(slotCounter).padStart(2,'0');
-    const isEmpty = Math.random() < 0.17;
-    const est = isEmpty ? 'VACIO' : rp([...ESTADOS,...ESTADOS,'LISTO']); // bias toward LISTO
+    // ~10% empty, rest biased toward LISTO/SUCIO for realism
+    const isEmpty = Math.random() < 0.10;
+    let est;
+    if(isEmpty){ est = 'VACIO'; }
+    else {
+      const r = Math.random();
+      if(r < 0.38)      est = 'LISTO';
+      else if(r < 0.58) est = 'SUCIO';
+      else if(r < 0.70) est = 'MANTENIMIENTO';
+      else if(r < 0.78) est = 'TRASLADO';
+      else if(r < 0.84) est = 'RESGUARDO';
+      else if(r < 0.89) est = 'VENTA';
+      else if(r < 0.94) est = 'RETENIDA';
+      else              est = 'EXTERNO';
+    }
     units[sid] = {
       slotId: sid, zona: z.id, zonaName: z.name,
       mva:    isEmpty ? '' : mvaRnd(),
@@ -1295,7 +1529,7 @@ function findEmptySlot(){
    STATS
 ══════════════════════════════════════════════════ */
 function updateStats(){
-  const c={LISTO:0,SUCIO:0,MANTENIMIENTO:0,TRASLADO:0,RESGUARDO:0,total:0};
+  const c={LISTO:0,SUCIO:0,MANTENIMIENTO:0,TRASLADO:0,RESGUARDO:0,VENTA:0,RETENIDA:0,EXTERNO:0,total:0};
   Object.values(units).forEach(u=>{
     if(u.estado==='VACIO') return;
     c.total++;
@@ -1307,6 +1541,9 @@ function updateStats(){
   document.getElementById('sTras').textContent  = c.TRASLADO;
   document.getElementById('sRes').textContent   = c.RESGUARDO;
   document.getElementById('sTotal').textContent = c.total;
+  // Cuadre = unidades en patio (LISTO + SUCIO + MANTO) vs total con vehículo
+  const cuadreActive = c.LISTO + c.SUCIO + c.MANTENIMIENTO;
+  document.getElementById('sCuadre').textContent = `${cuadreActive}/${c.total}`;
 }
 
 /* ══════════════════════════════════════════════════
@@ -1352,17 +1589,32 @@ function toggleHistory(){
 /* ══════════════════════════════════════════════════
    REALTIME SIMULATION
 ══════════════════════════════════════════════════ */
+const SIM_MSGS = [
+  u => `🔄 ${u.mva} → ${u.estado} (${u.lastBy})`,
+  u => `✅ ${u.mva} liberado — ${u.lastBy} · Zona ${u.zona}`,
+  u => `⚠️ ${u.mva} en ${u.estado} · requiere atención`,
+  u => `🚚 ${u.mva} en traslado — registrado por ${u.lastBy}`,
+  u => `📋 Estado actualizado: ${u.mva} → ${u.estado}`,
+  u => `🔔 Cambio detectado en Cajón ${u.slotId} · ${u.mva}`,
+];
+
 function simulateUpdate(){
   if(!realtimeOn) return;
   const eligible = Object.values(units).filter(u=>u.estado!=='VACIO' && u.slotId!==selectedSlot);
   if(!eligible.length) return;
   const u = eligible[ri(0,eligible.length-1)];
   const prev = u.estado;
-  u.estado  = rp(ESTADOS);
+  // Bias simulation: mostly minor changes (LISTO ↔ SUCIO), rare extremes
+  const r = Math.random();
+  if(r < 0.40)      u.estado = 'LISTO';
+  else if(r < 0.62) u.estado = 'SUCIO';
+  else if(r < 0.74) u.estado = 'MANTENIMIENTO';
+  else if(r < 0.82) u.estado = 'TRASLADO';
+  else              u.estado = rp(ESTADOS);
   u.lastBy  = rp(USUARIOS);
   u.lastAt  = new Date();
   u.version++;
-  addHistory(u, prev, 'Actualización automática');
+  addHistory(u, prev, 'Actualización en tiempo real');
 
   // Re-render just this car
   const car = document.getElementById('car-'+u.slotId);
@@ -1375,13 +1627,14 @@ function simulateUpdate(){
     car.classList.add('updated'); setTimeout(()=>car.classList.remove('updated'),900);
   }
 
-  // Sync filter opacity
   const spot = document.getElementById('spot-'+u.slotId);
   if(spot) spot.style.opacity = matchFilter(u)?'1':'0.18';
 
   updateStats();
   document.getElementById('lastUpd').textContent = new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-  if(Math.random()<0.25) toast(`🔄 ${u.mva} → ${u.estado}`);
+  if(Math.random()<0.3) toast(rp(SIM_MSGS)(u));
+  // Occasionally refresh gestión table if open
+  if(document.getElementById('gestionOverlay').classList.contains('open')) renderGestion();
 }
 
 setInterval(simulateUpdate, 4200);
@@ -1421,18 +1674,142 @@ function toast(msg){
 }
 
 /* ══════════════════════════════════════════════════
+   ONBOARDING
+══════════════════════════════════════════════════ */
+function closeOnboard(){
+  const o = document.getElementById('onboardOverlay');
+  o.classList.add('hidden');
+  setTimeout(()=>o.style.display='none', 300);
+  sessionStorage.setItem('sbOnboarded','1');
+}
+if(sessionStorage.getItem('sbOnboarded')){
+  const o = document.getElementById('onboardOverlay');
+  o.style.display='none';
+}
+
+/* ══════════════════════════════════════════════════
+   GESTION VIEW
+══════════════════════════════════════════════════ */
+let gCurrentFilter = 'all';
+let gSearchQuery   = '';
+
+const estadoColorMap={
+  LISTO:'#0d9488',SUCIO:'#d97706',MANTENIMIENTO:'#dc2626',
+  TRASLADO:'#7c3aed',RESGUARDO:'#92400e',VENTA:'#f59e0b',
+  RETENIDA:'#1d4ed8',EXTERNO:'#475569'
+};
+
+function openGestion(){
+  renderGestion();
+  document.getElementById('gestionOverlay').classList.add('open');
+  document.getElementById('gestionSearch').value = '';
+  gSearchQuery = '';
+}
+function closeGestion(){
+  document.getElementById('gestionOverlay').classList.remove('open');
+}
+
+function setGFilter(f, el){
+  gCurrentFilter = f;
+  document.querySelectorAll('.gestion-filter-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderGestion();
+}
+function filterGestion(q){
+  gSearchQuery = q.toLowerCase().trim();
+  renderGestion();
+}
+
+function renderGestion(){
+  const all = Object.values(units).filter(u=>u.estado!=='VACIO');
+  let filtered = all.filter(u=>{
+    const matchF = gCurrentFilter==='all' || u.estado===gCurrentFilter;
+    const matchQ = !gSearchQuery || (u.mva+u.modelo+u.placas+u.estado+u.categoria).toLowerCase().includes(gSearchQuery);
+    return matchF && matchQ;
+  });
+
+  const body = document.getElementById('gestionBody');
+  if(!filtered.length){
+    body.innerHTML = `<tr><td colspan="8" class="gestion-empty">Sin resultados para ese filtro o búsqueda.</td></tr>`;
+  } else {
+    body.innerHTML = filtered.map(u=>{
+      const mins = Math.round((Date.now()-u.lastAt.getTime())/60000);
+      const gasColor = u.gasolina==='4/4'?'#10b981':u.gasolina==='3/4'?'#3b82f6':u.gasolina==='2/4'?'#f59e0b':'#ef4444';
+      return `<tr class="gtr" onclick="closeGestion();selectUnit('${u.slotId}')">
+        <td style="font-family:monospace;color:#94a3b8;">${u.slotId}</td>
+        <td style="font-weight:900;color:#fff;">${u.mva}</td>
+        <td>${u.modelo}</td>
+        <td class="g-muted">${u.categoria}</td>
+        <td><span class="g-badge" style="background:${estadoColorMap[u.estado]||'#475569'}">${estadoShort(u.estado)}</span></td>
+        <td><span style="color:${gasColor};font-weight:900;">${u.gasolina}</span></td>
+        <td class="g-muted">${u.lastBy}</td>
+        <td class="g-muted">${mins<1?'Ahora':mins+'min'}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  // Stats footer
+  const c={LISTO:0,SUCIO:0,MANTENIMIENTO:0,TRASLADO:0,RESGUARDO:0};
+  all.forEach(u=>{ if(c[u.estado]!==undefined) c[u.estado]++; });
+  document.getElementById('gestionStats').innerHTML =
+    `<strong>${filtered.length}</strong> unidades mostradas &nbsp;·&nbsp; ` +
+    `Listo <strong style="color:#0d9488">${c.LISTO}</strong> &nbsp;·&nbsp; ` +
+    `Sucio <strong style="color:#d97706">${c.SUCIO}</strong> &nbsp;·&nbsp; ` +
+    `Manto <strong style="color:#dc2626">${c.MANTENIMIENTO}</strong> &nbsp;·&nbsp; ` +
+    `Traslado <strong style="color:#7c3aed">${c.TRASLADO}</strong> &nbsp;·&nbsp; ` +
+    `Resguardo <strong style="color:#92400e">${c.RESGUARDO}</strong>`;
+}
+
+/* ══════════════════════════════════════════════════
+   ALERTAS
+══════════════════════════════════════════════════ */
+const ALERTAS_MOCK = [
+  '⚠️ MVA-3847 sin movimiento por 48h — Zona C',
+  '🔴 MVA-1209 en Resguardo · pendiente resolución legal',
+  '🛢️ 4 unidades con gasolina N/A — requieren abastecimiento',
+];
+let alertaIdx = 0;
+function showAlertas(){
+  toast(ALERTAS_MOCK[alertaIdx % ALERTAS_MOCK.length]);
+  alertaIdx++;
+}
+
+/* ══════════════════════════════════════════════════
+   SHORTCUT HINT
+══════════════════════════════════════════════════ */
+let _shTimer;
+function showShortcutHint(){
+  const h = document.getElementById('shortcutHint');
+  h.classList.add('visible');
+  clearTimeout(_shTimer);
+  _shTimer = setTimeout(()=>h.classList.remove('visible'), 2800);
+}
+
+/* ══════════════════════════════════════════════════
    KEYBOARD
 ══════════════════════════════════════════════════ */
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){closePanel();closeAddDialog();}
+  if(e.key==='Escape'){
+    if(document.getElementById('gestionOverlay').classList.contains('open')){closeGestion();return;}
+    closePanel();closeAddDialog();
+  }
   if(e.key==='s'&&(e.ctrlKey||e.metaKey)){e.preventDefault();saveUnit();}
+  if(e.key==='g'||e.key==='G'){
+    if(!e.ctrlKey && !e.metaKey && document.activeElement.tagName!=='INPUT' && document.activeElement.tagName!=='TEXTAREA'){
+      document.getElementById('gestionOverlay').classList.contains('open') ? closeGestion() : openGestion();
+    }
+  }
+  if(e.key==='f'&&(e.ctrlKey||e.metaKey)){e.preventDefault();document.getElementById('searchInput').focus();}
+  showShortcutHint();
 });
 
 /* ══════════════════════════════════════════════════
    INIT
 ══════════════════════════════════════════════════ */
 renderMap();
-toast('🗺️ Sandbox cargado — Plaza Monterrey · ' + Object.values(units).filter(u=>u.estado!=='VACIO').length + ' unidades activas');
+const _activeUnits = Object.values(units).filter(u=>u.estado!=='VACIO').length;
+const _listos = Object.values(units).filter(u=>u.estado==='LISTO').length;
+setTimeout(()=>toast(`🗺️ Plaza Monterrey — ${_activeUnits} unidades · ${_listos} listas para renta`), 500);
 </script>
 </body>
 </html>
