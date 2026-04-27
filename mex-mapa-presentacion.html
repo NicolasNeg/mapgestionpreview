@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MapGestion - Gestiona mapas y registros con una experiencia mas rapida, visual y profesional</title>
-<meta name="description" content="MapGestion es una plataforma visual para crear, editar y controlar mapas y registros con menos errores, mas claridad y mejor velocidad operativa." />
+<title>MapGestion · Tu patio entero en una vista. Menos caos. Más control.</title>
+<meta name="description" content="Mapa operativo, flota y trazabilidad en el mismo lugar que usa tu equipo en piso — sin spreadsheets eternos ni estados perdidos entre chats." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0" rel="stylesheet" />
 <style>
   :root {
     --bg: #f5f7fb;
@@ -38,9 +39,33 @@
     --display: 'Sora', 'Inter', sans-serif;
     --body: 'Inter', system-ui, sans-serif;
     --mono: 'JetBrains Mono', ui-monospace, monospace;
+    /* Alineado con mex-mapa / shell.css */
+    --sh-sidebar-bg: #07111f;
+    --sh-sidebar-accent: #2ecc71;
+    --sh-body-bg: #f4fbf4;
+    --map-slot-border: #cfe8dc;
+    --st-listo-bg: #dcfce7;
+    --st-listo-txt: #166534;
+    --st-sucio-bg: #fef9c3;
+    --st-sucio-txt: #854d0e;
+    --st-mant-bg: #fee2e2;
+    --st-mant-txt: #991b1b;
+    --st-traslado-bg: #ede9fe;
+    --st-traslado-txt: #5b21b6;
   }
 
   * { box-sizing: border-box; }
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
   html { scroll-behavior: smooth; }
   body {
     margin: 0;
@@ -234,11 +259,44 @@
   }
   .hero-copy h1 {
     margin: 0;
-    max-width: 12ch;
+    max-width: 18ch;
     font-family: var(--display);
-    font-size: clamp(48px, 6vw, 76px);
+    font-size: clamp(46px, 5.8vw, 74px);
     line-height: 0.98;
     letter-spacing: -0.05em;
+  }
+  .hero-copy h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero-live-strip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-soft);
+    background: rgba(46, 204, 113, 0.1);
+    border: 1px solid rgba(46, 204, 113, 0.22);
+  }
+  .hero-live-strip::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--sh-sidebar-accent);
+    box-shadow: 0 0 0 6px rgba(46, 204, 113, 0.25);
+    animation: heroPulse 2.4s ease-in-out infinite;
+  }
+  @keyframes heroPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.65; transform: scale(0.92); }
   }
   .hero-copy p {
     margin: 22px 0 0;
@@ -329,8 +387,9 @@
     flex-direction: column;
     gap: 16px;
     padding: 18px 14px;
-    background: linear-gradient(180deg, #0f172a 0%, #17233f 100%);
+    background: var(--sh-sidebar-bg);
     color: rgba(255,255,255,0.82);
+    border-right: 1px solid rgba(255,255,255,0.08);
   }
   .stage-sidebar .mini-kicker {
     font-size: 9px;
@@ -344,8 +403,9 @@
     background: rgba(255,255,255,0.04);
   }
   .side-dot.active {
-    background: linear-gradient(135deg, rgba(37,99,235,0.36), rgba(79,70,229,0.54));
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(46, 204, 113, 0.45);
+    box-shadow: inset 0 0 0 1px rgba(46, 204, 113, 0.35);
   }
   .stage-main {
     display: flex;
@@ -786,83 +846,433 @@
   .demo-shell .section-head h2,
   .demo-shell .section-head p,
   .demo-shell .section-label { color: inherit; }
-  .video-placeholder {
+
+  /* Sandbox tipo app-mapa / mex-shell (solo demo visual, sin backend) */
+  .map-sandbox {
     position: relative;
-    min-height: 420px;
-    border-radius: 30px;
-    border: 1px solid rgba(255,255,255,0.08);
-    background:
-      linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)),
-      radial-gradient(circle at top right, rgba(37,99,235,0.24), transparent 30%),
-      radial-gradient(circle at bottom left, rgba(20,184,166,0.24), transparent 26%);
-    display: grid;
-    place-items: center;
+    border-radius: 28px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: var(--sh-body-bg);
+    color: #0f172a;
     overflow: hidden;
+    box-shadow: 0 28px 80px rgba(0,0,0,0.35);
+    min-height: 520px;
   }
-  .video-placeholder::after {
+  .map-sandbox::after {
     content: "";
     position: absolute;
-    inset: 18px;
+    inset: 12px;
     border-radius: 22px;
-    border: 1px dashed rgba(255,255,255,0.12);
+    border: 1px dashed rgba(7, 17, 31, 0.08);
     pointer-events: none;
+    z-index: 0;
   }
-  .video-grid {
-    position: absolute;
-    inset: 0;
-    background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-    background-size: 28px 28px;
-    mask-image: linear-gradient(180deg, rgba(0,0,0,0.72), transparent 88%);
-  }
-  .video-card {
+  .sandbox-chrome {
     position: relative;
     z-index: 1;
-    max-width: 620px;
-    padding: 34px;
-    text-align: center;
-    border-radius: 28px;
-    background: rgba(12,18,31,0.68);
-    border: 1px solid rgba(255,255,255,0.08);
-    backdrop-filter: blur(16px);
-    box-shadow: 0 26px 70px rgba(0,0,0,0.24);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(7, 17, 31, 0.06);
+    background: rgba(255,255,255,0.92);
   }
-  .play-button {
-    width: 86px;
-    height: 86px;
-    margin: 0 auto 20px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: linear-gradient(135deg, #fff 0%, #dbeafe 100%);
-    color: var(--primary);
-    font-size: 26px;
-    box-shadow: 0 20px 50px rgba(37,99,235,0.24);
-  }
-  .video-card h3 {
-    margin: 0;
-    font-family: var(--display);
-    font-size: clamp(28px, 4vw, 42px);
-    line-height: 1.02;
-    letter-spacing: -0.05em;
-  }
-  .video-card p {
-    margin: 14px 0 0;
-    color: rgba(255,255,255,0.74);
-    line-height: 1.75;
-  }
-  .video-meta {
+  .sandbox-badge {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    margin-top: 18px;
-    padding: 10px 14px;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.08);
-    font-family: var(--mono);
+    gap: 6px;
     font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+  }
+  .sandbox-badge--muted {
+    background: #f1f5f9;
+    color: #475569;
+    border-color: #e2e8f0;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0.02em;
+  }
+  .sandbox-app {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    min-height: 460px;
+  }
+  .sandbox-sidebar {
+    background: var(--sh-sidebar-bg);
+    border-right: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 10px;
+  }
+  .sandbox-logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--sh-sidebar-accent);
+    color: #fff;
+    font-weight: 900;
+    font-size: 15px;
+    display: grid;
+    place-items: center;
+    font-family: var(--body);
+    margin-bottom: 8px;
+  }
+  .sandbox-nav-ic {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    color: rgba(255,255,255,0.55);
+    border: 1px solid transparent;
+    cursor: default;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .sandbox-nav-ic .material-symbols-outlined {
+    font-size: 22px;
+    font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+  }
+  .sandbox-nav-ic.is-active {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border-color: rgba(46, 204, 113, 0.35);
+  }
+  .sandbox-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: 0;
+    background: #fff;
+  }
+  .sandbox-head {
+    padding: 16px 18px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .sandbox-head h3 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: 20px;
+    letter-spacing: -0.03em;
+    color: #0f172a;
+  }
+  .sandbox-head p {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: #64748b;
+  }
+  .sandbox-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(72px, 1fr));
+    gap: 8px;
+  }
+  .sandbox-summary article {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 8px 10px;
+    background: #fafafa;
+  }
+  .sandbox-summary span {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #64748b;
+  }
+  .sandbox-summary strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 17px;
+    color: #0f172a;
+    font-weight: 800;
+  }
+  .sandbox-summary strong.emerald {
+    color: #047857;
+  }
+  .sandbox-toolbar {
+    padding: 10px 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+    background: linear-gradient(180deg, #fff 0%, #fafafa 100%);
+  }
+  .sandbox-search {
+    flex: 1;
+    min-width: 160px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    font-size: 13px;
+    background: #fff;
+  }
+  .sandbox-search:focus {
+    outline: none;
+    border-color: rgba(43, 105, 84, 0.45);
+    box-shadow: 0 0 0 3px rgba(43, 105, 84, 0.12);
+  }
+  .sandbox-filter-chip {
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    color: #475569;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .sandbox-filter-chip:hover {
+    border-color: #cbd5e1;
+  }
+  .sandbox-filter-chip.is-on {
+    border-color: rgba(43, 105, 84, 0.45);
+    background: #ecfdf5;
+    color: #065f46;
+  }
+  .sandbox-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(200px, 260px);
+    gap: 0;
+    flex: 1;
+    min-height: 280px;
+    align-items: stretch;
+  }
+  .sandbox-canvas-wrap {
+    padding: 14px 16px 18px;
+    overflow: auto;
+    background: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+  }
+  .sandbox-row-label {
+    grid-column: 1 / -1;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    font-weight: 800;
+    font-size: 13px;
+    color: #0f172a;
+    background: linear-gradient(90deg, #ecfdf5, transparent);
+    border-radius: 8px;
+  }
+  .sandbox-row-label small {
+    display: block;
+    font-weight: 600;
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 4px;
+  }
+  .sandbox-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+    gap: 10px;
+  }
+  .sandbox-slot {
+    border: 1px solid var(--map-slot-border);
+    border-radius: 12px;
+    background: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 120px;
+  }
+  .sandbox-slot-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    border-bottom: 1px solid #ecfdf5;
+    background: linear-gradient(#fff, #f8fafc);
+  }
+  .sandbox-slot-label {
+    font-weight: 900;
+    font-size: 13px;
+    color: #0f172a;
+  }
+  .sandbox-slot-zone {
+    font-size: 11px;
+    font-weight: 700;
+    color: #475569;
+  }
+  .sandbox-slot-body {
+    flex: 1;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .sandbox-unit {
+    border: 1px solid #dbeafe;
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 8px;
+    text-align: left;
+    cursor: pointer;
+    font: inherit;
+    width: 100%;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  }
+  .sandbox-unit:hover {
+    border-color: rgba(43, 105, 84, 0.35);
+  }
+  .sandbox-unit.is-selected {
+    border-color: #2b6954;
+    background: #ecfdf5;
+    box-shadow: 0 0 0 2px rgba(43, 105, 84, 0.15);
+  }
+  .sandbox-unit.is-dim {
+    opacity: 0.38;
+    pointer-events: none;
+  }
+  .sandbox-unit-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  .sandbox-unit-placa {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  .sandbox-unit-state {
+    font-size: 10px;
+    font-weight: 800;
+    border-radius: 999px;
+    padding: 2px 8px;
+  }
+  .sandbox-unit-state.is-listo {
+    background: var(--st-listo-bg);
+    color: var(--st-listo-txt);
+  }
+  .sandbox-unit-state.is-sucio {
+    background: var(--st-sucio-bg);
+    color: var(--st-sucio-txt);
+  }
+  .sandbox-unit-state.is-mantenimiento {
+    background: var(--st-mant-bg);
+    color: var(--st-mant-txt);
+  }
+  .sandbox-unit-state.is-traslado {
+    background: var(--st-traslado-bg);
+    color: var(--st-traslado-txt);
+  }
+  .sandbox-unit-meta {
+    font-size: 11px;
+    color: #475569;
+    margin-top: 4px;
+  }
+  .sandbox-detail {
+    padding: 14px 16px 18px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 100%;
+  }
+  .sandbox-detail-tag {
+    font-family: var(--mono);
+    font-size: 10px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
+    color: #64748b;
+  }
+  .sandbox-detail h4 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: 20px;
+    letter-spacing: -0.03em;
+  }
+  .sandbox-detail-plate {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  .sandbox-detail-rows {
+    display: grid;
+    gap: 10px;
+  }
+  .sandbox-detail-row {
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: #fafafa;
+    font-size: 13px;
+  }
+  .sandbox-detail-row span {
+    display: block;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #64748b;
+    margin-bottom: 4px;
+  }
+  .sandbox-detail-note {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.55;
+    color: #64748b;
+  }
+  .sandbox-detail-cta {
+    margin-top: auto;
+    min-height: 44px;
+    border: 0;
+    border-radius: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    background: linear-gradient(135deg, #065f46 0%, #2b6954 100%);
+    color: #fff;
+    box-shadow: 0 14px 28px rgba(43, 105, 84, 0.28);
+  }
+  .sandbox-detail-cta:hover {
+    filter: brightness(1.05);
+  }
+
+  @media (max-width: 900px) {
+    .sandbox-layout {
+      grid-template-columns: 1fr;
+    }
+    .sandbox-canvas-wrap {
+      border-right: none;
+      border-bottom: 1px solid #e2e8f0;
+      max-height: 360px;
+    }
+    .sandbox-detail {
+      border-top: 1px solid #f1f5f9;
+    }
+  }
+  @media (max-width: 600px) {
+    .sandbox-app {
+      grid-template-columns: 56px minmax(0, 1fr);
+    }
+    .sandbox-summary {
+      grid-template-columns: repeat(3, 1fr);
+      width: 100%;
+    }
+    .sandbox-head {
+      flex-direction: column;
+    }
   }
 
   .tour-head-note {
@@ -1533,7 +1943,7 @@
     .hero {
       padding-top: 38px;
     }
-    .hero-copy h1 { max-width: 13ch; }
+    .hero-copy h1 { max-width: none; }
     .stage-app {
       grid-template-columns: 74px minmax(0, 1fr);
     }
@@ -1674,6 +2084,9 @@
       animation: none !important;
       transition: none !important;
     }
+    .hero-live-strip::before {
+      animation: none !important;
+    }
   }
 </style>
 </head>
@@ -1707,20 +2120,21 @@
     <section class="hero" id="producto">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow">SaaS visual para mapas y registros</span>
-          <h1>Gestiona mapas y registros con una experiencia mas rapida, visual y profesional.</h1>
+          <span class="eyebrow">Mapa operativo + flota · mismo contexto visual</span>
+          <h1>Basta de adivinar donde quedo cada unidad. <em>Todo el patio, en una vista.</em></h1>
           <p>
-            MapGestion centraliza edicion, trazabilidad y control operativo en una sola interfaz clara.
-            Tu equipo entiende mejor el estado de cada registro, trabaja con menos friccion y avanza sin depender de tablas saturadas ni flujos confusos.
+            Menos spreadsheets que nadie actualiza y menos fotos del grupo de WhatsApp.
+            MapGestion es la misma jerarquia visual que tu operacion usa en piso — cajones, estados y movimientos con nombre, plaza y hora cuando importa.
           </p>
           <div class="hero-actions">
-            <a href="#demo" class="btn btn-primary">Ver demo</a>
-            <a href="#contacto" class="btn btn-secondary">Hablar con ventas</a>
+            <a href="#demo" class="btn btn-primary">Probar sandbox interactivo</a>
+            <a href="#contacto" class="btn btn-secondary">Quiero una demo guiada</a>
           </div>
+          <div class="hero-live-strip">Sandbox abajo · misma anatomia que la app mapa real</div>
           <div class="hero-meta">
-            <span class="chip">Edicion rapida sin caos visual</span>
-            <span class="chip">Historial claro para equipos</span>
-            <span class="chip">Responsive y listo para uso diario</span>
+            <span class="chip">Estados con color como en piso</span>
+            <span class="chip">Trazabilidad sin reconstruir el dia a mano</span>
+            <span class="chip">Interfaz pensada para uso diario, no para demos bonitas</span>
           </div>
         </div>
 
@@ -1730,11 +2144,11 @@
               <span class="browser-dot"></span>
               <span class="browser-dot"></span>
               <span class="browser-dot"></span>
-              <span class="browser-url">mapgestion / dashboard / editor</span>
+              <span class="browser-url">localhost / app · mapa operativo · plaza activa</span>
             </div>
             <div class="stage-app">
               <aside class="stage-sidebar">
-                <span class="mini-kicker">navegacion</span>
+                <span class="mini-kicker">shell</span>
                 <div class="side-dot active"></div>
                 <div class="side-dot"></div>
                 <div class="side-dot"></div>
@@ -1744,10 +2158,10 @@
 
               <div class="stage-main">
                 <div class="stage-toolbar">
-                  <span class="tool-chip active">Mapa</span>
-                  <span class="tool-chip">Registros</span>
+                  <span class="tool-chip active">Mapa operativo</span>
+                  <span class="tool-chip">Gestion flota</span>
                   <span class="tool-chip">Historial</span>
-                  <span class="tool-chip">Equipo</span>
+                  <span class="tool-chip">Cuadre</span>
                 </div>
                 <div class="stage-map">
                   <img src="assets/screenshots/mapa-vivo.png" alt="Preview del mapa principal de MapGestion" />
@@ -1781,8 +2195,8 @@
           <div class="stage-floating editor">
             <img src="assets/screenshots/editor-mapa.png" alt="Preview secundaria del editor" />
           </div>
-          <div class="stage-badge one">3x mas velocidad de edicion</div>
-          <div class="stage-badge two">Historial listo para auditoria</div>
+          <div class="stage-badge one">Sidebar + canvas como tu app mex-mapa</div>
+          <div class="stage-badge two">Estados listo · sucio · taller</div>
         </div>
       </div>
     </section>
@@ -1928,24 +2342,86 @@
       <div class="container demo-shell">
         <div class="section-head">
           <div>
-            <span class="section-label">Bloque de demo</span>
-            <h2>Descubre en segundos como se crea, edita y gestiona un registro dentro de MapGestion.</h2>
+            <span class="section-label">Sandbox vivo</span>
+            <h2>Misma anatomia que tu mapa real: sidebar oscuro, resumen arriba, cajones con unidades y panel de detalle.</h2>
           </div>
           <p>
-            Aun no hay video final, pero este bloque ya queda listo para recibir un iframe, un video HTML5 o un embed mas adelante sin tener que redisenar la seccion.
+            Esto es una maqueta interactiva dentro de la landing — no conecta a Firebase ni a tu proyecto.
+            Sirve para que cualquiera entienda en treinta segundos como se lee el patio: toca una unidad, filtra por estado, usa el buscador de placas.
           </p>
         </div>
 
-        <!-- Reemplazar este placeholder por el video real cuando exista. -->
-        <div class="video-placeholder" id="demo-block">
-          <div class="video-grid"></div>
-          <div class="video-card">
-            <div class="play-button">▶</div>
-            <h3>Espacio reservado para el video demo.</h3>
-            <p>
-              Aqui podras insertar el recorrido del producto para mostrar el flujo completo: carga, edicion, guardado y control de historial dentro de MapGestion.
-            </p>
-            <div class="video-meta">placeholder elegante listo para reemplazo</div>
+        <div class="map-sandbox" id="demo-block">
+          <div class="sandbox-chrome">
+            <span class="sandbox-badge">Sandbox interactivo</span>
+            <span class="sandbox-badge sandbox-badge--muted">Datos ficticios · sin backend</span>
+          </div>
+          <div class="sandbox-app">
+            <aside class="sandbox-sidebar" aria-hidden="true">
+              <span class="sandbox-logo">M</span>
+              <span class="sandbox-nav-ic is-active" title="Mapa"><span class="material-symbols-outlined">map</span></span>
+              <span class="sandbox-nav-ic"><span class="material-symbols-outlined">dashboard</span></span>
+              <span class="sandbox-nav-ic"><span class="material-symbols-outlined">chat</span></span>
+              <span class="sandbox-nav-ic"><span class="material-symbols-outlined">notifications</span></span>
+              <span class="sandbox-nav-ic"><span class="material-symbols-outlined">settings</span></span>
+            </aside>
+
+            <div class="sandbox-main">
+              <header class="sandbox-head">
+                <div>
+                  <h3>Mapa operativo</h3>
+                  <p>Plaza demo: <strong>GDL-NORTE</strong> · Vista compacta tipo app shell</p>
+                </div>
+                <div class="sandbox-summary" aria-label="Resumen rapido">
+                  <article><span>Ocupacion</span><strong class="emerald" id="sandbox-k-occ">82%</strong></article>
+                  <article><span>Listos</span><strong id="sandbox-k-list">12</strong></article>
+                  <article><span>Alerta</span><strong id="sandbox-k-alert">3</strong></article>
+                </div>
+              </header>
+
+              <div class="sandbox-toolbar">
+                <label class="visually-hidden" for="sandbox-search">Buscar unidad</label>
+                <input type="search" id="sandbox-search" class="sandbox-search" placeholder="Buscar por placa o modelo..." autocomplete="off" />
+                <button type="button" class="sandbox-filter-chip is-on" data-filter="all">Todos</button>
+                <button type="button" class="sandbox-filter-chip" data-filter="listo">Listo</button>
+                <button type="button" class="sandbox-filter-chip" data-filter="sucio">Sucio</button>
+                <button type="button" class="sandbox-filter-chip" data-filter="mantenimiento">Taller</button>
+              </div>
+
+              <div class="sandbox-layout">
+                <div class="sandbox-canvas-wrap">
+                  <div class="sandbox-row-label">
+                    Fila A · Patio norte
+                    <small>Cajones alineados · arrastre disponible solo en la app completa con permisos</small>
+                  </div>
+                  <div class="sandbox-slots-grid" id="sandbox-slots"></div>
+                </div>
+
+                <aside class="sandbox-detail" id="sandbox-detail" aria-live="polite">
+                  <span class="sandbox-detail-tag">Detalle de unidad</span>
+                  <h4 id="sandbox-d-title">Selecciona una unidad</h4>
+                  <div class="sandbox-detail-plate" id="sandbox-d-plate"></div>
+                  <div class="sandbox-detail-rows">
+                    <div class="sandbox-detail-row">
+                      <span>Estado operativo</span>
+                      <span id="sandbox-d-state">—</span>
+                    </div>
+                    <div class="sandbox-detail-row">
+                      <span>Ubicacion en mapa</span>
+                      <span id="sandbox-d-slot">—</span>
+                    </div>
+                    <div class="sandbox-detail-row">
+                      <span>Ultimo movimiento</span>
+                      <span id="sandbox-d-move">—</span>
+                    </div>
+                  </div>
+                  <p class="sandbox-detail-note" id="sandbox-d-note">
+                    Toca un cajon del canvas para ver placa, estado y contexto — igual que en la vista read-only del mapa en app.
+                  </p>
+                  <button type="button" class="sandbox-detail-cta" id="sandbox-d-cta">Ver en mapa completo (demo)</button>
+                </aside>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2447,6 +2923,177 @@
         if (event.key === 'ArrowRight') openPreview(currentPreviewIndex + 1);
       }
     });
+
+    /* Sandbox mapa (UI alineada a app-mapa / shell, datos locales) */
+    const SANDBOX_SLOTS = [
+      {
+        label: 'Cajón 03',
+        zone: 'Fila A',
+        units: [
+          { id: 'u1', placa: 'ABC-12D', modelo: 'Jetta 2022', state: 'listo', move: '09:42 · Salida lavado QC' },
+          { id: 'u2', placa: 'XYZ-91K', modelo: 'Versa', state: 'sucio', move: '08:15 · Pendiente lavado' }
+        ]
+      },
+      {
+        label: 'Cajón 04',
+        zone: 'Fila A',
+        units: [
+          { id: 'u3', placa: 'MEX-404', modelo: 'NP300', state: 'traslado', move: '07:50 · En ruta a corporativo' }
+        ]
+      },
+      {
+        label: 'Cajón 05',
+        zone: 'Fila A',
+        units: [
+          { id: 'u4', placa: 'GDL-778', modelo: 'March', state: 'mantenimiento', move: 'Ayer · Taller externo' }
+        ]
+      },
+      {
+        label: 'Cajón 01',
+        zone: 'Buffer',
+        units: [
+          { id: 'u5', placa: 'RTY-22P', modelo: 'Saveiro', state: 'listo', move: '10:05 · Listo para entrega' }
+        ]
+      }
+    ];
+
+    const STATE_LABEL = {
+      listo: 'Listo',
+      sucio: 'Sucio',
+      mantenimiento: 'Taller',
+      traslado: 'Traslado'
+    };
+
+    const slotsRoot = document.getElementById('sandbox-slots');
+    const searchEl = document.getElementById('sandbox-search');
+    const filterBtns = Array.from(document.querySelectorAll('.sandbox-filter-chip'));
+    const detailTitle = document.getElementById('sandbox-d-title');
+    const detailPlate = document.getElementById('sandbox-d-plate');
+    const detailState = document.getElementById('sandbox-d-state');
+    const detailSlot = document.getElementById('sandbox-d-slot');
+    const detailMove = document.getElementById('sandbox-d-move');
+    const detailNote = document.getElementById('sandbox-d-note');
+    const detailCta = document.getElementById('sandbox-d-cta');
+    const kOcc = document.getElementById('sandbox-k-occ');
+    const kList = document.getElementById('sandbox-k-list');
+    const kAlert = document.getElementById('sandbox-k-alert');
+
+    let sandboxSelectedId = 'u1';
+    let sandboxFilter = 'all';
+    let sandboxQuery = '';
+
+    const flatUnits = () =>
+      SANDBOX_SLOTS.flatMap((slot) =>
+        slot.units.map((u) => ({
+          ...u,
+          slotLabel: `${slot.zone} · ${slot.label}`
+        }))
+      );
+
+    const unitById = (id) => flatUnits().find((u) => u.id === id);
+
+    const matchesFilter = (state) =>
+      sandboxFilter === 'all' || state === sandboxFilter;
+
+    const matchesSearch = (u) => {
+      const q = sandboxQuery.trim().toLowerCase();
+      if (!q) return true;
+      return (
+        u.placa.toLowerCase().includes(q) ||
+        u.modelo.toLowerCase().includes(q)
+      );
+    };
+
+    const updateKpis = () => {
+      const all = flatUnits();
+      const listos = all.filter((u) => u.state === 'listo').length;
+      const alert = all.filter((u) => u.state === 'sucio' || u.state === 'mantenimiento').length;
+      const occ = Math.round((all.length / 22) * 100);
+      if (kOcc) kOcc.textContent = `${occ}%`;
+      if (kList) kList.textContent = String(listos);
+      if (kAlert) kAlert.textContent = String(alert);
+    };
+
+    const renderSandboxDetail = () => {
+      const u = unitById(sandboxSelectedId);
+      if (!u) return;
+      detailTitle.textContent = u.modelo;
+      detailPlate.textContent = u.placa;
+      detailState.textContent = STATE_LABEL[u.state] || u.state;
+      detailSlot.textContent = u.slotLabel;
+      detailMove.textContent = u.move;
+      detailNote.textContent =
+        'Datos de ejemplo para la landing. En la app real verias historial completo, usuario y enlaces a cuadre o incidencias.';
+    };
+
+    const renderSandboxSlots = () => {
+      if (!slotsRoot) return;
+      slotsRoot.innerHTML = '';
+
+      SANDBOX_SLOTS.forEach((slot) => {
+        const slotEl = document.createElement('article');
+        slotEl.className = 'sandbox-slot';
+        slotEl.innerHTML = `
+          <div class="sandbox-slot-head">
+            <span class="sandbox-slot-label">${slot.label}</span>
+            <span class="sandbox-slot-zone">${slot.zone}</span>
+          </div>
+          <div class="sandbox-slot-body"></div>
+        `;
+        const body = slotEl.querySelector('.sandbox-slot-body');
+
+        slot.units.forEach((u) => {
+          const visible = matchesFilter(u.state) && matchesSearch(u);
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'sandbox-unit';
+          btn.dataset.unitId = u.id;
+          if (sandboxSelectedId === u.id) btn.classList.add('is-selected');
+          if (!visible) btn.classList.add('is-dim');
+          btn.innerHTML = `
+            <div class="sandbox-unit-top">
+              <span class="sandbox-unit-placa">${u.placa}</span>
+              <span class="sandbox-unit-state is-${u.state}">${STATE_LABEL[u.state]}</span>
+            </div>
+            <div class="sandbox-unit-meta">${u.modelo}</div>
+          `;
+          btn.addEventListener('click', () => {
+            sandboxSelectedId = u.id;
+            renderSandboxSlots();
+            renderSandboxDetail();
+          });
+          body.appendChild(btn);
+        });
+
+        slotsRoot.appendChild(slotEl);
+      });
+    };
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        sandboxFilter = btn.dataset.filter || 'all';
+        filterBtns.forEach((b) => b.classList.toggle('is-on', b === btn));
+        renderSandboxSlots();
+      });
+    });
+
+    if (searchEl) {
+      searchEl.addEventListener('input', () => {
+        sandboxQuery = searchEl.value || '';
+        renderSandboxSlots();
+      });
+    }
+
+    if (detailCta) {
+      detailCta.addEventListener('click', () => {
+        const contact = document.getElementById('contacto');
+        contact?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    updateKpis();
+    renderSandboxSlots();
+    renderSandboxDetail();
 
     const buildDefaultMessage = () => {
       const name = demoName.value.trim() || '-';
