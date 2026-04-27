@@ -1313,6 +1313,8 @@
     pointer-events: none;
   }
   .shot-card {
+    position: relative;
+    z-index: 0;
     grid-column: span 6;
     padding: 18px;
     transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
@@ -1323,6 +1325,12 @@
     transform: translateY(-4px);
     box-shadow: var(--shadow-md);
     border-color: rgba(37,99,235,0.18);
+  }
+  .shot-card:hover {
+    z-index: 4;
+  }
+  .admin-mini:hover {
+    z-index: 4;
   }
   .shot-card.wide { grid-column: span 12; }
   .shot-card.tall { grid-column: span 5; }
@@ -1389,6 +1397,9 @@
     object-fit: contain;
     transition: transform 0.22s ease;
     background: #eff4fb;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
   }
   .shot-frame:hover img,
   .mini-frame:hover img { transform: scale(1.02); }
@@ -2853,7 +2864,7 @@
     const previewPrev = document.getElementById('preview-prev');
     const previewNext = document.getElementById('preview-next');
     const previewClose = previewModal.querySelectorAll('[data-preview-close]');
-    const previewTriggers = Array.from(document.querySelectorAll('.preview-trigger'));
+    const previewTriggers = Array.from(document.querySelectorAll('main .preview-trigger'));
 
     const demoForm = document.getElementById('demo-form');
     const demoName = document.getElementById('demo-name');
@@ -2881,20 +2892,36 @@
       });
     }
 
-    const openPreview = (index) => {
-      currentPreviewIndex = (index + previewTriggers.length) % previewTriggers.length;
-      const trigger = previewTriggers[currentPreviewIndex];
-
-      previewImage.src = trigger.dataset.previewSrc;
+    const applyPreviewTrigger = (trigger) => {
+      const idx = previewTriggers.indexOf(trigger);
+      currentPreviewIndex = idx >= 0 ? idx : 0;
+      const src = trigger?.dataset?.previewSrc;
+      if (src) previewImage.src = src;
       previewImage.alt = trigger.querySelector('img')?.alt || trigger.dataset.previewTitle || 'Preview';
       previewKicker.textContent = trigger.dataset.previewKicker || 'Preview';
       previewTitle.textContent = trigger.dataset.previewTitle || 'Vista ampliada';
       previewDesc.textContent = trigger.dataset.previewDesc || 'Preview ampliada del producto.';
       previewCounter.textContent = `${String(currentPreviewIndex + 1).padStart(2, '0')} / ${String(previewTriggers.length).padStart(2, '0')}`;
+    };
 
+    const openPreviewModal = () => {
       previewModal.classList.add('is-open');
       previewModal.setAttribute('aria-hidden', 'false');
       body.classList.add('preview-open');
+    };
+
+    /** @param {number} index listado en orden DOM de main .preview-trigger */
+    const openPreviewAt = (index) => {
+      const len = previewTriggers.length;
+      if (!len) return;
+      const i = ((index % len) + len) % len;
+      applyPreviewTrigger(previewTriggers[i]);
+      openPreviewModal();
+    };
+
+    const openPreviewFromTrigger = (trigger) => {
+      applyPreviewTrigger(trigger);
+      openPreviewModal();
     };
 
     const closePreview = () => {
@@ -2905,22 +2932,32 @@
       if (lastPreviewTrigger) lastPreviewTrigger.focus();
     };
 
-    previewTriggers.forEach((trigger, index) => {
-      trigger.addEventListener('click', () => {
+    previewTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         lastPreviewTrigger = trigger;
-        openPreview(index);
+        openPreviewFromTrigger(trigger);
       });
     });
 
-    previewPrev.addEventListener('click', () => openPreview(currentPreviewIndex - 1));
-    previewNext.addEventListener('click', () => openPreview(currentPreviewIndex + 1));
+    previewPrev.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      openPreviewAt(currentPreviewIndex - 1);
+    });
+    previewNext.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      openPreviewAt(currentPreviewIndex + 1);
+    });
     previewClose.forEach((button) => button.addEventListener('click', closePreview));
 
     document.addEventListener('keydown', (event) => {
       if (previewModal.classList.contains('is-open')) {
         if (event.key === 'Escape') closePreview();
-        if (event.key === 'ArrowLeft') openPreview(currentPreviewIndex - 1);
-        if (event.key === 'ArrowRight') openPreview(currentPreviewIndex + 1);
+        if (event.key === 'ArrowLeft') openPreviewAt(currentPreviewIndex - 1);
+        if (event.key === 'ArrowRight') openPreviewAt(currentPreviewIndex + 1);
       }
     });
 
