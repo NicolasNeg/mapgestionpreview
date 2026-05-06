@@ -58,13 +58,22 @@ body {
 }
 
 button,
-input {
+input,
+select,
+textarea {
   font: inherit;
 }
 
 button {
   border: 0;
   cursor: pointer;
+}
+
+input,
+select,
+textarea {
+  border: 0;
+  outline: 0;
 }
 
 .app {
@@ -239,6 +248,23 @@ button {
   border-radius: 6px;
   background: var(--slot);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .03);
+  transition: border-color .16s ease, background .16s ease, box-shadow .16s ease;
+}
+
+.slot.interactive {
+  cursor: crosshair;
+}
+
+.slot.drop-target,
+.slot:hover.interactive {
+  border-color: rgba(225, 231, 248, .44);
+  background: rgba(43, 55, 78, .70);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 0 0 2px rgba(96, 147, 255, .10);
+}
+
+.slot.selected-slot {
+  border-color: rgba(255, 255, 255, .58);
+  box-shadow: 0 0 0 2px rgba(115, 70, 255, .36), inset 0 1px 0 rgba(255, 255, 255, .08);
 }
 
 .slot::before {
@@ -323,6 +349,7 @@ button {
     0 9px 18px rgba(0, 0, 0, .32),
     inset 0 1px 0 rgba(255, 255, 255, .20);
   transition: transform .16s ease, box-shadow .16s ease, outline .16s ease;
+  user-select: none;
 }
 
 .unit:hover {
@@ -337,6 +364,10 @@ button {
   outline-offset: 3px;
 }
 
+.unit.dragging {
+  opacity: .45;
+}
+
 .unit.blue {
   background: linear-gradient(180deg, #3bb7ff, #1384dd);
 }
@@ -348,6 +379,22 @@ button {
 .unit.gray {
   background: linear-gradient(180deg, #5b657e, #323a51);
   border: 2px dashed rgba(231, 234, 245, .42);
+}
+
+.unit.yellow {
+  background: linear-gradient(180deg, #ffd34d, #d48a06);
+}
+
+.unit.red {
+  background: linear-gradient(180deg, #ff647c, #b91c35);
+}
+
+.unit.orange {
+  background: linear-gradient(180deg, #ffb668, #c56a17);
+}
+
+.unit.purple {
+  background: linear-gradient(180deg, #9b72ff, #5c35c9);
 }
 
 .fuel {
@@ -392,6 +439,14 @@ button {
     conic-gradient(from 260deg, #7346ff 0 32%, #fff 0 73%, #7346ff 0);
   border: 2px solid rgba(255, 255, 255, .9);
   box-shadow: 0 2px 10px rgba(0, 0, 0, .4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .16s ease;
+}
+
+.unit:hover .drag-token,
+.unit.selected .drag-token {
+  opacity: 1;
 }
 
 .unit-popover {
@@ -454,6 +509,205 @@ button {
   padding: 16px 18px 18px;
   display: grid;
   gap: 12px;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  color: rgba(217, 224, 245, .58);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.field input,
+.field select,
+.field textarea {
+  min-width: 0;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, .10);
+  background: rgba(255, 255, 255, .08);
+  color: #fff;
+  padding: 10px 11px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.field select option {
+  color: #161932;
+}
+
+.field textarea {
+  min-height: 74px;
+  resize: vertical;
+  line-height: 1.45;
+}
+
+.panel-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  padding-top: 4px;
+}
+
+.panel-actions button,
+.sandbox-toolbar button {
+  min-height: 38px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .02em;
+}
+
+.primary-action {
+  background: #08c884;
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(8, 200, 132, .22);
+}
+
+.secondary-action {
+  background: rgba(255, 255, 255, .11);
+  color: rgba(242, 245, 255, .86);
+}
+
+.danger-action {
+  background: rgba(255, 84, 112, .14);
+  color: #ff8ca0;
+}
+
+.sandbox-toolbar {
+  position: fixed;
+  left: 26px;
+  bottom: 28px;
+  z-index: 36;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100vw - 160px);
+  padding: 9px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, .10);
+  background: rgba(12, 14, 31, .86);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, .35);
+  backdrop-filter: blur(12px);
+}
+
+.sandbox-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, .08);
+  color: rgba(239, 242, 255, .78);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .10em;
+}
+
+.sandbox-mark::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #08c884;
+  box-shadow: 0 0 0 4px rgba(8, 200, 132, .14);
+}
+
+.sandbox-toolbar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 12px;
+  background: rgba(255, 255, 255, .10);
+  color: #fff;
+}
+
+.sandbox-toolbar button:hover,
+.panel-actions button:hover,
+.zoom-stack button:hover {
+  filter: brightness(1.08);
+}
+
+.history-drawer {
+  position: fixed;
+  left: 26px;
+  bottom: 88px;
+  width: 344px;
+  max-height: 340px;
+  z-index: 37;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  border-radius: 17px;
+  border: 1px solid rgba(255, 255, 255, .10);
+  background: rgba(16, 18, 39, .94);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(14px);
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.history-drawer.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.history-head {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+  color: rgba(235, 239, 255, .92);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.history-list {
+  overflow: auto;
+  padding: 10px;
+}
+
+.history-item {
+  padding: 10px 11px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, .06);
+  color: rgba(236, 241, 255, .90);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.history-item + .history-item {
+  margin-top: 7px;
+}
+
+.history-item span {
+  display: block;
+  margin-top: 4px;
+  color: rgba(187, 197, 224, .62);
+  font-size: 10px;
 }
 
 .info-row {
@@ -692,22 +946,22 @@ button {
       <button class="plaza-card" type="button" onclick="openSummary()" aria-label="Abrir resumen de BJX">
         <span>
           <strong>BJX</strong>
-          <small>0% ocupado</small>
+          <small id="plazaOccupied">0% ocupado</small>
           <span class="mini-counts" aria-hidden="true">
-            <span class="mini-ok">1</span>
-            <span class="mini-warn">0</span>
-            <span class="mini-bad">0</span>
+            <span class="mini-ok" id="miniListo">1</span>
+            <span class="mini-warn" id="miniSucio">0</span>
+            <span class="mini-bad" id="miniManto">0</span>
           </span>
         </span>
       </button>
 
       <button class="scoreboard" type="button" onclick="openSummary()" aria-label="Abrir resumen de flota">
-        <span class="metric"><strong>3</strong><span>Totales</span></span>
-        <span class="metric"><strong style="color:var(--green)">1</strong><span>Listos</span></span>
-        <span class="metric"><strong style="color:var(--yellow)">0</strong><span>Sucios</span></span>
-        <span class="metric"><strong style="color:var(--pink)">0</strong><span>Mantenimiento</span></span>
-        <span class="metric"><strong style="color:var(--cyan)">3</strong><span>En patio</span></span>
-        <span class="metric"><strong style="color:var(--orange)">0</strong><span>En taller</span></span>
+        <span class="metric"><strong id="metricTotal">3</strong><span>Totales</span></span>
+        <span class="metric"><strong id="metricListo" style="color:var(--green)">1</strong><span>Listos</span></span>
+        <span class="metric"><strong id="metricSucio" style="color:var(--yellow)">0</strong><span>Sucios</span></span>
+        <span class="metric"><strong id="metricManto" style="color:var(--pink)">0</strong><span>Mantenimiento</span></span>
+        <span class="metric"><strong id="metricPatio" style="color:var(--cyan)">3</strong><span>En patio</span></span>
+        <span class="metric"><strong id="metricTaller" style="color:var(--orange)">0</strong><span>En taller</span></span>
       </button>
     </div>
   </header>
@@ -830,7 +1084,7 @@ button {
   <aside class="unit-popover" id="unitPopover" aria-live="polite">
     <div class="popover-head">
       <div>
-        <div class="eyebrow" id="unitPlace">Cajon</div>
+        <div class="eyebrow" id="editorMode">Unidad</div>
         <div class="popover-title" id="unitTitle">-</div>
       </div>
       <button class="icon-button" type="button" onclick="closeUnit()" aria-label="Cerrar">
@@ -840,12 +1094,75 @@ button {
       </button>
     </div>
     <div class="popover-body">
-      <div class="info-row"><span>Estado</span><strong><span class="status-pill" id="unitStatus">-</span></strong></div>
-      <div class="info-row"><span>Ubicacion</span><strong id="unitSlot">-</strong></div>
-      <div class="info-row"><span>Gasolina</span><strong id="unitFuel">-</strong></div>
+      <div class="field-grid">
+        <div class="field">
+          <label for="unitMva">MVA</label>
+          <input id="unitMva" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="unitSlotField">Cajon</label>
+          <select id="unitSlotField"></select>
+        </div>
+        <div class="field">
+          <label for="unitStatusField">Estado</label>
+          <select id="unitStatusField">
+            <option>LISTO</option>
+            <option>SUCIO</option>
+            <option>MANTENIMIENTO</option>
+            <option>NO ARRENDABLE</option>
+            <option>EN TALLER</option>
+            <option>TRASLADO</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="unitFuelField">Gasolina</label>
+          <select id="unitFuelField">
+            <option>F</option>
+            <option>3/4</option>
+            <option>1/2</option>
+            <option>1/4</option>
+            <option>E</option>
+            <option>N/A</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="unitPlaceField">Ubicacion</label>
+          <input id="unitPlaceField" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="unitPlatesField">Placas</label>
+          <input id="unitPlatesField" autocomplete="off" />
+        </div>
+        <div class="field full">
+          <label for="unitModelField">Modelo</label>
+          <input id="unitModelField" autocomplete="off" />
+        </div>
+        <div class="field full">
+          <label for="unitNotesField">Notas</label>
+          <textarea id="unitNotesField"></textarea>
+        </div>
+      </div>
       <div class="info-row"><span>Origen real</span><strong>Silao, Guanajuato</strong></div>
-      <div class="info-row"><span>Ultimo movimiento</span><strong>19/4/2026, 5:51 p.m.</strong></div>
+      <div class="info-row"><span>Ultimo guardado</span><strong id="unitSavedAt">Sin guardar</strong></div>
+      <div class="panel-actions">
+        <button class="primary-action" type="button" onclick="saveEditor()">Guardar</button>
+        <button class="secondary-action" type="button" onclick="duplicateSelected()">Duplicar</button>
+        <button class="danger-action" type="button" onclick="deleteSelected()">Eliminar</button>
+        <button class="secondary-action" type="button" onclick="closeUnit()">Cerrar</button>
+      </div>
     </div>
+  </aside>
+
+  <aside class="history-drawer" id="historyDrawer" aria-label="Historial sandbox">
+    <div class="history-head">
+      <span>Movimientos</span>
+      <button class="icon-button" type="button" onclick="toggleHistory()" aria-label="Cerrar historial">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M3 3l8 8M11 3l-8 8" />
+        </svg>
+      </button>
+    </div>
+    <div class="history-list" id="historyList"></div>
   </aside>
 
   <section class="summary-modal" id="summaryModal" role="dialog" aria-modal="true" aria-label="Resumen de flota">
@@ -862,21 +1179,29 @@ button {
       </div>
       <div class="summary-body">
         <div class="summary-grid">
-          <div class="summary-stat"><span>Total flota</span><strong>4</strong></div>
-          <div class="summary-stat" style="border-left-color:#00c66f;"><span>En patio</span><strong style="color:#00b765;">3</strong></div>
-          <div class="summary-stat" style="border-left-color:#5a58ff;"><span>Fuera</span><strong style="color:#5a58ff;">1</strong></div>
+          <div class="summary-stat"><span>Total flota</span><strong id="summaryTotal">4</strong></div>
+          <div class="summary-stat" style="border-left-color:#00c66f;"><span>En patio</span><strong id="summaryPatio" style="color:#00b765;">3</strong></div>
+          <div class="summary-stat" style="border-left-color:#5a58ff;"><span>Fuera</span><strong id="summaryFuera" style="color:#5a58ff;">1</strong></div>
         </div>
         <div class="summary-wide-grid">
-          <div class="summary-wide" style="border-left-color:#596074;"><span>No arrendable</span><strong>2</strong></div>
-          <div class="summary-wide" style="border-left-color:#00c66f;"><span>Listo</span><strong style="color:#00b765;">1</strong></div>
+          <div class="summary-wide" style="border-left-color:#596074;"><span>No arrendable</span><strong id="summaryNoRent">2</strong></div>
+          <div class="summary-wide" style="border-left-color:#00c66f;"><span>Listo</span><strong id="summaryListo" style="color:#00b765;">1</strong></div>
         </div>
         <div class="summary-foot">
-          <span>Total <strong style="font-size:26px;color:#151832;">3</strong> vehiculos</span>
-          <span>06:02:41 p.m.</span>
+          <span>Total <strong id="summaryFooterTotal" style="font-size:26px;color:#151832;">3</strong> vehiculos</span>
+          <span id="summaryClock">06:02:41 p.m.</span>
         </div>
       </div>
     </article>
   </section>
+
+  <div class="sandbox-toolbar" aria-label="Controles del sandbox">
+    <span class="sandbox-mark">SANDBOX</span>
+    <button type="button" onclick="openAdd()">+ Nuevo</button>
+    <button type="button" onclick="saveSandbox()">Guardar</button>
+    <button type="button" onclick="toggleHistory()">Movimientos</button>
+    <button type="button" onclick="resetSandbox()">Reset</button>
+  </div>
 
   <div class="zoom-stack" aria-label="Controles de zoom">
     <button type="button" onclick="zoomMap(1.12)" aria-label="Acercar">+</button>
@@ -889,30 +1214,476 @@ button {
 const stage = document.getElementById('yardStage');
 const viewport = document.getElementById('yardViewport');
 const popover = document.getElementById('unitPopover');
+const historyDrawer = document.getElementById('historyDrawer');
+const historyList = document.getElementById('historyList');
+const slotField = document.getElementById('unitSlotField');
+const STORAGE_KEY = 'mex-mapa:sandbox-bjx:v2';
+const STATUS_STYLE = {
+  'LISTO': 'green',
+  'SUCIO': 'yellow',
+  'MANTENIMIENTO': 'red',
+  'NO ARRENDABLE': 'blue',
+  'EN TALLER': 'orange',
+  'TRASLADO': 'purple',
+};
+const STATUS_LABEL = {
+  'LISTO': 'Listo',
+  'SUCIO': 'Sucio',
+  'MANTENIMIENTO': 'Manto',
+  'NO ARRENDABLE': 'No arrendable',
+  'EN TALLER': 'En taller',
+  'TRASLADO': 'Traslado',
+};
 let currentScale = 1;
 let toastTimer = 0;
+let selectedUnitId = '';
+let editorMode = 'edit';
+let draggingUnitId = '';
+let state = null;
 
-function selectUnit(button) {
-  document.querySelectorAll('.unit.selected').forEach((unit) => unit.classList.remove('selected'));
-  button.classList.add('selected');
+function getSlotId(slot) {
+  return (slot?.dataset?.label || '').trim();
+}
 
-  const status = button.dataset.status || '-';
-  const statusEl = document.getElementById('unitStatus');
-  statusEl.textContent = status;
-  statusEl.style.background = status === 'LISTO' ? 'rgba(0, 212, 137, .16)' : 'rgba(124, 136, 165, .18)';
-  statusEl.style.color = status === 'LISTO' ? '#32efaa' : '#d8def0';
+const slotNodes = Array.from(document.querySelectorAll('.slot')).filter((slot) => getSlotId(slot));
+const slotIds = slotNodes.map((slot) => getSlotId(slot));
 
-  document.getElementById('unitTitle').textContent = button.dataset.id || '-';
-  document.getElementById('unitPlace').textContent = `${button.dataset.place || 'Patio'} · ${button.dataset.slot || '-'}`;
-  document.getElementById('unitSlot').textContent = button.dataset.slot || '-';
-  document.getElementById('unitFuel').textContent = button.dataset.fuel || 'N/A';
+function slotNode(slotId) {
+  return slotNodes.find((slot) => getSlotId(slot) === slotId);
+}
+
+function placeForSlot(slotId) {
+  if (slotId.startsWith('TLLRS')) return 'Taller';
+  if (slotId.startsWith('B-')) return 'Bano';
+  if (slotId.startsWith('L')) return 'Limbo';
+  if (slotId.startsWith('OFICINA')) return 'Oficina';
+  return 'Patio';
+}
+
+function fuelFill(fuel) {
+  return {
+    'F': '100%',
+    '3/4': '75%',
+    '1/2': '50%',
+    '1/4': '25%',
+    'E': '0%',
+    'N/A': '0%',
+    '': '0%',
+  }[fuel] || '0%';
+}
+
+function nowLabel() {
+  return new Date().toLocaleString('es-MX', {
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  });
+}
+
+function captureInitialState() {
+  const units = {};
+  document.querySelectorAll('.unit').forEach((button) => {
+    const slot = button.closest('.slot');
+    const slotId = getSlotId(slot);
+    if (!slotId || !button.dataset.id) return;
+    const unitId = button.dataset.id.trim().toUpperCase();
+    const color = ['blue', 'green', 'gray', 'yellow', 'red', 'orange', 'purple'].find((name) => button.classList.contains(name)) || '';
+    units[unitId] = {
+      id: unitId,
+      slot: slotId,
+      status: button.dataset.status || 'NO ARRENDABLE',
+      fuel: button.dataset.fuel || 'N/A',
+      place: button.dataset.place || placeForSlot(slotId),
+      model: button.dataset.model || '',
+      plates: button.dataset.plates || '',
+      notes: '',
+      color,
+      savedAt: '19/4/2026, 5:51 p.m.',
+    };
+  });
+  return {
+    version: 2,
+    units,
+    history: [
+      { action: 'Carga inicial', detail: 'Sandbox BJX sincronizado con captura real', at: nowLabel() },
+    ],
+  };
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return captureInitialState();
+    const parsed = JSON.parse(raw);
+    if (!parsed || parsed.version !== 2 || !parsed.units) return captureInitialState();
+    return parsed;
+  } catch {
+    return captureInitialState();
+  }
+}
+
+function persistState(showMessage = false) {
+  const payload = {
+    version: 2,
+    units: state.units,
+    history: state.history.slice(0, 80),
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  if (showMessage) showToast('Cambios guardados en este sandbox');
+}
+
+function saveSandbox() {
+  Object.values(state.units).forEach((unit) => {
+    unit.savedAt = nowLabel();
+  });
+  addHistory('Guardado', 'Cambios persistidos localmente');
+  persistState(true);
+  renderAll();
+}
+
+function resetSandbox() {
+  localStorage.removeItem(STORAGE_KEY);
+  state = captureInitialState();
+  selectedUnitId = '';
+  editorMode = 'edit';
+  closeUnit();
+  renderAll();
+  persistState();
+  showToast('Sandbox restaurado');
+}
+
+function statusClass(unit) {
+  return unit.color || STATUS_STYLE[unit.status] || 'gray';
+}
+
+function createUnitElement(unit) {
+  const button = document.createElement('button');
+  button.className = `unit ${statusClass(unit)}`;
+  button.type = 'button';
+  button.draggable = true;
+  button.dataset.id = unit.id;
+  button.dataset.slot = unit.slot;
+  button.dataset.status = unit.status;
+  button.dataset.place = unit.place || placeForSlot(unit.slot);
+  button.dataset.fuel = unit.fuel || 'N/A';
+  button.style.fontSize = unit.id.length > 7 ? '14px' : '';
+  button.textContent = unit.id;
+  if (unit.id === selectedUnitId) button.classList.add('selected');
+
+  if (unit.fuel && unit.fuel !== 'N/A') {
+    const fuel = document.createElement('span');
+    fuel.className = 'fuel';
+    fuel.dataset.fuel = unit.fuel;
+    const fill = document.createElement('i');
+    fill.style.setProperty('--fill', fuelFill(unit.fuel));
+    fuel.appendChild(fill);
+    button.appendChild(fuel);
+  }
+
+  const token = document.createElement('span');
+  token.className = 'drag-token';
+  token.setAttribute('aria-hidden', 'true');
+  button.appendChild(token);
+
+  button.addEventListener('click', (event) => {
+    event.stopPropagation();
+    selectUnit(unit.id);
+  });
+  button.addEventListener('dragstart', (event) => {
+    draggingUnitId = unit.id;
+    button.classList.add('dragging');
+    event.dataTransfer.setData('text/plain', unit.id);
+    event.dataTransfer.effectAllowed = 'move';
+  });
+  button.addEventListener('dragend', () => {
+    draggingUnitId = '';
+    button.classList.remove('dragging');
+    slotNodes.forEach((slot) => slot.classList.remove('drop-target'));
+  });
+  return button;
+}
+
+function renderAll() {
+  document.querySelectorAll('.unit').forEach((unit) => unit.remove());
+  slotNodes.forEach((slot) => slot.classList.toggle('selected-slot', getSlotId(slot) === state.units[selectedUnitId]?.slot));
+  Object.values(state.units).forEach((unit) => {
+    const target = slotNode(unit.slot);
+    if (target) target.appendChild(createUnitElement(unit));
+  });
+  fillSlotOptions();
+  renderHistory();
+  updateSummary();
+}
+
+function fillSlotOptions() {
+  const current = slotField.value;
+  slotField.innerHTML = slotIds.map((slotId) => `<option value="${slotId}">${slotId}</option>`).join('');
+  if (current && slotIds.includes(current)) slotField.value = current;
+}
+
+function selectUnit(target) {
+  const unitId = typeof target === 'string' ? target : target?.dataset?.id;
+  if (!unitId || !state.units[unitId]) return;
+  selectedUnitId = unitId;
+  editorMode = 'edit';
+  openEditor(state.units[unitId]);
+  renderAll();
+  showToast(`${unitId} seleccionado`);
+}
+
+function openEditor(unit) {
+  document.getElementById('editorMode').textContent = editorMode === 'add' ? 'Nuevo vehiculo' : `${unit.place || placeForSlot(unit.slot)} · ${unit.slot}`;
+  document.getElementById('unitTitle').textContent = unit.id || 'Nuevo';
+  document.getElementById('unitMva').value = unit.id || '';
+  document.getElementById('unitSlotField').value = unit.slot || firstEmptySlot();
+  document.getElementById('unitStatusField').value = unit.status || 'LISTO';
+  document.getElementById('unitFuelField').value = unit.fuel || 'F';
+  document.getElementById('unitPlaceField').value = unit.place || placeForSlot(unit.slot || firstEmptySlot());
+  document.getElementById('unitPlatesField').value = unit.plates || '';
+  document.getElementById('unitModelField').value = unit.model || '';
+  document.getElementById('unitNotesField').value = unit.notes || '';
+  document.getElementById('unitSavedAt').textContent = unit.savedAt || 'Sin guardar';
   popover.classList.add('open');
-  showToast(`${button.dataset.id} seleccionado en ${button.dataset.slot}`);
 }
 
 function closeUnit() {
   popover.classList.remove('open');
+  editorMode = 'edit';
   document.querySelectorAll('.unit.selected').forEach((unit) => unit.classList.remove('selected'));
+  slotNodes.forEach((slot) => slot.classList.remove('selected-slot'));
+}
+
+function firstEmptySlot() {
+  return slotIds.find((slotId) => !Object.values(state.units).some((unit) => unit.slot === slotId)) || slotIds[0];
+}
+
+function openAdd(preferredSlot = '') {
+  selectedUnitId = '';
+  editorMode = 'add';
+  const slot = preferredSlot || firstEmptySlot();
+  openEditor({
+    id: nextMva(),
+    slot,
+    status: 'LISTO',
+    fuel: 'F',
+    place: placeForSlot(slot),
+    model: 'Demo 2026',
+    plates: '',
+    notes: '',
+    savedAt: 'Sin guardar',
+  });
+}
+
+function nextMva() {
+  let index = 1;
+  while (state.units[`DEMO${String(index).padStart(2, '0')}`]) index++;
+  return `DEMO${String(index).padStart(2, '0')}`;
+}
+
+function readEditorUnit() {
+  const id = document.getElementById('unitMva').value.trim().toUpperCase().replace(/\s+/g, '');
+  const slot = document.getElementById('unitSlotField').value;
+  return {
+    id,
+    slot,
+    status: document.getElementById('unitStatusField').value,
+    fuel: document.getElementById('unitFuelField').value,
+    place: document.getElementById('unitPlaceField').value.trim() || placeForSlot(slot),
+    plates: document.getElementById('unitPlatesField').value.trim().toUpperCase(),
+    model: document.getElementById('unitModelField').value.trim(),
+    notes: document.getElementById('unitNotesField').value.trim(),
+    color: STATUS_STYLE[document.getElementById('unitStatusField').value] || 'gray',
+    savedAt: nowLabel(),
+  };
+}
+
+function saveEditor() {
+  const unit = readEditorUnit();
+  if (!unit.id) {
+    showToast('MVA requerido');
+    return;
+  }
+
+  const oldId = selectedUnitId;
+  const existingById = state.units[unit.id];
+  if (editorMode === 'add' && existingById) {
+    showToast('Ese MVA ya existe');
+    return;
+  }
+  if (editorMode === 'edit' && existingById && unit.id !== oldId) {
+    showToast('Ese MVA ya existe');
+    return;
+  }
+
+  const occupied = Object.values(state.units).find((candidate) => candidate.slot === unit.slot && candidate.id !== oldId);
+  if (editorMode === 'add' && occupied) {
+    showToast(`El cajon ${unit.slot} ya esta ocupado`);
+    return;
+  }
+
+  if (editorMode === 'edit' && occupied && oldId && state.units[oldId]) {
+    occupied.slot = state.units[oldId].slot;
+    occupied.place = placeForSlot(occupied.slot);
+    occupied.savedAt = nowLabel();
+    addHistory('Swap', `${unit.id} ${state.units[oldId].slot} -> ${unit.slot} · ${occupied.id} -> ${occupied.slot}`);
+  }
+
+  if (editorMode === 'edit' && oldId && oldId !== unit.id) delete state.units[oldId];
+  state.units[unit.id] = unit;
+  selectedUnitId = unit.id;
+  addHistory(editorMode === 'add' ? 'Alta' : 'Edicion', `${unit.id} · ${unit.slot}`);
+  editorMode = 'edit';
+  persistState();
+  renderAll();
+  selectUnit(unit.id);
+  showToast(`${unit.id} guardado`);
+}
+
+function deleteSelected() {
+  if (!selectedUnitId || !state.units[selectedUnitId]) return;
+  const removed = state.units[selectedUnitId];
+  delete state.units[selectedUnitId];
+  addHistory('Baja', `${removed.id} removido de ${removed.slot}`);
+  selectedUnitId = '';
+  closeUnit();
+  persistState();
+  renderAll();
+  showToast('Unidad eliminada');
+}
+
+function duplicateSelected() {
+  const source = selectedUnitId ? state.units[selectedUnitId] : null;
+  if (!source) {
+    showToast('Selecciona una unidad');
+    return;
+  }
+  const slot = firstEmptySlot();
+  if (!slot) {
+    showToast('Sin cajones libres');
+    return;
+  }
+  const clone = {
+    ...source,
+    id: nextMva(),
+    slot,
+    place: placeForSlot(slot),
+    savedAt: nowLabel(),
+  };
+  state.units[clone.id] = clone;
+  selectedUnitId = clone.id;
+  addHistory('Duplicado', `${source.id} -> ${clone.id} en ${slot}`);
+  persistState();
+  renderAll();
+  selectUnit(clone.id);
+}
+
+function moveUnit(unitId, targetSlot) {
+  const unit = state.units[unitId];
+  if (!unit || !slotIds.includes(targetSlot) || unit.slot === targetSlot) return;
+  const originSlot = unit.slot;
+  const occupied = Object.values(state.units).find((candidate) => candidate.slot === targetSlot && candidate.id !== unitId);
+  if (occupied) {
+    occupied.slot = originSlot;
+    occupied.place = placeForSlot(originSlot);
+    occupied.savedAt = nowLabel();
+    addHistory('Swap', `${unit.id} ${originSlot} -> ${targetSlot} · ${occupied.id} -> ${originSlot}`);
+  } else {
+    addHistory('Movimiento', `${unit.id} ${originSlot} -> ${targetSlot}`);
+  }
+  unit.slot = targetSlot;
+  unit.place = placeForSlot(targetSlot);
+  if (targetSlot.startsWith('TLLRS')) {
+    unit.status = 'EN TALLER';
+    unit.color = STATUS_STYLE[unit.status];
+  }
+  unit.savedAt = nowLabel();
+  selectedUnitId = unit.id;
+  persistState();
+  renderAll();
+  selectUnit(unit.id);
+}
+
+function bindSlotInteractions() {
+  slotNodes.forEach((slot) => {
+    const slotId = getSlotId(slot);
+    slot.classList.add('interactive');
+    slot.addEventListener('click', (event) => {
+      if (event.target.closest('.unit')) return;
+      if (selectedUnitId && state.units[selectedUnitId]) {
+        moveUnit(selectedUnitId, slotId);
+      } else {
+        openAdd(slotId);
+      }
+    });
+    slot.addEventListener('dragover', (event) => {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = 'move';
+      slot.classList.add('drop-target');
+    });
+    slot.addEventListener('dragleave', () => {
+      slot.classList.remove('drop-target');
+    });
+    slot.addEventListener('drop', (event) => {
+      event.preventDefault();
+      slot.classList.remove('drop-target');
+      const unitId = event.dataTransfer.getData('text/plain') || draggingUnitId;
+      moveUnit(unitId, slotId);
+    });
+  });
+}
+
+function addHistory(action, detail) {
+  if (!Array.isArray(state.history)) state.history = [];
+  state.history.unshift({ action, detail, at: nowLabel() });
+  state.history = state.history.slice(0, 80);
+  renderHistory();
+}
+
+function renderHistory() {
+  const items = state.history || [];
+  historyList.innerHTML = items.length
+    ? items.slice(0, 24).map((item) => `<div class="history-item">${item.action}<span>${item.detail} · ${item.at}</span></div>`).join('')
+    : '<div class="history-item">Sin movimientos<span>Los cambios del sandbox apareceran aqui.</span></div>';
+}
+
+function toggleHistory() {
+  historyDrawer.classList.toggle('open');
+}
+
+function updateSummary() {
+  const units = Object.values(state.units);
+  const total = units.length;
+  const listo = units.filter((unit) => unit.status === 'LISTO').length;
+  const sucio = units.filter((unit) => unit.status === 'SUCIO').length;
+  const manto = units.filter((unit) => unit.status === 'MANTENIMIENTO').length;
+  const taller = units.filter((unit) => unit.status === 'EN TALLER' || unit.slot.startsWith('TLLRS')).length;
+  const patio = total - taller;
+  const noRent = units.filter((unit) => unit.status === 'NO ARRENDABLE').length;
+  const occupied = Math.round((total / slotIds.length) * 100);
+
+  document.getElementById('metricTotal').textContent = total;
+  document.getElementById('metricListo').textContent = listo;
+  document.getElementById('metricSucio').textContent = sucio;
+  document.getElementById('metricManto').textContent = manto;
+  document.getElementById('metricPatio').textContent = patio;
+  document.getElementById('metricTaller').textContent = taller;
+  document.getElementById('plazaOccupied').textContent = `${occupied}% ocupado`;
+  document.getElementById('miniListo').textContent = listo;
+  document.getElementById('miniSucio').textContent = sucio;
+  document.getElementById('miniManto').textContent = manto;
+  document.getElementById('summaryTotal').textContent = total;
+  document.getElementById('summaryPatio').textContent = patio;
+  document.getElementById('summaryFuera').textContent = 0;
+  document.getElementById('summaryNoRent').textContent = noRent;
+  document.getElementById('summaryListo').textContent = listo;
+  document.getElementById('summaryFooterTotal').textContent = patio;
+  document.getElementById('summaryClock').textContent = new Date().toLocaleTimeString('es-MX', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
 }
 
 function zoomMap(factor) {
@@ -942,6 +1713,15 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
     closeSummary();
     closeUnit();
+    historyDrawer.classList.remove('open');
+  }
+  if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') {
+    event.preventDefault();
+    saveSandbox();
+  }
+  if (!event.ctrlKey && !event.metaKey && event.key.toLowerCase() === 'n') {
+    const target = event.target;
+    if (target?.tagName !== 'INPUT' && target?.tagName !== 'TEXTAREA' && target?.tagName !== 'SELECT') openAdd();
   }
 });
 
@@ -949,6 +1729,10 @@ document.getElementById('summaryModal').addEventListener('click', (event) => {
   if (event.target.id === 'summaryModal') closeSummary();
 });
 
+state = loadState();
+bindSlotInteractions();
+renderAll();
+persistState();
 viewport.scrollTo({ left: 0, top: 0 });
 </script>
 </body>

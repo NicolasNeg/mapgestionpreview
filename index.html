@@ -635,65 +635,92 @@ button, input, textarea { font: inherit; }
 .step-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
 .step-desc { font-size: 14px; line-height: 1.6; color: var(--ink-soft); max-width: 240px; margin: 0 auto; }
 
-/* ── VIDEO PLACEHOLDER ───────────────────────────────────── */
+/* ── VIDEO DEMO ──────────────────────────────────────────── */
 .video-head { text-align: center; margin-bottom: 48px; }
-.video-title { font-size: clamp(28px, 3.5vw, 40px); margin-top: 12px; }
-.video-sub { font-size: 16px; color: var(--ink-soft); max-width: 480px; margin: 16px auto 0; }
+.video-title { font-size: clamp(30px, 3.8vw, 44px); margin-top: 12px; }
+.video-sub { font-size: 16px; color: var(--ink-soft); max-width: 560px; margin: 16px auto 0; line-height: 1.65; }
 .video-wrapper {
-  max-width: 860px;
+  max-width: 920px;
   margin: 0 auto;
   border-radius: var(--r-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--line);
+  box-shadow: 0 30px 80px rgba(17,19,24,0.18);
+  border: 1px solid rgba(17,19,24,0.16);
   position: relative;
   aspect-ratio: 16/9;
   background: var(--ink);
-  cursor: pointer;
 }
-/* Replace with real video: add <video> or <iframe> inside .video-wrapper */
-.video-placeholder {
+.video-wrapper::before {
+  content: '';
   position: absolute;
   inset: 0;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+}
+.video-player {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  background: #111318;
+}
+.video-frame-label {
+  position: absolute;
+  left: 18px;
+  top: 18px;
+  z-index: 3;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
-  background: linear-gradient(135deg, #111318 0%, #1a2540 100%);
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--r-full);
+  background: rgba(17,19,24,0.72);
+  color: rgba(255,255,255,0.78);
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+  pointer-events: none;
 }
-.video-grid-overlay {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 36px 36px;
-}
-.video-play-btn {
-  position: relative;
-  z-index: 1;
-  width: 72px;
-  height: 72px;
+.video-frame-label::before {
+  content: '';
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--lime);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 0 12px rgba(200,241,53,0.15), 0 0 0 24px rgba(200,241,53,0.07);
-  transition: transform 0.2s;
 }
-.video-play-btn:hover { transform: scale(1.08); }
-.video-play-btn svg { margin-left: 4px; }
 .video-caption {
-  position: relative;
-  z-index: 1;
-  font-size: 15px;
-  color: rgba(255,255,255,0.5);
-  text-align: center;
-  max-width: 320px;
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px 18px;
+  border-radius: var(--r-md);
+  background: linear-gradient(90deg, rgba(17,19,24,0.82), rgba(17,19,24,0.38));
+  color: rgba(255,255,255,0.64);
+  backdrop-filter: blur(12px);
+  pointer-events: none;
 }
 .video-caption strong { color: var(--white); display: block; margin-bottom: 4px; font-size: 18px; }
+.video-caption span { display: block; font-size: 13px; line-height: 1.45; }
+.video-duration {
+  flex-shrink: 0;
+  color: var(--lime);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 
 /* ── TESTIMONIALS ────────────────────────────────────────── */
 .testi-section { background: var(--paper-2); }
@@ -795,17 +822,91 @@ button, input, textarea { font: inherit; }
 .contact-strip {
   background: var(--paper-2);
   border-top: 1px solid var(--line);
-  padding: 56px 0;
+  padding: 76px 0;
 }
 .contact-inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1fr);
+  gap: 56px;
   align-items: center;
 }
-.contact-title { font-size: 28px; font-weight: 700; margin: 10px 0 10px; }
-.contact-desc { font-size: 15px; color: var(--ink-soft); line-height: 1.6; }
-.contact-form { display: flex; flex-direction: column; gap: 12px; }
+.contact-title { font-size: clamp(32px, 4vw, 46px); font-weight: 700; margin: 12px 0 14px; line-height: 1.05; }
+.contact-desc { font-size: 16px; color: var(--ink-soft); line-height: 1.7; max-width: 500px; }
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+.btn-whatsapp {
+  background: #25d366;
+  color: #0b2415;
+  box-shadow: 0 6px 18px rgba(37,211,102,0.24);
+}
+.btn-whatsapp:hover { background: #2ce070; box-shadow: 0 10px 28px rgba(37,211,102,0.32); }
+.contact-points {
+  margin-top: 28px;
+  display: grid;
+  gap: 10px;
+  max-width: 520px;
+}
+.contact-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.contact-point::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  border-radius: 50%;
+  background: var(--teal-soft);
+  border: 1px solid rgba(26,179,154,0.22);
+}
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-md);
+}
+.contact-form-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 8px;
+}
+.contact-form-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+.contact-form-sub {
+  margin-top: 4px;
+  color: var(--ink-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.contact-response-pill {
+  align-self: flex-start;
+  padding: 6px 10px;
+  border-radius: var(--r-full);
+  background: var(--teal-soft);
+  color: #087c6e;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .form-field { display: flex; flex-direction: column; gap: 5px; }
 .form-label { font-size: 12px; font-weight: 600; color: var(--ink-soft); }
@@ -822,6 +923,18 @@ button, input, textarea { font: inherit; }
 .form-input:focus { border-color: var(--sky); }
 .form-input::placeholder { color: var(--ink-muted); }
 textarea.form-input { resize: vertical; min-height: 80px; }
+.contact-form-foot {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+.contact-small {
+  color: var(--ink-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
 
 /* ── FOOTER ──────────────────────────────────────────────── */
 .footer {
@@ -958,6 +1071,8 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   .how-steps::before { display: none; }
   .testi-grid { grid-template-columns: 1fr; }
   .contact-inner { grid-template-columns: 1fr; gap: 32px; }
+  .contact-form { padding: 22px; border-radius: var(--r-md); }
+  .contact-form-head { flex-direction: column; }
   .form-row { grid-template-columns: 1fr; }
   .footer-main { grid-template-columns: 1fr; gap: 28px; }
   .metrics-inner { flex-direction: column; gap: 32px; }
@@ -966,6 +1081,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   .benefits-head { flex-direction: column; align-items: flex-start; }
   .badge-tl, .badge-br { display: none; }
   .mock-sidebar { display: none; }
+  .video-caption { align-items: flex-start; flex-direction: column; }
 }
 @media (max-width: 480px) {
   .container { width: calc(100% - 32px); }
@@ -980,8 +1096,12 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   grid-template-columns: 1fr 420px;
   gap: 24px;
   align-items: stretch;
-  max-width: 1000px;
+  max-width: 1120px;
   margin: 0 auto;
+}
+.demo-split .video-wrapper {
+  width: 100%;
+  max-width: none;
 }
 @media (max-width: 900px) {
   .demo-split { grid-template-columns: 1fr; max-width: 600px; }
@@ -1268,48 +1388,148 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 
 /* ── FAQ ─────────────────────────────────────────────────── */
 .faq-section { background: var(--paper-2); }
-.faq-head { max-width: 560px; margin-bottom: 48px; }
-.faq-head .label { margin-bottom: 12px; }
-.faq-title { font-size: clamp(28px, 3.5vw, 40px); margin-top: 10px; }
-.faq-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 2px; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line);
+.faq-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.42fr) minmax(0, 1fr);
+  gap: 34px;
+  align-items: start;
 }
-.faq-item { background: var(--white); cursor: pointer; border-bottom: 1px solid var(--line); }
-.faq-item:nth-last-child(-n+2) { border-bottom: none; }
+.faq-head {
+  position: sticky;
+  top: 92px;
+}
+.faq-head .label { margin-bottom: 12px; }
+.faq-title { font-size: clamp(30px, 3.7vw, 44px); margin-top: 10px; }
+.faq-intro {
+  margin-top: 16px;
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.65;
+}
+.faq-contact-card {
+  margin-top: 24px;
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--r-md);
+  padding: 22px;
+}
+.faq-contact-card strong {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.faq-contact-card p {
+  color: rgba(255,255,255,0.56);
+  font-size: 13px;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.faq-group-title {
+  margin: 18px 0 2px;
+  color: var(--ink-muted);
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.faq-group-title:first-child { margin-top: 0; }
+.faq-item {
+  background: var(--white);
+  cursor: pointer;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+.faq-item:hover,
+.faq-item.open {
+  border-color: rgba(43,127,255,0.22);
+  box-shadow: var(--shadow-md);
+}
 .faq-q {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 16px; padding: 22px 24px; font-size: 15px; font-weight: 700;
+  gap: 16px; padding: 20px 22px; font-size: 15px; font-weight: 700;
   color: var(--ink); user-select: none;
+}
+.faq-q span {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.faq-q span::before {
+  content: attr(data-num);
+  flex-shrink: 0;
+  color: var(--sky);
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  margin-top: 3px;
 }
 .faq-chevron { flex-shrink: 0; transition: transform 0.22s; color: var(--ink-muted); }
 .faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--sky); }
 .faq-a { padding: 0 24px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
-.faq-item.open .faq-a { padding: 0 24px 22px; max-height: 300px; }
+.faq-item.open .faq-a { padding: 0 24px 22px; max-height: 520px; }
 .faq-a p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; margin: 0; }
 .faq-a strong { color: var(--ink); }
 @media (max-width: 768px) {
-  .faq-grid { grid-template-columns: 1fr; }
-  .faq-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--line); }
-  .faq-item:last-child { border-bottom: none; }
+  .faq-layout { grid-template-columns: 1fr; }
+  .faq-head { position: static; }
 }
 
 /* ── SCREENSHOTS GALLERY ─────────────────────────────────── */
 .screens-section { background: var(--paper-2); }
-.screens-head { margin-bottom: 48px; }
+.screens-section .container { width: min(1360px, calc(100% - 40px)); }
+.screens-head {
+  margin-bottom: 42px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
 .screens-head .label { margin-bottom: 12px; }
-.screens-title { font-size: clamp(28px, 3.5vw, 40px); margin-top: 10px; }
+.screens-title { font-size: clamp(32px, 4vw, 48px); margin-top: 10px; max-width: 660px; }
 .screens-note {
   margin-top: 16px;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--ink-soft);
   line-height: 1.6;
-  max-width: 560px;
+  max-width: 580px;
+}
+.screens-filter-note {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  border-radius: var(--r-full);
+  background: var(--white);
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: var(--shadow-sm);
+}
+.screens-filter-note::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--sky);
 }
 .screens-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 14px;
+  gap: 20px;
 }
 .sc-card {
   position: relative;
@@ -1318,26 +1538,48 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   border-radius: var(--r-md);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
-.sc-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); border-color: rgba(43,127,255,0.2); }
+.sc-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); border-color: rgba(43,127,255,0.22); }
 .sc-card.span-6 { grid-column: span 6; }
 .sc-card.span-4 { grid-column: span 4; }
 .sc-card.span-8 { grid-column: span 8; }
 .sc-card.span-12 { grid-column: span 12; }
 .sc-card.span-3 { grid-column: span 3; }
-.sc-card.dark { background: linear-gradient(160deg, #111318 0%, #1a2540 100%); }
-.sc-card-content { padding: 16px 18px 18px; }
+.sc-card.dark { background: #111318; }
+.sc-card-content { padding: 20px 22px 22px; }
 .sc-card-label { font-family: var(--f-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sky); }
 .sc-card.dark .sc-card-label { color: #93c5fd; }
 .sc-card-title { font-family: var(--f-display); font-size: clamp(18px, 2.2vw, 26px); font-weight: 300; line-height: 1.1; margin: 8px 0 6px; letter-spacing: -0.02em; }
 .sc-card.dark .sc-card-title { color: var(--white); }
 .sc-card-desc { font-size: 13px; line-height: 1.6; color: var(--ink-soft); }
 .sc-card.dark .sc-card-desc { color: rgba(255,255,255,0.55); }
+.sc-feature {
+  min-height: 680px;
+  display: grid;
+  grid-template-rows: 1fr;
+  background: var(--ink);
+}
+.sc-feature .sc-frame { min-height: 680px; }
+.sc-feature .sc-card-content {
+  position: absolute;
+  left: 28px;
+  bottom: 28px;
+  z-index: 3;
+  width: min(430px, calc(100% - 56px));
+  border-radius: var(--r-md);
+  background: rgba(17,19,24,0.82);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--white);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 18px 44px rgba(0,0,0,0.28);
+}
+.sc-feature .sc-card-title { font-size: clamp(28px, 4vw, 46px); }
 .sc-frame {
   position: relative;
   width: 100%;
   border: none;
+  min-height: 340px;
   background: #dfe8f6;
   cursor: zoom-in;
   display: block;
@@ -1346,22 +1588,24 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 .sc-frame img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  min-height: inherit;
+  object-fit: cover;
+  object-position: top left;
   display: block;
   background: #eff4fb;
-  transition: transform 0.2s ease;
+  transition: transform 0.28s ease, filter 0.28s ease;
 }
-.sc-frame:hover img { transform: scale(1.02); }
+.sc-frame:hover img { transform: scale(1.035); filter: saturate(1.04) contrast(1.02); }
 .sc-frame::after {
-  content: '+ Ver';
+  content: 'Ampliar';
   position: absolute;
-  bottom: 10px; right: 10px;
-  padding: 6px 10px;
+  bottom: 14px; right: 14px;
+  padding: 8px 12px;
   border-radius: var(--r-full);
   background: rgba(17,19,24,0.8);
   color: var(--white);
   font-family: var(--f-mono);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   opacity: 0;
@@ -1370,16 +1614,26 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   pointer-events: none;
 }
 .sc-frame:hover::after { opacity: 1; transform: translateY(0); }
-.sc-card.span-12 { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); }
-.sc-card.span-12 .sc-frame { min-height: 280px; }
+.sc-card.span-12:not(.sc-feature) { display: grid; grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr); }
+.sc-card.span-12:not(.sc-feature) .sc-frame { min-height: 430px; }
+.sc-card.span-8 .sc-frame { min-height: 430px; }
+.sc-card.span-6 .sc-frame { min-height: 380px; }
+.sc-card.span-4 .sc-frame { min-height: 360px; }
 @media (max-width: 900px) {
+  .screens-head { flex-direction: column; align-items: flex-start; }
   .sc-card.span-6, .sc-card.span-4, .sc-card.span-8, .sc-card.span-3 { grid-column: span 12; }
-  .sc-card.span-12 { grid-template-columns: 1fr; }
+  .sc-card.span-12:not(.sc-feature) { grid-template-columns: 1fr; }
+  .sc-feature { min-height: auto; }
+  .sc-feature .sc-frame { min-height: 430px; }
+  .sc-feature .sc-card-content { position: relative; left: auto; bottom: auto; width: auto; margin: -74px 18px 18px; }
 }
 @media (max-width: 600px) {
+  .screens-section .container { width: calc(100% - 32px); }
   .screens-grid { grid-template-columns: 1fr; }
   .sc-card { grid-column: span 1 !important; }
-  .sc-card.span-12 { grid-template-columns: 1fr; }
+  .sc-card.span-12:not(.sc-feature) { grid-template-columns: 1fr; }
+  .sc-frame, .sc-card.span-8 .sc-frame, .sc-card.span-6 .sc-frame, .sc-card.span-4 .sc-frame { min-height: 300px; }
+  .sc-feature .sc-frame { min-height: 360px; }
 }
 
 /* Admin mini cards */
@@ -1641,7 +1895,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
           <span style="background:rgba(255,92,71,0.1);color:#ff5c47;">TS</span>
         </div>
         <p class="hero-social-text">
-          <strong>+120 equipos</strong> ya lo usan a diario
+          <strong>Mex Rent A Car </strong> - Equipos que ya lo usan a diario
         </p>
       </div>
     </div>
@@ -1942,29 +2196,27 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 </section>
 
 <!-- VIDEO DEMO -->
-<!-- To replace placeholder: remove .video-placeholder div and add <video> or <iframe> inside .video-wrapper -->
 <section class="section" id="demo">
   <div class="container">
     <div class="video-head">
       <span class="label">Demo interactiva</span>
       <h2 class="display video-title">Pruebala ahora mismo</h2>
-      <p class="video-sub">Sin registro. Sin datos reales. Un sandbox completo del sistema funcionando en tiempo real.</p>
+      <p class="video-sub">Mira el flujo en contexto: mapa, edición, movimiento de unidades y resumen operativo antes de abrir el sandbox completo.</p>
     </div>
 
     <div class="demo-split">
-      <!-- Video placeholder (izquierda) -->
-      <div class="video-wrapper" onclick="this.querySelector('.video-play-btn').style.transform='scale(0.95)'">
-        <div class="video-placeholder">
-          <div class="video-grid-overlay"></div>
-          <div class="video-play-btn">
-            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-              <polygon points="7,4 18,11 7,18" fill="#111318"/>
-            </svg>
+      <div class="video-wrapper">
+        <video class="video-player" controls playsinline preload="metadata">
+          <source src="assets/videos/video_preview.mp4" type="video/mp4" />
+          Tu navegador no puede reproducir este video.
+        </video>
+        <div class="video-frame-label">Preview del producto</div>
+        <div class="video-caption">
+          <div>
+            <strong>Mapa vivo, edición y sandbox</strong>
+            <span>Un recorrido breve para entender la operación antes de entrar a probarla.</span>
           </div>
-          <div class="video-caption">
-            <strong>Video Preview</strong>
-            Flujo completo en 90 segundos
-          </div>
+          <div class="video-duration">MP4 listo</div>
         </div>
       </div>
 
@@ -2025,29 +2277,32 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 <section class="section screens-section" id="pantallas">
   <div class="container">
     <div class="screens-head">
-      <span class="label">Pantallas reales</span>
-      <h2 class="display screens-title">Explora el producto sin salir de aquí</h2>
-      <p class="screens-note">Haz clic en cualquier captura para verla en detalle. Todas las vistas son del sistema real funcionando.</p>
+      <div>
+        <span class="label">Pantallas reales</span>
+        <h2 class="display screens-title">Explora el producto con capturas más grandes</h2>
+        <p class="screens-note">La galería prioriza las vistas que más venden el producto: mapa vivo, gestión, resumen, historial y módulos administrativos. Haz clic para abrir cada pantalla en detalle.</p>
+      </div>
+      <div class="screens-filter-note">Hover para ampliar · Click para detalle</div>
     </div>
 
     <div class="screens-grid">
 
       <!-- 01 Mapa en vivo — wide dark -->
-      <article class="sc-card span-12 dark">
+      <article class="sc-card span-12 dark sc-feature">
         <div class="sc-card-content">
           <span class="sc-card-label">01 · mapa en vivo</span>
-          <h3 class="sc-card-title">Vista visual del mapa principal.</h3>
-          <p class="sc-card-desc">El producto abre con contexto, no con fricción. La interfaz principal deja claro el estado general y prioriza la lectura rápida.</p>
+          <h3 class="sc-card-title">El mapa principal como primera impresión.</h3>
+          <p class="sc-card-desc">La captura abre grande para que el cliente vea patio, estados, taller, métricas y lectura operativa desde el primer vistazo.</p>
         </div>
         <button class="sc-frame" type="button" data-src="assets/screenshots/mapa-vivo.png" data-title="Mapa en vivo" data-kicker="01 · mapa en vivo" data-desc="Vista central del producto con lectura inmediata del mapa, estados y contexto visual del trabajo.">
-          <img src="assets/screenshots/mapa-vivo.png" alt="Mapa en vivo de MapGestion" />
+          <img src="assets/screenshots/mapa-vivo.png" alt="Mapa en vivo de MapGestion" decoding="async" fetchpriority="high" />
         </button>
       </article>
 
       <!-- 02 Gestión de unidades — span 8 -->
       <article class="sc-card span-8">
         <button class="sc-frame" type="button" data-src="assets/screenshots/gestion-flota.png" data-title="Gestión de unidades" data-kicker="02 · gestión de unidades" data-desc="Pantalla de gestión con filtros y mejor lectura de estados, categorías, placas y ubicaciones.">
-          <img src="assets/screenshots/gestion-flota.png" alt="Gestión de unidades" style="min-height:260px;" />
+          <img src="assets/screenshots/gestion-flota.png" alt="Gestión de unidades" loading="lazy" decoding="async" style="min-height:260px;" />
         </button>
         <div class="sc-card-content">
           <span class="sc-card-label">02 · gestión de unidades</span>
@@ -2059,7 +2314,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <!-- 03 Resumen de flota — span 4 -->
       <article class="sc-card span-4">
         <button class="sc-frame" type="button" data-src="assets/screenshots/resumen-flota.png" data-title="Resumen de flota" data-kicker="03 · resumen de flota" data-desc="Resumen visual y rápido del estado general para tomar decisiones sin salir del contexto principal.">
-          <img src="assets/screenshots/resumen-flota.png" alt="Resumen de flota" style="min-height:260px;" />
+          <img src="assets/screenshots/resumen-flota.png" alt="Resumen de flota" loading="lazy" decoding="async" style="min-height:260px;" />
         </button>
         <div class="sc-card-content">
           <span class="sc-card-label">03 · resumen de flota</span>
@@ -2071,7 +2326,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <!-- 04 Historial — span 4 -->
       <article class="sc-card span-4">
         <button class="sc-frame" type="button" data-src="assets/screenshots/historial-mapa.png" data-title="Historial operativo" data-kicker="04 · historial operativo" data-desc="Registro con fecha, acción, origen real, ubicación y usuario para seguimiento fino del flujo.">
-          <img src="assets/screenshots/historial-mapa.png" alt="Historial operativo" style="min-height:220px;" />
+          <img src="assets/screenshots/historial-mapa.png" alt="Historial operativo" loading="lazy" decoding="async" style="min-height:220px;" />
         </button>
         <div class="sc-card-content">
           <span class="sc-card-label">04 · historial operativo</span>
@@ -2083,7 +2338,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <!-- 05 Bitácora gestión — span 4 -->
       <article class="sc-card span-4">
         <button class="sc-frame" type="button" data-src="assets/screenshots/bitacora-gestion.png" data-title="Bitácora de gestión" data-kicker="05 · bitácora de gestión" data-desc="Historial de movimientos administrativos sobre usuarios, plazas, bloqueos, solicitudes y cambios globales.">
-          <img src="assets/screenshots/bitacora-gestion.png" alt="Bitácora de gestión" style="min-height:220px;" />
+          <img src="assets/screenshots/bitacora-gestion.png" alt="Bitácora de gestión" loading="lazy" decoding="async" style="min-height:220px;" />
         </button>
         <div class="sc-card-content">
           <span class="sc-card-label">05 · bitácora de gestión</span>
@@ -2095,7 +2350,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <!-- 06 Auditoría — span 4 -->
       <article class="sc-card span-4">
         <button class="sc-frame" type="button" data-src="assets/screenshots/auditoria-sistema.png" data-title="Auditoría del sistema" data-kicker="06 · auditoría del sistema" data-desc="Registro de trazabilidad visual para mapa y flota con mejor seguimiento contextual.">
-          <img src="assets/screenshots/auditoria-sistema.png" alt="Auditoría del sistema" style="min-height:220px;" />
+          <img src="assets/screenshots/auditoria-sistema.png" alt="Auditoría del sistema" loading="lazy" decoding="async" style="min-height:220px;" />
         </button>
         <div class="sc-card-content">
           <span class="sc-card-label">06 · auditoría del sistema</span>
@@ -2112,14 +2367,14 @@ textarea.form-input { resize: vertical; min-height: 80px; }
           <p class="sc-card-desc">Este módulo comunica que el producto no solo visualiza trabajo: también lo ordena, lo documenta y le da continuidad.</p>
         </div>
         <button class="sc-frame" type="button" data-src="assets/screenshots/bitacora-incidencias.png" data-title="Bitácora de incidencias" data-kicker="07 · incidencias operativas" data-desc="Vista de incidencias con prioridad, adjuntos y estados para equipos que necesitan orden y continuidad.">
-          <img src="assets/screenshots/bitacora-incidencias.png" alt="Bitácora de incidencias" style="min-height:280px;" />
+          <img src="assets/screenshots/bitacora-incidencias.png" alt="Bitácora de incidencias" loading="lazy" decoding="async" style="min-height:280px;" />
         </button>
       </article>
 
       <!-- 08 Mensajes internos — span 8 -->
       <article class="sc-card span-8">
         <button class="sc-frame" type="button" data-src="assets/screenshots/mensajes-internos.png" data-title="Mensajes internos" data-kicker="08 · mensajes internos" data-desc="Conversación operativa integrada con audios y archivos sin salir del flujo principal.">
-          <img src="assets/screenshots/mensajes-internos.png" alt="Mensajes internos" style="min-height:260px;" />
+          <img src="assets/screenshots/mensajes-internos.png" alt="Mensajes internos" loading="lazy" decoding="async" style="min-height:260px;" />
         </button>
         <div class="sc-card-content">
           <span class="sc-card-label">08 · mensajes internos</span>
@@ -2131,7 +2386,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <!-- 09 Editor de mapa — span 4 -->
       <article class="sc-card span-4">
         <button class="sc-frame" type="button" data-src="assets/screenshots/editor-mapa.png" data-title="Editor de mapa" data-kicker="09 · editor de mapa" data-desc="Editor visual con herramientas, inspector y control directo para modificar el layout sin romper el flujo.">
-          <img src="assets/screenshots/editor-mapa.png" alt="Editor de mapa" style="min-height:260px;" />
+          <img src="assets/screenshots/editor-mapa.png" alt="Editor de mapa" loading="lazy" decoding="async" style="min-height:260px;" />
         </button>
         <div class="sc-card-content">
           <span class="sc-card-label">09 · editor de mapa</span>
@@ -2143,7 +2398,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <!-- 10 Mi perfil — span 6 -->
       <article class="sc-card span-6">
         <button class="sc-frame" type="button" data-src="assets/screenshots/mi-perfil.png" data-title="Mi perfil" data-kicker="10 · mi perfil" data-desc="Configuración personal con notificaciones, privacidad y accesos rápidos dentro del producto.">
-          <img src="assets/screenshots/mi-perfil.png" alt="Mi perfil" style="min-height:220px;" />
+          <img src="assets/screenshots/mi-perfil.png" alt="Mi perfil" loading="lazy" decoding="async" style="min-height:220px;" />
         </button>
         <div class="sc-card-content">
           <span class="sc-card-label">10 · mi perfil</span>
@@ -2155,7 +2410,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <!-- 11 Empresa — span 6 -->
       <article class="sc-card span-6">
         <button class="sc-frame" type="button" data-src="assets/screenshots/empresa-admin.png" data-title="Panel de empresa" data-kicker="11 · empresa" data-desc="Panel de administración para editar logo, nombre, colores y datos clave de empresa.">
-          <img src="assets/screenshots/empresa-admin.png" alt="Panel de empresa" style="min-height:220px;" />
+          <img src="assets/screenshots/empresa-admin.png" alt="Panel de empresa" loading="lazy" decoding="async" style="min-height:220px;" />
         </button>
         <div class="sc-card-content">
           <span class="sc-card-label">11 · empresa</span>
@@ -2172,47 +2427,47 @@ textarea.form-input { resize: vertical; min-height: 80px; }
         </div>
         <div class="sc-admin-grid">
           <article class="sc-admin-mini" data-src="assets/screenshots/plazas.png" data-title="Plazas" data-kicker="12 · panel administrativo" data-desc="Alta, orden y gestión de plazas dentro del back office.">
-            <div class="sc-mini-frame"><img src="assets/screenshots/plazas.png" alt="Plazas" /></div>
+            <div class="sc-mini-frame"><img src="assets/screenshots/plazas.png" alt="Plazas" loading="lazy" decoding="async" /></div>
             <h4>Plazas</h4>
             <p>Alta y orden de plazas y responsables.</p>
           </article>
           <article class="sc-admin-mini" data-src="assets/screenshots/ubicaciones.png" data-title="Ubicaciones" data-kicker="13 · panel administrativo" data-desc="Gestión de ubicaciones, plazas base y responsables para el mapa.">
-            <div class="sc-mini-frame"><img src="assets/screenshots/ubicaciones.png" alt="Ubicaciones" /></div>
+            <div class="sc-mini-frame"><img src="assets/screenshots/ubicaciones.png" alt="Ubicaciones" loading="lazy" decoding="async" /></div>
             <h4>Ubicaciones</h4>
             <p>Control de ubicaciones y responsables asignados.</p>
           </article>
           <article class="sc-admin-mini" data-src="assets/screenshots/estados.png" data-title="Estados" data-kicker="14 · panel administrativo" data-desc="Configuración de estados y jerarquía operativa del sistema.">
-            <div class="sc-mini-frame"><img src="assets/screenshots/estados.png" alt="Estados" /></div>
+            <div class="sc-mini-frame"><img src="assets/screenshots/estados.png" alt="Estados" loading="lazy" decoding="async" /></div>
             <h4>Estados</h4>
             <p>Orden y color operativo por estado.</p>
           </article>
           <article class="sc-admin-mini" data-src="assets/screenshots/categorias.png" data-title="Categorías" data-kicker="15 · panel administrativo" data-desc="Catálogo de categorías vehiculares y reglas base.">
-            <div class="sc-mini-frame"><img src="assets/screenshots/categorias.png" alt="Categorías" /></div>
+            <div class="sc-mini-frame"><img src="assets/screenshots/categorias.png" alt="Categorías" loading="lazy" decoding="async" /></div>
             <h4>Categorías</h4>
             <p>Familias de unidades y reglas base.</p>
           </article>
           <article class="sc-admin-mini" data-src="assets/screenshots/modelos.png" data-title="Modelos" data-kicker="16 · panel administrativo" data-desc="Catálogo de modelos enlazados con categorías y estructura del producto.">
-            <div class="sc-mini-frame"><img src="assets/screenshots/modelos.png" alt="Modelos" /></div>
+            <div class="sc-mini-frame"><img src="assets/screenshots/modelos.png" alt="Modelos" loading="lazy" decoding="async" /></div>
             <h4>Modelos</h4>
             <p>Inventario base conectado con categoría.</p>
           </article>
           <article class="sc-admin-mini" data-src="assets/screenshots/gasolinas.png" data-title="Gasolina" data-kicker="17 · panel administrativo" data-desc="Niveles visuales de gasolina dentro de la administración del sistema.">
-            <div class="sc-mini-frame"><img src="assets/screenshots/gasolinas.png" alt="Gasolina" /></div>
+            <div class="sc-mini-frame"><img src="assets/screenshots/gasolinas.png" alt="Gasolina" loading="lazy" decoding="async" /></div>
             <h4>Gasolina</h4>
             <p>Niveles con lectura visual y porcentajes.</p>
           </article>
           <article class="sc-admin-mini" data-src="assets/screenshots/usuarios.png" data-title="Usuarios" data-kicker="18 · panel administrativo" data-desc="Vista detallada de usuarios, roles, plazas y permisos dentro del sistema.">
-            <div class="sc-mini-frame"><img src="assets/screenshots/usuarios.png" alt="Usuarios" /></div>
+            <div class="sc-mini-frame"><img src="assets/screenshots/usuarios.png" alt="Usuarios" loading="lazy" decoding="async" /></div>
             <h4>Usuarios</h4>
             <p>Ficha completa de identidad, rol y acceso.</p>
           </article>
           <article class="sc-admin-mini" data-src="assets/screenshots/roles-permisos.png" data-title="Roles y permisos" data-kicker="19 · panel administrativo" data-desc="Editor de roles y permisos para controlar alcance y acciones del equipo.">
-            <div class="sc-mini-frame"><img src="assets/screenshots/roles-permisos.png" alt="Roles y permisos" /></div>
+            <div class="sc-mini-frame"><img src="assets/screenshots/roles-permisos.png" alt="Roles y permisos" loading="lazy" decoding="async" /></div>
             <h4>Roles y permisos</h4>
             <p>Permisos por módulo, nivel y alcance.</p>
           </article>
           <article class="sc-admin-mini" data-src="assets/screenshots/aprobacion-accesos.png" data-title="Aprobación de accesos" data-kicker="20 · panel administrativo" data-desc="Buzón para aprobar accesos y solicitudes dentro del sistema.">
-            <div class="sc-mini-frame"><img src="assets/screenshots/aprobacion-accesos.png" alt="Aprobación de accesos" /></div>
+            <div class="sc-mini-frame"><img src="assets/screenshots/aprobacion-accesos.png" alt="Aprobación de accesos" loading="lazy" decoding="async" /></div>
             <h4>Aprobación de accesos</h4>
             <p>Solicitudes pendientes, aprobadas y rechazadas.</p>
           </article>
@@ -2328,60 +2583,107 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 <!-- FAQ -->
 <section class="section faq-section">
   <div class="container">
-    <div class="faq-head">
-      <span class="label">Preguntas frecuentes</span>
-      <h2 class="display faq-title">Lo que preguntan antes de arrancar</h2>
-    </div>
-    <div class="faq-grid">
-
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">
-          ¿Cuánto tiempo toma la implementación?
-          <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+    <div class="faq-layout">
+      <div class="faq-head">
+        <span class="label">Preguntas frecuentes</span>
+        <h2 class="display faq-title">Lo importante antes de arrancar</h2>
+        <p class="faq-intro">Organizamos las dudas por etapa para que dirección, operaciones y administración entiendan alcance, tiempos, seguridad y acompañamiento sin leer una ficha técnica interminable.</p>
+        <div class="faq-contact-card">
+          <strong>¿Quieres verlo con tus datos?</strong>
+          <p>Agenda una demo y revisamos mapa, plazas, roles y flujo operativo con un caso parecido al tuyo.</p>
+          <a href="#contacto" class="btn btn-lime btn-sm">Agendar demo</a>
         </div>
-        <div class="faq-a"><p>En la mayoría de los casos, <strong>menos de una semana</strong>. El onboarding incluye la configuración del mapa de patio, carga inicial de la flota y capacitación del equipo operativo. No hay instalación de software — todo funciona desde el navegador.</p></div>
       </div>
 
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">
-          ¿Qué estados operativos maneja el sistema?
-          <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
-        </div>
-        <div class="faq-a"><p>El sistema gestiona <strong>8 estados</strong>: Listo, Sucio, Mantenimiento, Traslado, Resguardo, Venta, Retenida y Externo. Cada estado tiene color, lógica de acceso y afecta el cuadre de flota de forma distinta.</p></div>
-      </div>
+      <div class="faq-grid">
+        <div class="faq-group-title">Implementación</div>
 
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">
-          ¿Funciona bien en mobile?
-          <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+        <div class="faq-item open" onclick="toggleFaq(this)">
+          <div class="faq-q">
+            <span data-num="01">¿Cuánto tiempo toma la implementación?</span>
+            <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+          </div>
+          <div class="faq-a"><p>En la mayoría de los casos toma <strong>menos de una semana</strong>. El arranque incluye configuración de plaza, armado del mapa operativo, carga inicial de unidades, permisos base y una sesión de capacitación. No hay instalación de software: se usa desde navegador y puede instalarse como PWA.</p></div>
         </div>
-        <div class="faq-a"><p>Sí. La interfaz está optimizada para trabajo en campo desde teléfono. El mapa, el panel de edición y el historial funcionan correctamente en pantallas pequeñas. Además, la app se puede instalar como <strong>PWA</strong> en el dispositivo.</p></div>
-      </div>
 
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">
-          ¿Qué pasa si se va la conexión a internet?
-          <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">
+            <span data-num="02">¿Necesito migrar todo mi proceso desde el primer día?</span>
+            <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+          </div>
+          <div class="faq-a"><p>No. Se puede iniciar con el mapa vivo y la gestión de unidades, dejando módulos avanzados para una segunda etapa. La idea es reducir riesgo: primero visibilidad y control diario, después automatizaciones, auditoría avanzada e integraciones si aplican.</p></div>
         </div>
-        <div class="faq-a"><p>El sistema funciona en modo offline. Los cambios realizados sin conexión se sincronizan automáticamente cuando vuelve la señal. <strong>No se pierden datos</strong> ni se interrumpe la operación del patio.</p></div>
-      </div>
 
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">
-          ¿Puedo gestionar múltiples plazas desde una sola cuenta?
-          <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+        <div class="faq-group-title">Operación diaria</div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">
+            <span data-num="03">¿Qué estados operativos maneja el sistema?</span>
+            <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+          </div>
+          <div class="faq-a"><p>El sistema trabaja con estados como <strong>Listo, Sucio, Mantenimiento, Traslado, Resguardo, Venta, Retenida y Externo</strong>. Cada estado puede tener color, lectura visual y efecto distinto en el cuadre, el historial y la operación del patio.</p></div>
         </div>
-        <div class="faq-a"><p>Sí. El sistema soporta <strong>múltiples plazas de forma independiente</strong>. Los roles de supervisión pueden tener visibilidad entre plazas, mientras que los operadores solo acceden a la plaza asignada. Los datos de cada plaza están completamente aislados.</p></div>
-      </div>
 
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">
-          ¿Mis datos están seguros?
-          <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">
+            <span data-num="04">¿Puedo mover autos, editar datos y revisar historial?</span>
+            <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+          </div>
+          <div class="faq-a"><p>Sí. El flujo está pensado para trabajo operativo: mover una unidad de cajón, cambiar estado, ajustar gasolina, agregar notas y conservar trazabilidad de quién hizo cada cambio. El sandbox permite probar esa experiencia sin tocar información real.</p></div>
         </div>
-        <div class="faq-a"><p>Los datos se almacenan en <strong>Firebase (Google Cloud)</strong> con reglas de seguridad por rol y por plaza. Cada operación queda registrada en el historial de auditoría. El acceso requiere autenticación y está segmentado por permisos configurables.</p></div>
-      </div>
 
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">
+            <span data-num="05">¿Funciona bien en teléfono?</span>
+            <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+          </div>
+          <div class="faq-a"><p>Sí. La interfaz se adapta a operación en campo desde teléfono o tablet. Para supervisión y administración, la vista de escritorio ofrece más espacio para comparar, filtrar y revisar información con mayor comodidad.</p></div>
+        </div>
+
+        <div class="faq-group-title">Plazas, permisos y seguridad</div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">
+            <span data-num="06">¿Puedo gestionar múltiples plazas desde una sola cuenta?</span>
+            <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+          </div>
+          <div class="faq-a"><p>Sí. Cada plaza puede operar de forma independiente, con usuarios asignados, permisos específicos y visibilidad controlada. Un supervisor puede revisar varias plazas, mientras que un operador puede quedar limitado a su plaza y sus acciones diarias.</p></div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">
+            <span data-num="07">¿Cómo se controla quién puede editar?</span>
+            <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+          </div>
+          <div class="faq-a"><p>Los roles y permisos definen qué módulos ve cada persona y qué acciones puede ejecutar. Esto permite separar operación, supervisión y administración sin compartir cuentas ni abrir accesos innecesarios.</p></div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">
+            <span data-num="08">¿Mis datos están seguros?</span>
+            <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+          </div>
+          <div class="faq-a"><p>La plataforma usa autenticación, reglas por rol y trazabilidad de cambios. Cada operación relevante queda registrada para auditoría, lo que ayuda a detectar errores, revisar responsables y mantener control administrativo.</p></div>
+        </div>
+
+        <div class="faq-group-title">Soporte y continuidad</div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">
+            <span data-num="09">¿Qué pasa si se va la conexión a internet?</span>
+            <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+          </div>
+          <div class="faq-a"><p>La experiencia está pensada para operación real, donde la conexión puede variar. La PWA y el flujo offline ayudan a mantener continuidad y sincronizar cambios cuando vuelve la señal, según la configuración final del proyecto.</p></div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">
+            <span data-num="10">¿Qué acompañamiento recibe el equipo?</span>
+            <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
+          </div>
+          <div class="faq-a"><p>El arranque incluye configuración, validación de datos iniciales, capacitación operativa y soporte para ajustar el flujo a la realidad de la plaza. La prioridad es que el equipo lo use sin fricción desde el primer ciclo de trabajo.</p></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -2391,12 +2693,34 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   <div class="container contact-inner">
     <div class="contact-left">
       <span class="label">Contacto</span>
-      <h3 class="contact-title">Agenda tu demo</h3>
+      <h3 class="contact-title">Agenda una demo con contexto real</h3>
       <p class="contact-desc">
-        Completa el formulario y un miembro del equipo se pondrá en contacto en menos de 24 horas para coordinar una sesión personalizada.
+        Cuéntanos cuántas plazas, unidades y usuarios participan en tu operación. Con eso preparamos una sesión enfocada en mapa, permisos, flujo de patio y reportes.
       </p>
+      <div class="contact-actions">
+        <a class="btn btn-whatsapp" href="https://wa.me/?text=Hola%2C%20quiero%20agendar%20una%20demo%20de%20MapGestion" target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M19.1 4.9A9.8 9.8 0 0 0 3.7 16.7L3 21l4.4-.7A9.8 9.8 0 0 0 12 21a9.8 9.8 0 0 0 7.1-16.1Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M8.4 8.3c.2-.5.4-.5.7-.5h.6c.2 0 .5.1.6.4l.8 1.9c.1.2.1.4 0 .6l-.4.5c-.2.2-.2.4 0 .7.5.9 1.4 1.8 2.4 2.3.3.2.5.1.7-.1l.5-.6c.2-.2.4-.3.7-.2l2 .9c.3.1.4.3.4.6 0 .7-.5 1.5-1.1 1.8-.7.4-1.8.3-3.2-.4-2.9-1.3-4.8-3.6-5.4-5.6-.4-1.2-.2-1.9.1-2.3Z" fill="currentColor"/>
+          </svg>
+          WhatsApp
+        </a>
+        <a href="mailto:propyocontacto@gmail.com" class="btn btn-outline">Enviar correo</a>
+      </div>
+      <div class="contact-points">
+        <div class="contact-point">Respondemos con una propuesta de demo y los datos que conviene preparar antes de la sesión.</div>
+        <div class="contact-point">Podemos revisar operación de una plaza o un flujo multi-plaza con roles y permisos.</div>
+        <div class="contact-point">El sandbox permite validar la experiencia sin exponer información real de tu flota.</div>
+      </div>
     </div>
     <form class="contact-form" onsubmit="handleForm(event)">
+      <div class="contact-form-head">
+        <div>
+          <div class="contact-form-title">Solicitar demo</div>
+          <div class="contact-form-sub">Déjanos tus datos y el caso de uso. Te contactamos para coordinar horario.</div>
+        </div>
+        <div class="contact-response-pill">24 h</div>
+      </div>
       <div class="form-row">
         <div class="form-field">
           <label class="form-label">Nombre</label>
@@ -2412,12 +2736,17 @@ textarea.form-input { resize: vertical; min-height: 80px; }
         <input class="form-input" type="email" placeholder="tu@empresa.com" required />
       </div>
       <div class="form-field">
-        <label class="form-label">¿Qué gestionas hoy? (opcional)</label>
-        <textarea class="form-input" placeholder="Ej: registros de campo, mapas de zonas, inventario geográfico..."></textarea>
+        <label class="form-label">WhatsApp o teléfono</label>
+        <input class="form-input" type="tel" placeholder="+52 ..." />
       </div>
-      <button type="submit" class="btn btn-ink" style="align-self:flex-start;">
-        Enviar solicitud →
-      </button>
+      <div class="form-field">
+        <label class="form-label">¿Qué necesitas controlar?</label>
+        <textarea class="form-input" placeholder="Ej: 3 plazas, 250 unidades, control de patio, traslados, incidencias, roles por usuario..."></textarea>
+      </div>
+      <div class="contact-form-foot">
+        <button type="submit" class="btn btn-ink">Enviar solicitud</button>
+        <span class="contact-small">También puedes escribir por WhatsApp para una respuesta más rápida.</span>
+      </div>
     </form>
   </div>
 </div>
@@ -2461,6 +2790,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
         <div class="footer-col-title">Contacto</div>
         <div class="footer-links">
           <a href="mailto:propyocontacto@gmail.com">propyocontacto@gmail.com</a>
+          <a href="https://wa.me/?text=Hola%2C%20quiero%20agendar%20una%20demo%20de%20MapGestion" target="_blank" rel="noopener">WhatsApp</a>
           <a href="#contacto">Solicitar demo</a>
         </div>
       </div>
