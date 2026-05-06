@@ -312,6 +312,194 @@ textarea {
   font-weight: 800;
 }
 
+.map-tools {
+  position: fixed;
+  left: 18px;
+  top: 96px;
+  z-index: 64;
+  width: 292px;
+  display: grid;
+  gap: 12px;
+}
+
+.tool-card {
+  border-radius: 18px;
+  background: rgba(15, 17, 35, .9);
+  border: 1px solid rgba(255, 255, 255, .1);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, .34);
+  backdrop-filter: blur(16px);
+  padding: 16px;
+}
+
+.tool-title {
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.map-search {
+  width: 100%;
+  min-height: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, .1);
+  background: rgba(255, 255, 255, .08);
+  color: #fff;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.map-search::placeholder {
+  color: rgba(183, 193, 217, .62);
+}
+
+.filter-row,
+.layer-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.filter-chip,
+.layer-chip,
+.tool-link {
+  min-height: 30px;
+  border-radius: 999px;
+  padding: 0 10px;
+  background: rgba(255, 255, 255, .08);
+  color: rgba(242, 245, 255, .82);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.filter-chip.active {
+  background: var(--green);
+  color: #081a13;
+}
+
+.layer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.layer-chip input {
+  accent-color: var(--green);
+}
+
+.tool-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.tool-link {
+  border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.unit.filtered-out {
+  opacity: .16;
+  filter: grayscale(.8);
+  pointer-events: none;
+}
+
+.slot.layer-hidden {
+  opacity: .08;
+  pointer-events: none;
+}
+
+.slot.search-hit {
+  box-shadow: 0 0 0 2px rgba(0, 200, 255, .8), inset 0 0 22px rgba(0, 200, 255, .16);
+}
+
+.inventory-drawer {
+  position: fixed;
+  left: 330px;
+  top: 96px;
+  z-index: 70;
+  width: 520px;
+  max-width: calc(100vw - 660px);
+  max-height: calc(100vh - 180px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  background: rgba(20, 22, 44, .96);
+  box-shadow: var(--shadow);
+  transform: translateX(-16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.inventory-drawer.open {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.inventory-head {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #151738, #234fbc);
+}
+
+.inventory-head span {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.inventory-list {
+  overflow: auto;
+  padding: 10px;
+}
+
+.inventory-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 76px 1fr 92px 70px;
+  gap: 8px;
+  align-items: center;
+  min-height: 46px;
+  border-radius: 12px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, .055);
+  color: #fff;
+  text-align: left;
+}
+
+.inventory-row + .inventory-row {
+  margin-top: 7px;
+}
+
+.inventory-row strong,
+.inventory-row span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inventory-row strong {
+  font-size: 12px;
+}
+
+.inventory-row span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 900;
+}
+
 .yard-wrap {
   position: absolute;
   inset: 185px 0 0;
@@ -1050,7 +1238,9 @@ textarea {
   .app { min-width: 920px; }
   .top-shell { padding-left: 12px; padding-right: 12px; }
   .scoreboard { min-width: 520px; gap: 18px; }
-  .ops-panel { display: none; }
+  .ops-panel,
+  .map-tools { display: none; }
+  .inventory-drawer { left: 20px; max-width: calc(100vw - 40px); }
 }
 </style>
 </head>
@@ -1280,6 +1470,54 @@ textarea {
     <div class="history-list" id="historyList"></div>
   </aside>
 
+  <aside class="map-tools" aria-label="Herramientas del mapa">
+    <section class="tool-card">
+      <div class="tool-title">Buscar unidad</div>
+      <input class="map-search" id="mapSearch" type="search" placeholder="MVA, placas, modelo..." autocomplete="off" />
+    </section>
+    <section class="tool-card">
+      <div class="tool-title">Estados</div>
+      <div class="filter-row" id="statusFilters">
+        <button class="filter-chip active" type="button" data-status="TODOS" onclick="setStatusFilter('TODOS')">Todos</button>
+        <button class="filter-chip" type="button" data-status="LISTO" onclick="setStatusFilter('LISTO')">Listos</button>
+        <button class="filter-chip" type="button" data-status="SUCIO" onclick="setStatusFilter('SUCIO')">Sucios</button>
+        <button class="filter-chip" type="button" data-status="MANTENIMIENTO" onclick="setStatusFilter('MANTENIMIENTO')">Manto</button>
+        <button class="filter-chip" type="button" data-status="EN TALLER" onclick="setStatusFilter('EN TALLER')">Taller</button>
+      </div>
+    </section>
+    <section class="tool-card">
+      <div class="tool-title">Capas</div>
+      <div class="layer-list">
+        <label class="layer-chip"><input type="checkbox" data-layer="limbo" checked onchange="toggleLayer(this)" /> Limbo</label>
+        <label class="layer-chip"><input type="checkbox" data-layer="patio" checked onchange="toggleLayer(this)" /> Patio</label>
+        <label class="layer-chip"><input type="checkbox" data-layer="oficina" checked onchange="toggleLayer(this)" /> Oficina</label>
+        <label class="layer-chip"><input type="checkbox" data-layer="taller" checked onchange="toggleLayer(this)" /> Taller</label>
+        <label class="layer-chip"><input type="checkbox" data-layer="bano" checked onchange="toggleLayer(this)" /> Baño</label>
+      </div>
+    </section>
+    <section class="tool-card">
+      <div class="tool-title">Datos</div>
+      <div class="tool-actions">
+        <button class="tool-link" type="button" onclick="toggleInventory()">Inventario</button>
+        <button class="tool-link" type="button" onclick="exportCsv()">Export CSV</button>
+        <button class="tool-link" type="button" onclick="clearMapFilters()">Limpiar</button>
+        <button class="tool-link" type="button" onclick="openSummary()">Resumen</button>
+      </div>
+    </section>
+  </aside>
+
+  <aside class="inventory-drawer" id="inventoryDrawer" aria-label="Inventario de unidades">
+    <div class="inventory-head">
+      <span>Inventario visible</span>
+      <button class="icon-button" type="button" onclick="toggleInventory()" aria-label="Cerrar inventario">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M3 3l8 8M11 3l-8 8" />
+        </svg>
+      </button>
+    </div>
+    <div class="inventory-list" id="inventoryList"></div>
+  </aside>
+
   <aside class="ops-panel" aria-label="Paneles clave del sandbox">
     <section class="ops-card">
       <div class="ops-head">
@@ -1337,6 +1575,8 @@ textarea {
     <button type="button" onclick="openAdd()">+ Nuevo</button>
     <button type="button" onclick="saveSandbox()">Guardar</button>
     <button type="button" onclick="toggleHistory()">Movimientos</button>
+    <button type="button" onclick="toggleInventory()">Inventario</button>
+    <button type="button" onclick="exportCsv()">CSV</button>
     <button type="button" onclick="toggleSimulation()" id="simToggle">Pausar vivo</button>
     <button type="button" onclick="resetSandbox()">Reset</button>
   </div>
@@ -1355,6 +1595,9 @@ const popover = document.getElementById('unitPopover');
 const historyDrawer = document.getElementById('historyDrawer');
 const historyList = document.getElementById('historyList');
 const activityList = document.getElementById('activityList');
+const inventoryDrawer = document.getElementById('inventoryDrawer');
+const inventoryList = document.getElementById('inventoryList');
+const mapSearch = document.getElementById('mapSearch');
 const slotField = document.getElementById('unitSlotField');
 const STORAGE_KEY = 'mex-mapa:sandbox-bjx:v3';
 const STATUS_STYLE = {
@@ -1390,6 +1633,11 @@ let editorMode = 'edit';
 let draggingUnitId = '';
 let state = null;
 let simulationTimer = 0;
+const filterState = {
+  query: '',
+  status: 'TODOS',
+  layers: new Set(['limbo', 'patio', 'oficina', 'taller', 'bano']),
+};
 
 function getSlotId(slot) {
   return (slot?.dataset?.label || '').trim();
@@ -1408,6 +1656,14 @@ function placeForSlot(slotId) {
   if (slotId.startsWith('L')) return 'Limbo';
   if (slotId.startsWith('OFICINA')) return 'Oficina';
   return 'Patio';
+}
+
+function layerForSlot(slotId) {
+  if (slotId.startsWith('TLLRS')) return 'taller';
+  if (slotId.startsWith('B-')) return 'bano';
+  if (slotId.startsWith('L')) return 'limbo';
+  if (slotId.startsWith('OFICINA')) return 'oficina';
+  return 'patio';
 }
 
 function fuelFill(fuel) {
@@ -1588,6 +1844,8 @@ function renderAll() {
     if (target) target.appendChild(createUnitElement(unit));
   });
   fillSlotOptions();
+  applyMapFilters();
+  renderInventory();
   renderHistory();
   renderActivity();
   updateSummary();
@@ -1597,6 +1855,65 @@ function fillSlotOptions() {
   const current = slotField.value;
   slotField.innerHTML = slotIds.map((slotId) => `<option value="${slotId}">${slotId}</option>`).join('');
   if (current && slotIds.includes(current)) slotField.value = current;
+}
+
+function unitMatchesFilters(unit) {
+  const query = filterState.query.trim().toUpperCase();
+  const layer = layerForSlot(unit.slot || '');
+  const statusOk = filterState.status === 'TODOS' || unit.status === filterState.status;
+  const layerOk = filterState.layers.has(layer);
+  const searchText = [unit.id, unit.slot, unit.status, unit.place, unit.fuel, unit.plates, unit.model, unit.notes]
+    .join(' ')
+    .toUpperCase();
+  const queryOk = !query || searchText.includes(query);
+  return statusOk && layerOk && queryOk;
+}
+
+function visibleUnits() {
+  return Object.values(state.units).filter(unitMatchesFilters);
+}
+
+function applyMapFilters() {
+  const query = filterState.query.trim().toUpperCase();
+  slotNodes.forEach((slot) => {
+    const slotId = getSlotId(slot);
+    const layer = layerForSlot(slotId);
+    slot.classList.toggle('layer-hidden', !filterState.layers.has(layer));
+    slot.classList.remove('search-hit');
+  });
+  Object.values(state.units).forEach((unit) => {
+    const el = document.querySelector(`.unit[data-id="${CSS.escape(unit.id)}"]`);
+    if (!el) return;
+    const visible = unitMatchesFilters(unit);
+    el.classList.toggle('filtered-out', !visible);
+    if (query && visible) slotNode(unit.slot)?.classList.add('search-hit');
+  });
+  document.querySelectorAll('.filter-chip').forEach((button) => {
+    button.classList.toggle('active', button.dataset.status === filterState.status);
+  });
+}
+
+function setStatusFilter(status) {
+  filterState.status = status;
+  renderAll();
+}
+
+function toggleLayer(input) {
+  if (input.checked) filterState.layers.add(input.dataset.layer);
+  else filterState.layers.delete(input.dataset.layer);
+  renderAll();
+}
+
+function clearMapFilters() {
+  filterState.query = '';
+  filterState.status = 'TODOS';
+  filterState.layers = new Set(['limbo', 'patio', 'oficina', 'taller', 'bano']);
+  mapSearch.value = '';
+  document.querySelectorAll('.layer-chip input').forEach((input) => {
+    input.checked = true;
+  });
+  renderAll();
+  showToast('Filtros limpiados');
 }
 
 function selectUnit(target) {
@@ -1840,6 +2157,50 @@ function renderActivity() {
   document.getElementById('simStatus').textContent = state.simulationPaused ? 'Pausado' : 'Simulado';
 }
 
+function renderInventory() {
+  const units = visibleUnits().sort((a, b) => a.id.localeCompare(b.id));
+  inventoryList.innerHTML = units.length
+    ? units.map((unit) => `
+      <button class="inventory-row" type="button" onclick="focusInventoryUnit('${unit.id}')">
+        <strong>${unit.id}</strong>
+        <span>${unit.model || 'Modelo demo'}</span>
+        <span>${STATUS_LABEL[unit.status] || unit.status}</span>
+        <span>${unit.slot}</span>
+      </button>
+    `).join('')
+    : '<div class="activity-item">Sin resultados<span>Ajusta búsqueda, estado o capas.</span></div>';
+}
+
+function toggleInventory() {
+  inventoryDrawer.classList.toggle('open');
+  renderInventory();
+}
+
+function focusInventoryUnit(unitId) {
+  const unit = state.units[unitId];
+  if (!unit) return;
+  const target = slotNode(unit.slot);
+  if (target) target.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+  selectUnit(unitId);
+}
+
+function exportCsv() {
+  const rows = [
+    ['MVA', 'Estado', 'Cajon', 'Ubicacion', 'Gasolina', 'Placas', 'Modelo', 'Notas'],
+    ...visibleUnits().map((unit) => [unit.id, unit.status, unit.slot, unit.place, unit.fuel, unit.plates, unit.model, unit.notes]),
+  ];
+  const csv = rows.map((row) => row.map((value) => `"${String(value || '').replace(/"/g, '""')}"`).join(',')).join('\n');
+  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `inventario-bjx-${new Date().toISOString().slice(0, 10)}.csv`;
+  link.click();
+  URL.revokeObjectURL(url);
+  addHistory('Exportacion', `${visibleUnits().length} unidades exportadas a CSV`);
+  persistState();
+  showToast('CSV generado');
+}
+
 function toggleHistory() {
   historyDrawer.classList.toggle('open');
 }
@@ -1969,6 +2330,7 @@ document.addEventListener('keydown', (event) => {
     closeSummary();
     closeUnit();
     historyDrawer.classList.remove('open');
+    inventoryDrawer.classList.remove('open');
   }
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') {
     event.preventDefault();
@@ -1982,6 +2344,11 @@ document.addEventListener('keydown', (event) => {
 
 document.getElementById('summaryModal').addEventListener('click', (event) => {
   if (event.target.id === 'summaryModal') closeSummary();
+});
+
+mapSearch.addEventListener('input', (event) => {
+  filterState.query = event.target.value;
+  renderAll();
 });
 
 state = loadState();
