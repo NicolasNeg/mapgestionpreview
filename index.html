@@ -59,7 +59,7 @@ button, input, textarea { font: inherit; }
 
 /* ── LAYOUT ──────────────────────────────────────────────── */
 .container {
-  width: min(var(--container), calc(100% - 40px));
+  width: min(var(--container), calc(100vw - 40px));
   margin: 0 auto;
 }
 .section { padding: 96px 0; }
@@ -218,6 +218,7 @@ button, input, textarea { font: inherit; }
   margin-bottom: 36px;
 }
 .hero-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.hero-actions .btn-whatsapp { color: #0b2415; }
 .hero-social {
   margin-top: 48px;
   display: flex;
@@ -1017,6 +1018,61 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   font-weight: 700;
 }
 
+/* ── ADMIN TRUST STRIP ───────────────────────────────────── */
+.admin-trust-section {
+  background: var(--ink);
+  color: var(--white);
+  padding: 48px 0;
+}
+.admin-trust-inner {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.9fr) minmax(0, 1.35fr);
+  gap: 34px;
+  align-items: center;
+}
+.admin-trust-title {
+  font-family: var(--f-display);
+  font-size: clamp(28px, 3.4vw, 42px);
+  font-weight: 300;
+  line-height: 1.08;
+  margin-top: 10px;
+}
+.admin-trust-copy {
+  margin-top: 14px;
+  max-width: 520px;
+  color: rgba(255,255,255,0.55);
+  font-size: 15px;
+  line-height: 1.65;
+}
+.admin-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.admin-trust-card {
+  min-height: 132px;
+  padding: 18px;
+  border-radius: var(--r-md);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.admin-trust-card svg {
+  color: var(--lime);
+  margin-bottom: 14px;
+}
+.admin-trust-card strong {
+  display: block;
+  font-size: 14px;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.admin-trust-card span {
+  display: block;
+  color: rgba(255,255,255,0.5);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
 /* ── FOOTER ──────────────────────────────────────────────── */
 .footer {
   background: var(--ink);
@@ -1135,7 +1191,8 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 @media (max-width: 1024px) {
   .benefits-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-main { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hero-inner { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+  .hero-left { min-width: 0; }
   .hero-title { font-size: clamp(36px, 7vw, 52px); }
   .hero-right { max-width: 520px; }
   .mock-panel { display: none; }
@@ -1143,9 +1200,17 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 @media (max-width: 768px) {
   .section { padding: 64px 0; }
   .nav { display: none; }
-  .header-actions .btn:not(.btn-sm) { display: none; }
+  .header-actions .btn { display: none; }
   .nav-toggle { display: block; }
   .hero { padding: 64px 0 48px; }
+  .hero-left { max-width: calc(100vw - 32px); overflow: hidden; }
+  .hero-sub, .hero-social-text { overflow-wrap: anywhere; }
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+  .hero-actions .btn { justify-content: center; width: 100%; }
   .problem-inner { grid-template-columns: 1fr; gap: 40px; }
   .benefits-grid { grid-template-columns: 1fr; }
   .how-steps { grid-template-columns: 1fr; gap: 40px; }
@@ -1155,6 +1220,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   .contact-form { padding: 22px; border-radius: var(--r-md); }
   .contact-form-head { flex-direction: column; }
   .contact-channel-grid, .contact-form-meta { grid-template-columns: 1fr; }
+  .admin-trust-inner, .admin-trust-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .footer-main { grid-template-columns: 1fr; gap: 28px; }
   .metrics-inner { flex-direction: column; gap: 32px; }
@@ -1166,7 +1232,12 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   .video-caption { align-items: flex-start; flex-direction: column; }
 }
 @media (max-width: 480px) {
-  .container { width: calc(100% - 32px); }
+  .container { width: calc(100vw - 32px); }
+  .hero-inner { width: 100%; }
+  .hero-sub { max-width: 100%; }
+  .hero-social-text { min-width: 0; }
+  .hero-right { width: 100%; max-width: 100%; overflow: hidden; }
+  .hero-mockup { width: 100%; }
   .hero-title { font-size: 34px; }
   .cta-title { font-size: 32px; }
   .btn { padding: 12px 20px; font-size: 14px; }
@@ -1568,7 +1639,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 
 /* ── SCREENSHOTS GALLERY ─────────────────────────────────── */
 .screens-section { background: var(--paper-2); }
-.screens-section .container { width: min(1360px, calc(100% - 40px)); }
+.screens-section .container { width: min(1360px, calc(100vw - 40px)); }
 .screens-head {
   margin-bottom: 42px;
   display: flex;
@@ -1710,7 +1781,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   .sc-feature .sc-card-content { position: relative; left: auto; bottom: auto; width: auto; margin: -74px 18px 18px; }
 }
 @media (max-width: 600px) {
-  .screens-section .container { width: calc(100% - 32px); }
+  .screens-section .container { width: calc(100vw - 32px); }
   .screens-grid { grid-template-columns: 1fr; }
   .sc-card { grid-column: span 1 !important; }
   .sc-card.span-12:not(.sc-feature) { grid-template-columns: 1fr; }
@@ -1961,30 +2032,26 @@ textarea.form-input { resize: vertical; min-height: 80px; }
     <div class="hero-left fade-up">
       <div class="hero-kicker">
         <span class="dot"></span>
-        <span class="label label-lime" style="margin:0;">Gestión de mapas y registros</span>
+        <span class="label label-lime" style="margin:0;">Administración, roles y permisos</span>
       </div>
 
       <h1 class="display hero-title">
-        Tu equipo merece<br>
-        una herramienta<br>
-        <em>que no frena</em>
+        Controla accesos,<br>
+        roles y operación<br>
+        <em>desde un solo panel</em>
       </h1>
 
       <p class="hero-sub">
-        MapGestion centraliza mapas, datos y edición en una sola interfaz. Menos clics, menos errores, más claridad para todos.
+        MapGestion ordena permisos, solicitudes, usuarios, plazas, auditoría y trazabilidad para que administración tenga control sin perseguir datos en chats o archivos sueltos.
       </p>
 
       <div class="hero-actions">
-        <a href="#demo" class="btn btn-lime">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="5,3 13,8 5,13" fill="#111318"/></svg>
-          Ver demo
+        <a class="btn btn-whatsapp" href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20demo%20administrativa%20de%20MapGestion" target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19.1 4.9A9.8 9.8 0 0 0 3.7 16.7L3 21l4.4-.7A9.8 9.8 0 0 0 12 21a9.8 9.8 0 0 0 7.1-16.1Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          Agendar demo por WhatsApp
         </a>
-        <button class="btn btn-ink" onclick="openSandbox()">
-          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="2" width="5" height="5" rx="1.5"/><rect x="8" y="2" width="5" height="5" rx="1.5"/><rect x="2" y="8" width="5" height="5" rx="1.5"/><rect x="8" y="8" width="5" height="5" rx="1.5"/></svg>
-          Testear sistema
-        </button>
-        <a href="https://mex-mapa-bjx.web.app" class="btn btn-map-live" target="_blank" rel="noopener">Abrir mapa real</a>
-        <a href="#contacto" class="btn btn-outline">Hablar con ventas</a>
+        <a href="https://mex-mapa-bjx.web.app" class="btn btn-map-live" target="_blank" rel="noopener">Ver mapa real</a>
+        <a href="#pantallas" class="btn btn-outline">Explorar capturas</a>
       </div>
 
       <div class="hero-social fade-up fade-up-d2">
@@ -1995,7 +2062,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
           <span style="background:rgba(255,92,71,0.1);color:#ff5c47;">TS</span> -->
         </div>
         <p class="hero-social-text">
-          <strong>Mex Rent A Car </strong> - Equipos que ya lo usan a diario
+          <strong>Mex Rent A Car </strong> - Administración, permisos y operación trabajando con la misma fuente de verdad
         </p>
       </div>
     </div>
@@ -2005,8 +2072,8 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <div class="mock-badge badge-tl">
         <div class="mock-badge-icon" style="background:var(--teal-soft);">✔</div>
         <div class="mock-badge-text">
-          <strong>Registro guardado</strong>
-          <span>hace 2 segundos</span>
+          <strong>Acceso aprobado</strong>
+          <span>con rol y plaza asignados</span>
         </div>
       </div>
 
@@ -2036,24 +2103,24 @@ textarea.form-input { resize: vertical; min-height: 80px; }
             <div class="mock-pin p3"></div>
           </div>
           <div class="mock-panel">
-            <div class="mock-panel-head">Registro #047</div>
+            <div class="mock-panel-head">Usuario #047</div>
             <div class="mock-field">
-              <div class="mock-field-label">Zona</div>
+              <div class="mock-field-label">Plaza</div>
               <div class="mock-field-val filled"></div>
             </div>
             <div class="mock-field">
-              <div class="mock-field-label">Estado</div>
+              <div class="mock-field-label">Rol</div>
               <div class="mock-field-badge"></div>
             </div>
             <div class="mock-field">
-              <div class="mock-field-label">Responsable</div>
+              <div class="mock-field-label">Permisos</div>
               <div class="mock-field-val filled"></div>
             </div>
             <div class="mock-field">
-              <div class="mock-field-label">Notas</div>
+              <div class="mock-field-label">Bitácora</div>
               <div class="mock-field-val" style="height:36px;"></div>
             </div>
-            <div class="mock-save"><span>Guardar cambios</span></div>
+            <div class="mock-save"><span>Guardar permisos</span></div>
           </div>
         </div>
       </div>
@@ -2062,8 +2129,8 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <div class="mock-badge badge-br">
         <div class="mock-badge-icon" style="background:rgba(200,241,53,0.2);font-size:16px;">⚡</div>
         <div class="mock-badge-text">
-          <strong>40% menos errores</strong>
-          <span>vs. flujo anterior</span>
+          <strong>Bitácora completa</strong>
+          <span>cada cambio queda registrado</span>
         </div>
       </div>
     </div>
@@ -2298,10 +2365,10 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 <!-- VIDEO DEMO -->
 <section class="section" id="demo">
   <div class="container">
-    <div class="video-head">
+      <div class="video-head">
       <span class="label">Demo interactiva</span>
-      <h2 class="display video-title">Pruebala ahora mismo</h2>
-      <p class="video-sub">Mira el flujo en contexto: mapa, edición, movimiento de unidades y resumen operativo antes de abrir el sandbox completo.</p>
+      <h2 class="display video-title">Revisa el flujo antes de la demo</h2>
+      <p class="video-sub">Mira cómo conviven mapa, registros, permisos y seguimiento para que administración valide el alcance antes de entrar al detalle.</p>
     </div>
 
     <div class="demo-split">
@@ -2313,8 +2380,8 @@ textarea.form-input { resize: vertical; min-height: 80px; }
         <div class="video-frame-label">Preview del producto</div>
         <div class="video-caption">
           <div>
-            <strong>Mapa vivo, edición y sandbox</strong>
-            <span>Un recorrido breve para entender la operación antes de entrar a probarla.</span>
+            <strong>Mapa vivo, usuarios y trazabilidad</strong>
+            <span>Un recorrido breve para entender cómo se conecta operación con control administrativo.</span>
           </div>
           <div class="video-duration">MP4 listo</div>
         </div>
@@ -2325,10 +2392,10 @@ textarea.form-input { resize: vertical; min-height: 80px; }
         <div class="sandbox-cta-top">
           <span class="sandbox-live-pill">
             <span class="sandbox-live-dot"></span>
-            Sandbox en vivo
+            Exploración guiada
           </span>
-          <h3 class="sandbox-cta-title">Interactuá con el sistema real</h3>
-          <p class="sandbox-cta-desc">Abrí el sandbox y explorá el mapa, editá registros, cambiá estados y ves las actualizaciones en tiempo real — sin tocar datos reales.</p>
+          <h3 class="sandbox-cta-title">Prueba el flujo sin tocar datos reales</h3>
+          <p class="sandbox-cta-desc">El sandbox queda como espacio de exploración: mapa, registros y cambios simulados para entender la herramienta antes de una demo administrativa.</p>
         </div>
 
         <div class="sandbox-features">
@@ -2342,29 +2409,29 @@ textarea.form-input { resize: vertical; min-height: 80px; }
           <div class="sandbox-feat">
             <div class="sandbox-feat-icon">⚡</div>
             <div>
-              <div class="sandbox-feat-name">Tiempo real simulado</div>
-              <div class="sandbox-feat-desc">Estados que cambian automáticamente</div>
+              <div class="sandbox-feat-name">Cambios trazables</div>
+              <div class="sandbox-feat-desc">Estados y acciones visibles al instante</div>
             </div>
           </div>
           <div class="sandbox-feat">
             <div class="sandbox-feat-icon">✏️</div>
             <div>
-              <div class="sandbox-feat-name">Edición completa</div>
-              <div class="sandbox-feat-desc">Panel lateral con todos los campos</div>
+              <div class="sandbox-feat-name">Edición controlada</div>
+              <div class="sandbox-feat-desc">Campos, estados y responsables en contexto</div>
             </div>
           </div>
           <div class="sandbox-feat">
             <div class="sandbox-feat-icon">🔍</div>
             <div>
               <div class="sandbox-feat-name">Filtros y búsqueda</div>
-              <div class="sandbox-feat-desc">Filtrá por estado, buscá por MVA</div>
+              <div class="sandbox-feat-desc">Filtra por estado, usuario o unidad</div>
             </div>
           </div>
         </div>
 
         <button class="btn btn-ink sandbox-open-btn" onclick="openSandbox()">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="2" width="5" height="5" rx="1.5"/><rect x="9" y="2" width="5" height="5" rx="1.5"/><rect x="2" y="9" width="5" height="5" rx="1.5"/><rect x="9" y="9" width="5" height="5" rx="1.5"/></svg>
-          Abrir sandbox
+          Explorar sandbox
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 7h8M7 3l4 4-4 4"/></svg>
         </button>
         <a class="btn btn-outline sandbox-open-btn" href="https://mex-mapa-bjx.web.app" target="_blank" rel="noopener" style="background:rgba(255,255,255,0.08)!important;color:var(--white)!important;border-color:rgba(255,255,255,0.14);box-shadow:none!important;">
@@ -2376,19 +2443,108 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   </div>
 </section>
 
+<!-- ADMIN TRUST STRIP -->
+<section class="admin-trust-section" aria-labelledby="adminTrustTitle">
+  <div class="container admin-trust-inner">
+    <div>
+      <span class="label label-lime">Control administrativo</span>
+      <h2 class="admin-trust-title" id="adminTrustTitle">Lo que administración necesita ver antes de comprar.</h2>
+      <p class="admin-trust-copy">Permisos claros, solicitudes con seguimiento, bitácoras consultables y auditoría para saber quién hizo qué, cuándo y desde qué módulo.</p>
+    </div>
+    <div class="admin-trust-grid">
+      <div class="admin-trust-card">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 5 6v5c0 4.2 2.8 7.7 7 9 4.2-1.3 7-4.8 7-9V6l-7-3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <strong>Roles y permisos</strong>
+        <span>Define qué ve y qué puede hacer cada usuario por módulo, plaza y responsabilidad.</span>
+      </div>
+      <div class="admin-trust-card">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><rect x="4" y="3" width="16" height="18" rx="3" stroke="currentColor" stroke-width="1.8"/></svg>
+        <strong>Aprobación de accesos</strong>
+        <span>Revisa solicitudes pendientes y evita accesos improvisados o usuarios sin autorización.</span>
+      </div>
+      <div class="admin-trust-card">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5h14M5 12h14M5 19h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 3v18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <strong>Bitácora administrativa</strong>
+        <span>Consulta movimientos sobre usuarios, plazas, bloqueos, solicitudes y cambios globales.</span>
+      </div>
+      <div class="admin-trust-card">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4M11 8v4l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <strong>Auditoría de cambios</strong>
+        <span>Cada acción importante conserva contexto para revisar responsables y reducir dudas.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SCREENSHOTS GALLERY -->
 <section class="section screens-section" id="pantallas">
   <div class="container">
     <div class="screens-head">
       <div>
-        <span class="label">Pantallas reales</span>
-        <h2 class="display screens-title">Explora el producto con capturas más grandes</h2>
-        <p class="screens-note">La galería prioriza las vistas que más venden el producto: mapa vivo, gestión, resumen, historial y módulos administrativos. Haz clic para abrir cada pantalla en detalle.</p>
+        <span class="label">Pantallas administrativas</span>
+        <h2 class="display screens-title">Primero control, después operación.</h2>
+        <p class="screens-note">Arrancamos con las vistas que más importan a administración: accesos, usuarios, roles, bitácoras y auditoría. Después puedes revisar mapa, gestión e incidencias en contexto.</p>
       </div>
       <div class="screens-filter-note">Hover para ampliar · Click para detalle</div>
     </div>
 
     <div class="screens-grid">
+
+      <!-- Admin priority captures -->
+      <article class="sc-card span-4">
+        <button class="sc-frame" type="button" data-src="assets/screenshots/aprobacion-accesos.png" data-title="Aprobación de accesos" data-kicker="01 · control administrativo" data-desc="Buzón para revisar, aprobar o rechazar accesos antes de que un usuario entre al sistema.">
+          <img src="assets/screenshots/aprobacion-accesos.png" alt="Aprobación de accesos" loading="lazy" decoding="async" style="min-height:260px;" />
+        </button>
+        <div class="sc-card-content">
+          <span class="sc-card-label">01 · aprobación de accesos</span>
+          <h3 class="sc-card-title">Solicitudes bajo control.</h3>
+          <p class="sc-card-desc">Evita altas improvisadas y conserva visibilidad sobre pendientes, aprobadas y rechazadas.</p>
+        </div>
+      </article>
+
+      <article class="sc-card span-4">
+        <button class="sc-frame" type="button" data-src="assets/screenshots/usuarios.png" data-title="Usuarios" data-kicker="02 · control administrativo" data-desc="Vista detallada de usuarios, roles, plazas y permisos dentro del sistema.">
+          <img src="assets/screenshots/usuarios.png" alt="Usuarios" loading="lazy" decoding="async" style="min-height:260px;" />
+        </button>
+        <div class="sc-card-content">
+          <span class="sc-card-label">02 · usuarios</span>
+          <h3 class="sc-card-title">Usuarios con contexto real.</h3>
+          <p class="sc-card-desc">Rol, plaza, permisos y datos clave visibles para administrar sin hojas paralelas.</p>
+        </div>
+      </article>
+
+      <article class="sc-card span-4">
+        <button class="sc-frame" type="button" data-src="assets/screenshots/roles-permisos.png" data-title="Roles y permisos" data-kicker="03 · control administrativo" data-desc="Editor de roles y permisos para controlar alcance y acciones del equipo.">
+          <img src="assets/screenshots/roles-permisos.png" alt="Roles y permisos" loading="lazy" decoding="async" style="min-height:260px;" />
+        </button>
+        <div class="sc-card-content">
+          <span class="sc-card-label">03 · roles y permisos</span>
+          <h3 class="sc-card-title">Alcance claro por módulo.</h3>
+          <p class="sc-card-desc">Controla quién consulta, edita, aprueba o administra cada parte del producto.</p>
+        </div>
+      </article>
+
+      <article class="sc-card span-6">
+        <button class="sc-frame" type="button" data-src="assets/screenshots/bitacora-gestion.png" data-title="Bitácora de gestión" data-kicker="04 · control administrativo" data-desc="Historial de movimientos administrativos sobre usuarios, plazas, bloqueos, solicitudes y cambios globales.">
+          <img src="assets/screenshots/bitacora-gestion.png" alt="Bitácora de gestión" loading="lazy" decoding="async" style="min-height:260px;" />
+        </button>
+        <div class="sc-card-content">
+          <span class="sc-card-label">04 · bitácora administrativa</span>
+          <h3 class="sc-card-title">Cada cambio deja rastro.</h3>
+          <p class="sc-card-desc">Movimientos administrativos consultables para revisar responsables, fechas y acciones.</p>
+        </div>
+      </article>
+
+      <article class="sc-card span-6">
+        <button class="sc-frame" type="button" data-src="assets/screenshots/auditoria-sistema.png" data-title="Auditoría del sistema" data-kicker="05 · control administrativo" data-desc="Registro de trazabilidad visual para mapa y flota con mejor seguimiento contextual.">
+          <img src="assets/screenshots/auditoria-sistema.png" alt="Auditoría del sistema" loading="lazy" decoding="async" style="min-height:260px;" />
+        </button>
+        <div class="sc-card-content">
+          <span class="sc-card-label">05 · auditoría de cambios</span>
+          <h3 class="sc-card-title">Trazabilidad para dirección y administración.</h3>
+          <p class="sc-card-desc">Auditoría contextual para explicar qué pasó, cuándo ocurrió y quién participó.</p>
+        </div>
+      </article>
 
       <!-- 01 Mapa en vivo — wide dark -->
       <article class="sc-card span-12 dark sc-feature">
@@ -2655,28 +2811,29 @@ textarea.form-input { resize: vertical; min-height: 80px; }
     <div class="cta-inner">
       <span class="label" style="color:rgba(255,255,255,0.4);">¿Listo para el siguiente paso?</span>
       <h2 class="display cta-title">
-        Empieza a gestionar<br>
+        Ordena usuarios,<br>
+        accesos y auditoría<br>
         <em>sin fricción</em>
       </h2>
       <p class="cta-sub">
-        Agenda una demo y te mostramos cómo MapGestion encaja en tu flujo real, sin instalaciones complejas.
+        Agenda una demo y revisamos cómo MapGestion puede centralizar roles, permisos, plazas, bitácoras y trazabilidad sin instalaciones complejas.
       </p>
       <div class="cta-actions">
-        <a href="#contacto" class="btn btn-lime">Solicitar demo</a>
-        <a href="mailto:propyocontacto@gmail.com" class="btn btn-outline" style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.15);">hola@mapgestion.app</a>
+        <a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20demo%20administrativa%20de%20MapGestion" target="_blank" rel="noopener" class="btn btn-lime">Agendar por WhatsApp</a>
+        <a href="#contacto" class="btn btn-outline" style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.15);">Completar formulario</a>
       </div>
       <div class="cta-trust">
         <div class="cta-trust-item">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,7 5.5,10.5 12,3.5"/></svg>
-          Sin tarjeta de crédito
+          Sin datos privados para la demo
         </div>
         <div class="cta-trust-item">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,7 5.5,10.5 12,3.5"/></svg>
-          Demo en 20 minutos
+          Enfoque en roles y permisos
         </div>
         <div class="cta-trust-item">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,7 5.5,10.5 12,3.5"/></svg>
-          Onboarding incluido
+          Términos y privacidad visibles
         </div>
       </div>
     </div>
@@ -2796,12 +2953,12 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   <div class="container contact-inner">
     <div class="contact-left">
       <span class="label">Contacto</span>
-      <h3 class="contact-title">Agenda una demo con contexto real</h3>
+      <h3 class="contact-title">Agenda una demo administrativa</h3>
       <p class="contact-desc">
-        Cuéntanos cuántas plazas, unidades y usuarios participan en tu operación. Con eso preparamos una sesión enfocada en mapa, permisos, flujo de patio y reportes.
+        Cuéntanos cuántos usuarios, roles, plazas y permisos necesitas controlar. Con eso preparamos una sesión enfocada en accesos, auditoría, bitácoras y trazabilidad.
       </p>
       <div class="contact-actions">
-        <a class="btn btn-whatsapp" href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20demo%20de%20MapGestion" target="_blank" rel="noopener">
+        <a class="btn btn-whatsapp" href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20demo%20administrativa%20de%20MapGestion" target="_blank" rel="noopener">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M19.1 4.9A9.8 9.8 0 0 0 3.7 16.7L3 21l4.4-.7A9.8 9.8 0 0 0 12 21a9.8 9.8 0 0 0 7.1-16.1Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
             <path d="M8.4 8.3c.2-.5.4-.5.7-.5h.6c.2 0 .5.1.6.4l.8 1.9c.1.2.1.4 0 .6l-.4.5c-.2.2-.2.4 0 .7.5.9 1.4 1.8 2.4 2.3.3.2.5.1.7-.1l.5-.6c.2-.2.4-.3.7-.2l2 .9c.3.1.4.3.4.6 0 .7-.5 1.5-1.1 1.8-.7.4-1.8.3-3.2-.4-2.9-1.3-4.8-3.6-5.4-5.6-.4-1.2-.2-1.9.1-2.3Z" fill="currentColor"/>
@@ -2812,40 +2969,40 @@ textarea.form-input { resize: vertical; min-height: 80px; }
         <a href="https://mex-mapa-bjx.web.app" class="btn btn-map-live" target="_blank" rel="noopener">Abrir mapa real</a>
       </div>
       <div class="contact-channel-grid" aria-label="Canales de contacto">
-        <a class="contact-channel" href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20demo%20de%20MapGestion" target="_blank" rel="noopener">
+        <a class="contact-channel" href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20demo%20administrativa%20de%20MapGestion" target="_blank" rel="noopener">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19.1 4.9A9.8 9.8 0 0 0 3.7 16.7L3 21l4.4-.7A9.8 9.8 0 0 0 12 21a9.8 9.8 0 0 0 7.1-16.1Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
           <strong>WhatsApp directo</strong>
-          <span>477 802 4682 para coordinar demo o dudas rápidas.</span>
+          <span>477 802 4682 para coordinar una demo administrativa.</span>
         </a>
         <a class="contact-channel" href="mailto:propyocontacto@gmail.com">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <strong>Correo</strong>
-          <span>Envía contexto, plazas y usuarios para preparar la sesión.</span>
+          <span>Envía contexto de usuarios, roles, plazas y permisos.</span>
         </a>
         <a class="contact-channel" href="https://mex-mapa-bjx.web.app" target="_blank" rel="noopener">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18 3 21V6l6-3 6 3 6-3v15l-6 3-6-3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 3v15M15 6v15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
           <strong>Mapa real</strong>
-          <span>Abre la instancia pública para revisar el producto en vivo.</span>
+          <span>Revisa la prueba visual después de conocer el control administrativo.</span>
         </a>
       </div>
       <div class="contact-points">
-        <div class="contact-point">Respondemos con una propuesta de demo y los datos que conviene preparar antes de la sesión.</div>
-        <div class="contact-point">Podemos revisar operación de una plaza o un flujo multi-plaza con roles y permisos.</div>
-        <div class="contact-point">El sandbox permite validar la experiencia sin exponer información real de tu flota.</div>
+        <div class="contact-point">Respondemos con una propuesta de demo y los datos administrativos que conviene preparar antes de la sesión.</div>
+        <div class="contact-point">Podemos revisar usuarios, roles, solicitudes de acceso y permisos por plaza.</div>
+        <div class="contact-point">El sandbox y el mapa real quedan como apoyo visual sin exponer datos privados de tu operación.</div>
       </div>
     </div>
     <form class="contact-form" onsubmit="handleForm(event)">
       <div class="contact-form-head">
         <div>
-          <div class="contact-form-title">Solicitar demo</div>
-          <div class="contact-form-sub">Déjanos tus datos y el caso de uso. Te contactamos para coordinar horario.</div>
+          <div class="contact-form-title">Solicitar demo administrativa</div>
+          <div class="contact-form-sub">Déjanos tus datos y el alcance de usuarios, roles, plazas o permisos. Te contactamos para coordinar horario.</div>
         </div>
         <div class="contact-response-pill">24 h</div>
       </div>
       <div class="contact-form-meta">
-        <div class="contact-meta-item"><strong>1. Contexto</strong><span>Plazas, unidades y roles.</span></div>
-        <div class="contact-meta-item"><strong>2. Demo</strong><span>Mapa, permisos y flujo real.</span></div>
-        <div class="contact-meta-item"><strong>3. Alcance</strong><span>Implementación y soporte.</span></div>
+        <div class="contact-meta-item"><strong>1. Usuarios</strong><span>Altas, bajas y responsables.</span></div>
+        <div class="contact-meta-item"><strong>2. Permisos</strong><span>Roles, módulos y plazas.</span></div>
+        <div class="contact-meta-item"><strong>3. Auditoría</strong><span>Bitácoras y trazabilidad.</span></div>
       </div>
       <div class="form-row">
         <div class="form-field">
@@ -2867,14 +3024,14 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       </div>
       <div class="form-field">
         <label class="form-label">¿Qué necesitas controlar?</label>
-        <textarea class="form-input" name="necesidad" placeholder="Ej: 3 plazas, 250 unidades, control de patio, traslados, incidencias, roles por usuario..."></textarea>
+        <textarea class="form-input" name="necesidad" placeholder="Ej: 4 plazas, 35 usuarios, roles por módulo, aprobación de accesos, bitácora administrativa, auditoría de cambios..."></textarea>
       </div>
       <div class="contact-form-foot">
         <button type="submit" class="btn btn-ink">Enviar solicitud</button>
         <span class="contact-small">También puedes escribir por WhatsApp al 477 802 4682 para una respuesta más rápida.</span>
       </div>
       <div class="contact-legal-note">
-        Al solicitar una demo compartes datos de contacto y contexto operativo para preparar la sesión. Revisa los <a href="terminos.html">términos y condiciones</a>.
+        Usamos tus datos de contacto y contexto administrativo solo para preparar la demo y dar seguimiento comercial. Revisa los <a href="terminos.html">términos y condiciones</a>.
       </div>
     </form>
   </div>
@@ -2920,7 +3077,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
         <div class="footer-col-title">Contacto</div>
         <div class="footer-links">
           <a href="mailto:propyocontacto@gmail.com">propyocontacto@gmail.com</a>
-          <a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20demo%20de%20MapGestion" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20demo%20administrativa%20de%20MapGestion" target="_blank" rel="noopener">WhatsApp</a>
           <a href="#contacto">Solicitar demo</a>
         </div>
       </div>
@@ -2984,14 +3141,14 @@ function handleForm(e) {
   const form = e.target;
   const data = new FormData(form);
   const message = [
-    'Hola, quiero agendar una demo de MapGestion.',
+    'Hola, quiero agendar una demo administrativa de MapGestion.',
     '',
     `Nombre: ${data.get('nombre') || ''}`,
     `Empresa: ${data.get('empresa') || ''}`,
     `Email: ${data.get('email') || ''}`,
     `WhatsApp o teléfono: ${data.get('telefono') || ''}`,
     '',
-    `Necesito controlar: ${data.get('necesidad') || ''}`
+    `Usuarios, roles, plazas o permisos a controlar: ${data.get('necesidad') || ''}`
   ].join('\n');
   const btn = e.target.querySelector('button[type="submit"]');
   btn.textContent = 'Abriendo WhatsApp...';
@@ -3053,14 +3210,19 @@ const lightboxItems = [];
 let lightboxIndex = 0;
 
 function buildLightboxItems() {
+  const lightboxIndexBySrc = new Map();
   document.querySelectorAll('.sc-frame[data-src], .sc-admin-mini[data-src]').forEach(el => {
-    const itemIndex = lightboxItems.length;
-    lightboxItems.push({
-      src: el.dataset.src,
-      title: el.dataset.title,
-      kicker: el.dataset.kicker,
-      desc: el.dataset.desc
-    });
+    let itemIndex = lightboxIndexBySrc.get(el.dataset.src);
+    if (itemIndex === undefined) {
+      itemIndex = lightboxItems.length;
+      lightboxIndexBySrc.set(el.dataset.src, itemIndex);
+      lightboxItems.push({
+        src: el.dataset.src,
+        title: el.dataset.title,
+        kicker: el.dataset.kicker,
+        desc: el.dataset.desc
+      });
+    }
     el.addEventListener('click', () => {
       openLightbox(itemIndex);
     });
