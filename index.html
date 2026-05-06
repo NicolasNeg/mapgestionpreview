@@ -820,16 +820,19 @@ button, input, textarea { font: inherit; }
 
 /* ── CONTACT FORM (inline simple) ───────────────────────── */
 .contact-strip {
-  background: var(--paper-2);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(43,127,255,0.08), transparent 32%),
+    linear-gradient(180deg, var(--paper-2) 0%, var(--paper) 100%);
   border-top: 1px solid var(--line);
-  padding: 76px 0;
+  padding: 86px 0;
 }
 .contact-inner {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1fr);
+  grid-template-columns: minmax(0, 0.82fr) minmax(440px, 1fr);
   gap: 56px;
-  align-items: center;
+  align-items: stretch;
 }
+.contact-left { display: flex; flex-direction: column; justify-content: center; }
 .contact-title { font-size: clamp(32px, 4vw, 46px); font-weight: 700; margin: 12px 0 14px; line-height: 1.05; }
 .contact-desc { font-size: 16px; color: var(--ink-soft); line-height: 1.7; max-width: 500px; }
 .contact-actions {
@@ -844,6 +847,39 @@ button, input, textarea { font: inherit; }
   box-shadow: 0 6px 18px rgba(37,211,102,0.24);
 }
 .btn-whatsapp:hover { background: #2ce070; box-shadow: 0 10px 28px rgba(37,211,102,0.32); }
+.btn-map-live {
+  background: var(--sky);
+  color: var(--white);
+  box-shadow: 0 6px 18px rgba(43,127,255,0.24);
+}
+.btn-map-live:hover { background: #1d6ce8; box-shadow: 0 10px 28px rgba(43,127,255,0.32); }
+.contact-channel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 26px;
+  max-width: 560px;
+}
+.contact-channel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 112px;
+  padding: 16px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.72);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.contact-channel:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(43,127,255,0.22);
+}
+.contact-channel svg { color: var(--sky); }
+.contact-channel strong { font-size: 13px; color: var(--ink); }
+.contact-channel span { font-size: 12px; line-height: 1.45; color: var(--ink-muted); }
 .contact-points {
   margin-top: 28px;
   display: grid;
@@ -871,12 +907,21 @@ button, input, textarea { font: inherit; }
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
-  padding: 28px;
-  box-shadow: var(--shadow-md);
+  padding: 30px;
+  box-shadow: 0 24px 70px rgba(17,19,24,0.12);
+  position: relative;
+  overflow: hidden;
+}
+.contact-form::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--sky), var(--teal), var(--lime));
 }
 .contact-form-head {
   display: flex;
@@ -907,6 +952,29 @@ button, input, textarea { font: inherit; }
   text-transform: uppercase;
   white-space: nowrap;
 }
+.contact-form-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.contact-meta-item {
+  padding: 10px 12px;
+  border-radius: var(--r-sm);
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+.contact-meta-item strong {
+  display: block;
+  font-size: 11px;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.contact-meta-item span {
+  display: block;
+  font-size: 11px;
+  color: var(--ink-muted);
+  line-height: 1.35;
+}
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .form-field { display: flex; flex-direction: column; gap: 5px; }
 .form-label { font-size: 12px; font-weight: 600; color: var(--ink-soft); }
@@ -918,9 +986,9 @@ button, input, textarea { font: inherit; }
   font-size: 14px;
   color: var(--ink);
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
 }
-.form-input:focus { border-color: var(--sky); }
+.form-input:focus { border-color: var(--sky); box-shadow: 0 0 0 4px rgba(43,127,255,0.1); background: #fff; }
 .form-input::placeholder { color: var(--ink-muted); }
 textarea.form-input { resize: vertical; min-height: 80px; }
 .contact-form-foot {
@@ -934,6 +1002,19 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   color: var(--ink-muted);
   font-size: 12px;
   line-height: 1.5;
+}
+.contact-legal-note {
+  padding: 12px 14px;
+  border-radius: var(--r-sm);
+  background: rgba(43,127,255,0.06);
+  border: 1px solid rgba(43,127,255,0.14);
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.55;
+}
+.contact-legal-note a {
+  color: var(--sky);
+  font-weight: 700;
 }
 
 /* ── FOOTER ──────────────────────────────────────────────── */
@@ -1073,6 +1154,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   .contact-inner { grid-template-columns: 1fr; gap: 32px; }
   .contact-form { padding: 22px; border-radius: var(--r-md); }
   .contact-form-head { flex-direction: column; }
+  .contact-channel-grid, .contact-form-meta { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .footer-main { grid-template-columns: 1fr; gap: 28px; }
   .metrics-inner { flex-direction: column; gap: 32px; }
@@ -1832,6 +1914,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <a href="#demo">Demo</a>
       <a href="#pantallas">Capturas</a>
       <a href="#contacto">Contacto</a>
+      <a href="https://mex-mapa-bjx.web.app" target="_blank" rel="noopener">Mapa real</a>
     </nav>
 
     <div class="header-actions">
@@ -1865,6 +1948,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
     <a href="#como-funciona" class="mobile-nav-link" onclick="toggleNav()">Cómo funciona</a>
     <a href="#demo" class="mobile-nav-link" onclick="toggleNav()">Demo</a>
     <a href="#contacto" class="mobile-nav-link" onclick="toggleNav()">Contacto</a>
+    <a href="https://mex-mapa-bjx.web.app" class="mobile-nav-link" target="_blank" rel="noopener" onclick="toggleNav()">Mapa real</a>
     <div class="mobile-nav-cta">
       <a href="#contacto" class="btn btn-ink" style="width:100%;justify-content:center;" onclick="toggleNav()">Solicitar demo</a>
     </div>
@@ -1899,6 +1983,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
           <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="2" width="5" height="5" rx="1.5"/><rect x="8" y="2" width="5" height="5" rx="1.5"/><rect x="2" y="8" width="5" height="5" rx="1.5"/><rect x="8" y="8" width="5" height="5" rx="1.5"/></svg>
           Testear sistema
         </button>
+        <a href="https://mex-mapa-bjx.web.app" class="btn btn-map-live" target="_blank" rel="noopener">Abrir mapa real</a>
         <a href="#contacto" class="btn btn-outline">Hablar con ventas</a>
       </div>
 
@@ -2282,6 +2367,9 @@ textarea.form-input { resize: vertical; min-height: 80px; }
           Abrir sandbox
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 7h8M7 3l4 4-4 4"/></svg>
         </button>
+        <a class="btn btn-outline sandbox-open-btn" href="https://mex-mapa-bjx.web.app" target="_blank" rel="noopener" style="background:rgba(255,255,255,0.08)!important;color:var(--white)!important;border-color:rgba(255,255,255,0.14);box-shadow:none!important;">
+          Abrir mapa real
+        </a>
         <div class="sandbox-cta-note">Sin registro · Sin datos reales · Cierra cuando quieras</div>
       </div>
     </div>
@@ -2713,7 +2801,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
         Cuéntanos cuántas plazas, unidades y usuarios participan en tu operación. Con eso preparamos una sesión enfocada en mapa, permisos, flujo de patio y reportes.
       </p>
       <div class="contact-actions">
-        <a class="btn btn-whatsapp" href="https://wa.me/?text=Hola%2C%20quiero%20agendar%20una%20demo%20de%20MapGestion" target="_blank" rel="noopener">
+        <a class="btn btn-whatsapp" href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20demo%20de%20MapGestion" target="_blank" rel="noopener">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M19.1 4.9A9.8 9.8 0 0 0 3.7 16.7L3 21l4.4-.7A9.8 9.8 0 0 0 12 21a9.8 9.8 0 0 0 7.1-16.1Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
             <path d="M8.4 8.3c.2-.5.4-.5.7-.5h.6c.2 0 .5.1.6.4l.8 1.9c.1.2.1.4 0 .6l-.4.5c-.2.2-.2.4 0 .7.5.9 1.4 1.8 2.4 2.3.3.2.5.1.7-.1l.5-.6c.2-.2.4-.3.7-.2l2 .9c.3.1.4.3.4.6 0 .7-.5 1.5-1.1 1.8-.7.4-1.8.3-3.2-.4-2.9-1.3-4.8-3.6-5.4-5.6-.4-1.2-.2-1.9.1-2.3Z" fill="currentColor"/>
@@ -2721,6 +2809,24 @@ textarea.form-input { resize: vertical; min-height: 80px; }
           WhatsApp
         </a>
         <a href="mailto:propyocontacto@gmail.com" class="btn btn-outline">Enviar correo</a>
+        <a href="https://mex-mapa-bjx.web.app" class="btn btn-map-live" target="_blank" rel="noopener">Abrir mapa real</a>
+      </div>
+      <div class="contact-channel-grid" aria-label="Canales de contacto">
+        <a class="contact-channel" href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20demo%20de%20MapGestion" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19.1 4.9A9.8 9.8 0 0 0 3.7 16.7L3 21l4.4-.7A9.8 9.8 0 0 0 12 21a9.8 9.8 0 0 0 7.1-16.1Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          <strong>WhatsApp directo</strong>
+          <span>477 802 4682 para coordinar demo o dudas rápidas.</span>
+        </a>
+        <a class="contact-channel" href="mailto:propyocontacto@gmail.com">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <strong>Correo</strong>
+          <span>Envía contexto, plazas y usuarios para preparar la sesión.</span>
+        </a>
+        <a class="contact-channel" href="https://mex-mapa-bjx.web.app" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18 3 21V6l6-3 6 3 6-3v15l-6 3-6-3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 3v15M15 6v15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <strong>Mapa real</strong>
+          <span>Abre la instancia pública para revisar el producto en vivo.</span>
+        </a>
       </div>
       <div class="contact-points">
         <div class="contact-point">Respondemos con una propuesta de demo y los datos que conviene preparar antes de la sesión.</div>
@@ -2736,31 +2842,39 @@ textarea.form-input { resize: vertical; min-height: 80px; }
         </div>
         <div class="contact-response-pill">24 h</div>
       </div>
+      <div class="contact-form-meta">
+        <div class="contact-meta-item"><strong>1. Contexto</strong><span>Plazas, unidades y roles.</span></div>
+        <div class="contact-meta-item"><strong>2. Demo</strong><span>Mapa, permisos y flujo real.</span></div>
+        <div class="contact-meta-item"><strong>3. Alcance</strong><span>Implementación y soporte.</span></div>
+      </div>
       <div class="form-row">
         <div class="form-field">
           <label class="form-label">Nombre</label>
-          <input class="form-input" type="text" placeholder="Tu nombre" required />
+          <input class="form-input" type="text" name="nombre" placeholder="Tu nombre" required />
         </div>
         <div class="form-field">
           <label class="form-label">Empresa</label>
-          <input class="form-input" type="text" placeholder="Tu empresa" />
+          <input class="form-input" type="text" name="empresa" placeholder="Tu empresa" />
         </div>
       </div>
       <div class="form-field">
         <label class="form-label">Email</label>
-        <input class="form-input" type="email" placeholder="tu@empresa.com" required />
+        <input class="form-input" type="email" name="email" placeholder="tu@empresa.com" required />
       </div>
       <div class="form-field">
         <label class="form-label">WhatsApp o teléfono</label>
-        <input class="form-input" type="tel" placeholder="+52 ..." />
+        <input class="form-input" type="tel" name="telefono" placeholder="+52 ..." />
       </div>
       <div class="form-field">
         <label class="form-label">¿Qué necesitas controlar?</label>
-        <textarea class="form-input" placeholder="Ej: 3 plazas, 250 unidades, control de patio, traslados, incidencias, roles por usuario..."></textarea>
+        <textarea class="form-input" name="necesidad" placeholder="Ej: 3 plazas, 250 unidades, control de patio, traslados, incidencias, roles por usuario..."></textarea>
       </div>
       <div class="contact-form-foot">
         <button type="submit" class="btn btn-ink">Enviar solicitud</button>
-        <span class="contact-small">También puedes escribir por WhatsApp para una respuesta más rápida.</span>
+        <span class="contact-small">También puedes escribir por WhatsApp al 477 802 4682 para una respuesta más rápida.</span>
+      </div>
+      <div class="contact-legal-note">
+        Al solicitar una demo compartes datos de contacto y contexto operativo para preparar la sesión. Revisa los <a href="terminos.html">términos y condiciones</a>.
       </div>
     </form>
   </div>
@@ -2791,13 +2905,14 @@ textarea.form-input { resize: vertical; min-height: 80px; }
           <a href="#beneficios">Beneficios</a>
           <a href="#como-funciona">Cómo funciona</a>
           <a href="#demo">Demo</a>
+          <a href="https://mex-mapa-bjx.web.app" target="_blank" rel="noopener">Mapa real</a>
         </div>
       </div>
       <div>
         <div class="footer-col-title">Empresa</div>
         <div class="footer-links">
-          <a href="#">Acerca de</a>
-          <a href="#">Blog</a>
+          <a href="#producto">Acerca de</a>
+          <a href="#pantallas">Capturas</a>
           <a href="#contacto">Contacto</a>
         </div>
       </div>
@@ -2805,7 +2920,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
         <div class="footer-col-title">Contacto</div>
         <div class="footer-links">
           <a href="mailto:propyocontacto@gmail.com">propyocontacto@gmail.com</a>
-          <a href="https://wa.me/?text=Hola%2C%20quiero%20agendar%20una%20demo%20de%20MapGestion" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20demo%20de%20MapGestion" target="_blank" rel="noopener">WhatsApp</a>
           <a href="#contacto">Solicitar demo</a>
         </div>
       </div>
@@ -2813,8 +2928,8 @@ textarea.form-input { resize: vertical; min-height: 80px; }
     <div class="footer-bottom">
       <div class="footer-copy">© 2026 MapGestion. Todos los derechos reservados.</div>
       <div class="footer-bottom-links">
-        <a href="#">Privacidad</a>
-        <a href="#">Términos</a>
+        <a href="terminos.html#privacidad">Privacidad</a>
+        <a href="terminos.html">Términos</a>
       </div>
     </div>
   </div>
@@ -2866,10 +2981,28 @@ function toggleNav() {
 
 function handleForm(e) {
   e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+  const message = [
+    'Hola, quiero agendar una demo de MapGestion.',
+    '',
+    `Nombre: ${data.get('nombre') || ''}`,
+    `Empresa: ${data.get('empresa') || ''}`,
+    `Email: ${data.get('email') || ''}`,
+    `WhatsApp o teléfono: ${data.get('telefono') || ''}`,
+    '',
+    `Necesito controlar: ${data.get('necesidad') || ''}`
+  ].join('\n');
   const btn = e.target.querySelector('button[type="submit"]');
-  btn.textContent = '✓ Enviado — te contactamos pronto';
+  btn.textContent = 'Abriendo WhatsApp...';
   btn.disabled = true;
   btn.style.background = 'var(--teal)';
+  window.open(`https://wa.me/524778024682?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
+  setTimeout(() => {
+    btn.textContent = 'Enviar solicitud';
+    btn.disabled = false;
+    btn.style.background = '';
+  }, 1800);
 }
 
 // Sandbox modal
