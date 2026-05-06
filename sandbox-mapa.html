@@ -198,6 +198,120 @@ textarea {
   white-space: nowrap;
 }
 
+.ops-panel {
+  position: fixed;
+  right: 18px;
+  top: 96px;
+  z-index: 64;
+  width: 292px;
+  display: grid;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.ops-card {
+  border-radius: 18px;
+  background: rgba(15, 17, 35, .9);
+  border: 1px solid rgba(255, 255, 255, .1);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, .34);
+  backdrop-filter: blur(16px);
+  padding: 16px;
+}
+
+.ops-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.ops-title {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 5px 8px;
+  background: rgba(0, 212, 137, .12);
+  color: #7affc5;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.live-pill::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 5px rgba(0, 212, 137, .12);
+}
+
+.ops-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.ops-stat {
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .08);
+  padding: 10px;
+}
+
+.ops-stat span {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.ops-stat strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.activity-list {
+  display: grid;
+  gap: 8px;
+  max-height: 214px;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.activity-item {
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .055);
+  border: 1px solid rgba(255, 255, 255, .075);
+  padding: 10px;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.activity-item span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+}
+
 .yard-wrap {
   position: absolute;
   inset: 185px 0 0;
@@ -936,6 +1050,7 @@ textarea {
   .app { min-width: 920px; }
   .top-shell { padding-left: 12px; padding-right: 12px; }
   .scoreboard { min-width: 520px; gap: 18px; }
+  .ops-panel { display: none; }
 }
 </style>
 </head>
@@ -1165,6 +1280,28 @@ textarea {
     <div class="history-list" id="historyList"></div>
   </aside>
 
+  <aside class="ops-panel" aria-label="Paneles clave del sandbox">
+    <section class="ops-card">
+      <div class="ops-head">
+        <div class="ops-title">Operación en vivo</div>
+        <div class="live-pill" id="simStatus">Simulado</div>
+      </div>
+      <div class="ops-grid">
+        <div class="ops-stat"><span>Usuarios activos</span><strong id="opsUsers">4</strong></div>
+        <div class="ops-stat"><span>Pendientes</span><strong id="opsPending">0</strong></div>
+        <div class="ops-stat"><span>Último mov.</span><strong id="opsLastMove">--</strong></div>
+        <div class="ops-stat"><span>Alertas</span><strong id="opsAlerts">0</strong></div>
+      </div>
+    </section>
+    <section class="ops-card">
+      <div class="ops-head">
+        <div class="ops-title">Actividad reciente</div>
+        <div class="live-pill">Tiempo real</div>
+      </div>
+      <div class="activity-list" id="activityList"></div>
+    </section>
+  </aside>
+
   <section class="summary-modal" id="summaryModal" role="dialog" aria-modal="true" aria-label="Resumen de flota">
     <article class="summary-card">
       <div class="summary-head">
@@ -1200,6 +1337,7 @@ textarea {
     <button type="button" onclick="openAdd()">+ Nuevo</button>
     <button type="button" onclick="saveSandbox()">Guardar</button>
     <button type="button" onclick="toggleHistory()">Movimientos</button>
+    <button type="button" onclick="toggleSimulation()" id="simToggle">Pausar vivo</button>
     <button type="button" onclick="resetSandbox()">Reset</button>
   </div>
 
@@ -1216,8 +1354,9 @@ const viewport = document.getElementById('yardViewport');
 const popover = document.getElementById('unitPopover');
 const historyDrawer = document.getElementById('historyDrawer');
 const historyList = document.getElementById('historyList');
+const activityList = document.getElementById('activityList');
 const slotField = document.getElementById('unitSlotField');
-const STORAGE_KEY = 'mex-mapa:sandbox-bjx:v2';
+const STORAGE_KEY = 'mex-mapa:sandbox-bjx:v3';
 const STATUS_STYLE = {
   'LISTO': 'green',
   'SUCIO': 'yellow',
@@ -1234,12 +1373,23 @@ const STATUS_LABEL = {
   'EN TALLER': 'En taller',
   'TRASLADO': 'Traslado',
 };
+const SIM_USERS = ['Ana · Admin', 'Luis · Patio', 'Marta · Taller', 'Diego · Supervisor'];
+const DEMO_UNITS = [
+  { id: 'A1842', slot: 'L-3', status: 'LISTO', fuel: '3/4', place: 'Patio', model: 'Nissan Versa 2024', plates: 'GTO-1842', notes: 'Lista para salida mostrador', color: 'green' },
+  { id: 'B7310', slot: 'L-4', status: 'SUCIO', fuel: '1/2', place: 'Patio', model: 'Chevrolet Aveo 2023', plates: 'GTO-7310', notes: 'Pendiente lavado interior', color: 'yellow' },
+  { id: 'C5209', slot: 'L-5', status: 'MANTENIMIENTO', fuel: '1/4', place: 'Patio', model: 'Kia Rio 2022', plates: 'GTO-5209', notes: 'Revisar testigo de motor', color: 'red' },
+  { id: 'D8841', slot: 'S4-5', status: 'TRASLADO', fuel: 'F', place: 'Patio', model: 'Nissan Kicks 2024', plates: 'GTO-8841', notes: 'Traslado programado a aeropuerto', color: 'purple' },
+  { id: 'E4112', slot: 'S3-5', status: 'LISTO', fuel: 'F', place: 'Patio', model: 'Toyota Corolla 2024', plates: 'GTO-4112', notes: 'Unidad premium lista', color: 'green' },
+  { id: 'G9024', slot: 'TLLRS-1', status: 'EN TALLER', fuel: '1/2', place: 'Taller', model: 'VW Jetta 2023', plates: 'GTO-9024', notes: 'Cambio de balatas', color: 'orange' },
+  { id: 'H3377', slot: 'OFICINA-1', status: 'NO ARRENDABLE', fuel: 'N/A', place: 'Oficina', model: 'Hyundai i10 2022', plates: 'GTO-3377', notes: 'Documentación pendiente', color: 'blue' },
+];
 let currentScale = 1;
 let toastTimer = 0;
 let selectedUnitId = '';
 let editorMode = 'edit';
 let draggingUnitId = '';
 let state = null;
+let simulationTimer = 0;
 
 function getSlotId(slot) {
   return (slot?.dataset?.label || '').trim();
@@ -1303,12 +1453,24 @@ function captureInitialState() {
       savedAt: '19/4/2026, 5:51 p.m.',
     };
   });
+  DEMO_UNITS.forEach((unit) => {
+    if (!units[unit.id] && slotIds.includes(unit.slot)) {
+      units[unit.id] = { ...unit, savedAt: nowLabel() };
+    }
+  });
   return {
-    version: 2,
+    version: 3,
     units,
     history: [
-      { action: 'Carga inicial', detail: 'Sandbox BJX sincronizado con captura real', at: nowLabel() },
+      { action: 'Carga inicial', detail: 'Sandbox BJX con autos ficticios y actividad simulada', actor: 'Sistema', at: nowLabel() },
+      { action: 'Aprobación', detail: 'Ana aprobó acceso para operador de patio', actor: 'Ana · Admin', at: nowLabel() },
+      { action: 'Movimiento remoto', detail: 'Luis movió A1842 de preparación a patio', actor: 'Luis · Patio', at: nowLabel() },
     ],
+    activity: [
+      { title: 'Autos ficticios cargados', detail: `${DEMO_UNITS.length} unidades demo agregadas`, actor: 'Sistema', at: nowLabel() },
+      { title: 'Simulación activa', detail: 'Otros usuarios moverán unidades automáticamente', actor: 'Sistema', at: nowLabel() },
+    ],
+    simulationPaused: false,
   };
 }
 
@@ -1317,18 +1479,31 @@ function loadState() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return captureInitialState();
     const parsed = JSON.parse(raw);
-    if (!parsed || parsed.version !== 2 || !parsed.units) return captureInitialState();
-    return parsed;
+    if (!parsed || parsed.version !== 3 || !parsed.units) return captureInitialState();
+    return normalizeState(parsed);
   } catch {
     return captureInitialState();
   }
 }
 
+function normalizeState(candidate) {
+  const fresh = captureInitialState();
+  return {
+    version: 3,
+    units: { ...fresh.units, ...candidate.units },
+    history: Array.isArray(candidate.history) && candidate.history.length ? candidate.history : fresh.history,
+    activity: Array.isArray(candidate.activity) && candidate.activity.length ? candidate.activity : fresh.activity,
+    simulationPaused: Boolean(candidate.simulationPaused),
+  };
+}
+
 function persistState(showMessage = false) {
   const payload = {
-    version: 2,
+    version: 3,
     units: state.units,
     history: state.history.slice(0, 80),
+    activity: (state.activity || []).slice(0, 50),
+    simulationPaused: Boolean(state.simulationPaused),
   };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
   if (showMessage) showToast('Cambios guardados en este sandbox');
@@ -1414,6 +1589,7 @@ function renderAll() {
   });
   fillSlotOptions();
   renderHistory();
+  renderActivity();
   updateSummary();
 }
 
@@ -1634,18 +1810,34 @@ function bindSlotInteractions() {
   });
 }
 
-function addHistory(action, detail) {
+function addHistory(action, detail, actor = 'Tú') {
   if (!Array.isArray(state.history)) state.history = [];
-  state.history.unshift({ action, detail, at: nowLabel() });
+  state.history.unshift({ action, detail, actor, at: nowLabel() });
   state.history = state.history.slice(0, 80);
+  addActivity(action, detail, actor);
   renderHistory();
+}
+
+function addActivity(title, detail, actor = 'Sistema') {
+  if (!Array.isArray(state.activity)) state.activity = [];
+  state.activity.unshift({ title, detail, actor, at: nowLabel() });
+  state.activity = state.activity.slice(0, 50);
 }
 
 function renderHistory() {
   const items = state.history || [];
   historyList.innerHTML = items.length
-    ? items.slice(0, 24).map((item) => `<div class="history-item">${item.action}<span>${item.detail} · ${item.at}</span></div>`).join('')
+    ? items.slice(0, 24).map((item) => `<div class="history-item">${item.action}<span>${item.detail} · ${item.actor || 'Sistema'} · ${item.at}</span></div>`).join('')
     : '<div class="history-item">Sin movimientos<span>Los cambios del sandbox apareceran aqui.</span></div>';
+}
+
+function renderActivity() {
+  const items = state.activity || [];
+  activityList.innerHTML = items.length
+    ? items.slice(0, 8).map((item) => `<div class="activity-item">${item.title}<span>${item.detail} · ${item.actor || 'Sistema'}</span></div>`).join('')
+    : '<div class="activity-item">Sin actividad<span>La simulación aparecerá aquí.</span></div>';
+  document.getElementById('simToggle').textContent = state.simulationPaused ? 'Reanudar vivo' : 'Pausar vivo';
+  document.getElementById('simStatus').textContent = state.simulationPaused ? 'Pausado' : 'Simulado';
 }
 
 function toggleHistory() {
@@ -1661,7 +1853,9 @@ function updateSummary() {
   const taller = units.filter((unit) => unit.status === 'EN TALLER' || unit.slot.startsWith('TLLRS')).length;
   const patio = total - taller;
   const noRent = units.filter((unit) => unit.status === 'NO ARRENDABLE').length;
+  const alerts = units.filter((unit) => ['MANTENIMIENTO', 'EN TALLER', 'NO ARRENDABLE'].includes(unit.status)).length;
   const occupied = Math.round((total / slotIds.length) * 100);
+  const lastMovement = (state.history || []).find((item) => /movimiento|swap|remoto/i.test(item.action || ''));
 
   document.getElementById('metricTotal').textContent = total;
   document.getElementById('metricListo').textContent = listo;
@@ -1679,6 +1873,10 @@ function updateSummary() {
   document.getElementById('summaryNoRent').textContent = noRent;
   document.getElementById('summaryListo').textContent = listo;
   document.getElementById('summaryFooterTotal').textContent = patio;
+  document.getElementById('opsUsers').textContent = state.simulationPaused ? 1 : SIM_USERS.length + 1;
+  document.getElementById('opsPending').textContent = Math.max(0, sucio + manto);
+  document.getElementById('opsAlerts').textContent = alerts;
+  document.getElementById('opsLastMove').textContent = lastMovement ? lastMovement.at.split(',').pop().trim() : '--';
   document.getElementById('summaryClock').textContent = new Date().toLocaleTimeString('es-MX', {
     hour: '2-digit',
     minute: '2-digit',
@@ -1691,6 +1889,63 @@ function zoomMap(factor) {
   stage.style.transform = `scale(${currentScale})`;
   stage.style.width = `${1840 * currentScale}px`;
   stage.style.height = `${930 * currentScale}px`;
+}
+
+function randomFrom(items) {
+  return items[Math.floor(Math.random() * items.length)];
+}
+
+function emptySlots() {
+  const occupied = new Set(Object.values(state.units).map((unit) => unit.slot));
+  return slotIds.filter((slotId) => !occupied.has(slotId));
+}
+
+function toggleSimulation() {
+  state.simulationPaused = !state.simulationPaused;
+  addActivity(state.simulationPaused ? 'Simulación pausada' : 'Simulación reanudada', 'El flujo en vivo es completamente ficticio', 'Sistema');
+  persistState();
+  renderAll();
+  showToast(state.simulationPaused ? 'Tiempo real pausado' : 'Tiempo real simulado activo');
+}
+
+function simulateRealtimeMove() {
+  if (!state || state.simulationPaused || document.hidden) return;
+  const units = Object.values(state.units).filter((unit) => unit.id !== selectedUnitId);
+  if (!units.length) return;
+  const actor = randomFrom(SIM_USERS);
+  const unit = randomFrom(units);
+  const actionType = Math.random();
+
+  if (actionType < .58) {
+    const targets = emptySlots().filter((slotId) => !slotId.startsWith('B-') && slotId !== unit.slot);
+    if (!targets.length) return;
+    const originSlot = unit.slot;
+    const targetSlot = randomFrom(targets);
+    unit.slot = targetSlot;
+    unit.place = placeForSlot(targetSlot);
+    if (targetSlot.startsWith('TLLRS')) {
+      unit.status = 'EN TALLER';
+      unit.color = STATUS_STYLE[unit.status];
+    }
+    unit.savedAt = nowLabel();
+    addHistory('Movimiento remoto', `${unit.id} ${originSlot} -> ${targetSlot}`, actor);
+    showToast(`${actor} movió ${unit.id}`);
+  } else if (actionType < .84) {
+    const nextStatus = randomFrom(['LISTO', 'SUCIO', 'MANTENIMIENTO', 'NO ARRENDABLE', 'TRASLADO']);
+    const oldStatus = unit.status;
+    unit.status = nextStatus;
+    unit.color = STATUS_STYLE[nextStatus] || unit.color;
+    unit.savedAt = nowLabel();
+    addHistory('Cambio remoto', `${unit.id} ${STATUS_LABEL[oldStatus] || oldStatus} -> ${STATUS_LABEL[nextStatus] || nextStatus}`, actor);
+    showToast(`${actor} actualizó ${unit.id}`);
+  } else {
+    const request = randomFrom(['acceso operador patio', 'permiso taller', 'alta usuario temporal', 'bloqueo preventivo']);
+    addHistory('Aprobación remota', `${request} revisado para BJX`, actor);
+    showToast(`${actor} revisó una solicitud`);
+  }
+
+  persistState();
+  renderAll();
 }
 
 function openSummary() {
@@ -1734,6 +1989,7 @@ bindSlotInteractions();
 renderAll();
 persistState();
 viewport.scrollTo({ left: 0, top: 0 });
+simulationTimer = setInterval(simulateRealtimeMove, 5200);
 </script>
 </body>
 </html>
