@@ -669,7 +669,7 @@ Sí, ofrecemos soporte técnico continuo a través de chat, correo electrónico 
 <div class="max-w-2xl mx-auto bg-surface-container-lowest p-2xl rounded-xl border border-outline-variant shadow-sm">
 <div class="text-center mb-xl">
 <h2 class="font-h2 text-h2 text-on-background mb-sm">¿Listo para optimizar tu logística?</h2>
-<p class="font-body-md text-body-md text-on-surface-variant">Déjanos tus datos y un especialista se pondrá en contacto contigo.</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Déjanos tus datos y abriremos un correo listo para enviar a contacto@mapgestion.com.</p>
 </div>
 <form class="space-y-lg">
 <div>
@@ -693,15 +693,21 @@ Sí, ofrecemos soporte técnico continuo a través de chat, correo electrónico 
 <textarea class="w-full rounded-lg border-outline-variant bg-surface-container-lowest px-md py-sm focus:border-outline focus:ring-0 text-body-md transition-colors" id="message" name="necesidad" rows="3"></textarea>
 </div>
 <button class="w-full bg-primary-container text-on-primary font-label-md px-lg py-md rounded-lg hover:bg-primary-container/90 transition-colors mt-xl" type="submit">
-Enviar mensaje
+Enviar por correo
 </button>
 </form>
 <div class="mt-xl text-center pt-lg border-t border-outline-variant/30">
 <p class="font-body-sm text-body-sm text-on-surface-variant mb-md">O si lo prefieres, escríbenos directamente:</p>
-<a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20demo%20administrativa%20de%20MapGestion" target="_blank" rel="noopener" class="bg-surface-container-low text-on-surface font-label-md border border-outline-variant px-lg py-sm rounded-lg hover:bg-surface-container-highest transition-all inline-flex items-center gap-sm mx-auto">
-<span class="material-symbols-outlined text-[18px]">chat</span>
-Contactar por WhatsApp
+<div class="flex flex-col sm:flex-row justify-center gap-sm">
+<a href="mailto:contacto@mapgestion.com" class="bg-surface-container-low text-on-surface font-label-md border border-outline-variant px-lg py-sm rounded-lg hover:bg-surface-container-highest transition-all inline-flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+contacto@mapgestion.com
 </a>
+<a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20demo%20administrativa%20de%20MapGestion" target="_blank" rel="noopener" class="bg-surface-container-low text-on-surface font-label-md border border-outline-variant px-lg py-sm rounded-lg hover:bg-surface-container-highest transition-all inline-flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+477 802 4682
+</a>
+</div>
 </div>
 </div>
 </section>
@@ -718,6 +724,7 @@ MapGestion
 <div class="flex gap-lg font-label-md text-label-md">
 <a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface transition-colors" href="terminos.html#privacidad">Privacidad</a>
 <a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface transition-colors" href="terminos.html">Términos</a>
+<a href="mailto:contacto@mapgestion.com" class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface transition-colors">Email</a>
 <a href="#contacto" class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface transition-colors">Contacto</a>
 </div>
 </div>
@@ -768,7 +775,8 @@ function handleForm(e) {
   e.preventDefault();
   const form = e.target;
   const data = new FormData(form);
-  const text = [
+  const subject = 'Solicitud de demo administrativa de MapGestion';
+  const body = [
     'Hola, quiero agendar una demo administrativa de MapGestion.',
     '',
     `Nombre: ${data.get('nombre') || ''}`,
@@ -779,11 +787,11 @@ function handleForm(e) {
     `Usuarios, roles, plazas o permisos a controlar: ${data.get('necesidad') || ''}`
   ].join('\n');
   const btn = form.querySelector('button[type="submit"]');
-  btn.textContent = 'Abriendo WhatsApp...';
+  btn.textContent = 'Abriendo correo...';
   btn.disabled = true;
-  window.open(`https://wa.me/524778024682?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+  window.location.href = `mailto:contacto@mapgestion.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   setTimeout(() => {
-    btn.textContent = 'Enviar mensaje';
+    btn.textContent = 'Enviar por correo';
     btn.disabled = false;
   }, 1800);
 }
