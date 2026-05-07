@@ -16,20 +16,34 @@
         colors: {
           "on-secondary-fixed": "#0d1c2f",
           "secondary-container": "#d5e3fd",
+          "primary-fixed-dim": "#bec6e0",
+          "primary-fixed": "#dae2fd",
           "primary-container": "#131b2e",
           "surface-container-lowest": "#ffffff",
           "surface-container-low": "#f2f4f6",
+          "surface-container": "#eceef0",
+          "surface-container-high": "#e6e8ea",
+          "surface-container-highest": "#e0e3e5",
           "surface": "#f7f9fb",
+          "surface-variant": "#e0e3e5",
           "outline-variant": "#c6c6cd",
+          "outline": "#76777d",
+          "primary": "#000000",
+          "tertiary-fixed": "#89f5e7",
           "on-background": "#191c1e",
           "on-surface-variant": "#45464d",
-          "on-surface": "#191c1e"
+          "on-surface": "#191c1e",
+          "on-primary": "#ffffff",
+          "inverse-surface": "#2d3133",
+          "inverse-on-surface": "#eff1f3"
         },
         borderRadius: {
           "lg": "0.25rem",
           "xl": "0.5rem",
+          "full": "0.75rem",
         },
         spacing: {
+          "xs": "4px",
           "sm": "8px",
           "gutter": "24px",
           "2xl": "48px",
@@ -37,13 +51,29 @@
           "xl": "32px",
           "lg": "24px",
           "3xl": "64px",
+          "container-max": "1280px",
+        },
+        fontFamily: {
+          "display": ["Inter"],
+          "h1": ["Inter"],
+          "h2": ["Inter"],
+          "h3": ["Inter"],
+          "label-md": ["Inter"],
+          "label-sm": ["Inter"],
+          "body-md": ["Inter"],
+          "body-lg": ["Inter"],
+          "body-sm": ["Inter"],
         },
         fontSize: {
+          "display": ["36px", { lineHeight: "44px", fontWeight: "700" }],
           "h1": ["30px", { lineHeight: "38px", fontWeight: "600" }],
           "h2": ["24px", { lineHeight: "32px", fontWeight: "600" }],
           "h3": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+          "label-md": ["14px", { lineHeight: "20px", fontWeight: "500" }],
+          "label-sm": ["12px", { lineHeight: "16px", fontWeight: "600" }],
           "body-md": ["16px", { lineHeight: "24px" }],
           "body-lg": ["18px", { lineHeight: "28px" }],
+          "body-sm": ["14px", { lineHeight: "20px" }],
         }
       },
     },
@@ -53,7 +83,18 @@
   /* Minimal custom styles */
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { overflow-x: hidden; font-family: 'Inter', sans-serif; }
+  img, video { max-width: 100%; display: block; }
+  .max-w-container-max {
+    width: min(1280px, calc(100vw - 48px));
+    max-width: min(1280px, calc(100vw - 48px));
+  }
+  .grid, .product-window { min-width: 0; }
+  body {
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+    background:
+      linear-gradient(180deg, #ffffff 0%, #f7f9fb 36%, #ffffff 100%);
+  }
   
   /* Hero section */
   .hero { @apply py-20 px-6; }
@@ -81,6 +122,79 @@
   /* Typography */
   .label { @apply text-xs uppercase tracking-widest font-semibold text-on-surface-variant; }
   .display-text { @apply text-4xl lg:text-5xl font-bold leading-tight; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border: 1px solid rgba(19, 27, 46, 0.1);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.74);
+    color: #3f465c;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: #0c9488;
+    box-shadow: 0 0 0 4px rgba(12, 148, 136, 0.12);
+  }
+  .hero-panel {
+    background:
+      radial-gradient(circle at 18% 12%, rgba(137,245,231,0.34), transparent 28%),
+      linear-gradient(180deg, #ffffff 0%, #f2f4f6 100%);
+  }
+  .hero-panel h1 { text-wrap: balance; }
+  .hero-panel p { overflow-wrap: break-word; }
+  .product-window {
+    box-shadow: 0 28px 90px rgba(19,27,46,0.16);
+  }
+  .product-window img,
+  .product-window video {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: top left;
+  }
+  .lift-card {
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+  .lift-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 48px rgba(19,27,46,0.09);
+    border-color: rgba(19,27,46,0.18);
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.78);
+    border: 1px solid rgba(198,198,205,0.7);
+    box-shadow: 0 14px 44px rgba(19,27,46,0.06);
+  }
+  .image-card img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: top left;
+  }
+  .feature-icon {
+    color: #131b2e;
+    background: linear-gradient(180deg, #ffffff 0%, #eceef0 100%);
+  }
+  .check-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: #e8fbf8;
+    color: #005049;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
   
   /* Utilities */
   .fade-up { animation: fadeUp 0.6s ease both; }
@@ -95,6 +209,70 @@
     .hero-title { @apply text-3xl; }
     .nav { @apply hidden; }
   }
+
+  .video-player { width: 100%; display: block; background: #111318; aspect-ratio: 16 / 9; object-fit: cover; }
+  .gallery-frame { min-height: 260px; cursor: zoom-in; background: #eef3f8; }
+  .gallery-frame img { min-height: inherit; object-fit: cover; object-position: top left; transition: transform 0.25s ease; }
+  .gallery-frame:hover img { transform: scale(1.03); }
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(17, 19, 24, 0.78);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    padding: 20px;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: auto; }
+  .lightbox-modal {
+    width: min(96vw, 1440px);
+    max-height: 92vh;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 320px);
+    gap: 16px;
+    background: #131b2e;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 16px;
+    color: white;
+  }
+  .lightbox-modal img {
+    width: 100%;
+    max-height: calc(92vh - 32px);
+    object-fit: contain;
+    background: white;
+    border-radius: 6px;
+  }
+  .sandbox-modal {
+    width: min(96vw, 1200px);
+    height: min(88vh, 780px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .sandbox-bar {
+    height: 48px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 16px;
+    background: #131b2e;
+    color: white;
+  }
+  .sandbox-frame { flex: 1; width: 100%; border: 0; }
+  @media (max-width: 768px) {
+    .lightbox-modal { grid-template-columns: 1fr; overflow: auto; }
+  }
 </style>
 </head>
 <body class="bg-surface-container-lowest text-on-background">
@@ -107,57 +285,82 @@
 <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#producto">Funcionalidades</a>
 <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#beneficios">Beneficios</a>
 <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#como-funciona">Proceso</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#demo">Demo</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#pantallas">Capturas</a>
 <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#faq">FAQ</a>
 </div>
 <div class="flex gap-md items-center">
-<button class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors px-md py-sm rounded-lg active:scale-95 hidden sm:block">Contacto</button>
-<a href="https://wa.me/524778024682" target="_blank" rel="noopener" class="font-label-md text-label-md bg-primary-container text-on-primary font-medium px-lg py-sm rounded-lg hover:bg-primary-container/90 active:scale-95 transition-all flex items-center gap-xs">
+<a href="#contacto" class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors px-md py-sm rounded-lg active:scale-95 hidden sm:block">Contacto</a>
+<a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20demo%20administrativa%20de%20MapGestion" target="_blank" rel="noopener" class="font-label-md text-label-md bg-primary-container text-on-primary font-medium px-lg py-sm rounded-lg hover:bg-primary-container/90 active:scale-95 transition-all flex items-center gap-xs">
 <span class="material-symbols-outlined text-[18px]">chat</span>
-WhatsApp
+<span class="hidden sm:inline">WhatsApp</span>
 </a>
 </div>
 </div>
 </nav>
 
 <!-- Hero Section -->
-<header class="pt-3xl pb-3xl px-gutter max-w-container-max mx-auto text-center mt-16">
-<h1 class="font-display text-display text-on-background mb-lg max-w-4xl mx-auto">Toma el control de tus operaciones de patio de manera sencilla e intuitiva.</h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant mb-2xl max-w-3xl mx-auto">Gestiona entradas, salidas, mantenimientos y lavados en tiempo real. MapGestion transforma la logística de tu patio en un proceso visual y sin fricciones, adaptado a las necesidades de tu equipo.</p>
-<div class="flex flex-col sm:flex-row justify-center gap-md mb-2xl">
-<button class="bg-primary-container text-on-primary font-label-md text-label-md px-xl py-md rounded-lg hover:bg-primary-container/90 transition-all flex items-center justify-center gap-sm">
+<header class="hero-panel pt-3xl pb-3xl px-gutter mt-16 border-b border-outline-variant/40">
+<div class="max-w-container-max mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-2xl items-center">
+<div class="text-left">
+<span class="eyebrow mb-lg">Operación de patio en tiempo real</span>
+<h1 class="font-display text-[34px] md:text-[56px] leading-[1.08] font-bold text-on-background mb-lg max-w-3xl">Controla tu patio con mapa, trazabilidad y permisos en una sola vista.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-2xl">Gestiona entradas, salidas, mantenimientos, lavados, usuarios y bitácoras sin pizarrones ni hojas paralelas. MapGestion ayuda a operar rápido y administrar con evidencia.</p>
+<div class="flex flex-col sm:flex-row gap-md mb-xl">
+<a href="#contacto" class="bg-primary-container text-on-primary font-label-md text-label-md px-xl py-md rounded-lg hover:bg-primary-container/90 transition-all flex items-center justify-center gap-sm">
 <span class="material-symbols-outlined text-[20px]">calendar_month</span>
 Agendar Demo Gratis
-</button>
-<button class="border border-outline text-on-surface font-label-md text-label-md px-xl py-md rounded-lg hover:bg-surface-container-low transition-all flex items-center justify-center gap-sm">
+</a>
+<a href="#demo" class="border border-outline text-on-surface font-label-md text-label-md px-xl py-md rounded-lg hover:bg-surface-container-low transition-all flex items-center justify-center gap-sm">
 <span class="material-symbols-outlined text-[20px]">play_circle</span>
 Ver Video Explicativo
-</button>
+</a>
+<a href="https://mex-mapa-bjx.web.app" target="_blank" rel="noopener" class="border border-outline text-on-surface font-label-md text-label-md px-xl py-md rounded-lg hover:bg-surface-container-low transition-all flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-[20px]">open_in_new</span>
+Mapa real
+</a>
 </div>
-<div class="relative rounded-xl overflow-hidden border border-outline-variant max-w-5xl mx-auto bg-surface-container-lowest shadow-sm">
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-md max-w-xl">
+<div class="stat-card rounded-xl p-md"><div class="font-h2 text-h2 text-primary-container">+40%</div><div class="font-body-sm text-body-sm text-on-surface-variant">menos espera</div></div>
+<div class="stat-card rounded-xl p-md"><div class="font-h2 text-h2 text-primary-container">100%</div><div class="font-body-sm text-body-sm text-on-surface-variant">trazabilidad</div></div>
+<div class="stat-card rounded-xl p-md"><div class="font-h2 text-h2 text-primary-container">24 h</div><div class="font-body-sm text-body-sm text-on-surface-variant">respuesta demo</div></div>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -top-5 -left-5 hidden lg:block bg-surface-container-lowest border border-outline-variant/70 rounded-xl p-md shadow-sm z-10">
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Estados activos</div>
+<div class="mt-xs flex gap-xs"><span class="h-2 w-12 rounded-full bg-[#0c9488]"></span><span class="h-2 w-8 rounded-full bg-[#131b2e]"></span><span class="h-2 w-10 rounded-full bg-[#bec6e0]"></span></div>
+</div>
+<div class="relative rounded-xl overflow-hidden border border-outline-variant max-w-5xl mx-auto bg-surface-container-lowest product-window">
 <div class="bg-surface-container-low border-b border-outline-variant p-sm flex items-center gap-sm">
 <div class="w-2.5 h-2.5 rounded-full bg-outline-variant"></div>
 <div class="w-2.5 h-2.5 rounded-full bg-outline-variant"></div>
 <div class="w-2.5 h-2.5 rounded-full bg-outline-variant"></div>
+<div class="ml-auto font-label-sm text-label-sm text-on-surface-variant hidden sm:block">Mapa en vivo</div>
 </div>
-<img alt="Vista previa del dashboard de MapGestion" class="w-full h-auto object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfGTL6vQgKpkQ_Dz5RmKrybVrKaUyf_iWJpwCdXu-CPj05G4K_qmDZOeQQ3FuKzbX73NEIp_YmWrdhLEUBsuBdLuafmpqd2LCB0zVCHXnfqdiiqxo_zSaHoEqZ7YCBGfjkTcKG_iP0G8jntzPXzu1CbIBCZvq74SNvJg889xVWQ1gyvxve9lvOnOHBuS86Sjm6sA4TiMbBmkaa-8Dq6_gpXjDxHb05yb8BiX7ce6ppF-jU3BZ1mvFi47_RbLC7REKv51aVr7CnZr13" loading="lazy" decoding="async" />
+<img alt="Vista previa del mapa en vivo de MapGestion" class="w-full" src="assets/screenshots/mapa-vivo.png" loading="eager" decoding="async" />
+</div>
+</div>
+</div>
 </div>
 </header>
 
 <!-- Stats Section -->
-<section class="bg-surface-container-low py-3xl px-gutter border-y border-outline-variant/30">
+<section class="bg-primary-container py-2xl px-gutter">
 <div class="max-w-container-max mx-auto">
 <div class="grid grid-cols-1 md:grid-cols-3 gap-xl text-center">
 <div class="p-lg">
-<div class="font-display text-display text-primary-container mb-sm">+40%</div>
-<div class="font-body-md text-body-md text-on-surface-variant">Reducción en tiempos de espera</div>
+<div class="font-display text-display text-on-primary mb-sm">+40%</div>
+<div class="font-body-md text-body-md text-inverse-on-surface/70">Reducción en tiempos de espera</div>
 </div>
-<div class="p-lg border-y md:border-y-0 md:border-x border-outline-variant/30">
-<div class="font-display text-display text-primary-container mb-sm">100%</div>
-<div class="font-body-md text-body-md text-on-surface-variant">Trazabilidad en tiempo real</div>
+<div class="p-lg border-y md:border-y-0 md:border-x border-white/10">
+<div class="font-display text-display text-on-primary mb-sm">100%</div>
+<div class="font-body-md text-body-md text-inverse-on-surface/70">Trazabilidad en tiempo real</div>
 </div>
 <div class="p-lg">
-<div class="font-display text-display text-primary-container mb-sm">-25%</div>
-<div class="font-body-md text-body-md text-on-surface-variant">Disminución de errores operativos</div>
+<div class="font-display text-display text-on-primary mb-sm">-25%</div>
+<div class="font-body-md text-body-md text-inverse-on-surface/70">Disminución de errores operativos</div>
 </div>
 </div>
 </div>
@@ -167,45 +370,47 @@ Ver Video Explicativo
 <section class="py-3xl px-gutter max-w-container-max mx-auto" id="producto">
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-2xl items-center mb-3xl">
 <div>
+<span class="eyebrow mb-md">Operación visual</span>
 <h2 class="font-h1 text-h1 text-on-background mb-lg">Simplifica tus operaciones de patio</h2>
 <p class="font-body-lg text-body-lg text-on-surface-variant mb-xl">Olvídate de procesos manuales y pizarrones desactualizados. MapGestion te brinda una representación visual exacta de tu patio, permitiendo a tu equipo arrastrar y soltar unidades, actualizar estados al instante y visualizar cuellos de botella antes de que ocurran.</p>
 <ul class="space-y-md mb-xl">
 <li class="flex items-start gap-md">
-<span class="material-symbols-outlined text-primary-container mt-0.5 text-[20px]">check</span>
+<span class="material-symbols-outlined check-dot text-[18px]">check</span>
 <span class="font-body-md text-body-md text-on-background">Vista de mapa interactiva</span>
 </li>
 <li class="flex items-start gap-md">
-<span class="material-symbols-outlined text-primary-container mt-0.5 text-[20px]">check</span>
+<span class="material-symbols-outlined check-dot text-[18px]">check</span>
 <span class="font-body-md text-body-md text-on-background">Actualización de estados "Drag & Drop"</span>
 </li>
 <li class="flex items-start gap-md">
-<span class="material-symbols-outlined text-primary-container mt-0.5 text-[20px]">check</span>
+<span class="material-symbols-outlined check-dot text-[18px]">check</span>
 <span class="font-body-md text-body-md text-on-background">Identificación visual de alertas</span>
 </li>
 </ul>
 </div>
-<div class="rounded-xl overflow-hidden border border-outline-variant">
-<img alt="Operaciones de patio visuales" class="w-full h-auto object-cover grayscale-[20%]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIHSl0dpJWoAHXU1SWsIrvRYKaoISqchIKKinSGh7HVclxMxLBqDdU-Zsqa-eTEhsFqPFWGNp-TU91esA7Huy8owlKRdPBbNyUfRIJPx5m2bY55Qt7NY1Ub7QuAN9mmjxgZDqejgFEN9w7OoSN5rqLzEqiYc1R8rW0Qion5008ks1xFzoxRcX4PZYkyKav4kwBGz27zoZTpqMGkbti3K-3huDaOh0g2F0fOOUoh0T7szvgxBSEBrCQx4JUM2LAGnbdXs6BCUX-DOFi" loading="lazy" decoding="async" />
+<div class="rounded-xl overflow-hidden border border-outline-variant product-window image-card">
+<img alt="Operaciones de patio visuales" class="w-full" src="assets/screenshots/editor-mapa.png" loading="lazy" decoding="async" />
 </div>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-2xl items-center flex-row-reverse">
-<div class="order-2 lg:order-1 rounded-xl overflow-hidden border border-outline-variant">
-<img alt="Gestión basada en datos y tablas" class="w-full h-auto object-cover grayscale-[20%]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAusESKCcF8RsNY8tqfC93kP9y5P8nV_UAFvZIVtykLua8qBtbM21AXim0O7oDvpdYxK8dg2ozjTDHOT_VYEvpEHSnRiWYLIV6v0V5ZWmKyYa-djR8On5IwWBiDoHWWMnXcXxjMvn4bH8BMGP7T5brHiT400DelPaZJmRBG1xAhvCVVfsXSt3EJBQhacz6Wzxcw63uouh5uIdfX7YuGyDdxnAZi7Ms5eYFJDv9QUyIzdA2zFRPewEdWhNAbn-1yQxOTkFiydhKqMJYV" loading="lazy" decoding="async" />
+<div class="order-2 lg:order-1 rounded-xl overflow-hidden border border-outline-variant product-window image-card">
+<img alt="Gestión basada en datos y tablas" class="w-full" src="assets/screenshots/gestion-flota.png" loading="lazy" decoding="async" />
 </div>
 <div class="order-1 lg:order-2">
+<span class="eyebrow mb-md">Control tabular</span>
 <h2 class="font-h1 text-h1 text-on-background mb-lg">Para los que prefieren trabajar con tablas</h2>
 <p class="font-body-lg text-body-lg text-on-surface-variant mb-xl">Entendemos que no todos los roles necesitan un mapa. MapGestion ofrece vistas tabulares robustas, filtrado avanzado y exportación de datos para los analistas y administradores que requieren profundizar en los números.</p>
 <ul class="space-y-md mb-xl">
 <li class="flex items-start gap-md">
-<span class="material-symbols-outlined text-primary-container mt-0.5 text-[20px]">check</span>
+<span class="material-symbols-outlined check-dot text-[18px]">check</span>
 <span class="font-body-md text-body-md text-on-background">Listados detallados y personalizables</span>
 </li>
 <li class="flex items-start gap-md">
-<span class="material-symbols-outlined text-primary-container mt-0.5 text-[20px]">check</span>
+<span class="material-symbols-outlined check-dot text-[18px]">check</span>
 <span class="font-body-md text-body-md text-on-background">Filtros potentes de búsqueda</span>
 </li>
 <li class="flex items-start gap-md">
-<span class="material-symbols-outlined text-primary-container mt-0.5 text-[20px]">check</span>
+<span class="material-symbols-outlined check-dot text-[18px]">check</span>
 <span class="font-body-md text-body-md text-on-background">Exportación fácil a CSV/Excel</span>
 </li>
 </ul>
@@ -217,47 +422,48 @@ Ver Video Explicativo
 <section class="bg-surface-container-low py-3xl px-gutter border-t border-outline-variant/20" id="beneficios">
 <div class="max-w-container-max mx-auto">
 <div class="text-center mb-2xl">
+<span class="eyebrow mb-md">Módulos clave</span>
 <h2 class="font-h1 text-h1 text-on-background mb-md">Todo lo que necesitas, en un solo lugar</h2>
 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Funcionalidades diseñadas para cubrir cada aspecto de tu operación diaria.</p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
-<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50">
-<div class="w-10 h-10 bg-surface-container-low rounded-lg flex items-center justify-center mb-md border border-outline-variant/30">
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50 lift-card">
+<div class="w-10 h-10 rounded-lg flex items-center justify-center mb-md border border-outline-variant/30 feature-icon">
 <span class="material-symbols-outlined text-on-surface-variant text-[20px]">map</span>
 </div>
 <h3 class="font-h3 text-h3 text-on-background mb-sm">Mapa principal</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant">Visualiza la ubicación exacta de cada unidad en tu patio en tiempo real. Toma decisiones rápidas basadas en el espacio disponible.</p>
 </div>
-<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50">
-<div class="w-10 h-10 bg-surface-container-low rounded-lg flex items-center justify-center mb-md border border-outline-variant/30">
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50 lift-card">
+<div class="w-10 h-10 rounded-lg flex items-center justify-center mb-md border border-outline-variant/30 feature-icon">
 <span class="material-symbols-outlined text-on-surface-variant text-[20px]">speed</span>
 </div>
 <h3 class="font-h3 text-h3 text-on-background mb-sm">Lectura inmediata</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant">Dashboards intuitivos que te permiten comprender el estado general de la operación en segundos, sin necesidad de reportes complejos.</p>
 </div>
-<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50">
-<div class="w-10 h-10 bg-surface-container-low rounded-lg flex items-center justify-center mb-md border border-outline-variant/30">
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50 lift-card">
+<div class="w-10 h-10 rounded-lg flex items-center justify-center mb-md border border-outline-variant/30 feature-icon">
 <span class="material-symbols-outlined text-on-surface-variant text-[20px]">history</span>
 </div>
 <h3 class="font-h3 text-h3 text-on-background mb-sm">Trazabilidad</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant">Conoce el historial completo de cada unidad. Desde que ingresa hasta que sale, cada movimiento y cambio de estado queda registrado.</p>
 </div>
-<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50">
-<div class="w-10 h-10 bg-surface-container-low rounded-lg flex items-center justify-center mb-md border border-outline-variant/30">
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50 lift-card">
+<div class="w-10 h-10 rounded-lg flex items-center justify-center mb-md border border-outline-variant/30 feature-icon">
 <span class="material-symbols-outlined text-on-surface-variant text-[20px]">warning</span>
 </div>
 <h3 class="font-h3 text-h3 text-on-background mb-sm">Incidencias</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant">Reporta y gestiona problemas operativos rápidamente. Asigna responsables y da seguimiento a la resolución directamente en la plataforma.</p>
 </div>
-<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50">
-<div class="w-10 h-10 bg-surface-container-low rounded-lg flex items-center justify-center mb-md border border-outline-variant/30">
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50 lift-card">
+<div class="w-10 h-10 rounded-lg flex items-center justify-center mb-md border border-outline-variant/30 feature-icon">
 <span class="material-symbols-outlined text-on-surface-variant text-[20px]">group</span>
 </div>
 <h3 class="font-h3 text-h3 text-on-background mb-sm">Colaboración</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant">Facilita la comunicación entre áreas. Todos ven la misma información, eliminando silos y reduciendo fricciones entre equipos.</p>
 </div>
-<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50">
-<div class="w-10 h-10 bg-surface-container-low rounded-lg flex items-center justify-center mb-md border border-outline-variant/30">
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50 lift-card">
+<div class="w-10 h-10 rounded-lg flex items-center justify-center mb-md border border-outline-variant/30 feature-icon">
 <span class="material-symbols-outlined text-on-surface-variant text-[20px]">palette</span>
 </div>
 <h3 class="font-h3 text-h3 text-on-background mb-sm">Branding</h3>
@@ -270,28 +476,29 @@ Ver Video Explicativo
 <!-- Process Section -->
 <section class="py-3xl px-gutter max-w-container-max mx-auto" id="como-funciona">
 <div class="text-center mb-2xl">
+<span class="eyebrow mb-md">Implementación</span>
 <h2 class="font-h1 text-h1 text-on-background mb-md">Empieza a usar MapGestion en tres sencillos pasos</h2>
 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Nuestro proceso de onboarding es rápido y guiado, asegurando que obtengas valor desde el primer día.</p>
 </div>
 <div class="flex flex-col md:flex-row justify-center items-start gap-xl relative">
 <div class="hidden md:block absolute top-10 left-[20%] right-[20%] h-px bg-outline-variant -z-10"></div>
-<div class="flex-1 text-center bg-surface-container-lowest p-lg rounded-xl relative z-10">
-<div class="w-20 h-20 bg-surface-container-lowest border-2 border-outline-variant rounded-full flex items-center justify-center mx-auto mb-lg">
-<span class="font-h2 text-[24px] text-on-background">1</span>
+<div class="flex-1 text-center bg-surface-container-lowest p-lg rounded-xl relative z-10 border border-outline-variant/50 lift-card">
+<div class="w-20 h-20 bg-primary-container border-2 border-primary-container rounded-full flex items-center justify-center mx-auto mb-lg shadow-sm">
+<span class="font-h2 text-[24px] text-on-primary">1</span>
 </div>
 <h3 class="font-h3 text-h3 text-on-background mb-sm">Agenda una Demo</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant">Comunícate con nosotros por WhatsApp para programar una demostración personalizada y resolver tus dudas.</p>
 </div>
-<div class="flex-1 text-center bg-surface-container-lowest p-lg rounded-xl relative z-10">
-<div class="w-20 h-20 bg-surface-container-lowest border-2 border-outline-variant rounded-full flex items-center justify-center mx-auto mb-lg">
-<span class="font-h2 text-[24px] text-on-background">2</span>
+<div class="flex-1 text-center bg-surface-container-lowest p-lg rounded-xl relative z-10 border border-outline-variant/50 lift-card">
+<div class="w-20 h-20 bg-primary-container border-2 border-primary-container rounded-full flex items-center justify-center mx-auto mb-lg shadow-sm">
+<span class="font-h2 text-[24px] text-on-primary">2</span>
 </div>
 <h3 class="font-h3 text-h3 text-on-background mb-sm">Configuración Inicial</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant">Mapeamos tu patio y configuramos los usuarios según tus procesos operativos específicos.</p>
 </div>
-<div class="flex-1 text-center bg-surface-container-lowest p-lg rounded-xl relative z-10">
-<div class="w-20 h-20 bg-surface-container-lowest border-2 border-outline-variant rounded-full flex items-center justify-center mx-auto mb-lg">
-<span class="font-h2 text-[24px] text-on-background">3</span>
+<div class="flex-1 text-center bg-surface-container-lowest p-lg rounded-xl relative z-10 border border-outline-variant/50 lift-card">
+<div class="w-20 h-20 bg-primary-container border-2 border-primary-container rounded-full flex items-center justify-center mx-auto mb-lg shadow-sm">
+<span class="font-h2 text-[24px] text-on-primary">3</span>
 </div>
 <h3 class="font-h3 text-h3 text-on-background mb-sm">Lanzamiento</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant">Tu equipo recibe capacitación y comienzan a operar con MapGestion, optimizando tiempos de inmediato.</p>
@@ -300,29 +507,30 @@ Ver Video Explicativo
 </section>
 
 <!-- Admin Section -->
-<section class="bg-surface-container-lowest py-3xl px-gutter border-y border-outline-variant/20">
+<section class="bg-surface-container-low py-3xl px-gutter border-y border-outline-variant/20">
 <div class="max-w-container-max mx-auto">
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-2xl items-center">
 <div>
+<span class="eyebrow mb-md">Administración</span>
 <h2 class="font-h1 text-h1 text-on-background mb-lg">Lo que la administración necesita</h2>
 <p class="font-body-lg text-body-lg text-on-surface-variant mb-xl">MapGestion no solo ayuda en el patio, sino que proporciona a los administradores las herramientas necesarias para supervisar, auditar y optimizar la operación global desde una perspectiva gerencial.</p>
-<div class="space-y-lg">
-<div class="flex gap-md items-start">
-<span class="material-symbols-outlined text-on-surface-variant mt-1 text-[24px]">analytics</span>
+<div class="space-y-md">
+<div class="flex gap-md items-start bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-md lift-card">
+<span class="material-symbols-outlined check-dot text-[18px]">analytics</span>
 <div>
 <h4 class="font-h3 text-[18px] text-on-background mb-xs">Control detallado</h4>
 <p class="font-body-md text-body-md text-on-surface-variant">Acceso a métricas clave de rendimiento y reportes de eficiencia.</p>
 </div>
 </div>
-<div class="flex gap-md items-start">
-<span class="material-symbols-outlined text-on-surface-variant mt-1 text-[24px]">manage_accounts</span>
+<div class="flex gap-md items-start bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-md lift-card">
+<span class="material-symbols-outlined check-dot text-[18px]">manage_accounts</span>
 <div>
 <h4 class="font-h3 text-[18px] text-on-background mb-xs">Catálogo de usuarios</h4>
 <p class="font-body-md text-body-md text-on-surface-variant">Gestión centralizada de accesos y roles para todo tu personal.</p>
 </div>
 </div>
-<div class="flex gap-md items-start">
-<span class="material-symbols-outlined text-on-surface-variant mt-1 text-[24px]">diversity_3</span>
+<div class="flex gap-md items-start bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-md lift-card">
+<span class="material-symbols-outlined check-dot text-[18px]">diversity_3</span>
 <div>
 <h4 class="font-h3 text-[18px] text-on-background mb-xs">Equipos que trabajan diferente</h4>
 <p class="font-body-md text-body-md text-on-surface-variant">Perfiles personalizados según la función de cada equipo en el flujo logístico.</p>
@@ -330,10 +538,95 @@ Ver Video Explicativo
 </div>
 </div>
 </div>
-<div class="rounded-xl overflow-hidden border border-outline-variant">
-<img alt="Gráficos de administración y control" class="w-full h-auto object-cover grayscale-[20%]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqQ1hcyJDqATeFlGuOtJUgyLtU_BfJwLtfDopkrgo2oUy6-oD38jRDzflxi4g87udTVDFZjtCn4gpnnOGuLFHp5Nx3dI6pjMeFA_dXDYrN9wYBSDCR185vV-foZ-s__jSJcI2smTmYarQtWziPyiYnLr1mhvpOWGDtP4KuoZZ5HFIEbGffUa3pZ8agLILLLRTy_wLOlIbOnPhL0bd-Sfy1nxIeEBlSh5trAw3OkEB7Ylw7sPffSwKvsdNQiimkvXJgxeianXqRG1cv" loading="lazy" decoding="async" />
+<div class="rounded-xl overflow-hidden border border-outline-variant product-window image-card">
+<img alt="Usuarios, roles y permisos de administración" class="w-full" src="assets/screenshots/roles-permisos.png" loading="lazy" decoding="async" />
 </div>
 </div>
+</div>
+</section>
+
+<!-- Demo Section -->
+<section class="bg-surface-container-lowest py-3xl px-gutter border-y border-outline-variant/20" id="demo">
+<div class="max-w-container-max mx-auto">
+<div class="text-center mb-2xl">
+<span class="eyebrow mb-md">Demo interactiva</span>
+<h2 class="font-h1 text-h1 text-on-background mb-md">Revisa el flujo antes de la demo</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Mira cómo conviven mapa, registros, permisos y seguimiento para validar el alcance antes de entrar al detalle.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-[1.4fr_0.8fr] gap-xl items-stretch">
+<div class="rounded-xl overflow-hidden border border-outline-variant bg-surface-container-lowest product-window">
+<video class="video-player" controls playsinline preload="metadata">
+<source src="assets/videos/video_preview.mp4" type="video/mp4"/>
+Tu navegador no puede reproducir este video.
+</video>
+<div class="p-lg border-t border-outline-variant/40 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-sm">
+<div>
+<h3 class="font-h3 text-h3 text-on-background">Mapa vivo, usuarios y trazabilidad</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Un recorrido breve para entender cómo se conecta operación con control administrativo.</p>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">MP4 listo</span>
+</div>
+</div>
+<div class="bg-primary-container text-on-primary p-xl rounded-xl flex flex-col justify-between gap-lg product-window">
+<div>
+<span class="inline-flex items-center gap-xs text-label-sm font-label-sm uppercase tracking-wider text-primary-fixed-dim mb-md"><span class="w-2 h-2 rounded-full bg-tertiary-fixed"></span>Exploración guiada</span>
+<h3 class="font-h2 text-h2 mb-md">Prueba el flujo sin tocar datos reales</h3>
+<p class="font-body-md text-body-md text-inverse-on-surface/70 mb-lg">El sandbox permite explorar mapa, registros y cambios simulados para entender la herramienta antes de una demo administrativa.</p>
+<div class="space-y-md">
+<div class="flex gap-md"><span class="material-symbols-outlined">map</span><span>Mapa interactivo con cajones, zonas y registros.</span></div>
+<div class="flex gap-md"><span class="material-symbols-outlined">history</span><span>Cambios trazables con estados visibles al instante.</span></div>
+<div class="flex gap-md"><span class="material-symbols-outlined">manage_search</span><span>Filtros y búsqueda por estado, usuario o unidad.</span></div>
+</div>
+</div>
+<div class="grid gap-sm">
+<button type="button" onclick="openSandbox()" class="bg-surface-container-lowest text-primary-container font-label-md text-label-md px-lg py-md rounded-lg hover:bg-primary-fixed transition-colors flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+Explorar sandbox
+</button>
+<a href="https://mex-mapa-bjx.web.app" target="_blank" rel="noopener" class="border border-inverse-on-surface/20 text-on-primary font-label-md text-label-md px-lg py-md rounded-lg hover:bg-white/10 transition-colors flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-[20px]">open_in_new</span>
+Abrir mapa real
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Screenshots Gallery -->
+<section class="py-3xl px-gutter max-w-container-max mx-auto" id="pantallas">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-lg mb-2xl">
+<div>
+<h2 class="font-h1 text-h1 text-on-background mb-md">Pantallas administrativas y operativas</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Accesos, usuarios, roles, bitácoras, auditoría, mapa, flota e incidencias en contexto. Da click en cualquier captura para ampliarla.</p>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Click para detalle</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant/50 overflow-hidden">
+<button class="gallery-frame w-full" type="button" data-src="assets/screenshots/aprobacion-accesos.png" data-title="Aprobación de accesos" data-kicker="Control administrativo" data-desc="Buzón para revisar, aprobar o rechazar accesos antes de que un usuario entre al sistema."><img src="assets/screenshots/aprobacion-accesos.png" alt="Aprobación de accesos" loading="lazy" decoding="async"/></button>
+<div class="p-lg"><h3 class="font-h3 text-h3 mb-xs">Aprobación de accesos</h3><p class="font-body-sm text-body-sm text-on-surface-variant">Solicitudes bajo control antes de dar entrada al sistema.</p></div>
+</article>
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant/50 overflow-hidden">
+<button class="gallery-frame w-full" type="button" data-src="assets/screenshots/usuarios.png" data-title="Usuarios" data-kicker="Control administrativo" data-desc="Vista detallada de usuarios, roles, plazas y permisos dentro del sistema."><img src="assets/screenshots/usuarios.png" alt="Usuarios" loading="lazy" decoding="async"/></button>
+<div class="p-lg"><h3 class="font-h3 text-h3 mb-xs">Usuarios</h3><p class="font-body-sm text-body-sm text-on-surface-variant">Rol, plaza y permisos visibles para administrar sin hojas paralelas.</p></div>
+</article>
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant/50 overflow-hidden">
+<button class="gallery-frame w-full" type="button" data-src="assets/screenshots/roles-permisos.png" data-title="Roles y permisos" data-kicker="Control administrativo" data-desc="Editor de roles y permisos para controlar alcance y acciones del equipo."><img src="assets/screenshots/roles-permisos.png" alt="Roles y permisos" loading="lazy" decoding="async"/></button>
+<div class="p-lg"><h3 class="font-h3 text-h3 mb-xs">Roles y permisos</h3><p class="font-body-sm text-body-sm text-on-surface-variant">Define quién consulta, edita, aprueba o administra cada módulo.</p></div>
+</article>
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant/50 overflow-hidden">
+<button class="gallery-frame w-full" type="button" data-src="assets/screenshots/mapa-vivo.png" data-title="Mapa en vivo" data-kicker="Operación" data-desc="Vista central con lectura inmediata del mapa, estados y contexto visual del trabajo."><img src="assets/screenshots/mapa-vivo.png" alt="Mapa en vivo" loading="lazy" decoding="async"/></button>
+<div class="p-lg"><h3 class="font-h3 text-h3 mb-xs">Mapa en vivo</h3><p class="font-body-sm text-body-sm text-on-surface-variant">Patio, estados, taller, métricas y operación desde un vistazo.</p></div>
+</article>
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant/50 overflow-hidden">
+<button class="gallery-frame w-full" type="button" data-src="assets/screenshots/gestion-flota.png" data-title="Gestión de unidades" data-kicker="Operación" data-desc="Gestión con filtros, estados, categorías, placas y ubicaciones."><img src="assets/screenshots/gestion-flota.png" alt="Gestión de unidades" loading="lazy" decoding="async"/></button>
+<div class="p-lg"><h3 class="font-h3 text-h3 mb-xs">Gestión de unidades</h3><p class="font-body-sm text-body-sm text-on-surface-variant">Filtros y lectura clara para decidir más rápido.</p></div>
+</article>
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant/50 overflow-hidden">
+<button class="gallery-frame w-full" type="button" data-src="assets/screenshots/bitacora-incidencias.png" data-title="Bitácora de incidencias" data-kicker="Operación" data-desc="Vista de incidencias con prioridad, adjuntos y estados para dar continuidad al trabajo."><img src="assets/screenshots/bitacora-incidencias.png" alt="Bitácora de incidencias" loading="lazy" decoding="async"/></button>
+<div class="p-lg"><h3 class="font-h3 text-h3 mb-xs">Incidencias</h3><p class="font-body-sm text-body-sm text-on-surface-variant">Prioridad, adjuntos y seguimiento para cerrar pendientes.</p></div>
+</article>
 </div>
 </section>
 
@@ -372,7 +665,7 @@ Sí, ofrecemos soporte técnico continuo a través de chat, correo electrónico 
 </section>
 
 <!-- Contact Form -->
-<section class="bg-surface-container-low py-3xl px-gutter border-t border-outline-variant/20">
+<section class="bg-surface-container-low py-3xl px-gutter border-t border-outline-variant/20" id="contacto">
 <div class="max-w-2xl mx-auto bg-surface-container-lowest p-2xl rounded-xl border border-outline-variant shadow-sm">
 <div class="text-center mb-xl">
 <h2 class="font-h2 text-h2 text-on-background mb-sm">¿Listo para optimizar tu logística?</h2>
@@ -381,19 +674,23 @@ Sí, ofrecemos soporte técnico continuo a través de chat, correo electrónico 
 <form class="space-y-lg">
 <div>
 <label class="block font-label-sm text-on-surface-variant mb-xs" for="name">Nombre completo</label>
-<input class="w-full rounded-lg border-outline-variant bg-surface-container-lowest px-md py-sm focus:border-outline focus:ring-0 text-body-md transition-colors" id="name" type="text"/>
+<input class="w-full rounded-lg border-outline-variant bg-surface-container-lowest px-md py-sm focus:border-outline focus:ring-0 text-body-md transition-colors" id="name" name="nombre" type="text" required/>
 </div>
 <div>
 <label class="block font-label-sm text-on-surface-variant mb-xs" for="company">Empresa</label>
-<input class="w-full rounded-lg border-outline-variant bg-surface-container-lowest px-md py-sm focus:border-outline focus:ring-0 text-body-md transition-colors" id="company" type="text"/>
+<input class="w-full rounded-lg border-outline-variant bg-surface-container-lowest px-md py-sm focus:border-outline focus:ring-0 text-body-md transition-colors" id="company" name="empresa" type="text"/>
 </div>
 <div>
 <label class="block font-label-sm text-on-surface-variant mb-xs" for="email">Correo electrónico</label>
-<input class="w-full rounded-lg border-outline-variant bg-surface-container-lowest px-md py-sm focus:border-outline focus:ring-0 text-body-md transition-colors" id="email" type="email"/>
+<input class="w-full rounded-lg border-outline-variant bg-surface-container-lowest px-md py-sm focus:border-outline focus:ring-0 text-body-md transition-colors" id="email" name="email" type="email" required/>
+</div>
+<div>
+<label class="block font-label-sm text-on-surface-variant mb-xs" for="phone">WhatsApp o teléfono</label>
+<input class="w-full rounded-lg border-outline-variant bg-surface-container-lowest px-md py-sm focus:border-outline focus:ring-0 text-body-md transition-colors" id="phone" name="telefono" type="tel"/>
 </div>
 <div>
 <label class="block font-label-sm text-on-surface-variant mb-xs" for="message">Mensaje (Opcional)</label>
-<textarea class="w-full rounded-lg border-outline-variant bg-surface-container-lowest px-md py-sm focus:border-outline focus:ring-0 text-body-md transition-colors" id="message" rows="3"></textarea>
+<textarea class="w-full rounded-lg border-outline-variant bg-surface-container-lowest px-md py-sm focus:border-outline focus:ring-0 text-body-md transition-colors" id="message" name="necesidad" rows="3"></textarea>
 </div>
 <button class="w-full bg-primary-container text-on-primary font-label-md px-lg py-md rounded-lg hover:bg-primary-container/90 transition-colors mt-xl" type="submit">
 Enviar mensaje
@@ -401,7 +698,7 @@ Enviar mensaje
 </form>
 <div class="mt-xl text-center pt-lg border-t border-outline-variant/30">
 <p class="font-body-sm text-body-sm text-on-surface-variant mb-md">O si lo prefieres, escríbenos directamente:</p>
-<a href="https://wa.me/524778024682" target="_blank" rel="noopener" class="bg-surface-container-low text-on-surface font-label-md border border-outline-variant px-lg py-sm rounded-lg hover:bg-surface-container-highest transition-all inline-flex items-center gap-sm mx-auto">
+<a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20demo%20administrativa%20de%20MapGestion" target="_blank" rel="noopener" class="bg-surface-container-low text-on-surface font-label-md border border-outline-variant px-lg py-sm rounded-lg hover:bg-surface-container-highest transition-all inline-flex items-center gap-sm mx-auto">
 <span class="material-symbols-outlined text-[18px]">chat</span>
 Contactar por WhatsApp
 </a>
@@ -426,17 +723,158 @@ MapGestion
 </div>
 </footer>
 
+<!-- Lightbox Modal -->
+<div class="modal-overlay" id="lightboxOverlay" onclick="handleLightboxClick(event)">
+<div class="lightbox-modal">
+<img id="lightboxImg" src="" alt=""/>
+<div class="flex flex-col gap-md">
+<div class="flex items-start justify-between gap-md">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary-fixed-dim" id="lightboxKicker"></span>
+<button type="button" onclick="closeLightbox()" class="w-10 h-10 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center" aria-label="Cerrar">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<h3 class="font-h2 text-h2 text-white" id="lightboxTitle"></h3>
+<p class="font-body-md text-body-md text-inverse-on-surface/70" id="lightboxDesc"></p>
+<div class="grid grid-cols-2 gap-sm mt-auto">
+<button type="button" onclick="lightboxStep(-1)" class="border border-white/15 text-white rounded-lg py-sm hover:bg-white/10">Anterior</button>
+<button type="button" onclick="lightboxStep(1)" class="border border-white/15 text-white rounded-lg py-sm hover:bg-white/10">Siguiente</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Sandbox Modal -->
+<div class="modal-overlay" id="sandboxOverlay" onclick="handleSandboxClick(event)">
+<div class="sandbox-modal">
+<div class="sandbox-bar">
+<div class="flex items-center gap-sm">
+<button type="button" onclick="closeSandbox()" class="w-3 h-3 rounded-full bg-red-400" aria-label="Cerrar"></button>
+<span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+<span class="w-3 h-3 rounded-full bg-green-400"></span>
+</div>
+<div class="font-label-sm text-label-sm text-inverse-on-surface/70 hidden sm:block">mapgestion.app / sandbox-demo</div>
+<div class="flex gap-sm">
+<button type="button" onclick="openInNewTab()" class="w-9 h-9 rounded-lg hover:bg-white/10 flex items-center justify-center" aria-label="Abrir en nueva pestaña"><span class="material-symbols-outlined text-[18px]">open_in_new</span></button>
+<button type="button" onclick="closeSandbox()" class="w-9 h-9 rounded-lg hover:bg-white/10 flex items-center justify-center" aria-label="Cerrar"><span class="material-symbols-outlined text-[18px]">close</span></button>
+</div>
+</div>
+<iframe class="sandbox-frame" id="sandboxFrame" src="" title="MapGestion Sandbox"></iframe>
+</div>
+</div>
+
 <script>
-// Form submission
-document.querySelector('form').addEventListener('submit', (e) => {
+function handleForm(e) {
   e.preventDefault();
-  const name = document.getElementById('name').value;
-  const company = document.getElementById('company').value;
-  const email = document.getElementById('email').value;
-  const message = document.getElementById('message').value;
-  
-  const text = `Hola, me gustaría agendar una demo de MapGestion.\n\nNombre: ${name}\nEmpresa: ${company}\nEmail: ${email}\n\nMensaje: ${message}`;
-  window.open(`https://wa.me/524778024682?text=${encodeURIComponent(text)}`, '_blank');
+  const form = e.target;
+  const data = new FormData(form);
+  const text = [
+    'Hola, quiero agendar una demo administrativa de MapGestion.',
+    '',
+    `Nombre: ${data.get('nombre') || ''}`,
+    `Empresa: ${data.get('empresa') || ''}`,
+    `Email: ${data.get('email') || ''}`,
+    `WhatsApp o teléfono: ${data.get('telefono') || ''}`,
+    '',
+    `Usuarios, roles, plazas o permisos a controlar: ${data.get('necesidad') || ''}`
+  ].join('\n');
+  const btn = form.querySelector('button[type="submit"]');
+  btn.textContent = 'Abriendo WhatsApp...';
+  btn.disabled = true;
+  window.open(`https://wa.me/524778024682?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+  setTimeout(() => {
+    btn.textContent = 'Enviar mensaje';
+    btn.disabled = false;
+  }, 1800);
+}
+
+document.querySelector('form').addEventListener('submit', handleForm);
+
+let sandboxLoaded = false;
+
+async function openSandbox() {
+  const overlay = document.getElementById('sandboxOverlay');
+  const frame = document.getElementById('sandboxFrame');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  if (sandboxLoaded) return;
+
+  frame.srcdoc = '<html><body style="margin:0;background:#111318;color:rgba(255,255,255,.7);height:100vh;display:flex;align-items:center;justify-content:center;font-family:system-ui">Cargando sandbox...</body></html>';
+  try {
+    const res = await fetch('sandbox-mapa.html');
+    if (!res.ok) throw new Error('No se pudo cargar el sandbox');
+    frame.srcdoc = await res.text();
+    sandboxLoaded = true;
+  } catch {
+    frame.srcdoc = '<html><body style="margin:0;background:#111318;color:rgba(255,255,255,.75);height:100vh;display:flex;flex-direction:column;gap:16px;align-items:center;justify-content:center;font-family:system-ui;text-align:center;padding:32px"><strong style="color:white">Abre el sandbox en una nueva pestaña</strong><span>Este contexto no permite cargarlo embebido.</span><button onclick="window.parent.openInNewTab()" style="padding:12px 20px;border:0;border-radius:8px;background:white;color:#131b2e;font-weight:700;cursor:pointer">Abrir sandbox</button></body></html>';
+  }
+}
+
+function closeSandbox() {
+  document.getElementById('sandboxOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleSandboxClick(e) {
+  if (e.target === document.getElementById('sandboxOverlay')) closeSandbox();
+}
+
+function openInNewTab() {
+  window.open('sandbox-mapa.html', '_blank');
+}
+
+const lightboxItems = [];
+let lightboxIndex = 0;
+
+document.querySelectorAll('.gallery-frame[data-src]').forEach((el, index) => {
+  lightboxItems.push({
+    src: el.dataset.src,
+    title: el.dataset.title,
+    kicker: el.dataset.kicker,
+    desc: el.dataset.desc
+  });
+  el.addEventListener('click', () => openLightbox(index));
+});
+
+function openLightbox(index) {
+  lightboxIndex = index;
+  renderLightbox();
+  document.getElementById('lightboxOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderLightbox() {
+  const item = lightboxItems[lightboxIndex];
+  document.getElementById('lightboxImg').src = item.src;
+  document.getElementById('lightboxImg').alt = item.title;
+  document.getElementById('lightboxTitle').textContent = item.title;
+  document.getElementById('lightboxKicker').textContent = item.kicker;
+  document.getElementById('lightboxDesc').textContent = item.desc;
+}
+
+function closeLightbox() {
+  document.getElementById('lightboxOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleLightboxClick(e) {
+  if (e.target === document.getElementById('lightboxOverlay')) closeLightbox();
+}
+
+function lightboxStep(dir) {
+  lightboxIndex = (lightboxIndex + dir + lightboxItems.length) % lightboxItems.length;
+  renderLightbox();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeSandbox();
+    closeLightbox();
+  }
+  if (!document.getElementById('lightboxOverlay').classList.contains('open')) return;
+  if (e.key === 'ArrowRight') lightboxStep(1);
+  if (e.key === 'ArrowLeft') lightboxStep(-1);
 });
 </script>
 
