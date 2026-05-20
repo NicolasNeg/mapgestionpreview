@@ -668,15 +668,52 @@ Sí, ofrecemos soporte técnico continuo a través de chat, correo electrónico 
 <!-- Pricing Section -->
 <section class="bg-surface-container-low py-3xl px-gutter border-t border-outline-variant/20" id="precios">
 <div class="max-w-container-max mx-auto">
+
+  <!-- Header -->
   <div class="text-center mb-2xl">
     <span class="eyebrow mb-lg">Planes y Precios</span>
-    <h2 class="font-display text-display text-on-background mb-md">Simple, transparente, sin sorpresas</h2>
-    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Elige el plan que mejor se adapte a tu operación. Todos los planes incluyen acceso a la plataforma web, actualizaciones automáticas y mapa en tiempo real.</p>
-    <p class="font-body-sm text-body-sm text-on-surface-variant/60 mt-sm">Precios en pesos mexicanos (MXN). Equivalencia aproximada: 1 USD ≈ $17.50 MXN</p>
+    <h2 class="font-display text-[26px] md:text-display text-on-background mb-md leading-tight">Tu operación, sin caos.<br class="hidden md:block"/> Visible. Controlada. Desde un solo lugar.</h2>
+    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">MapGestion no es un gasto — es lo que recuperas en tiempo, en errores evitados y en problemas que dejan de existir. Elige el plan que se ajusta al tamaño de tu patio hoy.</p>
+    <p class="font-body-sm text-body-sm text-on-surface-variant/50 mt-sm">Precios en pesos mexicanos (MXN). Equivalencia aproximada: 1 USD ≈ $17.50 MXN</p>
   </div>
 
-  <!-- Cards: horizontal scroll en mobile, grid en desktop -->
-  <div class="flex gap-lg overflow-x-auto pb-md snap-x snap-mandatory md:grid md:grid-cols-2 md:overflow-visible md:pb-0 xl:grid-cols-4 md:items-start" style="-webkit-overflow-scrolling: touch;">
+  <!-- Pain Points -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-md mb-2xl">
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col gap-sm">
+      <span class="material-symbols-outlined text-[28px]" style="color:#0c9488">help</span>
+      <p class="font-h3 text-h3 text-on-background">"¿Dónde está esa unidad?"</p>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">La pregunta más repetida en cualquier patio. MapGestion la elimina: cada unidad está visible en el mapa, en tiempo real, sin llamadas ni WhatsApps.</p>
+    </div>
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col gap-sm">
+      <span class="material-symbols-outlined text-[28px]" style="color:#0c9488">gavel</span>
+      <p class="font-h3 text-h3 text-on-background">"Si no está registrado, no ocurrió."</p>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">Un incidente sin evidencia es un problema legal sin defensa. Cada movimiento, acceso e incidencia queda documentado automáticamente con responsable y timestamp.</p>
+    </div>
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col gap-sm">
+      <span class="material-symbols-outlined text-[28px]" style="color:#0c9488">table_chart</span>
+      <p class="font-h3 text-h3 text-on-background">"Tenemos Excel, pizarrón y WhatsApp…"</p>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">Tres fuentes, tres versiones distintas. Tu equipo pierde tiempo conciliando datos en lugar de operar. Con MapGestion hay una sola verdad, accesible para todos.</p>
+    </div>
+  </div>
+
+  <!-- Incluido en todos los planes -->
+  <div class="bg-primary-container rounded-xl p-lg md:p-xl mb-2xl">
+    <div class="flex items-center gap-sm mb-md">
+      <span class="material-symbols-outlined text-[20px] text-tertiary-fixed">verified</span>
+      <p class="font-label-md text-label-md text-primary-fixed-dim uppercase tracking-wider">Incluido en todos los planes, sin excepción</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-sm">
+      <div class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] text-tertiary-fixed mt-0.5 shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Capacitación inicial de todo tu equipo de trabajo</span></div>
+      <div class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] text-tertiary-fixed mt-0.5 shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Capacitación continua ante cada nueva función</span></div>
+      <div class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] text-tertiary-fixed mt-0.5 shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Actualizaciones automáticas de la plataforma</span></div>
+      <div class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] text-tertiary-fixed mt-0.5 shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Acceso desde cualquier navegador y dispositivo</span></div>
+      <div class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] text-tertiary-fixed mt-0.5 shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Mapa interactivo del patio en tiempo real</span></div>
+      <div class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] text-tertiary-fixed mt-0.5 shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Infraestructura en la nube con alta disponibilidad</span></div>
+    </div>
+  </div>
+
+  <!-- Plan Cards: horizontal scroll mobile / grid desktop -->
+  <div class="flex gap-lg overflow-x-auto pb-md snap-x snap-mandatory md:grid md:grid-cols-2 md:overflow-visible md:pb-0 xl:grid-cols-4 md:items-start" style="-webkit-overflow-scrolling:touch;">
 
     <!-- Plan Básico -->
     <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg md:p-xl flex flex-col gap-md md:hover:-translate-y-1 md:hover:shadow-lg transition-all duration-200 snap-start shrink-0 w-[82vw] sm:w-[60vw] md:w-auto">
@@ -686,58 +723,53 @@ Sí, ofrecemos soporte técnico continuo a través de chat, correo electrónico 
           <span class="text-[34px] md:text-[38px] font-bold text-on-background leading-none">$499</span>
           <span class="font-body-sm text-body-sm text-on-surface-variant mb-1">MXN/mes</span>
         </div>
-        <p class="font-body-sm text-body-sm text-on-surface-variant/60">≈ $28 USD/mes</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant/60 mb-md">≈ $28 USD/mes</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Deja de perder tiempo buscando unidades. Empieza a ver tu patio completo desde el primer día, sin Excel ni pizarrón.</p>
       </div>
-      <p class="font-body-sm text-body-sm text-on-surface-variant">Ideal para operaciones pequeñas que buscan digitalizar su patio por primera vez sin complicaciones.</p>
       <a href="#contacto" class="block text-center font-label-md text-label-md bg-surface-container-high text-on-background px-lg py-sm rounded-lg hover:bg-surface-container-highest active:scale-95 transition-all">Comenzar</a>
       <hr class="border-outline-variant/30"/>
       <ul class="space-y-sm flex-1">
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Creación y configuración inicial de tu empresa</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">3 plazas activas para unidades en patio</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Mapa interactivo del patio en tiempo real</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Registro de entrada y salida de unidades</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Gestión de estados: lavado, mantenimiento, disponible</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Bitácora básica de operaciones del día</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Hasta 5 usuarios con acceso a la plataforma</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Categorización de unidades por tipo y modelo</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Acceso desde cualquier navegador, sin instalación</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Notificaciones básicas de cambio de estado</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Alta de tu empresa y configuración inicial</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">3 plazas activas en el mapa del patio</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Mapa interactivo en tiempo real</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Registro automático de entrada y salida</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Estados de unidades: lavado, mant., disponible</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Bitácora de operaciones del día</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Hasta 5 usuarios con acceso</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Clasificación de unidades por tipo y modelo</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Sin instalaciones — funciona desde el navegador</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Notificaciones de cambio de estado</span></li>
         <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-on-surface-variant/30">remove</span><span class="font-body-sm text-body-sm text-on-surface-variant/40">Soporte en horario de oficina (Lun–Vie)</span></li>
       </ul>
     </div>
 
-    <!-- Plan Intermedio (destacado) -->
+    <!-- Plan Intermedio -->
     <div class="bg-primary-container rounded-xl p-lg md:p-xl flex flex-col gap-md shadow-xl relative snap-start shrink-0 w-[82vw] sm:w-[60vw] md:w-auto md:-mt-3">
-      <!-- Badge inline en mobile, absoluto en md+ -->
-      <div class="flex md:hidden mb-xs">
-        <span class="text-white font-label-sm text-label-sm px-md py-xs rounded-full text-[11px]" style="background:#0c9488">⭐ Más popular</span>
-      </div>
-      <div class="hidden md:block absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
-        <span class="text-white font-label-sm text-label-sm px-md py-xs rounded-full shadow-sm" style="background:#0c9488">Más popular</span>
-      </div>
+      <div class="flex md:hidden mb-xs"><span class="text-white font-label-sm text-[11px] px-md py-xs rounded-full" style="background:#0c9488">⭐ Más popular</span></div>
+      <div class="hidden md:block absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap"><span class="text-white font-label-sm text-label-sm px-md py-xs rounded-full shadow-sm" style="background:#0c9488">Más popular</span></div>
       <div>
         <p class="font-label-sm text-label-sm text-primary-fixed-dim uppercase tracking-wider mb-xs">Intermedio</p>
         <div class="flex items-end gap-xs mb-xs">
           <span class="text-[34px] md:text-[38px] font-bold text-white leading-none">$899</span>
           <span class="font-body-sm text-body-sm text-primary-fixed-dim mb-1">MXN/mes</span>
         </div>
-        <p class="font-body-sm text-body-sm text-primary-fixed-dim/60">≈ $51 USD/mes</p>
+        <p class="font-body-sm text-body-sm text-primary-fixed-dim/60 mb-md">≈ $51 USD/mes</p>
+        <p class="font-body-sm text-body-sm text-primary-fixed-dim">Tu equipo tiene todo lo que necesita y tú tienes el control total. Nadie pregunta dónde está nada — lo ven en pantalla.</p>
       </div>
-      <p class="font-body-sm text-body-sm text-primary-fixed-dim">El más elegido. Control total del patio y soporte siempre disponible para operaciones medianas en crecimiento.</p>
       <a href="#contacto" class="block text-center font-label-md text-label-md font-semibold bg-white text-primary-container px-lg py-sm rounded-lg hover:bg-primary-fixed active:scale-95 transition-all">Comenzar</a>
       <hr class="border-white/20"/>
       <ul class="space-y-sm flex-1">
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Todo lo incluido en el plan Básico</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">10 plazas activas para unidades en patio</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Soporte 24/7 por chat y correo electrónico</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Todo lo del plan Básico</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">10 plazas activas en patio</span></li>
         <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Hasta 20 usuarios con roles diferenciados</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Módulo de incidencias: registro, fotos y resolución</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Soporte 24/7 por chat y correo</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Incidencias con foto, descripción y resolución</span></li>
         <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Roles y permisos completamente personalizables</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Exportación de reportes en CSV y Excel</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Mensajes internos entre operadores del patio</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Control de gasolinas: consumos y carga por unidad</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Aprobación de accesos con bitácora de autorización</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Dashboard con resumen operativo del patio</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Exportación de reportes CSV y Excel</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Mensajes internos entre operadores</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Control de gasolinas y consumos por unidad</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Aprobación de accesos con bitácora</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Dashboard con resumen operativo en tiempo real</span></li>
         <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Notificaciones en tiempo real por evento</span></li>
         <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Historial de movimientos (últimos 30 días)</span></li>
       </ul>
@@ -751,25 +783,25 @@ Sí, ofrecemos soporte técnico continuo a través de chat, correo electrónico 
           <span class="text-[34px] md:text-[38px] font-bold text-on-background leading-none">$1,499</span>
           <span class="font-body-sm text-body-sm text-on-surface-variant mb-1">MXN/mes</span>
         </div>
-        <p class="font-body-sm text-body-sm text-on-surface-variant/60">≈ $86 USD/mes</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant/60 mb-md">≈ $86 USD/mes</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Cada movimiento documentado, cada responsable identificado. Tu auditoría está siempre lista y la marca es tuya.</p>
       </div>
-      <p class="font-body-sm text-body-sm text-on-surface-variant">Para operaciones grandes que necesitan trazabilidad completa, auditoría y personalización de marca propia.</p>
       <a href="#contacto" class="block text-center font-label-md text-label-md bg-surface-container-high text-on-background px-lg py-sm rounded-lg hover:bg-surface-container-highest active:scale-95 transition-all">Comenzar</a>
       <hr class="border-outline-variant/30"/>
       <ul class="space-y-sm flex-1">
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Todo lo incluido en el plan Intermedio</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">15 plazas activas para unidades en patio</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Hasta 50 usuarios con perfiles detallados</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Soporte 24/7 con tiempo de respuesta ≤ 4 h</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Todo lo del plan Intermedio</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">15 plazas activas en patio</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Hasta 50 usuarios</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Soporte 24/7 · respuesta garantizada en ≤4 h</span></li>
         <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Historial ilimitado de trazabilidad por unidad</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Dashboard administrativo con KPIs operativos</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Dashboard con KPIs operativos</span></li>
         <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Auditoría completa: quién hizo qué y cuándo</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Personalización de marca: logo, colores y nombre</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Reportes programados y enviados automáticamente</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Gestión de modelos y categorías avanzada</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Bitácora de incidencias con evidencia fotográfica</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Branding propio: logo, colores y nombre de marca</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Reportes programados enviados automáticamente</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Gestión de zonas y ubicaciones del patio</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Acceso anticipado a nuevas funciones</span></li>
         <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Resumen ejecutivo de flota con gráficas</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Gestión de ubicaciones y zonas dentro del patio</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Consultoría inicial de configuración de procesos</span></li>
       </ul>
     </div>
 
@@ -784,37 +816,325 @@ Sí, ofrecemos soporte técnico continuo a través de chat, correo electrónico 
           <span class="text-[34px] md:text-[38px] font-bold text-on-background leading-none">$2,500</span>
           <span class="font-body-sm text-body-sm text-on-surface-variant mb-1">MXN/mes</span>
         </div>
-        <p class="font-body-sm text-body-sm text-on-surface-variant/60">≈ $143 USD/mes</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant/60 mb-md">≈ $143 USD/mes</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">La plataforma se adapta completamente a ti. Tus sistemas, tus integraciones, tus reglas — con un equipo que te respalda directamente.</p>
       </div>
-      <p class="font-body-sm text-body-sm text-on-surface-variant">Solución sin límites para empresas con operaciones complejas, múltiples sitios y requerimientos a la medida.</p>
       <a href="#contacto" class="block text-center font-label-md text-label-md bg-primary-container text-on-primary px-lg py-sm rounded-lg hover:bg-primary-container/90 active:scale-95 transition-all">Hablar con ventas</a>
       <hr class="border-outline-variant/30"/>
       <ul class="space-y-sm flex-1">
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Todo lo incluido en el plan Avanzado</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Plazas ilimitadas sin restricción de crecimiento</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Todo lo del plan Avanzado</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Plazas ilimitadas</span></li>
         <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Usuarios ilimitados en toda la organización</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Gestor de cuenta dedicado y soporte preferente</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Soporte con tiempo de respuesta ≤ 1 h garantizado</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Desarrollo de funciones extras completamente a medida</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">API REST de integración con ERP, TMS o sistemas internos</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Acceso multiempresa: gestiona varios patios desde una cuenta</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">SLA garantizado con penalidades contractuales</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Gestor de cuenta dedicado + soporte preferente</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Respuesta garantizada en ≤ 1 hora</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Desarrollo de funciones extras a tu medida</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">API REST para conectar con tu ERP o TMS</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Gestión multiempresa desde una sola cuenta</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">SLA contractual con penalidades</span></li>
         <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Onboarding personalizado y capacitación en sitio</span></li>
         <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Consultoría de procesos logísticos incluida</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Reportes completamente personalizados a medida</span></li>
-        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Ambiente de staging para pruebas antes de producción</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Acceso prioritario a nuevas funciones antes que nadie</span></li>
         <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Respaldo y exportación total de datos históricos</span></li>
+        <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Ambiente de staging para pruebas previas</span></li>
       </ul>
     </div>
 
   </div>
-
-  <!-- Hint de scroll solo en mobile -->
   <p class="text-center font-body-sm text-body-sm text-on-surface-variant/50 mt-md md:hidden">← Desliza para ver todos los planes →</p>
 
+  <!-- Plan Personalizado -->
+  <div class="mt-xl rounded-xl border-2 border-dashed border-outline-variant bg-surface-container-lowest p-lg md:p-xl">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-xl">
+      <div class="flex flex-col gap-md">
+        <div>
+          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Plan Personalizado</span>
+          <h3 class="font-h2 text-h2 text-on-background mt-xs">Diseña exactamente lo que necesitas</h3>
+        </div>
+        <p class="font-body-md text-body-md text-on-surface-variant">Empieza con el plan Básico y agrega solo los módulos que tu operación requiere. Pagas lo que usas — nada más.</p>
+        <div class="flex items-end gap-xs">
+          <span class="text-[28px] font-bold text-on-background leading-none">Desde $499</span>
+          <span class="font-body-sm text-body-sm text-on-surface-variant mb-1">MXN/mes</span>
+        </div>
+        <p class="font-body-sm text-body-sm text-on-surface-variant/60">+ módulos adicionales según tu selección</p>
+        <div class="bg-surface-container-low border border-outline-variant/40 rounded-lg p-md">
+          <p class="font-label-sm text-label-sm text-on-surface-variant mb-sm">¿Por qué algunos módulos cuestan más?</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">Cada función implica recursos reales: más plazas = más procesamiento en tiempo real; soporte 24/7 = equipo disponible las 24h; API = ingeniería de mantenimiento continuo. El precio refleja exactamente lo que se destina a tu cuenta.</p>
+        </div>
+        <a href="#contacto" class="block text-center font-label-md text-label-md bg-primary-container text-on-primary px-lg py-sm rounded-lg hover:bg-primary-container/90 active:scale-95 transition-all">Armar mi plan → Contactar</a>
+      </div>
+      <div>
+        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-md">Módulos disponibles para agregar a cualquier plan</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-xs">
+          <div class="flex justify-between items-center bg-surface-container-low rounded-lg px-md py-sm border border-outline-variant/30"><span class="font-body-sm text-body-sm text-on-surface-variant">+5 plazas adicionales</span><span class="font-label-sm text-label-sm text-on-background font-bold">+$150/mes</span></div>
+          <div class="flex justify-between items-center bg-surface-container-low rounded-lg px-md py-sm border border-outline-variant/30"><span class="font-body-sm text-body-sm text-on-surface-variant">Pack de 10 usuarios extra</span><span class="font-label-sm text-label-sm text-on-background font-bold">+$100/mes</span></div>
+          <div class="flex justify-between items-center bg-surface-container-low rounded-lg px-md py-sm border border-outline-variant/30"><span class="font-body-sm text-body-sm text-on-surface-variant">Soporte 24/7</span><span class="font-label-sm text-label-sm text-on-background font-bold">+$200/mes</span></div>
+          <div class="flex justify-between items-center bg-surface-container-low rounded-lg px-md py-sm border border-outline-variant/30"><span class="font-body-sm text-body-sm text-on-surface-variant">Módulo de incidencias</span><span class="font-label-sm text-label-sm text-on-background font-bold">+$120/mes</span></div>
+          <div class="flex justify-between items-center bg-surface-container-low rounded-lg px-md py-sm border border-outline-variant/30"><span class="font-body-sm text-body-sm text-on-surface-variant">Control de gasolinas</span><span class="font-label-sm text-label-sm text-on-background font-bold">+$100/mes</span></div>
+          <div class="flex justify-between items-center bg-surface-container-low rounded-lg px-md py-sm border border-outline-variant/30"><span class="font-body-sm text-body-sm text-on-surface-variant">Exportación CSV/Excel</span><span class="font-label-sm text-label-sm text-on-background font-bold">+$80/mes</span></div>
+          <div class="flex justify-between items-center bg-surface-container-low rounded-lg px-md py-sm border border-outline-variant/30"><span class="font-body-sm text-body-sm text-on-surface-variant">Historial ilimitado</span><span class="font-label-sm text-label-sm text-on-background font-bold">+$150/mes</span></div>
+          <div class="flex justify-between items-center bg-surface-container-low rounded-lg px-md py-sm border border-outline-variant/30"><span class="font-body-sm text-body-sm text-on-surface-variant">Auditoría del sistema</span><span class="font-label-sm text-label-sm text-on-background font-bold">+$150/mes</span></div>
+          <div class="flex justify-between items-center bg-surface-container-low rounded-lg px-md py-sm border border-outline-variant/30"><span class="font-body-sm text-body-sm text-on-surface-variant">Branding propio</span><span class="font-label-sm text-label-sm text-on-background font-bold">+$200/mes</span></div>
+          <div class="flex justify-between items-center bg-surface-container-low rounded-lg px-md py-sm border border-outline-variant/30"><span class="font-body-sm text-body-sm text-on-surface-variant">Reportes automáticos</span><span class="font-label-sm text-label-sm text-on-background font-bold">+$120/mes</span></div>
+          <div class="flex justify-between items-center bg-surface-container-low rounded-lg px-md py-sm border border-outline-variant/30"><span class="font-body-sm text-body-sm text-on-surface-variant">Mensajes internos y aprobaciones</span><span class="font-label-sm text-label-sm text-on-background font-bold">+$100/mes</span></div>
+          <div class="flex justify-between items-center bg-surface-container-low rounded-lg px-md py-sm border border-outline-variant/30"><span class="font-body-sm text-body-sm text-on-surface-variant">API de integración (ERP/TMS)</span><span class="font-label-sm text-label-sm text-on-background font-bold">+$400/mes</span></div>
+        </div>
+        <p class="font-body-sm text-body-sm text-on-surface-variant/60 mt-sm">Los módulos reflejan exactamente el costo de infraestructura, ingeniería y soporte que implican. Contáctanos y armamos tu cotización exacta.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Desglose comparativo -->
+  <details class="mt-xl group">
+    <summary class="cursor-pointer list-none flex items-center justify-between bg-surface-container-lowest border border-outline-variant rounded-xl px-lg py-md hover:bg-surface-container-low transition-colors">
+      <div class="flex items-center gap-sm">
+        <span class="material-symbols-outlined text-[20px] text-on-surface-variant">table_chart</span>
+        <span class="font-label-md text-label-md text-on-background">Ver desglose completo de funciones por plan</span>
+      </div>
+      <span class="material-symbols-outlined text-on-surface-variant transition-transform group-open:rotate-180">expand_more</span>
+    </summary>
+    <div class="mt-md overflow-x-auto rounded-xl border border-outline-variant" style="-webkit-overflow-scrolling:touch;">
+      <table class="w-full min-w-[640px] border-collapse text-[13px]">
+        <thead>
+          <tr class="border-b border-outline-variant">
+            <th class="text-left px-md py-sm font-semibold text-on-surface-variant bg-surface-container-low w-[36%]">Función</th>
+            <th class="text-center px-md py-sm font-semibold text-on-background bg-surface-container-lowest w-[16%]">Básico<br/><span class="font-normal text-on-surface-variant text-[11px]">$499/mes</span></th>
+            <th class="text-center px-md py-sm font-semibold text-white w-[16%]" style="background:#131b2e">Intermedio<br/><span class="font-normal text-[11px]" style="color:#bec6e0">$899/mes</span></th>
+            <th class="text-center px-md py-sm font-semibold text-on-background bg-surface-container-lowest w-[16%]">Avanzado<br/><span class="font-normal text-on-surface-variant text-[11px]">$1,499/mes</span></th>
+            <th class="text-center px-md py-sm font-semibold text-on-background bg-surface-container-lowest w-[16%]">Ultra<br/><span class="font-normal text-on-surface-variant text-[11px]">$2,500/mes</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- CAPACIDAD -->
+          <tr class="bg-surface-container-low border-b border-outline-variant/50"><td colspan="5" class="px-md py-xs font-semibold text-on-surface-variant uppercase tracking-wider text-[11px]">Capacidad</td></tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Plazas activas en patio</td>
+            <td class="text-center px-md py-sm text-on-background font-medium">3</td>
+            <td class="text-center px-md py-sm text-white font-medium" style="background:#131b2e">10</td>
+            <td class="text-center px-md py-sm text-on-background font-medium">15</td>
+            <td class="text-center px-md py-sm text-on-background font-medium">Ilimitadas</td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Usuarios activos</td>
+            <td class="text-center px-md py-sm text-on-background font-medium">5</td>
+            <td class="text-center px-md py-sm text-white font-medium" style="background:#131b2e">20</td>
+            <td class="text-center px-md py-sm text-on-background font-medium">50</td>
+            <td class="text-center px-md py-sm text-on-background font-medium">Ilimitados</td>
+          </tr>
+          <!-- OPERACIÓN DIARIA -->
+          <tr class="bg-surface-container-low border-b border-outline-variant/50"><td colspan="5" class="px-md py-xs font-semibold text-on-surface-variant uppercase tracking-wider text-[11px]">Operación diaria</td></tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Mapa interactivo en tiempo real</td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="background:#131b2e;color:#89f5e7"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Registro entrada y salida de unidades</td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="background:#131b2e;color:#89f5e7"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Gestión de estados de unidades</td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="background:#131b2e;color:#89f5e7"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Bitácora de operaciones</td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="background:#131b2e;color:#89f5e7"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <!-- CONTROL Y SEGUIMIENTO -->
+          <tr class="bg-surface-container-low border-b border-outline-variant/50"><td colspan="5" class="px-md py-xs font-semibold text-on-surface-variant uppercase tracking-wider text-[11px]">Control y seguimiento</td></tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Mensajes internos entre operadores</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm" style="background:#131b2e;color:#89f5e7"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Aprobación de accesos con bitácora</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm" style="background:#131b2e;color:#89f5e7"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Incidencias con evidencia fotográfica</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm" style="background:#131b2e;color:#89f5e7"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Control de gasolinas y combustibles</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm" style="background:#131b2e;color:#89f5e7"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Gestión de zonas y ubicaciones del patio</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30" style="background:#131b2e"><span class="material-symbols-outlined text-[18px]" style="color:#bec6e0;opacity:0.3">remove</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <!-- REPORTES Y TRAZABILIDAD -->
+          <tr class="bg-surface-container-low border-b border-outline-variant/50"><td colspan="5" class="px-md py-xs font-semibold text-on-surface-variant uppercase tracking-wider text-[11px]">Reportes y trazabilidad</td></tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Exportación CSV y Excel</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm" style="background:#131b2e;color:#89f5e7"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Historial de movimientos</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30 text-[12px]">—</td>
+            <td class="text-center px-md py-sm text-white text-[12px] font-medium" style="background:#131b2e">30 días</td>
+            <td class="text-center px-md py-sm text-on-background text-[12px] font-medium">Ilimitado</td>
+            <td class="text-center px-md py-sm text-on-background text-[12px] font-medium">Ilimitado</td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Dashboard con KPIs operativos</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm" style="background:#131b2e;color:#89f5e7"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Reportes automáticos programados</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30" style="background:#131b2e"><span class="material-symbols-outlined text-[18px]" style="color:#bec6e0;opacity:0.3">remove</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Auditoría: quién hizo qué y cuándo</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30" style="background:#131b2e"><span class="material-symbols-outlined text-[18px]" style="color:#bec6e0;opacity:0.3">remove</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <!-- PERSONALIZACIÓN -->
+          <tr class="bg-surface-container-low border-b border-outline-variant/50"><td colspan="5" class="px-md py-xs font-semibold text-on-surface-variant uppercase tracking-wider text-[11px]">Personalización</td></tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Branding propio (logo y colores)</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30" style="background:#131b2e"><span class="material-symbols-outlined text-[18px]" style="color:#bec6e0;opacity:0.3">remove</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">API de integración (ERP, TMS)</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30" style="background:#131b2e"><span class="material-symbols-outlined text-[18px]" style="color:#bec6e0;opacity:0.3">remove</span></td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Funciones a medida</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30" style="background:#131b2e"><span class="material-symbols-outlined text-[18px]" style="color:#bec6e0;opacity:0.3">remove</span></td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Gestión multiempresa / multisitio</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30" style="background:#131b2e"><span class="material-symbols-outlined text-[18px]" style="color:#bec6e0;opacity:0.3">remove</span></td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <!-- SOPORTE Y CAPACITACIÓN -->
+          <tr class="bg-surface-container-low border-b border-outline-variant/50"><td colspan="5" class="px-md py-xs font-semibold text-on-surface-variant uppercase tracking-wider text-[11px]">Soporte y capacitación</td></tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Capacitación inicial del equipo</td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="background:#131b2e;color:#89f5e7"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Capacitación continua (nuevas funciones)</td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="background:#131b2e;color:#89f5e7"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Acceso anticipado a nuevas funciones</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30" style="background:#131b2e"><span class="material-symbols-outlined text-[18px]" style="color:#bec6e0;opacity:0.3">remove</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+            <td class="text-center px-md py-sm text-white text-[11px] font-bold" style="background:unset;color:#0c9488"><span class="material-symbols-outlined text-[18px]">star</span></td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Horario de soporte</td>
+            <td class="text-center px-md py-sm text-on-background text-[12px]">Lun–Vie oficina</td>
+            <td class="text-center px-md py-sm text-white text-[12px] font-medium" style="background:#131b2e">24/7</td>
+            <td class="text-center px-md py-sm text-on-background text-[12px] font-medium">24/7</td>
+            <td class="text-center px-md py-sm text-on-background text-[12px] font-medium">24/7 Preferente</td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Tiempo de respuesta garantizado</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30 text-[12px]">—</td>
+            <td class="text-center px-md py-sm text-white text-[12px]" style="background:#131b2e">&lt; 8 h</td>
+            <td class="text-center px-md py-sm text-on-background text-[12px]">&lt; 4 h</td>
+            <td class="text-center px-md py-sm text-on-background text-[12px] font-bold">&lt; 1 h</td>
+          </tr>
+          <tr class="border-b border-outline-variant/30 hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">Gestor de cuenta dedicado</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30" style="background:#131b2e"><span class="material-symbols-outlined text-[18px]" style="color:#bec6e0;opacity:0.3">remove</span></td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+          <tr class="hover:bg-surface-container-low/50 transition-colors">
+            <td class="px-md py-sm text-on-background">SLA contractual con penalidades</td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30" style="background:#131b2e"><span class="material-symbols-outlined text-[18px]" style="color:#bec6e0;opacity:0.3">remove</span></td>
+            <td class="text-center px-md py-sm text-on-surface-variant/30"><span class="material-symbols-outlined text-[18px]">remove</span></td>
+            <td class="text-center px-md py-sm" style="color:#0c9488"><span class="material-symbols-outlined text-[18px]">check_circle</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <!-- SaaS model + Legal -->
+  <div class="mt-xl grid grid-cols-1 md:grid-cols-2 gap-md">
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col gap-sm">
+      <div class="flex items-center gap-sm mb-xs">
+        <span class="material-symbols-outlined text-[20px]" style="color:#0c9488">public</span>
+        <p class="font-label-md text-label-md text-on-background">MapGestion es una plataforma SaaS global</p>
+      </div>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">No construimos software exclusivo para una sola empresa. MapGestion es una plataforma en constante evolución que mejora para todos los usuarios al mismo tiempo.</p>
+      <p class="font-body-sm text-body-sm text-on-surface-variant"><strong class="text-on-background">¿Qué significa esto para ti?</strong> Los planes superiores reciben acceso anticipado a funciones nuevas antes que el resto. Si tu plan no incluye una función específica, puedes activarla como módulo adicional — sin necesidad de cambiar de plan.</p>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">El plan Básico no accede a funciones del plan Avanzado a menos que se contrate el módulo correspondiente. Esto asegura que los precios reflejen lo que realmente se usa.</p>
+    </div>
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col gap-sm">
+      <div class="flex items-center gap-sm mb-xs">
+        <span class="material-symbols-outlined text-[20px]" style="color:#0c9488">shield</span>
+        <p class="font-label-md text-label-md text-on-background">Licencia de servicio, no venta de software</p>
+      </div>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">Al contratar MapGestion adquieres una <strong class="text-on-background">licencia de uso del servicio</strong>, no la propiedad ni el código fuente de la plataforma. El software permanece propiedad exclusiva de MapGestion en todo momento.</p>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">Esto incluye: acceso a la plataforma, todas las actualizaciones durante la vigencia del plan, soporte técnico según el plan contratado, y la infraestructura en la nube que lo sostiene.</p>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">La licencia está sujeta a los <a href="terminos.html" class="text-primary font-medium underline underline-offset-2">Términos y Condiciones de uso</a> del servicio. La cancelación del plan termina el acceso al servicio sin derecho a retención del software.</p>
+    </div>
+  </div>
+
   <!-- Disclaimer -->
-  <div class="mt-2xl text-center">
-    <div class="inline-flex items-center gap-sm bg-surface-container-lowest border border-outline-variant rounded-full px-lg py-sm">
+  <div class="mt-xl text-center">
+    <div class="inline-flex flex-wrap justify-center items-center gap-sm bg-surface-container-lowest border border-outline-variant rounded-full px-lg py-sm">
       <span class="material-symbols-outlined text-[18px] text-on-surface-variant">info</span>
       <p class="font-body-sm text-body-sm text-on-surface-variant">Los precios son orientativos. Aún no se realizan cobros en línea — <a href="#contacto" class="text-primary font-semibold underline underline-offset-2">contáctanos</a> para comenzar.</p>
     </div>
