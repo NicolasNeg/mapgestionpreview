@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="MapGestion software para patios y flotillas">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0f172a"/>
+      <stop offset=".62" stop-color="#131b2e"/>
+      <stop offset="1" stop-color="#0c9488"/>
+    </linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#46b7ff"/>
+      <stop offset=".6" stop-color="#89f5e7"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g opacity=".18" stroke="#ffffff" stroke-width="1">
+    <path d="M0 90h1200M0 180h1200M0 270h1200M0 360h1200M0 450h1200M0 540h1200"/>
+    <path d="M120 0v630M240 0v630M360 0v630M480 0v630M600 0v630M720 0v630M840 0v630M960 0v630M1080 0v630"/>
+  </g>
+  <circle cx="1010" cy="120" r="190" fill="#89f5e7" opacity=".16"/>
+  <circle cx="180" cy="520" r="220" fill="#46b7ff" opacity=".12"/>
+  <g transform="translate(76 70)">
+    <rect width="86" height="86" rx="22" fill="#ffffff" opacity=".1"/>
+    <rect x="18" y="24" width="50" height="38" rx="5" fill="#ffffff" opacity=".08"/>
+    <path d="M18 39h50M34 24v38M52 24v38" stroke="#89f5e7" stroke-width="3" opacity=".75"/>
+    <rect x="26" y="32" width="17" height="12" rx="3" fill="#89f5e7"/>
+    <rect x="45" y="45" width="17" height="12" rx="3" fill="#46b7ff"/>
+  </g>
+  <text x="184" y="126" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="800">MapGestion</text>
+  <text x="76" y="270" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="74" font-weight="900" letter-spacing="-3">Tu patio,</text>
+  <text x="76" y="352" fill="url(#word)" font-family="Inter, Arial, sans-serif" font-size="74" font-weight="900" letter-spacing="-3">visible en tiempo real.</text>
+  <text x="80" y="426" fill="#dbeafe" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="500">Software para patios, flotillas, incidencias, turnos y reportes.</text>
+  <g transform="translate(80 486)">
+    <rect width="255" height="54" rx="16" fill="#ffffff"/>
+    <text x="28" y="36" fill="#131b2e" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800">Solicitar acceso</text>
+  </g>
+  <g transform="translate(760 190)">
+    <rect width="342" height="250" rx="24" fill="#ffffff" opacity=".12" stroke="#ffffff" stroke-opacity=".16"/>
+    <path d="M28 64h286M28 122h286M28 180h286M92 28v194M178 28v194M264 28v194" stroke="#ffffff" stroke-opacity=".22" stroke-width="2"/>
+    <rect x="58" y="76" width="70" height="40" rx="10" fill="#89f5e7"/>
+    <rect x="198" y="136" width="74" height="42" rx="10" fill="#46b7ff"/>
+    <rect x="136" y="38" width="82" height="42" rx="10" fill="#ffffff" opacity=".9"/>
+    <circle cx="94" cy="198" r="12" fill="#ffffff"/>
+    <circle cx="236" cy="198" r="12" fill="#ffffff"/>
+  </g>
+</svg>

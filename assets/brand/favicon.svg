@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MapGestion">
+  <rect width="64" height="64" rx="16" fill="#131b2e"/>
+  <path d="M14 18h36v28H14z" fill="#ffffff" opacity=".08"/>
+  <path d="M14 28h36M14 38h36M26 18v28M38 18v28" stroke="#89f5e7" stroke-width="2" opacity=".55"/>
+  <rect x="20" y="24" width="10" height="7" rx="2" fill="#89f5e7"/>
+  <rect x="35" y="34" width="10" height="7" rx="2" fill="#46b7ff"/>
+  <circle cx="25" cy="45" r="3" fill="#ffffff"/>
+  <circle cx="40" cy="45" r="3" fill="#ffffff"/>
+</svg>
