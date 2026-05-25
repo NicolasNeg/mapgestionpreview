@@ -160,6 +160,39 @@
   .product-window {
     box-shadow: 0 28px 90px rgba(19,27,46,0.16);
   }
+  .gradient-word {
+    background: linear-gradient(90deg, #46b7ff 0%, #89f5e7 62%, #0c9488 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .cta-primary {
+    position: relative;
+    overflow: hidden;
+    background: #131b2e;
+    color: #ffffff;
+    box-shadow: 0 14px 34px rgba(19,27,46,0.18);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  }
+  .cta-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 0%, rgba(137,245,231,0.18) 45%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 0.5s ease;
+  }
+  .cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 46px rgba(19,27,46,0.24);
+  }
+  .cta-primary:hover::after {
+    transform: translateX(120%);
+  }
+  .cta-primary > * {
+    position: relative;
+    z-index: 1;
+  }
   .hero-stage {
     isolation: isolate;
   }
@@ -259,6 +292,22 @@
     color: #131b2e;
     background: linear-gradient(180deg, #ffffff 0%, #eceef0 100%);
   }
+  .feature-card {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.88), rgba(247,249,251,0.94));
+    border: 1px solid rgba(19,27,46,0.08);
+    border-radius: 14px;
+    box-shadow: 0 18px 48px rgba(19,27,46,0.06);
+  }
+  .feature-card .feature-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid rgba(19,27,46,0.08);
+    background:
+      radial-gradient(circle at 30% 20%, rgba(137,245,231,0.7), transparent 40%),
+      linear-gradient(180deg, #ffffff 0%, #eceef0 100%);
+  }
   .check-dot {
     width: 28px;
     height: 28px;
@@ -271,6 +320,16 @@
     flex-shrink: 0;
   }
   .mobile-app-link { display: none; }
+  @media (min-width: 769px) {
+    section {
+      padding-top: 96px !important;
+      padding-bottom: 96px !important;
+    }
+    header.hero-panel {
+      padding-top: 104px !important;
+      padding-bottom: 104px !important;
+    }
+  }
   
   /* Utilities */
   .fade-up { animation: fadeUp 0.6s ease both; }
@@ -565,7 +624,7 @@
 <a href="https://app.mapgestion.com" target="_blank" rel="noopener" class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors px-md py-sm rounded-lg active:scale-95 hidden lg:block">Ya soy cliente</a>
 <a href="https://app.mapgestion.com" target="_blank" rel="noopener" class="mobile-app-link font-label-md text-label-md text-primary dark:text-primary-fixed-dim border border-outline-variant px-md py-sm rounded-lg active:scale-95">App</a>
 <a href="#contacto" class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors px-md py-sm rounded-lg active:scale-95 hidden sm:block">Contacto</a>
-<a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20solicitar%20el%20alta%20de%20mi%20empresa%20en%20MapGestion" target="_blank" rel="noopener" class="font-label-md text-label-md bg-primary-container text-on-primary font-medium px-lg py-sm rounded-lg hover:bg-primary-container/90 active:scale-95 transition-all flex items-center gap-xs">
+<a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20solicitar%20el%20alta%20de%20mi%20empresa%20en%20MapGestion" target="_blank" rel="noopener" class="cta-primary font-label-md text-label-md font-medium px-lg py-sm rounded-lg active:scale-95 flex items-center gap-xs">
 <span class="material-symbols-outlined text-[18px]">chat</span>
 <span class="hidden sm:inline">WhatsApp</span>
 </a>
@@ -579,10 +638,10 @@
 <div class="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-2xl items-center">
 <div class="text-left">
 <span class="eyebrow mb-lg">Operación de patio en tiempo real</span>
-<h1 class="font-display text-[34px] md:text-[60px] leading-[1.04] font-bold text-on-background mb-lg max-w-3xl">Tu patio, visible en tiempo real.</h1>
+<h1 class="font-display text-[34px] md:text-[72px] leading-[1.0] font-extrabold tracking-[-0.055em] text-on-background mb-lg max-w-4xl">Tu patio, <span class="gradient-word">visible</span> en tiempo real.</h1>
 <p class="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-2xl">Mapa vivo, permisos, bitácora e incidencias para flotillas que no pueden operar a ciegas.</p>
 <div class="flex flex-col sm:flex-row gap-md mb-xl">
-<a href="#contacto" class="bg-primary-container text-on-primary font-label-md text-label-md px-xl py-md rounded-lg hover:bg-primary-container/90 transition-all flex items-center justify-center gap-sm">
+<a href="#contacto" class="cta-primary font-label-md text-label-md px-xl py-md rounded-lg flex items-center justify-center gap-sm">
 <span class="material-symbols-outlined text-[20px]">rocket_launch</span>
 Solicitar acceso
 </a>
@@ -740,48 +799,62 @@ Explorar demo interactiva
 <h2 class="font-h1 text-h1 text-on-background mb-md">Todo lo que necesitas, en un solo lugar</h2>
 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Funcionalidades diseñadas para cubrir cada aspecto de tu operación diaria.</p>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
-<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50 lift-card">
-<div class="w-10 h-10 rounded-lg flex items-center justify-center mb-md border border-outline-variant/30 feature-icon">
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-lg">
+<div class="feature-card p-lg lift-card">
+<div class="flex items-center justify-center mb-md feature-icon">
 <span class="material-symbols-outlined text-on-surface-variant text-[20px]">map</span>
 </div>
 <h3 class="font-h3 text-h3 text-on-background mb-sm">Mapa principal</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant">Visualiza la ubicación exacta de cada unidad en tu patio en tiempo real. Toma decisiones rápidas basadas en el espacio disponible.</p>
 </div>
-<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50 lift-card">
-<div class="w-10 h-10 rounded-lg flex items-center justify-center mb-md border border-outline-variant/30 feature-icon">
-<span class="material-symbols-outlined text-on-surface-variant text-[20px]">speed</span>
+<div class="feature-card p-lg lift-card">
+<div class="flex items-center justify-center mb-md feature-icon">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">hourglass_top</span>
 </div>
-<h3 class="font-h3 text-h3 text-on-background mb-sm">Lectura inmediata</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Dashboards intuitivos que te permiten comprender el estado general de la operación en segundos, sin necesidad de reportes complejos.</p>
+<h3 class="font-h3 text-h3 text-on-background mb-sm">Cola de preparación</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Organiza unidades pendientes, listas y en proceso para reducir esperas y cuellos de botella.</p>
 </div>
-<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50 lift-card">
-<div class="w-10 h-10 rounded-lg flex items-center justify-center mb-md border border-outline-variant/30 feature-icon">
-<span class="material-symbols-outlined text-on-surface-variant text-[20px]">history</span>
-</div>
-<h3 class="font-h3 text-h3 text-on-background mb-sm">Trazabilidad</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Conoce el historial completo de cada unidad. Desde que ingresa hasta que sale, cada movimiento y cambio de estado queda registrado.</p>
-</div>
-<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50 lift-card">
-<div class="w-10 h-10 rounded-lg flex items-center justify-center mb-md border border-outline-variant/30 feature-icon">
+<div class="feature-card p-lg lift-card">
+<div class="flex items-center justify-center mb-md feature-icon">
 <span class="material-symbols-outlined text-on-surface-variant text-[20px]">warning</span>
 </div>
 <h3 class="font-h3 text-h3 text-on-background mb-sm">Incidencias</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Reporta y gestiona problemas operativos rápidamente. Asigna responsables y da seguimiento a la resolución directamente en la plataforma.</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Reporta problemas con evidencia, responsables y seguimiento hasta su resolución.</p>
 </div>
-<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50 lift-card">
-<div class="w-10 h-10 rounded-lg flex items-center justify-center mb-md border border-outline-variant/30 feature-icon">
+<div class="feature-card p-lg lift-card">
+<div class="flex items-center justify-center mb-md feature-icon">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">analytics</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-background mb-sm">Cuadre operativo</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Revisa movimientos, estados y diferencias para cerrar turno con datos confiables.</p>
+</div>
+<div class="feature-card p-lg lift-card">
+<div class="flex items-center justify-center mb-md feature-icon">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">history</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-background mb-sm">Trazabilidad</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cada movimiento queda registrado con fecha, responsable y contexto.</p>
+</div>
+<div class="feature-card p-lg lift-card">
+<div class="flex items-center justify-center mb-md feature-icon">
 <span class="material-symbols-outlined text-on-surface-variant text-[20px]">group</span>
 </div>
 <h3 class="font-h3 text-h3 text-on-background mb-sm">Colaboración</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Facilita la comunicación entre áreas. Todos ven la misma información, eliminando silos y reduciendo fricciones entre equipos.</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Todos ven la misma información y trabajan sin hojas paralelas.</p>
 </div>
-<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/50 lift-card">
-<div class="w-10 h-10 rounded-lg flex items-center justify-center mb-md border border-outline-variant/30 feature-icon">
+<div class="feature-card p-lg lift-card">
+<div class="flex items-center justify-center mb-md feature-icon">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">admin_panel_settings</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-background mb-sm">Permisos</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Controla quién puede consultar, editar, aprobar o administrar cada módulo.</p>
+</div>
+<div class="feature-card p-lg lift-card">
+<div class="flex items-center justify-center mb-md feature-icon">
 <span class="material-symbols-outlined text-on-surface-variant text-[20px]">palette</span>
 </div>
 <h3 class="font-h3 text-h3 text-on-background mb-sm">Branding</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Personaliza la plataforma con tu logotipo y colores corporativos para mantener la identidad visual de tu empresa frente a tu equipo.</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Personaliza logo y colores para mantener identidad frente a tu equipo.</p>
 </div>
 </div>
 </div>
@@ -1196,7 +1269,7 @@ Sí, ofrecemos soporte técnico continuo a través de chat, correo electrónico 
         <p class="font-body-sm text-body-sm text-on-surface-variant/60 mb-md">≈ $143 USD/mes</p>
         <p class="font-body-sm text-body-sm text-on-surface-variant">La plataforma se adapta completamente a ti. Tus sistemas, tus integraciones, tus reglas — con un equipo que te respalda directamente.</p>
       </div>
-      <a href="#contacto" data-plan="Ultra" class="block text-center font-label-md text-label-md bg-primary-container text-on-primary px-lg py-sm rounded-lg hover:bg-primary-container/90 active:scale-95 transition-all">Solicitar Ultra</a>
+      <a href="#contacto" data-plan="Ultra" class="cta-primary block text-center font-label-md text-label-md px-lg py-sm rounded-lg active:scale-95">Solicitar Ultra</a>
       <hr class="border-outline-variant/30"/>
       <ul class="space-y-sm flex-1">
         <li class="flex items-start gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Todo lo del plan Avanzado</span></li>
@@ -1237,7 +1310,7 @@ Sí, ofrecemos soporte técnico continuo a través de chat, correo electrónico 
           <p class="font-label-sm text-label-sm text-on-surface-variant mb-sm">¿Por qué algunos módulos cuestan más?</p>
           <p class="font-body-sm text-body-sm text-on-surface-variant">Cada función implica recursos reales: más plazas = más procesamiento en tiempo real; soporte 24/7 = equipo disponible las 24h; API = ingeniería de mantenimiento continuo. El precio refleja exactamente lo que se destina a tu cuenta.</p>
         </div>
-        <a href="#contacto" data-plan="Personalizado" class="block text-center font-label-md text-label-md bg-primary-container text-on-primary px-lg py-sm rounded-lg hover:bg-primary-container/90 active:scale-95 transition-all">Armar mi plan → Contactar</a>
+        <a href="#contacto" data-plan="Personalizado" class="cta-primary block text-center font-label-md text-label-md px-lg py-sm rounded-lg active:scale-95">Armar mi plan → Contactar</a>
       </div>
       <div>
         <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-md">Módulos disponibles para agregar a cualquier plan</p>
@@ -1572,7 +1645,7 @@ Sí, ofrecemos soporte técnico continuo a través de chat, correo electrónico 
 <label class="block font-label-sm text-on-surface-variant mb-xs" for="message">Usuarios, plazas o necesidad principal (opcional)</label>
 <textarea class="w-full rounded-lg border-outline-variant bg-surface-container-lowest px-md py-sm focus:border-outline focus:ring-0 text-body-md transition-colors" id="message" name="necesidad" rows="3"></textarea>
 </div>
-<button class="w-full bg-primary-container text-on-primary font-label-md px-lg py-md rounded-lg hover:bg-primary-container/90 transition-colors mt-xl" type="submit">
+<button class="cta-primary w-full font-label-md px-lg py-md rounded-lg mt-xl" type="submit">
 Enviar solicitud
 </button>
 </form>
@@ -1612,7 +1685,7 @@ MapGestion
 </footer>
 
 <div class="mobile-sticky-cta" aria-label="Acciones rápidas">
-<a href="#contacto" class="bg-primary-container text-on-primary font-label-md text-label-md flex items-center justify-center gap-sm">
+<a href="#contacto" class="cta-primary font-label-md text-label-md flex items-center justify-center gap-sm">
 <span class="material-symbols-outlined text-[18px]">rocket_launch</span>
 Solicitar acceso
 </a>
