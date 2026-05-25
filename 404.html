@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ruta no encontrada | MapGestion</title>
+<meta name="description" content="La ruta solicitada no existe en MapGestion." />
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com" rel="preconnect" />
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "primary-container": "#131b2e",
+          "primary-fixed-dim": "#bec6e0",
+          "tertiary-fixed": "#89f5e7",
+          "surface-container-lowest": "#ffffff",
+          "surface-container-low": "#f2f4f6",
+          "outline-variant": "#c6c6cd",
+          "outline": "#76777d",
+          "on-background": "#191c1e",
+          "on-surface-variant": "#45464d",
+          "on-primary": "#ffffff"
+        },
+        spacing: { "gutter": "24px", "2xl": "48px", "3xl": "64px", "md": "16px", "lg": "24px", "xl": "32px" },
+        borderRadius: { "lg": "0.25rem", "xl": "0.5rem" },
+        fontFamily: { "display": ["Inter"], "body": ["Inter"] }
+      }
+    }
+  }
+</script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { min-height: 100%; }
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+    color: #191c1e;
+    background:
+      radial-gradient(circle at 16% 10%, rgba(137,245,231,0.35), transparent 28%),
+      radial-gradient(circle at 86% 78%, rgba(19,27,46,0.12), transparent 28%),
+      linear-gradient(90deg, rgba(19,27,46,0.045) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(19,27,46,0.045) 1px, transparent 1px),
+      linear-gradient(180deg, #ffffff 0%, #f2f4f6 100%);
+    background-size: auto, auto, 46px 46px, 46px 46px, auto;
+  }
+  a { color: inherit; text-decoration: none; }
+  .shell { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border: 1px solid rgba(19,27,46,0.1); border-radius: 999px; background: rgba(255,255,255,0.76); color: #3f465c; font-size: 12px; line-height: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; backdrop-filter: blur(10px); }
+  .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 999px; background: #0c9488; box-shadow: 0 0 0 4px rgba(12,148,136,0.12); }
+  .stage { position: relative; min-height: calc(100vh - 84px); display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr); align-items: center; gap: 48px; padding: 40px 0 52px; }
+  .panel { position: relative; overflow: hidden; border: 1px solid rgba(198,198,205,0.75); border-radius: 22px; background: rgba(255,255,255,0.78); box-shadow: 0 28px 90px rgba(19,27,46,0.16); backdrop-filter: blur(18px); }
+  .map-card { min-height: 500px; background: linear-gradient(90deg, rgba(19,27,46,0.07) 1px, transparent 1px), linear-gradient(180deg, rgba(19,27,46,0.07) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.92), rgba(242,244,246,0.96)); background-size: 52px 52px, 52px 52px, auto; }
+  .map-top { display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 16px; border-bottom: 1px solid rgba(198,198,205,0.65); background: rgba(242,244,246,0.88); }
+  .dot { width: 10px; height: 10px; border-radius: 999px; background: #c6c6cd; }
+  .route { position: absolute; inset: 94px 42px 42px; }
+  .slot { position: absolute; display: grid; place-items: center; width: 72px; height: 50px; border: 1px dashed rgba(19,27,46,0.22); border-radius: 12px; color: rgba(69,70,77,0.64); font-size: 11px; font-weight: 700; background: rgba(255,255,255,0.58); }
+  .slot:nth-child(1) { left: 6%; top: 8%; }
+  .slot:nth-child(2) { left: 36%; top: 17%; }
+  .slot:nth-child(3) { right: 10%; top: 6%; }
+  .slot:nth-child(4) { left: 12%; bottom: 17%; }
+  .slot:nth-child(5) { right: 24%; bottom: 11%; }
+  .lost-path { position: absolute; left: 14%; top: 49%; width: 70%; height: 2px; background: repeating-linear-gradient(90deg, rgba(19,27,46,0.18) 0 10px, transparent 10px 20px); transform: rotate(-8deg); }
+  .unit { position: absolute; left: 47%; top: 43%; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 16px; background: #131b2e; color: white; box-shadow: 0 18px 44px rgba(19,27,46,0.22); transform: rotate(-8deg); }
+  .unit span { color: #89f5e7; }
+  .chip { position: absolute; display: inline-flex; align-items: center; gap: 8px; padding: 10px 12px; border: 1px solid rgba(198,198,205,0.78); border-radius: 999px; background: rgba(255,255,255,0.92); color: #191c1e; box-shadow: 0 16px 36px rgba(19,27,46,0.11); font-size: 12px; font-weight: 800; white-space: nowrap; }
+  .chip span { color: #0c9488; font-size: 17px; }
+  .chip-a { left: 22px; bottom: 34px; }
+  .chip-b { right: 24px; top: 72px; }
+  .code { font-size: clamp(84px, 15vw, 180px); line-height: 0.82; letter-spacing: -0.08em; font-weight: 800; color: #131b2e; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 48px; padding: 13px 18px; border-radius: 10px; font-size: 14px; line-height: 20px; font-weight: 700; transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: #131b2e; color: white; box-shadow: 0 12px 32px rgba(19,27,46,0.18); }
+  .btn-outline { border: 1px solid #76777d; color: #191c1e; background: rgba(255,255,255,0.55); }
+  .micro { margin-top: 22px; color: #45464d; font-size: 14px; line-height: 22px; }
+  .micro a { font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 860px) {
+    .shell { width: min(100% - 32px, 1180px); }
+    .stage { grid-template-columns: 1fr; gap: 28px; padding: 24px 0 42px; }
+    .code { font-size: clamp(76px, 25vw, 118px); }
+    .actions { display: grid; grid-template-columns: 1fr; }
+    .btn { width: 100%; }
+    .map-card { min-height: 360px; order: -1; }
+    .route { inset: 74px 22px 24px; }
+    .slot { width: 58px; height: 42px; font-size: 10px; }
+    .unit { left: 33%; top: 42%; transform: rotate(-7deg) scale(0.92); }
+    .chip { position: static; margin: 10px 10px 0; width: max-content; max-width: calc(100% - 20px); }
+    .chip-b { display: none; }
+  }
+</style>
+</head>
+<body>
+<nav class="shell flex items-center justify-between h-[84px]">
+  <a href="index.html" class="text-[22px] font-extrabold tracking-[-0.03em] text-primary-container">MapGestion</a>
+  <div class="flex items-center gap-sm">
+    <a href="https://app.mapgestion.com" class="hidden sm:inline-flex text-[14px] font-bold text-on-surface-variant hover:text-on-background transition-colors">Ya soy cliente</a>
+    <a href="index.html#contacto" class="btn btn-primary min-h-[42px] px-md py-sm">Solicitar acceso</a>
+  </div>
+</nav>
+<main class="shell stage">
+  <section>
+    <span class="eyebrow mb-lg">Ruta no encontrada</span>
+    <div class="code mt-lg">404</div>
+    <h1 class="mt-lg text-[34px] md:text-[56px] leading-[1.04] font-extrabold tracking-[-0.045em] text-on-background max-w-[720px]">Esta unidad salió del mapa.</h1>
+    <p class="mt-lg text-[18px] leading-8 text-on-surface-variant max-w-[620px]">La ruta que intentaste abrir no existe o cambió de lugar. Volvamos al patio principal antes de que alguien pregunte por WhatsApp dónde quedó.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="index.html"><span class="material-symbols-outlined text-[20px]">home</span>Volver al inicio</a>
+      <a class="btn btn-outline" href="index.html#demo"><span class="material-symbols-outlined text-[20px]">play_circle</span>Ver demo</a>
+      <a class="btn btn-outline" href="https://wa.me/524778024682?text=Hola%2C%20necesito%20ayuda%20con%20MapGestion" target="_blank" rel="noopener"><span class="material-symbols-outlined text-[20px]">chat</span>WhatsApp</a>
+    </div>
+    <p class="micro">Si buscabas términos o privacidad, están en <a href="terminos.html">Términos y condiciones</a>.</p>
+  </section>
+  <aside class="panel map-card" aria-label="Ilustración de ruta no encontrada">
+    <div class="map-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="ml-auto text-[12px] font-bold uppercase tracking-[0.12em] text-on-surface-variant hidden sm:inline">mapgestion / ruta-perdida</span></div>
+    <div class="route">
+      <div class="slot">A-01</div><div class="slot">B-04</div><div class="slot">C-12</div><div class="slot">L-03</div><div class="slot">S-09</div>
+      <div class="lost-path"></div><div class="unit"><span class="material-symbols-outlined">directions_car</span><strong>404</strong></div>
+    </div>
+    <div class="chip chip-a"><span class="material-symbols-outlined">wrong_location</span>Ruta sin cajón asignado</div>
+    <div class="chip chip-b"><span class="material-symbols-outlined">manage_search</span>Revisar navegación</div>
+  </aside>
+</main>
+</body>
+</html>
