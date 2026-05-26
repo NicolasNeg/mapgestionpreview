@@ -94,12 +94,222 @@
   .callout { margin-top: 16px; border: 1px solid rgba(19, 27, 46, 0.12); border-radius: 8px; background: #f2f4f6; padding: 16px; color: #45464d; font-size: 14px; line-height: 1.7; }
   .callout-danger { background: #fff7ed; border-color: rgba(245, 158, 11, 0.24); }
   @media (max-width: 768px) { .max-w-container-max { width: min(100% - 32px, 1280px); max-width: min(100% - 32px, 1280px); } }
+  /* Unified MapGestion landing aesthetic */
+  :root {
+    --mg-blue: #0b72d9;
+    --mg-blue-dark: #075cc4;
+    --mg-teal: #12b8b3;
+    --mg-navy: #07152e;
+    --mg-ink: #0a1633;
+    --mg-muted: #5d667a;
+  }
+  body {
+    background: #ffffff;
+    color: var(--mg-ink);
+  }
+  nav {
+    background: rgba(255,255,255,0.96) !important;
+    box-shadow: 0 2px 18px rgba(8,22,47,0.06);
+  }
+  .brand-lockup {
+    display: flex;
+    align-items: center;
+    min-width: 204px;
+    height: 52px;
+    overflow: hidden;
+  }
+  .brand-lockup img {
+    width: 204px;
+    height: 46px;
+    object-fit: contain;
+    object-position: left center;
+  }
+  .footer-brand { min-width: 190px; }
+  nav .hidden.md\:flex a {
+    position: relative;
+    color: #17213a !important;
+    font-weight: 700;
+  }
+  nav .hidden.md\:flex a:hover { color: var(--mg-blue) !important; }
+  .hero-panel {
+    min-height: 560px;
+    background: linear-gradient(90deg, #ffffff 0%, #ffffff 40%, rgba(240,247,255,0.96) 61%, #ffffff 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 78% 22%, rgba(18,184,179,0.16), transparent 22%),
+      radial-gradient(circle at 92% 42%, rgba(11,114,217,0.12), transparent 24%),
+      linear-gradient(120deg, transparent 40%, rgba(11,114,217,0.06) 40%, transparent 76%);
+    pointer-events: none;
+  }
+  .hero-panel > * { position: relative; z-index: 1; }
+  .hero-panel h1 { color: var(--mg-navy); }
+  .gradient-word {
+    background: linear-gradient(90deg, var(--mg-blue) 0%, #0766c7 52%, var(--mg-teal) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .eyebrow {
+    border-color: rgba(11,114,217,0.13);
+    color: #235789;
+    background: rgba(255,255,255,0.82);
+  }
+  .eyebrow::before {
+    background: var(--mg-teal);
+    box-shadow: 0 0 0 4px rgba(18,184,179,0.13);
+  }
+  .cta-primary {
+    position: relative;
+    overflow: hidden;
+    color: #ffffff !important;
+    background: linear-gradient(135deg, var(--mg-blue), var(--mg-blue-dark)) !important;
+    box-shadow: 0 14px 28px rgba(11,114,217,0.22);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 20px 44px rgba(11,114,217,0.28); }
+  .stat-card,
+  .doc-section,
+  aside,
+  .mini-card,
+  .callout,
+  .legal-map-card {
+    background: rgba(255,255,255,0.92) !important;
+    border-color: rgba(11,114,217,0.12) !important;
+    box-shadow: 0 18px 48px rgba(27,68,128,0.08) !important;
+  }
+  .doc-section h2,
+  .mini-card strong,
+  aside p,
+  footer { color: var(--mg-navy); }
+  .doc-section p,
+  .doc-section li,
+  .mini-card span,
+  .toc-link { color: var(--mg-muted); }
+  .toc-link { border-top-color: rgba(11,114,217,0.10); }
+  .toc-link:hover { color: var(--mg-blue); }
+  .toc-link::after { color: var(--mg-blue); }
+  .check-dot {
+    color: var(--mg-blue) !important;
+    background: linear-gradient(180deg, rgba(11,114,217,0.10), rgba(18,184,179,0.10)) !important;
+  }
+  .callout-danger {
+    background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,250,244,0.96)) !important;
+    border-color: rgba(245,158,11,0.22) !important;
+  }
+  .legal-map-card {
+    position: relative;
+    min-height: 360px;
+    border: 1px solid rgba(11,114,217,0.12);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .legal-map-card svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .map-pin {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    background: linear-gradient(135deg, var(--mg-blue), #005eca);
+    box-shadow: 0 14px 28px rgba(11,114,217,0.25);
+  }
+  .map-pin::after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 999px;
+    background: #ffffff;
+    top: 13px;
+    left: 13px;
+  }
+  .map-pin.teal { background: linear-gradient(135deg, var(--mg-teal), #079d9a); }
+  .map-pin span { display: none; }
+  .pin-legal-a { right: 20%; top: 38%; width: 58px; height: 58px; }
+  .pin-legal-a::after { width: 20px; height: 20px; top: 19px; left: 19px; }
+  .pin-legal-b { right: 48%; top: 48%; }
+  .legal-floating-card {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(11,114,217,0.12);
+    box-shadow: 0 18px 40px rgba(27,68,128,0.12);
+    backdrop-filter: blur(14px);
+  }
+  .legal-floating-card .material-symbols-outlined { color: var(--mg-blue); font-size: 22px; }
+  .legal-floating-card strong { display: block; color: var(--mg-navy); font-size: 13px; line-height: 16px; }
+  .legal-floating-card small { color: var(--mg-muted); font-size: 12px; line-height: 15px; }
+  .legal-card-a { left: 24px; bottom: 24px; }
+  .legal-card-b { right: 24px; top: 24px; }
+  .bg-primary-container {
+    background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(246,251,255,0.96)) !important;
+    color: var(--mg-navy) !important;
+    border: 1px solid rgba(11,114,217,0.18) !important;
+  }
+  .bg-primary-container p,
+  .bg-primary-container strong,
+  .bg-primary-container span { color: var(--mg-navy) !important; }
+  footer {
+    background: #ffffff !important;
+    border-top-color: rgba(11,114,217,0.12) !important;
+  }
+  @media (max-width: 768px) {
+    .brand-lockup { min-width: 154px; }
+    .brand-lockup img { width: 154px; height: 40px; }
+    .hero-panel { min-height: auto; padding-top: 48px !important; padding-bottom: 48px !important; }
+    .hero-panel h1 { font-size: 34px !important; line-height: 1.05 !important; letter-spacing: -0.05em !important; }
+    .legal-map-card { min-height: 280px; }
+    .legal-floating-card { padding: 10px 12px; }
+    .legal-card-a { left: 12px; bottom: 12px; }
+    .legal-card-b { right: 12px; top: 12px; }
+  }
+
+  @media (max-width: 768px) {
+    nav .cta-primary { display: none !important; }
+    nav .max-w-container-max {
+      width: min(100% - 24px, 1280px);
+      max-width: min(100% - 24px, 1280px);
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+    .hero-panel .text-left {
+      width: min(100%, 326px);
+      max-width: 326px;
+    }
+    .hero-panel p {
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      font-size: 16px;
+      line-height: 1.55;
+    }
+    .hero-panel .eyebrow {
+      max-width: 100%;
+      white-space: normal;
+      font-size: 10px;
+      line-height: 14px;
+    }
+    .hero-panel a {
+      width: 100%;
+      min-height: 52px;
+    }
+  }
+
 </style>
 </head>
 <body class="bg-surface-container-lowest text-on-background">
 <nav class="bg-surface-container-lowest/95 dark:bg-on-background/95 fixed top-0 w-full z-50 border-b border-outline-variant/30 backdrop-blur-md shadow-none">
   <div class="flex justify-between items-center h-16 max-w-container-max mx-auto px-gutter">
-    <a href="index.html" class="text-h3 font-h3 text-primary dark:text-primary-fixed-dim">MapGestion</a>
+    <a href="index.html" class="brand-lockup" aria-label="MapGestion inicio"><img src="assets/brand/mapgestion_abstract_logo.png" alt="MapGestion" /></a>
     <div class="hidden md:flex gap-lg">
       <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="index.html#producto">Funcionalidades</a>
       <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="index.html#como-funciona">Proceso</a>
@@ -108,7 +318,7 @@
     </div>
     <div class="flex gap-md items-center">
       <a href="index.html" class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors px-md py-sm rounded-lg active:scale-95 hidden sm:block">Volver al sitio</a>
-      <a href="https://wa.me/524778024682?text=Hola%2C%20tengo%20una%20duda%20sobre%20MapGestion" target="_blank" rel="noopener" class="font-label-md text-label-md bg-primary-container text-on-primary font-medium px-lg py-sm rounded-lg hover:bg-primary-container/90 active:scale-95 transition-all flex items-center gap-xs"><span class="material-symbols-outlined text-[18px]">chat</span><span class="hidden sm:inline">WhatsApp</span></a>
+      <a href="https://wa.me/524778024682?text=Hola%2C%20tengo%20una%20duda%20sobre%20MapGestion" target="_blank" rel="noopener" class="cta-primary font-label-md text-label-md font-medium px-lg py-sm rounded-lg active:scale-95 transition-all flex items-center gap-xs"><span class="material-symbols-outlined text-[18px]">chat</span><span class="hidden sm:inline">WhatsApp</span></a>
     </div>
   </div>
 </nav>
@@ -117,17 +327,37 @@
     <div class="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-2xl items-center">
       <div class="text-left">
         <span class="eyebrow mb-lg">Documento legal base</span>
-        <h1 class="font-display text-[34px] md:text-[56px] leading-[1.08] font-bold text-on-background mb-lg max-w-4xl">Términos, condiciones y privacidad de MapGestion.</h1>
-        <p class="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-3xl">Estos términos regulan el uso del sitio informativo, demos, sandbox, instancia del mapa real y cualquier servicio relacionado contratado por un cliente.</p>
+        <h1 class="font-display text-[34px] md:text-[60px] leading-[1.02] font-extrabold tracking-[-0.055em] text-on-background mb-lg max-w-4xl">Términos claros. <span class="gradient-word">Operación segura</span>.</h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-3xl">Documento de uso, privacidad y responsabilidades para clientes que evalúan o usan MapGestion: sitio informativo, demos, sandbox, mapa real y servicios contratados.</p>
         <div class="flex flex-col sm:flex-row gap-md mb-xl">
-          <a href="#contacto" class="bg-primary-container text-on-primary font-label-md text-label-md px-xl py-md rounded-lg hover:bg-primary-container/90 transition-all flex items-center justify-center gap-sm"><span class="material-symbols-outlined text-[20px]">support_agent</span>Contactar soporte</a>
+          <a href="#contacto" class="cta-primary font-label-md text-label-md px-xl py-md rounded-lg transition-all flex items-center justify-center gap-sm"><span class="material-symbols-outlined text-[20px]">support_agent</span>Contactar soporte</a>
           <a href="index.html" class="border border-outline text-on-surface font-label-md text-label-md px-xl py-md rounded-lg hover:bg-surface-container-low transition-all flex items-center justify-center gap-sm"><span class="material-symbols-outlined text-[20px]">arrow_back</span>Volver al home</a>
         </div>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-md">
-        <div class="stat-card rounded-xl p-md"><div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Actualización</div><div class="font-h3 text-h3 text-primary-container mt-xs">Mayo 2026</div></div>
-        <div class="stat-card rounded-xl p-md"><div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Contacto</div><div class="font-h3 text-h3 text-primary-container mt-xs">Email</div></div>
-        <div class="stat-card rounded-xl p-md"><div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Soporte</div><div class="font-h3 text-h3 text-primary-container mt-xs">WhatsApp</div></div>
+      <div class="legal-map-card" aria-label="Resumen legal de MapGestion">
+        <svg viewBox="0 0 760 420" role="img" aria-label="Ilustración legal con mapa operativo">
+          <rect width="760" height="420" fill="#f7fbff"/>
+          <g opacity="0.72" stroke="#dbe8f4" stroke-width="5" fill="none" stroke-linecap="round">
+            <path d="M-20 92 C120 54 250 84 394 36 C514 -2 630 20 790 66"/>
+            <path d="M-30 204 C142 166 244 214 392 150 C540 88 634 134 790 104"/>
+            <path d="M-34 330 C110 292 260 314 430 246 C574 188 654 242 792 196"/>
+            <path d="M118 -24 C152 82 146 164 196 292 C224 360 232 394 244 452"/>
+            <path d="M484 -20 C480 86 520 178 494 270 C466 354 490 390 470 454"/>
+            <path d="M642 -22 C604 84 642 184 588 278 C546 350 560 394 530 452"/>
+          </g>
+          <g opacity="0.94" fill="none" stroke-linecap="round">
+            <path d="M-20 254 C118 220 224 236 360 188 C498 138 592 156 794 92" stroke="#ffffff" stroke-width="38"/>
+            <path d="M-20 254 C118 220 224 236 360 188 C498 138 592 156 794 92" stroke="#54c0d2" stroke-width="16"/>
+            <path d="M420 -22 C434 96 408 170 454 270 C498 368 512 392 548 454" stroke="#ffffff" stroke-width="40"/>
+            <path d="M420 -22 C434 96 408 170 454 270 C498 368 512 392 548 454" stroke="#75d8d3" stroke-width="15"/>
+          </g>
+          <path d="M142 118 L252 86 L312 148 L196 188 Z" fill="#e4f5ee" opacity="0.8"/>
+          <path d="M474 280 L590 238 L656 306 L532 354 Z" fill="#e2f6f3" opacity="0.78"/>
+        </svg>
+        <span class="map-pin pin-legal-a"><span>Legal</span></span>
+        <span class="map-pin teal pin-legal-b"><span>Privacidad</span></span>
+        <div class="legal-floating-card legal-card-a"><span class="material-symbols-outlined">verified_user</span><div><strong>Datos bajo control</strong><small>Privacidad, accesos y roles</small></div></div>
+        <div class="legal-floating-card legal-card-b"><span class="material-symbols-outlined">event</span><div><strong>Mayo 2026</strong><small>Última actualización</small></div></div>
       </div>
     </div>
   </div>
@@ -158,7 +388,7 @@
 </main>
 <footer class="bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant w-full">
   <div class="max-w-container-max mx-auto px-gutter py-2xl flex flex-col md:flex-row justify-between items-center gap-lg">
-    <div class="text-h3 font-h3 text-on-surface dark:text-inverse-on-surface">MapGestion</div>
+    <a href="index.html" class="brand-lockup footer-brand" aria-label="MapGestion inicio"><img src="assets/brand/mapgestion_abstract_logo.png" alt="MapGestion" /></a>
     <div class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant text-center md:text-left">© 2026 MapGestion. Precisión y Velocidad en Logística.</div>
     <div class="flex gap-lg font-label-md text-label-md"><a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface transition-colors" href="terminos.html#privacidad">Privacidad</a><a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface transition-colors" href="terminos.html">Términos</a><a href="mailto:contacto@mapgestion.com" class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface transition-colors">Email</a><a href="index.html#contacto" class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface transition-colors">Contacto</a></div>
   </div>
