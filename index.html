@@ -74,6 +74,8 @@
     }
   ]
 }
+
+
 </script>
 <script type="application/ld+json">
 {
@@ -1160,6 +1162,92 @@
     background: linear-gradient(135deg, var(--mg-blue), var(--mg-teal)) !important;
   }
 
+  /* Motion system: subtle, consistent, accessible */
+  @keyframes mgFadeUp {
+    from { opacity: 0.68; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes mgMapDrift {
+    0%, 100% { transform: translate3d(0,0,0) scale(1); }
+    50% { transform: translate3d(-8px,4px,0) scale(1.015); }
+  }
+  @keyframes mgPinPulse {
+    0%, 100% { box-shadow: 0 14px 28px rgba(11,114,217,0.25), 0 0 0 0 rgba(11,114,217,0.18); }
+    50% { box-shadow: 0 18px 34px rgba(11,114,217,0.30), 0 0 0 16px rgba(11,114,217,0); }
+  }
+  @keyframes mgTealPulse {
+    0%, 100% { box-shadow: 0 14px 28px rgba(18,184,179,0.23), 0 0 0 0 rgba(18,184,179,0.18); }
+    50% { box-shadow: 0 18px 34px rgba(18,184,179,0.28), 0 0 0 14px rgba(18,184,179,0); }
+  }
+  @keyframes mgShine {
+    from { transform: translateX(-120%); }
+    to { transform: translateX(120%); }
+  }
+  @keyframes mgFloatSoft {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .hero-panel .eyebrow,
+  .hero-panel h1,
+  .hero-panel p,
+  .hero-actions-clean,
+  .hero-panel .stat-card,
+  .hero-panel .legal-map-card,
+  .hero-panel .map-visual {
+    animation: mgFadeUp 0.75s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .hero-panel .eyebrow { animation-delay: 0.05s; }
+  .hero-panel h1 { animation-delay: 0.13s; }
+  .hero-panel p { animation-delay: 0.22s; }
+  .hero-actions-clean { animation-delay: 0.31s; }
+  .hero-panel .stat-card:nth-child(1) { animation-delay: 0.38s; }
+  .hero-panel .stat-card:nth-child(2) { animation-delay: 0.46s; }
+  .hero-panel .stat-card:nth-child(3) { animation-delay: 0.54s; }
+  .hero-panel .map-visual,
+  .hero-panel .legal-map-card { animation-delay: 0.25s; }
+  .map-visual svg,
+  .legal-map-card svg {
+    animation: mgMapDrift 14s ease-in-out infinite;
+    transform-origin: center;
+  }
+  .map-pin { animation: mgPinPulse 3.4s ease-in-out infinite; }
+  .map-pin.teal { animation-name: mgTealPulse; animation-delay: 0.55s; }
+  .map-caption-card,
+  .legal-floating-card { animation: mgFloatSoft 5.8s ease-in-out infinite; }
+  .map-card-b,
+  .legal-card-b { animation-delay: 0.8s; }
+  .cta-primary::after { animation: mgShine 4.8s ease-in-out infinite; }
+  .reveal-item {
+    opacity: 0;
+    transform: translateY(26px) scale(0.985);
+    transition: opacity 0.72s cubic-bezier(.2,.8,.2,1), transform 0.72s cubic-bezier(.2,.8,.2,1), box-shadow 0.25s ease, border-color 0.25s ease;
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  .reveal-item.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+  .lift-card,
+  .service-item,
+  #precios article,
+  .doc-section,
+  .mini-card { transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+  .lift-card:hover,
+  .service-item:hover,
+  #precios article:hover,
+  .doc-section:hover,
+  .mini-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 56px rgba(27,68,128,0.12) !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.001ms !important;
+    }
+    .reveal-item { opacity: 1 !important; transform: none !important; }
+  }
+
 </style>
 </head>
 <body class="bg-surface-container-lowest text-on-background">
@@ -2093,6 +2181,43 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') lightboxStep(1);
   if (e.key === 'ArrowLeft') lightboxStep(-1);
 });
+
+(function initMapGestionMotion() {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const items = document.querySelectorAll([
+    '.services-strip .service-item',
+    '.compare-card',
+    '.feature-card',
+    '#como-funciona .lift-card',
+    '#demo .product-window',
+    '#pantallas article',
+    '#faq details',
+    '#precios article',
+    '#precios .mt-2xl > div',
+    '#contacto .lift-card',
+    'footer'
+  ].join(','));
+
+  items.forEach((el, index) => {
+    el.classList.add('reveal-item');
+    el.style.setProperty('--reveal-delay', (Math.min(index % 8, 7) * 55) + 'ms');
+  });
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    items.forEach((el) => el.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+
+  items.forEach((el) => observer.observe(el));
+})();
 </script>
 
 </body></html>
