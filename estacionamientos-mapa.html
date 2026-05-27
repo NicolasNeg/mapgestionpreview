@@ -86,6 +86,41 @@ textarea {
   overflow: hidden;
 }
 
+.app-sidebar {
+  position: fixed;
+  left: 18px;
+  top: 196px;
+  z-index: 75;
+  display: grid;
+  gap: 10px;
+  width: 72px;
+  padding: 10px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  background: rgba(12, 14, 31, .86);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, .32);
+  backdrop-filter: blur(14px);
+}
+
+.app-nav-button {
+  min-height: 54px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .08);
+  color: rgba(246, 247, 255, .78);
+  display: grid;
+  place-items: center;
+  gap: 4px;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.app-nav-button.active {
+  background: linear-gradient(135deg, #08c884, #2fb1ff);
+  color: #06151f;
+}
+
 .top-shell {
   height: 185px;
   padding: 30px 24px 0;
@@ -343,7 +378,7 @@ textarea {
 
 .map-tools {
   position: fixed;
-  left: 18px;
+  left: 102px;
   top: 96px;
   z-index: 64;
   width: 292px;
@@ -1179,7 +1214,7 @@ textarea {
 
 .estacionamiento-toolbar {
   position: fixed;
-  left: 26px;
+  left: 110px;
   bottom: 28px;
   z-index: 36;
   display: flex;
@@ -1234,7 +1269,7 @@ textarea {
 
 .history-drawer {
   position: fixed;
-  left: 26px;
+  left: 110px;
   bottom: 88px;
   width: 344px;
   max-height: 340px;
@@ -1656,6 +1691,199 @@ textarea {
   backdrop-filter: blur(14px);
 }
 
+.arrivals-view .yard-wrap,
+.arrivals-view .map-search-header,
+.arrivals-view .parking-note,
+.arrivals-view .map-tools,
+.arrivals-view .ops-panel,
+.arrivals-view .pending-cars-panel,
+.arrivals-view .estacionamiento-toolbar,
+.arrivals-view .zoom-stack {
+  display: none;
+}
+
+.arrival-system {
+  position: fixed;
+  inset: 185px 24px 24px 110px;
+  z-index: 35;
+  display: none;
+  grid-template-columns: minmax(520px, 760px) 1fr;
+  gap: 18px;
+}
+
+.arrivals-view .arrival-system {
+  display: grid;
+}
+
+.arrival-card,
+.arrival-queue-card,
+.pending-cars-panel {
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  background: rgba(15, 17, 35, .90);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+  overflow: hidden;
+}
+
+.arrival-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.arrival-head {
+  padding: 24px;
+  background: linear-gradient(135deg, #151738, #234fbc);
+}
+
+.arrival-head span,
+.arrival-section-title {
+  color: rgba(255, 255, 255, .68);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+}
+
+.arrival-head h2 {
+  margin: 8px 0 0;
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: -.04em;
+}
+
+.arrival-body {
+  overflow: auto;
+  padding: 18px;
+  display: grid;
+  gap: 16px;
+}
+
+.arrival-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.arrival-field {
+  display: grid;
+  gap: 7px;
+}
+
+.arrival-field.full {
+  grid-column: 1 / -1;
+}
+
+.arrival-field label {
+  color: rgba(183, 193, 217, .74);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.arrival-field input,
+.arrival-field select,
+.arrival-field textarea {
+  min-height: 42px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .10);
+  color: #fff;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.arrival-field textarea {
+  min-height: 86px;
+  padding-top: 10px;
+  resize: vertical;
+}
+
+.arrival-actions {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 10px;
+}
+
+.arrival-actions button,
+.pending-card button {
+  min-height: 42px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.arrival-queue-card {
+  padding: 18px;
+  overflow: auto;
+}
+
+.pending-cars-panel {
+  position: fixed;
+  right: 18px;
+  top: 520px;
+  z-index: 64;
+  width: 292px;
+  max-height: calc(100vh - 630px);
+  min-height: 130px;
+  padding: 14px;
+}
+
+.pending-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.pending-head strong {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.pending-list {
+  display: grid;
+  gap: 8px;
+  overflow: auto;
+  max-height: 230px;
+}
+
+.pending-card {
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .065);
+  border: 1px solid rgba(255, 255, 255, .08);
+  padding: 10px;
+}
+
+.pending-card strong,
+.pending-card span {
+  display: block;
+}
+
+.pending-card strong {
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.pending-card span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.pending-card button {
+  width: 100%;
+  margin-top: 9px;
+  background: rgba(0, 212, 137, .14);
+  color: #7affc5;
+}
+
 @media (max-width: 1200px) {
   .app { min-width: 920px; }
   .top-shell { padding-left: 12px; padding-right: 12px; }
@@ -1669,6 +1897,15 @@ textarea {
 </head>
 <body>
 <div class="app">
+  <nav class="app-sidebar" aria-label="Navegacion del sistema">
+    <button class="app-nav-button active" id="navMapButton" type="button" onclick="setAppView('map')">
+      <span>Mapa</span>
+    </button>
+    <button class="app-nav-button" id="navArrivalsButton" type="button" onclick="setAppView('arrivals')">
+      <span>Llegadas</span>
+    </button>
+  </nav>
+
   <header class="top-shell" aria-label="Resumen del mapa">
     <div class="command-bar">
       <button class="plaza-card" type="button" onclick="openSummary()" aria-label="Abrir resumen del estacionamiento">
@@ -1700,6 +1937,75 @@ textarea {
     <input class="map-search" id="mapSearch" type="search" placeholder="Ticket, placas, cliente, cajon..." autocomplete="off" />
     <kbd>Siempre visible</kbd>
   </div>
+
+  <section class="arrival-system" id="arrivalSystem" aria-label="Sistema de llegadas">
+    <article class="arrival-card">
+      <div class="arrival-head">
+        <span>Entrada FIFO</span>
+        <h2>Registrar llegada</h2>
+      </div>
+      <div class="arrival-body">
+        <div class="arrival-section-title">Datos del ticket</div>
+        <div class="arrival-grid">
+          <div class="arrival-field">
+            <label for="arrivalTicket">Ticket</label>
+            <input id="arrivalTicket" autocomplete="off" placeholder="Se genera automaticamente" />
+          </div>
+          <div class="arrival-field">
+            <label for="arrivalType">Tipo</label>
+            <select id="arrivalType">
+              <option>CLIENTE</option>
+              <option>VISITA</option>
+              <option>PENSION</option>
+              <option>VIP</option>
+              <option>STAFF</option>
+            </select>
+          </div>
+          <div class="arrival-field">
+            <label for="arrivalPrice">Precio</label>
+            <input id="arrivalPrice" type="number" min="0" step="1" placeholder="Ej. 80" />
+          </div>
+          <div class="arrival-field">
+            <label for="arrivalTime">Tiempo</label>
+            <input id="arrivalTime" autocomplete="off" placeholder="Ej. 2 horas / pension mensual" />
+          </div>
+        </div>
+
+        <div class="arrival-section-title">Datos del auto</div>
+        <div class="arrival-grid">
+          <div class="arrival-field">
+            <label for="arrivalPlates">Placas</label>
+            <input id="arrivalPlates" autocomplete="off" placeholder="ABC-123-A" />
+          </div>
+          <div class="arrival-field">
+            <label for="arrivalCustomer">Auto / Cliente</label>
+            <input id="arrivalCustomer" autocomplete="off" placeholder="Modelo · nombre cliente" />
+          </div>
+          <div class="arrival-field full">
+            <label for="arrivalPhotos">Fotos</label>
+            <input id="arrivalPhotos" type="file" accept="image/*" multiple />
+          </div>
+          <div class="arrival-field full">
+            <label for="arrivalNotes">Notas</label>
+            <textarea id="arrivalNotes" placeholder="Golpes visibles, pertenencias, observaciones..."></textarea>
+          </div>
+        </div>
+
+        <div class="arrival-actions">
+          <button class="primary-action" type="button" onclick="createArrival()">Generar entrada</button>
+          <button class="secondary-action" type="button" onclick="generateArrivalTicket()">Generar ticket</button>
+          <button class="secondary-action" type="button" onclick="printArrivalDraft()">Imprimir</button>
+        </div>
+      </div>
+    </article>
+    <article class="arrival-queue-card">
+      <div class="pending-head">
+        <strong>FIFO por ubicar</strong>
+        <span class="live-pill static-pill" id="arrivalPendingCount">0</span>
+      </div>
+      <div class="pending-list" id="arrivalQueueList"></div>
+    </article>
+  </section>
 
   <main class="yard-wrap" aria-label="Sistema para estacionamientos">
     <div class="yard-viewport" id="yardViewport">
@@ -1993,6 +2299,14 @@ textarea {
     </section>
   </aside>
 
+  <aside class="pending-cars-panel" id="pendingCarsPanel" aria-label="Autos por ubicar">
+    <div class="pending-head">
+      <strong>Autos FIFO</strong>
+      <span class="live-pill static-pill" id="mapPendingCount">0</span>
+    </div>
+    <div class="pending-list" id="mapPendingList"></div>
+  </aside>
+
   <aside class="map-editor-panel" id="mapEditorPanel" aria-label="Editor del mapa">
     <div class="map-editor-head">
       <strong>Editor del mapa</strong>
@@ -2104,6 +2418,8 @@ const mapSearch = document.getElementById('mapSearch');
 const mapToolsPanel = document.getElementById('mapToolsPanel');
 const opsPanel = document.getElementById('opsPanel');
 const mapEditorPanel = document.getElementById('mapEditorPanel');
+const arrivalQueueList = document.getElementById('arrivalQueueList');
+const mapPendingList = document.getElementById('mapPendingList');
 const slotField = document.getElementById('unitSlotField');
 const STORAGE_KEY = 'mapgestion:parking-system:v1';
 const PANEL_PREF_KEY = 'mapgestion:parking-panels:v1';
@@ -2114,6 +2430,7 @@ const STATUS_STYLE = {
   'INCIDENCIA': 'red',
   'POR SALIR': 'purple',
   'BLOQUEADO': 'orange',
+  'POR UBICAR': 'gray',
 };
 const STATUS_LABEL = {
   'ESTACIONADO': 'Estacionado',
@@ -2121,6 +2438,7 @@ const STATUS_LABEL = {
   'INCIDENCIA': 'Incidencia',
   'POR SALIR': 'Por salir',
   'BLOQUEADO': 'Bloqueado',
+  'POR UBICAR': 'Por ubicar',
 };
 const INITIAL_UNITS = [
   { id: 'AUTO-1001', ticket: 'PARK-1001', slot: 'L-1', status: 'ESTACIONADO', fuel: 'CLIENTE', place: 'Largo plazo', model: 'Nissan Versa · Juan Perez', plates: 'ABC-123-A', notes: 'Entrada 08:15 · ticket fisico 1001', color: 'green' },
@@ -2337,6 +2655,11 @@ function normalizeUnitRecord(unit) {
   return {
     ...unit,
     ticket: unit.ticket || (String(unit.id || '').startsWith('T-') ? unit.id : ''),
+    slot: unit.slot || '',
+    arrivedAt: unit.arrivedAt || unit.savedAt || '',
+    price: unit.price || '',
+    timePlan: unit.timePlan || '',
+    photos: Array.isArray(unit.photos) ? unit.photos : [],
   };
 }
 
@@ -2470,6 +2793,7 @@ function renderAll() {
   document.querySelectorAll('.unit').forEach((unit) => unit.remove());
   slotNodes.forEach((slot) => slot.classList.toggle('selected-slot', getSlotId(slot) === state.units[selectedUnitId]?.slot));
   Object.values(state.units).forEach((unit) => {
+    if (!unit.slot) return;
     const target = slotNode(unit.slot);
     if (target) target.appendChild(createUnitElement(unit));
   });
@@ -2482,6 +2806,7 @@ function renderAll() {
   fillSlotOptions();
   applyMapFilters();
   renderInventory();
+  renderPendingQueues();
   renderHistory();
   renderActivity();
   updateSummary();
@@ -2489,15 +2814,16 @@ function renderAll() {
 
 function fillSlotOptions() {
   const current = slotField.value;
-  slotField.innerHTML = slotIds.map((slotId) => `<option value="${slotId}">${slotId}</option>`).join('');
+  slotField.innerHTML = ['<option value="">POR UBICAR</option>', ...slotIds.map((slotId) => `<option value="${slotId}">${slotId}</option>`)].join('');
   if (current && slotIds.includes(current)) slotField.value = current;
+  if (!current) slotField.value = '';
 }
 
 function unitMatchesFilters(unit) {
   const query = filterState.query.trim().toUpperCase();
   const layer = layerForSlot(unit.slot || '');
   const statusOk = filterState.status === 'TODOS' || unit.status === filterState.status;
-  const layerOk = filterState.layers.has(layer);
+  const layerOk = !unit.slot || filterState.layers.has(layer);
   const searchText = [unit.id, unit.ticket, unit.slot, unit.status, unit.place, unit.fuel, unit.plates, unit.model, unit.notes]
     .join(' ')
     .toUpperCase();
@@ -2522,7 +2848,7 @@ function applyMapFilters() {
     if (!el) return;
     const visible = unitMatchesFilters(unit);
     el.classList.toggle('filtered-out', !visible);
-    if (query && visible) slotNode(unit.slot)?.classList.add('search-hit');
+    if (query && visible && unit.slot) slotNode(unit.slot)?.classList.add('search-hit');
   });
   document.querySelectorAll('.filter-chip').forEach((button) => {
     button.classList.toggle('active', button.dataset.status === filterState.status);
@@ -2564,14 +2890,14 @@ function selectUnit(target) {
 
 function openEditor(unit) {
   popover.classList.remove('minimized');
-  document.getElementById('editorMode').textContent = editorMode === 'add' ? 'Nuevo vehiculo' : `${unit.place || placeForSlot(unit.slot)} · ${unit.slot}`;
+  document.getElementById('editorMode').textContent = editorMode === 'add' ? 'Nuevo vehiculo' : `${unit.place || placeForSlot(unit.slot || '')} · ${unit.slot || 'POR UBICAR'}`;
   document.getElementById('unitTitle').textContent = unit.id || 'Nuevo';
   document.getElementById('unitMva').value = unit.id || '';
   document.getElementById('unitTicketField').value = unit.ticket || '';
-  document.getElementById('unitSlotField').value = unit.slot || firstEmptySlot();
+  document.getElementById('unitSlotField').value = unit.slot || '';
   document.getElementById('unitStatusField').value = unit.status || 'ESTACIONADO';
   document.getElementById('unitFuelField').value = unit.fuel || 'CLIENTE';
-  document.getElementById('unitPlaceField').value = unit.place || placeForSlot(unit.slot || firstEmptySlot());
+  document.getElementById('unitPlaceField').value = unit.place || (unit.slot ? placeForSlot(unit.slot) : 'Llegadas');
   document.getElementById('unitPlatesField').value = unit.plates || '';
   document.getElementById('unitModelField').value = unit.model || '';
   document.getElementById('unitNotesField').value = unit.notes || '';
@@ -2639,7 +2965,7 @@ function readEditorUnit() {
     slot,
     status: document.getElementById('unitStatusField').value,
     fuel: document.getElementById('unitFuelField').value,
-    place: document.getElementById('unitPlaceField').value.trim() || placeForSlot(slot),
+    place: document.getElementById('unitPlaceField').value.trim() || (slot ? placeForSlot(slot) : 'Llegadas'),
     plates: document.getElementById('unitPlatesField').value.trim().toUpperCase(),
     model: document.getElementById('unitModelField').value.trim(),
     notes: document.getElementById('unitNotesField').value.trim(),
@@ -2739,7 +3065,7 @@ function saveEditor() {
     return;
   }
 
-  const occupied = Object.values(state.units).find((candidate) => candidate.slot === unit.slot && candidate.id !== oldId);
+  const occupied = unit.slot ? Object.values(state.units).find((candidate) => candidate.slot === unit.slot && candidate.id !== oldId) : null;
   if (editorMode === 'add' && occupied) {
     showToast(`El cajon ${unit.slot} ya esta ocupado`);
     return;
@@ -2775,6 +3101,116 @@ function deleteSelected() {
   showToast('Auto eliminado');
 }
 
+function setAppView(view) {
+  const arrivals = view === 'arrivals';
+  document.body.classList.toggle('arrivals-view', arrivals);
+  document.getElementById('navMapButton').classList.toggle('active', !arrivals);
+  document.getElementById('navArrivalsButton').classList.toggle('active', arrivals);
+  if (arrivals) {
+    closeUnit();
+    renderPendingQueues();
+  }
+}
+
+function arrivalPhotoNames() {
+  return Array.from(document.getElementById('arrivalPhotos').files || []).map((file) => file.name);
+}
+
+function generateArrivalTicket() {
+  document.getElementById('arrivalTicket').value = nextTicket();
+  showToast('Ticket de llegada generado');
+}
+
+function readArrivalForm() {
+  const ticketField = document.getElementById('arrivalTicket');
+  if (!ticketField.value.trim()) ticketField.value = nextTicket();
+  return {
+    id: nextMva(),
+    ticket: ticketField.value.trim().toUpperCase().replace(/\s+/g, ''),
+    slot: '',
+    status: 'POR UBICAR',
+    fuel: document.getElementById('arrivalType').value,
+    place: 'Llegadas',
+    plates: document.getElementById('arrivalPlates').value.trim().toUpperCase(),
+    model: document.getElementById('arrivalCustomer').value.trim(),
+    notes: document.getElementById('arrivalNotes').value.trim(),
+    price: document.getElementById('arrivalPrice').value,
+    timePlan: document.getElementById('arrivalTime').value.trim(),
+    photos: arrivalPhotoNames(),
+    color: STATUS_STYLE['POR UBICAR'],
+    arrivedAt: nowLabel(),
+    savedAt: nowLabel(),
+  };
+}
+
+function createArrival() {
+  const unit = readArrivalForm();
+  if (!unit.ticket) {
+    showToast('Ticket requerido');
+    return;
+  }
+  const duplicatedTicket = Object.values(state.units).find((candidate) => candidate.ticket === unit.ticket);
+  if (duplicatedTicket) {
+    showToast('Ese ticket ya existe');
+    return;
+  }
+  state.units[unit.id] = unit;
+  addHistory('Entrada', `${unit.ticket} registrado en llegadas`);
+  persistState();
+  clearArrivalForm();
+  renderAll();
+  printTicket(unit);
+  showToast(`${unit.ticket} listo para ubicar`);
+}
+
+function clearArrivalForm() {
+  ['arrivalTicket', 'arrivalPrice', 'arrivalTime', 'arrivalPlates', 'arrivalCustomer', 'arrivalNotes'].forEach((id) => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('arrivalPhotos').value = '';
+}
+
+function printArrivalDraft() {
+  const unit = readArrivalForm();
+  printTicket(unit);
+}
+
+function pendingUnits() {
+  return Object.values(state.units)
+    .filter((unit) => !unit.slot || unit.status === 'POR UBICAR')
+    .sort((a, b) => (a.arrivedAt || '').localeCompare(b.arrivedAt || ''));
+}
+
+function pendingCard(unit) {
+  return `
+    <div class="pending-card">
+      <strong>${escapeHtml(unit.ticket || unit.id)}</strong>
+      <span>${escapeHtml(unit.plates || 'Sin placas')} · ${escapeHtml(unit.model || 'Auto / cliente')}</span>
+      <span>${escapeHtml(unit.price ? `$${unit.price}` : 'Sin precio')} · ${escapeHtml(unit.timePlan || 'Sin tiempo')}</span>
+      <button type="button" onclick="selectPendingUnit('${escapeHtml(unit.id)}')">Seleccionar y ubicar</button>
+    </div>
+  `;
+}
+
+function renderPendingQueues() {
+  const pending = pendingUnits();
+  const html = pending.length ? pending.map(pendingCard).join('') : '<div class="activity-item">Sin autos por ubicar<span>Las nuevas llegadas apareceran aqui en orden FIFO.</span></div>';
+  if (arrivalQueueList) arrivalQueueList.innerHTML = html;
+  if (mapPendingList) mapPendingList.innerHTML = html;
+  document.getElementById('arrivalPendingCount').textContent = pending.length;
+  document.getElementById('mapPendingCount').textContent = pending.length;
+}
+
+function selectPendingUnit(unitId) {
+  const unit = state.units[unitId];
+  if (!unit) return;
+  selectedUnitId = unitId;
+  editorMode = 'edit';
+  setAppView('map');
+  openEditor(unit);
+  showToast('Selecciona un cajon en el mapa para ubicarlo');
+}
+
 function duplicateSelected() {
   const source = selectedUnitId ? state.units[selectedUnitId] : null;
   if (!source) {
@@ -2807,7 +3243,7 @@ function moveUnit(unitId, targetSlot, mode = 'click') {
   if (!unit || !slotIds.includes(targetSlot) || unit.slot === targetSlot) return;
   const sourceEl = document.querySelector(`.unit[data-id="${CSS.escape(unitId)}"]`);
   const fromRect = mode === 'click' ? sourceEl?.getBoundingClientRect() : null;
-  const originSlot = unit.slot;
+  const originSlot = unit.slot || 'Llegadas';
   const occupied = Object.values(state.units).find((candidate) => candidate.slot === targetSlot && candidate.id !== unitId);
   if (occupied) {
     occupied.slot = originSlot;
@@ -2819,6 +3255,10 @@ function moveUnit(unitId, targetSlot, mode = 'click') {
   }
   unit.slot = targetSlot;
   unit.place = placeForSlot(targetSlot);
+  if (unit.status === 'POR UBICAR') {
+    unit.status = 'ESTACIONADO';
+    unit.color = STATUS_STYLE[unit.status];
+  }
   if (targetSlot.startsWith('TLLRS')) {
     unit.status = 'BLOQUEADO';
     unit.color = STATUS_STYLE[unit.status];
