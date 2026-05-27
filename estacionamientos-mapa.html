@@ -212,6 +212,10 @@ textarea {
   pointer-events: none;
 }
 
+.ops-panel.collapsed {
+  width: auto;
+}
+
 .ops-card {
   border-radius: 18px;
   background: rgba(15, 17, 35, .9);
@@ -219,6 +223,15 @@ textarea {
   box-shadow: 0 18px 46px rgba(0, 0, 0, .34);
   backdrop-filter: blur(16px);
   padding: 16px;
+}
+
+.ops-card,
+.ops-panel .panel-toggle {
+  pointer-events: auto;
+}
+
+.ops-panel.collapsed .ops-card {
+  display: none;
 }
 
 .ops-head {
@@ -323,6 +336,54 @@ textarea {
   width: 292px;
   display: grid;
   gap: 12px;
+}
+
+.map-tools.collapsed {
+  width: auto;
+}
+
+.map-tools.collapsed .tool-card {
+  display: none;
+}
+
+.panel-toggle {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  justify-self: start;
+  border-radius: 999px;
+  padding: 0 13px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  background: rgba(15, 17, 35, .88);
+  color: rgba(245, 247, 255, .92);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .32);
+  backdrop-filter: blur(14px);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.ops-panel .panel-toggle {
+  justify-self: end;
+}
+
+.panel-toggle svg {
+  transition: transform .18s ease;
+}
+
+.map-tools.collapsed .panel-toggle svg {
+  transform: rotate(180deg);
+}
+
+.ops-panel.collapsed .panel-toggle svg {
+  transform: rotate(180deg);
+}
+
+.panel-toggle:hover {
+  filter: brightness(1.08);
 }
 
 .tool-card {
@@ -775,6 +836,35 @@ textarea {
   opacity: 1;
   transform: translateX(0);
   pointer-events: auto;
+}
+
+.unit-popover.minimized {
+  width: 238px;
+}
+
+.unit-popover.minimized .popover-body {
+  display: none;
+}
+
+.unit-popover.minimized .popover-head {
+  padding: 12px;
+  align-items: center;
+  background: rgba(20, 22, 44, .94);
+}
+
+.unit-popover.minimized .eyebrow {
+  display: none;
+}
+
+.unit-popover.minimized .popover-title {
+  margin-top: 0;
+  font-size: 15px;
+}
+
+.popover-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
 }
 
 .popover-head {
@@ -1427,11 +1517,18 @@ textarea {
         <div class="eyebrow" id="editorMode">Unidad</div>
         <div class="popover-title" id="unitTitle">-</div>
       </div>
-      <button class="icon-button" type="button" onclick="closeUnit()" aria-label="Cerrar">
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <path d="M3 3l9 9M12 3l-9 9" />
-        </svg>
-      </button>
+      <div class="popover-controls">
+        <button class="icon-button" type="button" onclick="toggleUnitEditorMinimized()" aria-label="Minimizar editor" title="Minimizar editor">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M3 8h9" />
+          </svg>
+        </button>
+        <button class="icon-button" type="button" onclick="closeUnit()" aria-label="Cerrar">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M3 3l9 9M12 3l-9 9" />
+          </svg>
+        </button>
+      </div>
     </div>
     <div class="popover-body">
       <div class="field-grid">
@@ -1504,7 +1601,13 @@ textarea {
     <div class="history-list" id="historyList"></div>
   </aside>
 
-  <aside class="map-tools" aria-label="Herramientas del mapa">
+  <aside class="map-tools" id="mapToolsPanel" aria-label="Herramientas del mapa">
+    <button class="panel-toggle" id="mapToolsToggle" type="button" onclick="toggleFloatingPanel('tools')" aria-expanded="true" title="Minimizar herramientas">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 2L4 6.5 8 11" />
+      </svg>
+      <span>Herramientas</span>
+    </button>
     <section class="tool-card">
       <div class="tool-title">Buscar auto</div>
       <input class="map-search" id="mapSearch" type="search" placeholder="Ticket, placas, cliente..." autocomplete="off" />
@@ -1552,7 +1655,13 @@ textarea {
     <div class="inventory-list" id="inventoryList"></div>
   </aside>
 
-  <aside class="ops-panel" aria-label="Panel operativo del estacionamiento">
+  <aside class="ops-panel" id="opsPanel" aria-label="Panel operativo del estacionamiento">
+    <button class="panel-toggle" id="opsPanelToggle" type="button" onclick="toggleFloatingPanel('ops')" aria-expanded="true" title="Minimizar panel operativo">
+      <span>Operacion</span>
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 2l4 4.5L5 11" />
+      </svg>
+    </button>
     <section class="ops-card">
       <div class="ops-head">
         <div class="ops-title">Sistema para estacionamientos</div>
@@ -1610,6 +1719,7 @@ textarea {
     <button type="button" onclick="saveParking()">Guardar</button>
     <button type="button" onclick="toggleHistory()">Movimientos</button>
     <button type="button" onclick="toggleInventory()">Inventario</button>
+    <button type="button" onclick="toggleSidePanels()">Paneles</button>
     <button type="button" onclick="exportCsv()">CSV</button>
     <button type="button" onclick="resetParking()">Reset</button>
   </div>
@@ -1631,8 +1741,11 @@ const activityList = document.getElementById('activityList');
 const inventoryDrawer = document.getElementById('inventoryDrawer');
 const inventoryList = document.getElementById('inventoryList');
 const mapSearch = document.getElementById('mapSearch');
+const mapToolsPanel = document.getElementById('mapToolsPanel');
+const opsPanel = document.getElementById('opsPanel');
 const slotField = document.getElementById('unitSlotField');
 const STORAGE_KEY = 'mapgestion:parking-system:v1';
+const PANEL_PREF_KEY = 'mapgestion:parking-panels:v1';
 const STATUS_STYLE = {
   'ESTACIONADO': 'green',
   'RESERVADO': 'yellow',
@@ -1917,6 +2030,7 @@ function selectUnit(target) {
 }
 
 function openEditor(unit) {
+  popover.classList.remove('minimized');
   document.getElementById('editorMode').textContent = editorMode === 'add' ? 'Nuevo vehiculo' : `${unit.place || placeForSlot(unit.slot)} · ${unit.slot}`;
   document.getElementById('unitTitle').textContent = unit.id || 'Nuevo';
   document.getElementById('unitMva').value = unit.id || '';
@@ -1931,8 +2045,16 @@ function openEditor(unit) {
   popover.classList.add('open');
 }
 
+function toggleUnitEditorMinimized(force) {
+  if (!popover.classList.contains('open')) return;
+  const shouldMinimize = typeof force === 'boolean' ? force : !popover.classList.contains('minimized');
+  popover.classList.toggle('minimized', shouldMinimize);
+  showToast(shouldMinimize ? 'Editor minimizado' : 'Editor abierto');
+}
+
 function closeUnit() {
   popover.classList.remove('open');
+  popover.classList.remove('minimized');
   editorMode = 'edit';
   document.querySelectorAll('.unit.selected').forEach((unit) => unit.classList.remove('selected'));
   slotNodes.forEach((slot) => slot.classList.remove('selected-slot'));
@@ -2194,6 +2316,46 @@ function toggleHistory() {
   historyDrawer.classList.toggle('open');
 }
 
+function persistPanelPrefs() {
+  localStorage.setItem(PANEL_PREF_KEY, JSON.stringify({
+    tools: mapToolsPanel.classList.contains('collapsed'),
+    ops: opsPanel.classList.contains('collapsed'),
+  }));
+}
+
+function setPanelCollapsed(panel, collapsed) {
+  const target = panel === 'ops' ? opsPanel : mapToolsPanel;
+  const toggle = document.getElementById(panel === 'ops' ? 'opsPanelToggle' : 'mapToolsToggle');
+  target.classList.toggle('collapsed', collapsed);
+  toggle?.setAttribute('aria-expanded', String(!collapsed));
+  toggle?.setAttribute('title', collapsed ? 'Mostrar panel' : 'Minimizar panel');
+}
+
+function toggleFloatingPanel(panel) {
+  const target = panel === 'ops' ? opsPanel : mapToolsPanel;
+  setPanelCollapsed(panel, !target.classList.contains('collapsed'));
+  persistPanelPrefs();
+}
+
+function toggleSidePanels() {
+  const shouldCollapse = !mapToolsPanel.classList.contains('collapsed') || !opsPanel.classList.contains('collapsed');
+  setPanelCollapsed('tools', shouldCollapse);
+  setPanelCollapsed('ops', shouldCollapse);
+  persistPanelPrefs();
+  showToast(shouldCollapse ? 'Paneles minimizados' : 'Paneles visibles');
+}
+
+function restorePanelPrefs() {
+  try {
+    const prefs = JSON.parse(localStorage.getItem(PANEL_PREF_KEY) || '{}');
+    setPanelCollapsed('tools', Boolean(prefs.tools));
+    setPanelCollapsed('ops', Boolean(prefs.ops));
+  } catch {
+    setPanelCollapsed('tools', false);
+    setPanelCollapsed('ops', false);
+  }
+}
+
 function updateSummary() {
   const units = Object.values(state.units);
   const total = units.length;
@@ -2272,6 +2434,10 @@ document.addEventListener('keydown', (event) => {
     const target = event.target;
     if (target?.tagName !== 'INPUT' && target?.tagName !== 'TEXTAREA' && target?.tagName !== 'SELECT') openAdd();
   }
+  if (!event.ctrlKey && !event.metaKey && event.key.toLowerCase() === 'h') {
+    const target = event.target;
+    if (target?.tagName !== 'INPUT' && target?.tagName !== 'TEXTAREA' && target?.tagName !== 'SELECT') toggleSidePanels();
+  }
 });
 
 document.getElementById('summaryModal').addEventListener('click', (event) => {
@@ -2284,6 +2450,7 @@ mapSearch.addEventListener('input', (event) => {
 });
 
 state = loadState();
+restorePanelPrefs();
 bindSlotInteractions();
 renderAll();
 persistState();
