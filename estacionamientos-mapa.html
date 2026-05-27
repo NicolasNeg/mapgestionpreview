@@ -1691,6 +1691,246 @@ textarea {
   backdrop-filter: blur(14px);
 }
 
+/* Dashboard shell inspired by the reference: only chrome, not the map layout. */
+body {
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255,255,255,.20), transparent 20%),
+    radial-gradient(circle at 92% 8%, rgba(128,98,255,.28), transparent 32%),
+    linear-gradient(135deg, #27364c 0%, #111827 48%, #172033 100%);
+}
+
+.top-shell {
+  height: 144px;
+  padding: 18px 88px 0 88px;
+}
+
+.command-bar {
+  height: 76px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.plaza-card {
+  display: none;
+}
+
+.scoreboard {
+  left: 0;
+  right: 120px;
+  top: 0;
+  transform: none;
+  min-width: 0;
+  height: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(150px, 1fr));
+  gap: 18px;
+}
+
+.metric {
+  min-width: 0;
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, .30);
+  background:
+    radial-gradient(circle at 92% 50%, rgba(255,255,255,.22), transparent 18%),
+    linear-gradient(180deg, rgba(23,30,45,.88), rgba(15,20,32,.92));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 0 20px rgba(255,255,255,.18);
+  text-align: left;
+}
+
+.metric:nth-child(2) {
+  border-color: rgba(0, 212, 137, .76);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 0 22px rgba(0, 212, 137, .36);
+}
+
+.metric:nth-child(3) {
+  border-color: rgba(255, 212, 38, .82);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 0 22px rgba(255, 212, 38, .36);
+}
+
+.metric:nth-child(4) {
+  border-color: rgba(255, 88, 116, .82);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 0 22px rgba(255, 88, 116, .36);
+}
+
+.metric:nth-child(6) {
+  border-color: rgba(255, 88, 116, .82);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 0 22px rgba(255, 88, 116, .36);
+}
+
+.metric:nth-child(5) {
+  display: none;
+}
+
+.metric + .metric::before {
+  display: none;
+}
+
+.metric strong {
+  order: 2;
+  font-size: 35px;
+  text-shadow: 0 0 14px currentColor;
+}
+
+.metric span {
+  order: 1;
+  margin-top: 0;
+  color: #f7f8ff;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: -.02em;
+  text-transform: none;
+}
+
+.metric:first-child span::before { content: "Total "; }
+.metric:nth-child(2) span { font-size: 0; }
+.metric:nth-child(2) span::before { content: "Parked"; font-size: 20px; }
+.metric:nth-child(3) span { font-size: 0; }
+.metric:nth-child(3) span::before { content: "Reserved"; font-size: 20px; }
+.metric:nth-child(4) span { font-size: 0; }
+.metric:nth-child(4) span::before { content: "Incidents"; font-size: 20px; }
+.metric:nth-child(6) span { font-size: 0; }
+.metric:nth-child(6) span::before { content: "Blocked"; font-size: 20px; }
+
+.map-search-header {
+  top: 86px;
+  width: min(420px, calc(100vw - 760px));
+  min-width: 360px;
+  padding: 8px 12px;
+  background: rgba(70, 78, 94, .58);
+  border-color: rgba(255,255,255,.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 16px 34px rgba(0,0,0,.28);
+}
+
+.map-search-header .map-search {
+  min-height: 30px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.map-search-header kbd {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  font-size: 0;
+}
+
+.map-search-header kbd::before {
+  content: "⌕";
+  font-size: 19px;
+  color: rgba(255,255,255,.74);
+}
+
+.parking-note,
+.map-tools,
+.zoom-stack {
+  display: none;
+}
+
+.app-sidebar {
+  left: 16px;
+  top: 146px;
+  width: 52px;
+  padding: 8px;
+  gap: 8px;
+  border-radius: 12px;
+  background: rgba(19, 27, 46, .82);
+  box-shadow: 0 14px 34px rgba(0,0,0,.34);
+}
+
+.app-nav-button {
+  min-height: 52px;
+  border-radius: 9px;
+  background: transparent;
+  color: rgba(239,242,255,.70);
+  font-size: 8px;
+  line-height: 1;
+}
+
+.app-nav-button::before {
+  display: block;
+  font-size: 24px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+#navMapButton::before { content: "▱"; }
+#navArrivalsButton::before { content: "⌁"; }
+
+.app-sidebar::after {
+  content: "⚙\A CONFIG";
+  white-space: pre;
+  min-height: 52px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  color: rgba(239,242,255,.58);
+  font-size: 8px;
+  font-weight: 900;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.app-nav-button.active {
+  background: rgba(255,255,255,.08);
+  color: #ffffff;
+}
+
+.yard-wrap {
+  inset: 144px 0 0;
+}
+
+.estacionamiento-toolbar {
+  left: auto;
+  right: 18px;
+  top: 68px;
+  bottom: auto;
+  width: 110px;
+  max-width: 110px;
+  min-height: calc(100vh - 88px);
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(22, 31, 49, .86);
+  border-color: rgba(255,255,255,.12);
+  box-shadow: -14px 0 42px rgba(0,0,0,.28);
+}
+
+.estacionamiento-mark {
+  display: none;
+}
+
+.estacionamiento-toolbar button {
+  width: 82px;
+  min-height: 64px;
+  justify-content: center;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.07);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+  padding: 8px;
+}
+
+.ops-panel,
+.pending-cars-panel {
+  display: none;
+}
+
 .arrivals-view .yard-wrap,
 .arrivals-view .map-search-header,
 .arrivals-view .parking-note,
