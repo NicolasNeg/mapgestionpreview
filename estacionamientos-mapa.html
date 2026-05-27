@@ -442,6 +442,46 @@ textarea {
   color: rgba(183, 193, 217, .62);
 }
 
+.map-search-header {
+  position: fixed;
+  left: 50%;
+  top: 105px;
+  z-index: 66;
+  width: min(620px, calc(100vw - 420px));
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .13);
+  background: rgba(15, 17, 35, .88);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .30);
+  backdrop-filter: blur(16px);
+}
+
+.map-search-header span,
+.map-search-header kbd {
+  color: rgba(246, 247, 255, .78);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.map-search-header .map-search {
+  min-height: 36px;
+  border-radius: 999px;
+}
+
+.map-search-header kbd {
+  border-radius: 999px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, .09);
+}
+
 .filter-row,
 .layer-list {
   display: flex;
@@ -1600,7 +1640,7 @@ textarea {
 .parking-note {
   position: fixed;
   left: 50%;
-  top: 98px;
+  top: 152px;
   z-index: 63;
   transform: translateX(-50%);
   border: 1px solid rgba(255,255,255,.12);
@@ -1620,6 +1660,7 @@ textarea {
   .app { min-width: 920px; }
   .top-shell { padding-left: 12px; padding-right: 12px; }
   .scoreboard { min-width: 520px; gap: 18px; }
+  .map-search-header { width: min(560px, calc(100vw - 220px)); }
   .ops-panel,
   .map-tools { display: none; }
   .inventory-drawer { left: 20px; max-width: calc(100vw - 40px); }
@@ -1654,6 +1695,11 @@ textarea {
   </header>
 
   <div class="parking-note">Sistema para estacionamientos · Registro real manual · Sin generacion automatica</div>
+  <div class="map-search-header" role="search" aria-label="Buscar ticket, placas o cliente">
+    <span>Buscar auto</span>
+    <input class="map-search" id="mapSearch" type="search" placeholder="Ticket, placas, cliente, cajon..." autocomplete="off" />
+    <kbd>Siempre visible</kbd>
+  </div>
 
   <main class="yard-wrap" aria-label="Sistema para estacionamientos">
     <div class="yard-viewport" id="yardViewport">
@@ -1876,10 +1922,6 @@ textarea {
       </svg>
       <span>Herramientas</span>
     </button>
-    <section class="tool-card">
-      <div class="tool-title">Buscar auto</div>
-      <input class="map-search" id="mapSearch" type="search" placeholder="Ticket, placas, cliente..." autocomplete="off" />
-    </section>
     <section class="tool-card">
       <div class="tool-title">Estado del cajón</div>
       <div class="filter-row" id="statusFilters">
