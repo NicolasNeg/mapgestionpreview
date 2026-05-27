@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="mobile-web-app-capable" content="yes" />
-<title>MEX MAPA - Sandbox Mapa BJX</title>
+<title>Sistema para estacionamientos | MapGestion</title>
 <meta name="robots" content="noindex, nofollow" />
 <link rel="canonical" href="https://mapgestion.com/" />
 <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml" />
@@ -870,7 +870,7 @@ textarea {
 }
 
 .panel-actions button,
-.sandbox-toolbar button {
+.estacionamiento-toolbar button {
   min-height: 38px;
   border-radius: 10px;
   font-size: 12px;
@@ -894,7 +894,7 @@ textarea {
   color: #ff8ca0;
 }
 
-.sandbox-toolbar {
+.estacionamiento-toolbar {
   position: fixed;
   left: 26px;
   bottom: 28px;
@@ -911,7 +911,7 @@ textarea {
   backdrop-filter: blur(12px);
 }
 
-.sandbox-mark {
+.estacionamiento-mark {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -925,7 +925,7 @@ textarea {
   letter-spacing: .10em;
 }
 
-.sandbox-mark::before {
+.estacionamiento-mark::before {
   content: "";
   width: 7px;
   height: 7px;
@@ -934,7 +934,7 @@ textarea {
   box-shadow: 0 0 0 4px rgba(8, 200, 132, .14);
 }
 
-.sandbox-toolbar button {
+.estacionamiento-toolbar button {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -943,7 +943,7 @@ textarea {
   color: #fff;
 }
 
-.sandbox-toolbar button:hover,
+.estacionamiento-toolbar button:hover,
 .panel-actions button:hover,
 .zoom-stack button:hover {
   filter: brightness(1.08);
@@ -1237,6 +1237,36 @@ textarea {
   transform: translateX(-50%) translateY(0);
 }
 
+.static-pill {
+  background: rgba(47, 177, 255, .13);
+  color: #9fdaff;
+}
+.static-pill::before {
+  background: var(--blue);
+  box-shadow: 0 0 0 5px rgba(47, 177, 255, .12);
+}
+.fuel {
+  display: none;
+}
+.parking-note {
+  position: fixed;
+  left: 50%;
+  top: 98px;
+  z-index: 63;
+  transform: translateX(-50%);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px;
+  background: rgba(15,17,35,.78);
+  color: rgba(246,247,255,.82);
+  padding: 9px 14px;
+  box-shadow: 0 14px 34px rgba(0,0,0,.24);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(14px);
+}
+
 @media (max-width: 1200px) {
   .app { min-width: 920px; }
   .top-shell { padding-left: 12px; padding-right: 12px; }
@@ -1251,9 +1281,9 @@ textarea {
 <div class="app">
   <header class="top-shell" aria-label="Resumen del mapa">
     <div class="command-bar">
-      <button class="plaza-card" type="button" onclick="openSummary()" aria-label="Abrir resumen de BJX">
+      <button class="plaza-card" type="button" onclick="openSummary()" aria-label="Abrir resumen del estacionamiento">
         <span>
-          <strong>BJX</strong>
+          <strong>PARK</strong>
           <small id="plazaOccupied">0% ocupado</small>
           <span class="mini-counts" aria-hidden="true">
             <span class="mini-ok" id="miniListo">1</span>
@@ -1263,29 +1293,31 @@ textarea {
         </span>
       </button>
 
-      <button class="scoreboard" type="button" onclick="openSummary()" aria-label="Abrir resumen de flota">
-        <span class="metric"><strong id="metricTotal">3</strong><span>Totales</span></span>
-        <span class="metric"><strong id="metricListo" style="color:var(--green)">1</strong><span>Listos</span></span>
-        <span class="metric"><strong id="metricSucio" style="color:var(--yellow)">0</strong><span>Sucios</span></span>
-        <span class="metric"><strong id="metricManto" style="color:var(--pink)">0</strong><span>Mantenimiento</span></span>
-        <span class="metric"><strong id="metricPatio" style="color:var(--cyan)">3</strong><span>En patio</span></span>
-        <span class="metric"><strong id="metricTaller" style="color:var(--orange)">0</strong><span>En taller</span></span>
+      <button class="scoreboard" type="button" onclick="openSummary()" aria-label="Abrir resumen del estacionamiento">
+        <span class="metric"><strong id="metricTotal">3</strong><span>Autos</span></span>
+        <span class="metric"><strong id="metricListo" style="color:var(--green)">1</strong><span>Estacionados</span></span>
+        <span class="metric"><strong id="metricSucio" style="color:var(--yellow)">0</strong><span>Reservados</span></span>
+        <span class="metric"><strong id="metricManto" style="color:var(--pink)">0</strong><span>Incidencias</span></span>
+        <span class="metric"><strong id="metricPatio" style="color:var(--cyan)">3</strong><span>En parking</span></span>
+        <span class="metric"><strong id="metricTaller" style="color:var(--orange)">0</strong><span>Bloqueados</span></span>
       </button>
     </div>
   </header>
 
-  <main class="yard-wrap" aria-label="Mapa vivo BJX">
+  <div class="parking-note">Sistema para estacionamientos · Registro real manual · Sin generacion automatica</div>
+
+  <main class="yard-wrap" aria-label="Sistema para estacionamientos">
     <div class="yard-viewport" id="yardViewport">
       <section class="yard-stage" id="yardStage">
         <div class="slot" data-label="L-1" style="left:34px;top:32px;width:92px;height:132px;">
-          <button class="unit blue" type="button" data-id="Z018" data-slot="L-1" data-status="NO ARRENDABLE" data-place="Limbo" data-fuel="F" onclick="selectUnit(this)">
-            Z018
+          <button class="unit blue" type="button" data-id="T-1001" data-slot="L-1" data-status="ESTACIONADO" data-place="Largo plazo" data-fuel="CLIENTE" onclick="selectUnit(this)">
+            T-1001
             <span class="fuel" data-fuel="F"><i style="--fill:100%"></i></span>
           </button>
         </div>
         <div class="slot" data-label="L-2" style="left:138px;top:32px;width:92px;height:132px;">
-          <button class="unit green" type="button" data-id="F998" data-slot="L-2" data-status="LISTO" data-place="Patio" data-fuel="E" onclick="selectUnit(this)">
-            F998
+          <button class="unit green" type="button" data-id="T-1002" data-slot="L-2" data-status="RESERVADO" data-place="Largo plazo" data-fuel="VIP" onclick="selectUnit(this)">
+            T-1002
             <span class="drag-token" aria-hidden="true"></span>
             <span class="fuel" data-fuel="E"><i style="--fill:0%"></i></span>
           </button>
@@ -1301,8 +1333,8 @@ textarea {
         <div class="slot" data-label="L-11" style="left:1074px;top:32px;width:96px;height:132px;"></div>
 
         <div class="slot" data-label="L2-1" style="left:34px;top:180px;width:92px;height:132px;">
-          <button class="unit gray" type="button" data-id="OSVALDO" data-slot="L2-1" data-status="NO ARRENDABLE" data-place="Limbo" data-fuel="N/A" onclick="selectUnit(this)">
-            OSVALDO
+          <button class="unit gray" type="button" data-id="T-1004" data-slot="L2-1" data-status="BLOQUEADO" data-place="Largo plazo" data-fuel="STAFF" onclick="selectUnit(this)">
+            T-1004
           </button>
         </div>
         <div class="slot" data-label="L2-2" style="left:138px;top:180px;width:92px;height:132px;"></div>
@@ -1361,11 +1393,11 @@ textarea {
         <div class="slot wide" data-label="S1-1" style="left:1282px;top:786px;width:96px;height:64px;"></div>
 
         <div class="slot" data-label="B-1" style="left:34px;top:612px;width:92px;height:64px;">
-          <button class="unit blue" type="button" data-id="N372" data-slot="B-1" data-status="NO ARRENDABLE" data-place="Bano" data-fuel="" onclick="selectUnit(this)" style="font-size:16px;">
-            N372
+          <button class="unit blue" type="button" data-id="T-1003" data-slot="B-1" data-status="INCIDENCIA" data-place="Servicio" data-fuel="VISITA" onclick="selectUnit(this)" style="font-size:16px;">
+            T-1003
             <span class="fuel" data-fuel=""><i style="--fill:0%"></i></span>
           </button>
-          <span class="label-inside" style="bottom:-18px;">BAÑO</span>
+          <span class="label-inside" style="bottom:-18px;">SERVICIO</span>
         </div>
         <div class="slot wide" data-label="B-2" style="left:138px;top:612px;width:92px;height:64px;"></div>
         <div class="slot wide" data-label="B-3" style="left:242px;top:612px;width:96px;height:64px;"></div>
@@ -1377,8 +1409,8 @@ textarea {
         <div class="slot wide" data-label="VS-2" style="left:970px;top:710px;width:96px;height:128px;"></div>
         <div class="slot wide" data-label="VS-1" style="left:1074px;top:710px;width:96px;height:128px;"></div>
 
-        <div class="area" data-label="AREA DE LAVADO - 1" style="left:1200px;top:32px;width:188px;height:132px;"></div>
-        <div class="area workshop" style="left:1404px;top:32px;width:194px;height:818px;">Taller</div>
+        <div class="area" data-label="AREA DE SERVICIO - 1" style="left:1200px;top:32px;width:188px;height:132px;"></div>
+        <div class="area workshop" style="left:1404px;top:32px;width:194px;height:818px;">Bloqueados</div>
         <div class="slot" data-label="TLLRS-1" style="left:1612px;top:32px;width:194px;height:90px;"></div>
         <div class="slot" data-label="TLLRS-2" style="left:1612px;top:132px;width:194px;height:90px;"></div>
         <div class="slot" data-label="TLLRS-3" style="left:1612px;top:232px;width:194px;height:90px;"></div>
@@ -1404,7 +1436,7 @@ textarea {
     <div class="popover-body">
       <div class="field-grid">
         <div class="field">
-          <label for="unitMva">MVA</label>
+          <label for="unitMva">ID / Ticket</label>
           <input id="unitMva" autocomplete="off" />
         </div>
         <div class="field">
@@ -1414,27 +1446,26 @@ textarea {
         <div class="field">
           <label for="unitStatusField">Estado</label>
           <select id="unitStatusField">
-            <option>LISTO</option>
-            <option>SUCIO</option>
-            <option>MANTENIMIENTO</option>
-            <option>NO ARRENDABLE</option>
-            <option>EN TALLER</option>
-            <option>TRASLADO</option>
+            <option>ESTACIONADO</option>
+            <option>RESERVADO</option>
+            <option>INCIDENCIA</option>
+            <option>POR SALIR</option>
+            <option>BLOQUEADO</option>
           </select>
         </div>
         <div class="field">
-          <label for="unitFuelField">Gasolina</label>
+          <label for="unitFuelField">Tipo</label>
           <select id="unitFuelField">
-            <option>F</option>
-            <option>3/4</option>
-            <option>1/2</option>
-            <option>1/4</option>
-            <option>E</option>
+            <option>CLIENTE</option>
+            <option>VISITA</option>
+            <option>PENSION</option>
+            <option>VIP</option>
+            <option>STAFF</option>
             <option>N/A</option>
           </select>
         </div>
         <div class="field">
-          <label for="unitPlaceField">Ubicacion</label>
+          <label for="unitPlaceField">Zona</label>
           <input id="unitPlaceField" autocomplete="off" />
         </div>
         <div class="field">
@@ -1442,7 +1473,7 @@ textarea {
           <input id="unitPlatesField" autocomplete="off" />
         </div>
         <div class="field full">
-          <label for="unitModelField">Modelo</label>
+          <label for="unitModelField">Auto / Cliente</label>
           <input id="unitModelField" autocomplete="off" />
         </div>
         <div class="field full">
@@ -1450,7 +1481,7 @@ textarea {
           <textarea id="unitNotesField"></textarea>
         </div>
       </div>
-      <div class="info-row"><span>Origen real</span><strong>Silao, Guanajuato</strong></div>
+      <div class="info-row"><span>Modo</span><strong>Registro real del estacionamiento</strong></div>
       <div class="info-row"><span>Ultimo guardado</span><strong id="unitSavedAt">Sin guardar</strong></div>
       <div class="panel-actions">
         <button class="primary-action" type="button" onclick="saveEditor()">Guardar</button>
@@ -1461,7 +1492,7 @@ textarea {
     </div>
   </aside>
 
-  <aside class="history-drawer" id="historyDrawer" aria-label="Historial sandbox">
+  <aside class="history-drawer" id="historyDrawer" aria-label="Historial del estacionamiento">
     <div class="history-head">
       <span>Movimientos</span>
       <button class="icon-button" type="button" onclick="toggleHistory()" aria-label="Cerrar historial">
@@ -1475,27 +1506,27 @@ textarea {
 
   <aside class="map-tools" aria-label="Herramientas del mapa">
     <section class="tool-card">
-      <div class="tool-title">Buscar unidad</div>
-      <input class="map-search" id="mapSearch" type="search" placeholder="MVA, placas, modelo..." autocomplete="off" />
+      <div class="tool-title">Buscar auto</div>
+      <input class="map-search" id="mapSearch" type="search" placeholder="Ticket, placas, cliente..." autocomplete="off" />
     </section>
     <section class="tool-card">
-      <div class="tool-title">Estados</div>
+      <div class="tool-title">Estado del cajón</div>
       <div class="filter-row" id="statusFilters">
         <button class="filter-chip active" type="button" data-status="TODOS" onclick="setStatusFilter('TODOS')">Todos</button>
-        <button class="filter-chip" type="button" data-status="LISTO" onclick="setStatusFilter('LISTO')">Listos</button>
-        <button class="filter-chip" type="button" data-status="SUCIO" onclick="setStatusFilter('SUCIO')">Sucios</button>
-        <button class="filter-chip" type="button" data-status="MANTENIMIENTO" onclick="setStatusFilter('MANTENIMIENTO')">Manto</button>
-        <button class="filter-chip" type="button" data-status="EN TALLER" onclick="setStatusFilter('EN TALLER')">Taller</button>
+        <button class="filter-chip" type="button" data-status="ESTACIONADO" onclick="setStatusFilter('ESTACIONADO')">Estacionados</button>
+        <button class="filter-chip" type="button" data-status="RESERVADO" onclick="setStatusFilter('RESERVADO')">Reservados</button>
+        <button class="filter-chip" type="button" data-status="INCIDENCIA" onclick="setStatusFilter('INCIDENCIA')">Incidencias</button>
+        <button class="filter-chip" type="button" data-status="BLOQUEADO" onclick="setStatusFilter('BLOQUEADO')">Bloqueados</button>
       </div>
     </section>
     <section class="tool-card">
       <div class="tool-title">Capas</div>
       <div class="layer-list">
-        <label class="layer-chip"><input type="checkbox" data-layer="limbo" checked onchange="toggleLayer(this)" /> Limbo</label>
-        <label class="layer-chip"><input type="checkbox" data-layer="patio" checked onchange="toggleLayer(this)" /> Patio</label>
-        <label class="layer-chip"><input type="checkbox" data-layer="oficina" checked onchange="toggleLayer(this)" /> Oficina</label>
-        <label class="layer-chip"><input type="checkbox" data-layer="taller" checked onchange="toggleLayer(this)" /> Taller</label>
-        <label class="layer-chip"><input type="checkbox" data-layer="bano" checked onchange="toggleLayer(this)" /> Baño</label>
+        <label class="layer-chip"><input type="checkbox" data-layer="limbo" checked onchange="toggleLayer(this)" /> Largo plazo</label>
+        <label class="layer-chip"><input type="checkbox" data-layer="patio" checked onchange="toggleLayer(this)" /> General</label>
+        <label class="layer-chip"><input type="checkbox" data-layer="oficina" checked onchange="toggleLayer(this)" /> Check-in</label>
+        <label class="layer-chip"><input type="checkbox" data-layer="taller" checked onchange="toggleLayer(this)" /> Bloqueados</label>
+        <label class="layer-chip"><input type="checkbox" data-layer="bano" checked onchange="toggleLayer(this)" /> Servicio</label>
       </div>
     </section>
     <section class="tool-card">
@@ -1511,7 +1542,7 @@ textarea {
 
   <aside class="inventory-drawer" id="inventoryDrawer" aria-label="Inventario de unidades">
     <div class="inventory-head">
-      <span>Inventario visible</span>
+      <span>Autos visibles</span>
       <button class="icon-button" type="button" onclick="toggleInventory()" aria-label="Cerrar inventario">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <path d="M3 3l8 8M11 3l-8 8" />
@@ -1521,33 +1552,33 @@ textarea {
     <div class="inventory-list" id="inventoryList"></div>
   </aside>
 
-  <aside class="ops-panel" aria-label="Paneles clave del sandbox">
+  <aside class="ops-panel" aria-label="Panel operativo del estacionamiento">
     <section class="ops-card">
       <div class="ops-head">
-        <div class="ops-title">Operación en vivo</div>
-        <div class="live-pill" id="simStatus">Simulado</div>
+        <div class="ops-title">Sistema para estacionamientos</div>
+        <div class="live-pill static-pill" id="simStatus">Real</div>
       </div>
       <div class="ops-grid">
-        <div class="ops-stat"><span>Usuarios activos</span><strong id="opsUsers">4</strong></div>
+        <div class="ops-stat"><span>Autos registrados</span><strong id="opsUsers">0</strong></div>
         <div class="ops-stat"><span>Pendientes</span><strong id="opsPending">0</strong></div>
-        <div class="ops-stat"><span>Último mov.</span><strong id="opsLastMove">--</strong></div>
+        <div class="ops-stat"><span>Último cambio</span><strong id="opsLastMove">--</strong></div>
         <div class="ops-stat"><span>Alertas</span><strong id="opsAlerts">0</strong></div>
       </div>
     </section>
     <section class="ops-card">
       <div class="ops-head">
-        <div class="ops-title">Actividad reciente</div>
-        <div class="live-pill">Tiempo real</div>
+        <div class="ops-title">Movimientos recientes</div>
+        <div class="live-pill static-pill">Manual</div>
       </div>
       <div class="activity-list" id="activityList"></div>
     </section>
   </aside>
 
-  <section class="summary-modal" id="summaryModal" role="dialog" aria-modal="true" aria-label="Resumen de flota">
+  <section class="summary-modal" id="summaryModal" role="dialog" aria-modal="true" aria-label="Resumen del estacionamiento">
     <article class="summary-card">
       <div class="summary-head">
-        <div class="summary-chip">ARMENTA RENT A CAR <b>BJX</b></div>
-        <h2>RESUMEN DE FLOTA</h2>
+        <div class="summary-chip">MAPGESTION <b>ESTACIONAMIENTOS</b></div>
+        <h2>RESUMEN DEL ESTACIONAMIENTO</h2>
         <p>LUN, 20 DE ABR DE 2026 · 06:02 P.M.</p>
         <button class="summary-close" type="button" onclick="closeSummary()" aria-label="Cerrar resumen">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -1557,31 +1588,30 @@ textarea {
       </div>
       <div class="summary-body">
         <div class="summary-grid">
-          <div class="summary-stat"><span>Total flota</span><strong id="summaryTotal">4</strong></div>
-          <div class="summary-stat" style="border-left-color:#00c66f;"><span>En patio</span><strong id="summaryPatio" style="color:#00b765;">3</strong></div>
-          <div class="summary-stat" style="border-left-color:#5a58ff;"><span>Fuera</span><strong id="summaryFuera" style="color:#5a58ff;">1</strong></div>
+          <div class="summary-stat"><span>Autos registrados</span><strong id="summaryTotal">4</strong></div>
+          <div class="summary-stat" style="border-left-color:#00c66f;"><span>En parking</span><strong id="summaryPatio" style="color:#00b765;">3</strong></div>
+          <div class="summary-stat" style="border-left-color:#5a58ff;"><span>Cajones libres</span><strong id="summaryFuera" style="color:#5a58ff;">0</strong></div>
         </div>
         <div class="summary-wide-grid">
-          <div class="summary-wide" style="border-left-color:#596074;"><span>No arrendable</span><strong id="summaryNoRent">2</strong></div>
-          <div class="summary-wide" style="border-left-color:#00c66f;"><span>Listo</span><strong id="summaryListo" style="color:#00b765;">1</strong></div>
+          <div class="summary-wide" style="border-left-color:#596074;"><span>Incidencias</span><strong id="summaryNoRent">0</strong></div>
+          <div class="summary-wide" style="border-left-color:#00c66f;"><span>Estacionados</span><strong id="summaryListo" style="color:#00b765;">1</strong></div>
         </div>
         <div class="summary-foot">
-          <span>Total <strong id="summaryFooterTotal" style="font-size:26px;color:#151832;">3</strong> vehiculos</span>
+          <span>Total <strong id="summaryFooterTotal" style="font-size:26px;color:#151832;">3</strong> autos</span>
           <span id="summaryClock">06:02:41 p.m.</span>
         </div>
       </div>
     </article>
   </section>
 
-  <div class="sandbox-toolbar" aria-label="Controles del sandbox">
-    <span class="sandbox-mark">SANDBOX</span>
+  <div class="estacionamiento-toolbar" aria-label="Controles del estacionamiento">
+    <span class="estacionamiento-mark">ESTACIONAMIENTOS</span>
     <button type="button" onclick="openAdd()">+ Nuevo</button>
-    <button type="button" onclick="saveSandbox()">Guardar</button>
+    <button type="button" onclick="saveParking()">Guardar</button>
     <button type="button" onclick="toggleHistory()">Movimientos</button>
     <button type="button" onclick="toggleInventory()">Inventario</button>
     <button type="button" onclick="exportCsv()">CSV</button>
-    <button type="button" onclick="toggleSimulation()" id="simToggle">Pausar vivo</button>
-    <button type="button" onclick="resetSandbox()">Reset</button>
+    <button type="button" onclick="resetParking()">Reset</button>
   </div>
 
   <div class="zoom-stack" aria-label="Controles de zoom">
@@ -1602,32 +1632,25 @@ const inventoryDrawer = document.getElementById('inventoryDrawer');
 const inventoryList = document.getElementById('inventoryList');
 const mapSearch = document.getElementById('mapSearch');
 const slotField = document.getElementById('unitSlotField');
-const STORAGE_KEY = 'mex-mapa:sandbox-bjx:v3';
+const STORAGE_KEY = 'mapgestion:parking-system:v1';
 const STATUS_STYLE = {
-  'LISTO': 'green',
-  'SUCIO': 'yellow',
-  'MANTENIMIENTO': 'red',
-  'NO ARRENDABLE': 'blue',
-  'EN TALLER': 'orange',
-  'TRASLADO': 'purple',
+  'ESTACIONADO': 'green',
+  'RESERVADO': 'yellow',
+  'INCIDENCIA': 'red',
+  'POR SALIR': 'purple',
+  'BLOQUEADO': 'orange',
 };
 const STATUS_LABEL = {
-  'LISTO': 'Listo',
-  'SUCIO': 'Sucio',
-  'MANTENIMIENTO': 'Manto',
-  'NO ARRENDABLE': 'No arrendable',
-  'EN TALLER': 'En taller',
-  'TRASLADO': 'Traslado',
+  'ESTACIONADO': 'Estacionado',
+  'RESERVADO': 'Reservado',
+  'INCIDENCIA': 'Incidencia',
+  'POR SALIR': 'Por salir',
+  'BLOQUEADO': 'Bloqueado',
 };
-const SIM_USERS = ['Ana · Admin', 'Luis · Patio', 'Marta · Taller', 'Diego · Supervisor'];
-const DEMO_UNITS = [
-  { id: 'A1842', slot: 'L-3', status: 'LISTO', fuel: '3/4', place: 'Patio', model: 'Nissan Versa 2024', plates: 'GTO-1842', notes: 'Lista para salida mostrador', color: 'green' },
-  { id: 'B7310', slot: 'L-4', status: 'SUCIO', fuel: '1/2', place: 'Patio', model: 'Chevrolet Aveo 2023', plates: 'GTO-7310', notes: 'Pendiente lavado interior', color: 'yellow' },
-  { id: 'C5209', slot: 'L-5', status: 'MANTENIMIENTO', fuel: '1/4', place: 'Patio', model: 'Kia Rio 2022', plates: 'GTO-5209', notes: 'Revisar testigo de motor', color: 'red' },
-  { id: 'D8841', slot: 'S4-5', status: 'TRASLADO', fuel: 'F', place: 'Patio', model: 'Nissan Kicks 2024', plates: 'GTO-8841', notes: 'Traslado programado a aeropuerto', color: 'purple' },
-  { id: 'E4112', slot: 'S3-5', status: 'LISTO', fuel: 'F', place: 'Patio', model: 'Toyota Corolla 2024', plates: 'GTO-4112', notes: 'Unidad premium lista', color: 'green' },
-  { id: 'G9024', slot: 'TLLRS-1', status: 'EN TALLER', fuel: '1/2', place: 'Taller', model: 'VW Jetta 2023', plates: 'GTO-9024', notes: 'Cambio de balatas', color: 'orange' },
-  { id: 'H3377', slot: 'OFICINA-1', status: 'NO ARRENDABLE', fuel: 'N/A', place: 'Oficina', model: 'Hyundai i10 2022', plates: 'GTO-3377', notes: 'Documentación pendiente', color: 'blue' },
+const INITIAL_UNITS = [
+  { id: 'T-1001', slot: 'L-1', status: 'ESTACIONADO', fuel: 'CLIENTE', place: 'Largo plazo', model: 'Nissan Versa · Juan Perez', plates: 'ABC-123-A', notes: 'Entrada 08:15 · ticket físico 1001', color: 'green' },
+  { id: 'T-1002', slot: 'L-2', status: 'RESERVADO', fuel: 'VIP', place: 'Largo plazo', model: 'Toyota Corolla · Cliente VIP', plates: 'DEF-456-B', notes: 'Reservado hasta 18:00', color: 'yellow' },
+  { id: 'T-1003', slot: 'B-1', status: 'INCIDENCIA', fuel: 'VISITA', place: 'Servicio', model: 'Kia Rio · Sin cliente asignado', plates: 'GHI-789-C', notes: 'Placas no coinciden con ticket', color: 'red' },
 ];
 let currentScale = 1;
 let toastTimer = 0;
@@ -1635,7 +1658,6 @@ let selectedUnitId = '';
 let editorMode = 'edit';
 let draggingUnitId = '';
 let state = null;
-let simulationTimer = 0;
 const filterState = {
   query: '',
   status: 'TODOS',
@@ -1654,11 +1676,11 @@ function slotNode(slotId) {
 }
 
 function placeForSlot(slotId) {
-  if (slotId.startsWith('TLLRS')) return 'Taller';
-  if (slotId.startsWith('B-')) return 'Bano';
-  if (slotId.startsWith('L')) return 'Limbo';
-  if (slotId.startsWith('OFICINA')) return 'Oficina';
-  return 'Patio';
+  if (slotId.startsWith('TLLRS')) return 'Bloqueados';
+  if (slotId.startsWith('B-')) return 'Servicio';
+  if (slotId.startsWith('L')) return 'Largo plazo';
+  if (slotId.startsWith('OFICINA')) return 'Check-in';
+  return 'General';
 }
 
 function layerForSlot(slotId) {
@@ -1669,16 +1691,8 @@ function layerForSlot(slotId) {
   return 'patio';
 }
 
-function fuelFill(fuel) {
-  return {
-    'F': '100%',
-    '3/4': '75%',
-    '1/2': '50%',
-    '1/4': '25%',
-    'E': '0%',
-    'N/A': '0%',
-    '': '0%',
-  }[fuel] || '0%';
+function fuelFill() {
+  return '0%';
 }
 
 function nowLabel() {
@@ -1693,43 +1707,18 @@ function nowLabel() {
 
 function captureInitialState() {
   const units = {};
-  document.querySelectorAll('.unit').forEach((button) => {
-    const slot = button.closest('.slot');
-    const slotId = getSlotId(slot);
-    if (!slotId || !button.dataset.id) return;
-    const unitId = button.dataset.id.trim().toUpperCase();
-    const color = ['blue', 'green', 'gray', 'yellow', 'red', 'orange', 'purple'].find((name) => button.classList.contains(name)) || '';
-    units[unitId] = {
-      id: unitId,
-      slot: slotId,
-      status: button.dataset.status || 'NO ARRENDABLE',
-      fuel: button.dataset.fuel || 'N/A',
-      place: button.dataset.place || placeForSlot(slotId),
-      model: button.dataset.model || '',
-      plates: button.dataset.plates || '',
-      notes: '',
-      color,
-      savedAt: '19/4/2026, 5:51 p.m.',
-    };
-  });
-  DEMO_UNITS.forEach((unit) => {
-    if (!units[unit.id] && slotIds.includes(unit.slot)) {
-      units[unit.id] = { ...unit, savedAt: nowLabel() };
-    }
+  INITIAL_UNITS.forEach((unit) => {
+    if (slotIds.includes(unit.slot)) units[unit.id] = { ...unit, savedAt: nowLabel() };
   });
   return {
-    version: 3,
+    version: 1,
     units,
     history: [
-      { action: 'Carga inicial', detail: 'Sandbox BJX con autos ficticios y actividad simulada', actor: 'Sistema', at: nowLabel() },
-      { action: 'Aprobación', detail: 'Ana aprobó acceso para operador de patio', actor: 'Ana · Admin', at: nowLabel() },
-      { action: 'Movimiento remoto', detail: 'Luis movió A1842 de preparación a patio', actor: 'Luis · Patio', at: nowLabel() },
+      { action: 'Configuración inicial', detail: 'Sistema para estacionamientos listo para registrar autos reales', actor: 'Sistema', at: nowLabel() },
     ],
     activity: [
-      { title: 'Autos ficticios cargados', detail: `${DEMO_UNITS.length} unidades demo agregadas`, actor: 'Sistema', at: nowLabel() },
-      { title: 'Simulación activa', detail: 'Otros usuarios moverán unidades automáticamente', actor: 'Sistema', at: nowLabel() },
+      { title: 'Modo real activado', detail: 'Sin generacion automatica ni movimientos automaticos', actor: 'Sistema', at: nowLabel() },
     ],
-    simulationPaused: false,
   };
 }
 
@@ -1738,7 +1727,7 @@ function loadState() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return captureInitialState();
     const parsed = JSON.parse(raw);
-    if (!parsed || parsed.version !== 3 || !parsed.units) return captureInitialState();
+    if (!parsed || parsed.version !== 1 || !parsed.units) return captureInitialState();
     return normalizeState(parsed);
   } catch {
     return captureInitialState();
@@ -1748,27 +1737,25 @@ function loadState() {
 function normalizeState(candidate) {
   const fresh = captureInitialState();
   return {
-    version: 3,
+    version: 1,
     units: { ...fresh.units, ...candidate.units },
     history: Array.isArray(candidate.history) && candidate.history.length ? candidate.history : fresh.history,
     activity: Array.isArray(candidate.activity) && candidate.activity.length ? candidate.activity : fresh.activity,
-    simulationPaused: Boolean(candidate.simulationPaused),
   };
 }
 
 function persistState(showMessage = false) {
   const payload = {
-    version: 3,
+    version: 1,
     units: state.units,
     history: state.history.slice(0, 80),
     activity: (state.activity || []).slice(0, 50),
-    simulationPaused: Boolean(state.simulationPaused),
   };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-  if (showMessage) showToast('Cambios guardados en este sandbox');
+  if (showMessage) showToast('Cambios guardados en este estacionamiento');
 }
 
-function saveSandbox() {
+function saveParking() {
   Object.values(state.units).forEach((unit) => {
     unit.savedAt = nowLabel();
   });
@@ -1777,7 +1764,7 @@ function saveSandbox() {
   renderAll();
 }
 
-function resetSandbox() {
+function resetParking() {
   localStorage.removeItem(STORAGE_KEY);
   state = captureInitialState();
   selectedUnitId = '';
@@ -1785,7 +1772,7 @@ function resetSandbox() {
   closeUnit();
   renderAll();
   persistState();
-  showToast('Sandbox restaurado');
+  showToast('Estacionamiento restaurado');
 }
 
 function statusClass(unit) {
@@ -1934,8 +1921,8 @@ function openEditor(unit) {
   document.getElementById('unitTitle').textContent = unit.id || 'Nuevo';
   document.getElementById('unitMva').value = unit.id || '';
   document.getElementById('unitSlotField').value = unit.slot || firstEmptySlot();
-  document.getElementById('unitStatusField').value = unit.status || 'LISTO';
-  document.getElementById('unitFuelField').value = unit.fuel || 'F';
+  document.getElementById('unitStatusField').value = unit.status || 'ESTACIONADO';
+  document.getElementById('unitFuelField').value = unit.fuel || 'CLIENTE';
   document.getElementById('unitPlaceField').value = unit.place || placeForSlot(unit.slot || firstEmptySlot());
   document.getElementById('unitPlatesField').value = unit.plates || '';
   document.getElementById('unitModelField').value = unit.model || '';
@@ -1962,10 +1949,10 @@ function openAdd(preferredSlot = '') {
   openEditor({
     id: nextMva(),
     slot,
-    status: 'LISTO',
-    fuel: 'F',
+    status: 'ESTACIONADO',
+    fuel: 'CLIENTE',
     place: placeForSlot(slot),
-    model: 'Demo 2026',
+    model: 'Auto / cliente',
     plates: '',
     notes: '',
     savedAt: 'Sin guardar',
@@ -1974,8 +1961,8 @@ function openAdd(preferredSlot = '') {
 
 function nextMva() {
   let index = 1;
-  while (state.units[`DEMO${String(index).padStart(2, '0')}`]) index++;
-  return `DEMO${String(index).padStart(2, '0')}`;
+  while (state.units[`T-${String(index).padStart(4, '0')}`]) index++;
+  return `T-${String(index).padStart(4, '0')}`;
 }
 
 function readEditorUnit() {
@@ -1998,18 +1985,18 @@ function readEditorUnit() {
 function saveEditor() {
   const unit = readEditorUnit();
   if (!unit.id) {
-    showToast('MVA requerido');
+    showToast('ID o ticket requerido');
     return;
   }
 
   const oldId = selectedUnitId;
   const existingById = state.units[unit.id];
   if (editorMode === 'add' && existingById) {
-    showToast('Ese MVA ya existe');
+    showToast('Ese ID ya existe');
     return;
   }
   if (editorMode === 'edit' && existingById && unit.id !== oldId) {
-    showToast('Ese MVA ya existe');
+    showToast('Ese ID ya existe');
     return;
   }
 
@@ -2046,13 +2033,13 @@ function deleteSelected() {
   closeUnit();
   persistState();
   renderAll();
-  showToast('Unidad eliminada');
+  showToast('Auto eliminado');
 }
 
 function duplicateSelected() {
   const source = selectedUnitId ? state.units[selectedUnitId] : null;
   if (!source) {
-    showToast('Selecciona una unidad');
+    showToast('Selecciona un auto');
     return;
   }
   const slot = firstEmptySlot();
@@ -2091,7 +2078,7 @@ function moveUnit(unitId, targetSlot) {
   unit.slot = targetSlot;
   unit.place = placeForSlot(targetSlot);
   if (targetSlot.startsWith('TLLRS')) {
-    unit.status = 'EN TALLER';
+    unit.status = 'BLOQUEADO';
     unit.color = STATUS_STYLE[unit.status];
   }
   unit.savedAt = nowLabel();
@@ -2148,16 +2135,15 @@ function renderHistory() {
   const items = state.history || [];
   historyList.innerHTML = items.length
     ? items.slice(0, 24).map((item) => `<div class="history-item">${item.action}<span>${item.detail} · ${item.actor || 'Sistema'} · ${item.at}</span></div>`).join('')
-    : '<div class="history-item">Sin movimientos<span>Los cambios del sandbox apareceran aqui.</span></div>';
+    : '<div class="history-item">Sin movimientos<span>Los cambios reales del estacionamiento apareceran aqui.</span></div>';
 }
 
 function renderActivity() {
   const items = state.activity || [];
   activityList.innerHTML = items.length
     ? items.slice(0, 8).map((item) => `<div class="activity-item">${item.title}<span>${item.detail} · ${item.actor || 'Sistema'}</span></div>`).join('')
-    : '<div class="activity-item">Sin actividad<span>La simulación aparecerá aquí.</span></div>';
-  document.getElementById('simToggle').textContent = state.simulationPaused ? 'Reanudar vivo' : 'Pausar vivo';
-  document.getElementById('simStatus').textContent = state.simulationPaused ? 'Pausado' : 'Simulado';
+    : '<div class="activity-item">Sin actividad<span>Los movimientos manuales aparecerán aquí.</span></div>';
+  document.getElementById('simStatus').textContent = 'Real';
 }
 
 function renderInventory() {
@@ -2166,7 +2152,7 @@ function renderInventory() {
     ? units.map((unit) => `
       <button class="inventory-row" type="button" onclick="focusInventoryUnit('${unit.id}')">
         <strong>${unit.id}</strong>
-        <span>${unit.model || 'Modelo demo'}</span>
+        <span>${unit.model || 'Auto / cliente'}</span>
         <span>${STATUS_LABEL[unit.status] || unit.status}</span>
         <span>${unit.slot}</span>
       </button>
@@ -2189,14 +2175,14 @@ function focusInventoryUnit(unitId) {
 
 function exportCsv() {
   const rows = [
-    ['MVA', 'Estado', 'Cajon', 'Ubicacion', 'Gasolina', 'Placas', 'Modelo', 'Notas'],
+    ['ID / Ticket', 'Estado', 'Cajon', 'Zona', 'Tipo', 'Placas', 'Auto / Cliente', 'Notas'],
     ...visibleUnits().map((unit) => [unit.id, unit.status, unit.slot, unit.place, unit.fuel, unit.plates, unit.model, unit.notes]),
   ];
   const csv = rows.map((row) => row.map((value) => `"${String(value || '').replace(/"/g, '""')}"`).join(',')).join('\n');
   const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
   const link = document.createElement('a');
   link.href = url;
-  link.download = `inventario-bjx-${new Date().toISOString().slice(0, 10)}.csv`;
+  link.download = `estacionamiento-${new Date().toISOString().slice(0, 10)}.csv`;
   link.click();
   URL.revokeObjectURL(url);
   addHistory('Exportacion', `${visibleUnits().length} unidades exportadas a CSV`);
@@ -2211,15 +2197,15 @@ function toggleHistory() {
 function updateSummary() {
   const units = Object.values(state.units);
   const total = units.length;
-  const listo = units.filter((unit) => unit.status === 'LISTO').length;
-  const sucio = units.filter((unit) => unit.status === 'SUCIO').length;
-  const manto = units.filter((unit) => unit.status === 'MANTENIMIENTO').length;
-  const taller = units.filter((unit) => unit.status === 'EN TALLER' || unit.slot.startsWith('TLLRS')).length;
+  const listo = units.filter((unit) => unit.status === 'ESTACIONADO').length;
+  const sucio = units.filter((unit) => unit.status === 'RESERVADO').length;
+  const manto = units.filter((unit) => unit.status === 'INCIDENCIA').length;
+  const taller = units.filter((unit) => unit.status === 'BLOQUEADO' || unit.slot.startsWith('TLLRS')).length;
   const patio = total - taller;
-  const noRent = units.filter((unit) => unit.status === 'NO ARRENDABLE').length;
-  const alerts = units.filter((unit) => ['MANTENIMIENTO', 'EN TALLER', 'NO ARRENDABLE'].includes(unit.status)).length;
+  const noRent = units.filter((unit) => unit.status === 'INCIDENCIA').length;
+  const alerts = units.filter((unit) => ['INCIDENCIA', 'BLOQUEADO'].includes(unit.status)).length;
   const occupied = Math.round((total / slotIds.length) * 100);
-  const lastMovement = (state.history || []).find((item) => /movimiento|swap|remoto/i.test(item.action || ''));
+  const lastMovement = (state.history || []).find((item) => /movimiento|swap|manual/i.test(item.action || ''));
 
   document.getElementById('metricTotal').textContent = total;
   document.getElementById('metricListo').textContent = listo;
@@ -2233,11 +2219,11 @@ function updateSummary() {
   document.getElementById('miniManto').textContent = manto;
   document.getElementById('summaryTotal').textContent = total;
   document.getElementById('summaryPatio').textContent = patio;
-  document.getElementById('summaryFuera').textContent = 0;
+  document.getElementById('summaryFuera').textContent = Math.max(0, slotIds.length - total);
   document.getElementById('summaryNoRent').textContent = noRent;
   document.getElementById('summaryListo').textContent = listo;
   document.getElementById('summaryFooterTotal').textContent = patio;
-  document.getElementById('opsUsers').textContent = state.simulationPaused ? 1 : SIM_USERS.length + 1;
+  document.getElementById('opsUsers').textContent = total;
   document.getElementById('opsPending').textContent = Math.max(0, sucio + manto);
   document.getElementById('opsAlerts').textContent = alerts;
   document.getElementById('opsLastMove').textContent = lastMovement ? lastMovement.at.split(',').pop().trim() : '--';
@@ -2253,63 +2239,6 @@ function zoomMap(factor) {
   stage.style.transform = `scale(${currentScale})`;
   stage.style.width = `${1840 * currentScale}px`;
   stage.style.height = `${930 * currentScale}px`;
-}
-
-function randomFrom(items) {
-  return items[Math.floor(Math.random() * items.length)];
-}
-
-function emptySlots() {
-  const occupied = new Set(Object.values(state.units).map((unit) => unit.slot));
-  return slotIds.filter((slotId) => !occupied.has(slotId));
-}
-
-function toggleSimulation() {
-  state.simulationPaused = !state.simulationPaused;
-  addActivity(state.simulationPaused ? 'Simulación pausada' : 'Simulación reanudada', 'El flujo en vivo es completamente ficticio', 'Sistema');
-  persistState();
-  renderAll();
-  showToast(state.simulationPaused ? 'Tiempo real pausado' : 'Tiempo real simulado activo');
-}
-
-function simulateRealtimeMove() {
-  if (!state || state.simulationPaused || document.hidden) return;
-  const units = Object.values(state.units).filter((unit) => unit.id !== selectedUnitId);
-  if (!units.length) return;
-  const actor = randomFrom(SIM_USERS);
-  const unit = randomFrom(units);
-  const actionType = Math.random();
-
-  if (actionType < .58) {
-    const targets = emptySlots().filter((slotId) => !slotId.startsWith('B-') && slotId !== unit.slot);
-    if (!targets.length) return;
-    const originSlot = unit.slot;
-    const targetSlot = randomFrom(targets);
-    unit.slot = targetSlot;
-    unit.place = placeForSlot(targetSlot);
-    if (targetSlot.startsWith('TLLRS')) {
-      unit.status = 'EN TALLER';
-      unit.color = STATUS_STYLE[unit.status];
-    }
-    unit.savedAt = nowLabel();
-    addHistory('Movimiento remoto', `${unit.id} ${originSlot} -> ${targetSlot}`, actor);
-    showToast(`${actor} movió ${unit.id}`);
-  } else if (actionType < .84) {
-    const nextStatus = randomFrom(['LISTO', 'SUCIO', 'MANTENIMIENTO', 'NO ARRENDABLE', 'TRASLADO']);
-    const oldStatus = unit.status;
-    unit.status = nextStatus;
-    unit.color = STATUS_STYLE[nextStatus] || unit.color;
-    unit.savedAt = nowLabel();
-    addHistory('Cambio remoto', `${unit.id} ${STATUS_LABEL[oldStatus] || oldStatus} -> ${STATUS_LABEL[nextStatus] || nextStatus}`, actor);
-    showToast(`${actor} actualizó ${unit.id}`);
-  } else {
-    const request = randomFrom(['acceso operador patio', 'permiso taller', 'alta usuario temporal', 'bloqueo preventivo']);
-    addHistory('Aprobación remota', `${request} revisado para BJX`, actor);
-    showToast(`${actor} revisó una solicitud`);
-  }
-
-  persistState();
-  renderAll();
 }
 
 function openSummary() {
@@ -2337,7 +2266,7 @@ document.addEventListener('keydown', (event) => {
   }
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') {
     event.preventDefault();
-    saveSandbox();
+    saveParking();
   }
   if (!event.ctrlKey && !event.metaKey && event.key.toLowerCase() === 'n') {
     const target = event.target;
@@ -2359,7 +2288,6 @@ bindSlotInteractions();
 renderAll();
 persistState();
 viewport.scrollTo({ left: 0, top: 0 });
-simulationTimer = setInterval(simulateRealtimeMove, 5200);
 </script>
 </body>
 </html>
