@@ -509,8 +509,8 @@ textarea {
   left: 330px;
   top: 96px;
   z-index: 70;
-  width: 520px;
-  max-width: calc(100vw - 660px);
+  width: min(960px, calc(100vw - 420px));
+  max-width: calc(100vw - 380px);
   max-height: calc(100vh - 180px);
   border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, .12);
@@ -585,6 +585,71 @@ textarea {
   color: var(--muted);
   font-size: 10px;
   font-weight: 900;
+}
+
+.excel-table-wrap {
+  overflow: auto;
+  max-height: calc(100vh - 260px);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.excel-table {
+  width: 100%;
+  min-width: 980px;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, .035);
+}
+
+.excel-table th,
+.excel-table td {
+  border: 1px solid rgba(255, 255, 255, .08);
+  padding: 10px 11px;
+  text-align: left;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.excel-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #18244d;
+  color: #dbe7ff;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.excel-table td {
+  color: rgba(245, 247, 255, .86);
+}
+
+.excel-table td button {
+  min-height: 28px;
+  border-radius: 999px;
+  padding: 0 10px;
+  background: rgba(0, 212, 137, .14);
+  color: #7affc5;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.ticket-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.ticket-actions button {
+  min-height: 34px;
+  border-radius: 10px;
+  background: rgba(47, 177, 255, .14);
+  color: #9fdaff;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-transform: uppercase;
 }
 
 .yard-wrap {
@@ -1727,8 +1792,12 @@ textarea {
     <div class="popover-body">
       <div class="field-grid">
         <div class="field">
-          <label for="unitMva">ID / Ticket</label>
+          <label for="unitMva">ID interno</label>
           <input id="unitMva" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="unitTicketField">Ticket estacionamiento</label>
+          <input id="unitTicketField" autocomplete="off" placeholder="Ej. PARK-0001" />
         </div>
         <div class="field">
           <label for="unitSlotField">Cajon</label>
@@ -1771,6 +1840,11 @@ textarea {
           <label for="unitNotesField">Notas</label>
           <textarea id="unitNotesField"></textarea>
         </div>
+      </div>
+      <div class="ticket-actions">
+        <button type="button" onclick="generateTicketForEditor()">Generar ticket</button>
+        <button type="button" onclick="attachTicketFromScan()">Escanear / adjuntar</button>
+        <button type="button" onclick="printCurrentTicket()">Imprimir ticket</button>
       </div>
       <div class="info-row"><span>Modo</span><strong>Registro real del estacionamiento</strong></div>
       <div class="info-row"><span>Ultimo guardado</span><strong id="unitSavedAt">Sin guardar</strong></div>
@@ -1829,17 +1903,17 @@ textarea {
     <section class="tool-card">
       <div class="tool-title">Datos</div>
       <div class="tool-actions">
-        <button class="tool-link" type="button" onclick="toggleInventory()">Inventario</button>
-        <button class="tool-link" type="button" onclick="exportCsv()">Export CSV</button>
+        <button class="tool-link" type="button" onclick="toggleInventory()">Tabla Excel</button>
+        <button class="tool-link" type="button" onclick="exportExcel()">Exportar Excel</button>
         <button class="tool-link" type="button" onclick="clearMapFilters()">Limpiar</button>
         <button class="tool-link" type="button" onclick="openSummary()">Resumen</button>
       </div>
     </section>
   </aside>
 
-  <aside class="inventory-drawer" id="inventoryDrawer" aria-label="Inventario de unidades">
+  <aside class="inventory-drawer" id="inventoryDrawer" aria-label="Tabla tipo Excel de unidades">
     <div class="inventory-head">
-      <span>Autos visibles</span>
+      <span>Tabla de unidades</span>
       <button class="icon-button" type="button" onclick="toggleInventory()" aria-label="Cerrar inventario">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <path d="M3 3l8 8M11 3l-8 8" />
@@ -1961,10 +2035,10 @@ textarea {
     <button type="button" onclick="openAdd()">+ Nuevo</button>
     <button type="button" onclick="saveParking()">Guardar</button>
     <button type="button" onclick="toggleHistory()">Movimientos</button>
-    <button type="button" onclick="toggleInventory()">Inventario</button>
+    <button type="button" onclick="toggleInventory()">Tabla</button>
     <button type="button" onclick="toggleSidePanels()">Paneles</button>
     <button type="button" onclick="toggleMapEditor()">Editor mapa</button>
-    <button type="button" onclick="exportCsv()">CSV</button>
+    <button type="button" onclick="exportExcel()">Excel</button>
     <button type="button" onclick="resetParking()">Reset</button>
   </div>
 
@@ -2007,9 +2081,9 @@ const STATUS_LABEL = {
   'BLOQUEADO': 'Bloqueado',
 };
 const INITIAL_UNITS = [
-  { id: 'T-1001', slot: 'L-1', status: 'ESTACIONADO', fuel: 'CLIENTE', place: 'Largo plazo', model: 'Nissan Versa · Juan Perez', plates: 'ABC-123-A', notes: 'Entrada 08:15 · ticket físico 1001', color: 'green' },
-  { id: 'T-1002', slot: 'L-2', status: 'RESERVADO', fuel: 'VIP', place: 'Largo plazo', model: 'Toyota Corolla · Cliente VIP', plates: 'DEF-456-B', notes: 'Reservado hasta 18:00', color: 'yellow' },
-  { id: 'T-1003', slot: 'B-1', status: 'INCIDENCIA', fuel: 'VISITA', place: 'Servicio', model: 'Kia Rio · Sin cliente asignado', plates: 'GHI-789-C', notes: 'Placas no coinciden con ticket', color: 'red' },
+  { id: 'AUTO-1001', ticket: 'PARK-1001', slot: 'L-1', status: 'ESTACIONADO', fuel: 'CLIENTE', place: 'Largo plazo', model: 'Nissan Versa · Juan Perez', plates: 'ABC-123-A', notes: 'Entrada 08:15 · ticket fisico 1001', color: 'green' },
+  { id: 'AUTO-1002', ticket: 'PARK-1002', slot: 'L-2', status: 'RESERVADO', fuel: 'VIP', place: 'Largo plazo', model: 'Toyota Corolla · Cliente VIP', plates: 'DEF-456-B', notes: 'Reservado hasta 18:00', color: 'yellow' },
+  { id: 'AUTO-1003', ticket: 'PARK-1003', slot: 'B-1', status: 'INCIDENCIA', fuel: 'VISITA', place: 'Servicio', model: 'Kia Rio · Sin cliente asignado', plates: 'GHI-789-C', notes: 'Placas no coinciden con ticket', color: 'red' },
 ];
 let currentScale = 1;
 let toastTimer = 0;
@@ -2205,11 +2279,22 @@ function loadState() {
 
 function normalizeState(candidate) {
   const fresh = captureInitialState();
+  const units = { ...fresh.units, ...candidate.units };
+  Object.keys(units).forEach((id) => {
+    units[id] = normalizeUnitRecord(units[id]);
+  });
   return {
     version: 1,
-    units: { ...fresh.units, ...candidate.units },
+    units,
     history: Array.isArray(candidate.history) && candidate.history.length ? candidate.history : fresh.history,
     activity: Array.isArray(candidate.activity) && candidate.activity.length ? candidate.activity : fresh.activity,
+  };
+}
+
+function normalizeUnitRecord(unit) {
+  return {
+    ...unit,
+    ticket: unit.ticket || (String(unit.id || '').startsWith('T-') ? unit.id : ''),
   };
 }
 
@@ -2299,8 +2384,10 @@ function createUnitElement(unit) {
   button.dataset.status = unit.status;
   button.dataset.place = unit.place || placeForSlot(unit.slot);
   button.dataset.fuel = unit.fuel || 'N/A';
-  button.style.fontSize = unit.id.length > 7 ? '14px' : '';
-  button.textContent = unit.id;
+  button.dataset.ticket = unit.ticket || '';
+  const displayCode = unit.ticket || unit.id;
+  button.style.fontSize = displayCode.length > 7 ? '14px' : '';
+  button.textContent = displayCode;
   if (unit.id === selectedUnitId) button.classList.add('selected');
 
   if (unit.fuel && unit.fuel !== 'N/A') {
@@ -2369,7 +2456,7 @@ function unitMatchesFilters(unit) {
   const layer = layerForSlot(unit.slot || '');
   const statusOk = filterState.status === 'TODOS' || unit.status === filterState.status;
   const layerOk = filterState.layers.has(layer);
-  const searchText = [unit.id, unit.slot, unit.status, unit.place, unit.fuel, unit.plates, unit.model, unit.notes]
+  const searchText = [unit.id, unit.ticket, unit.slot, unit.status, unit.place, unit.fuel, unit.plates, unit.model, unit.notes]
     .join(' ')
     .toUpperCase();
   const queryOk = !query || searchText.includes(query);
@@ -2438,6 +2525,7 @@ function openEditor(unit) {
   document.getElementById('editorMode').textContent = editorMode === 'add' ? 'Nuevo vehiculo' : `${unit.place || placeForSlot(unit.slot)} · ${unit.slot}`;
   document.getElementById('unitTitle').textContent = unit.id || 'Nuevo';
   document.getElementById('unitMva').value = unit.id || '';
+  document.getElementById('unitTicketField').value = unit.ticket || '';
   document.getElementById('unitSlotField').value = unit.slot || firstEmptySlot();
   document.getElementById('unitStatusField').value = unit.status || 'ESTACIONADO';
   document.getElementById('unitFuelField').value = unit.fuel || 'CLIENTE';
@@ -2474,6 +2562,7 @@ function openAdd(preferredSlot = '') {
   const slot = preferredSlot || firstEmptySlot();
   openEditor({
     id: nextMva(),
+    ticket: nextTicket(),
     slot,
     status: 'ESTACIONADO',
     fuel: 'CLIENTE',
@@ -2487,15 +2576,24 @@ function openAdd(preferredSlot = '') {
 
 function nextMva() {
   let index = 1;
-  while (state.units[`T-${String(index).padStart(4, '0')}`]) index++;
-  return `T-${String(index).padStart(4, '0')}`;
+  while (state.units[`AUTO-${String(index).padStart(4, '0')}`]) index++;
+  return `AUTO-${String(index).padStart(4, '0')}`;
+}
+
+function nextTicket() {
+  let index = Object.keys(state.units).length + 1;
+  const existingTickets = new Set(Object.values(state.units).map((unit) => unit.ticket).filter(Boolean));
+  while (existingTickets.has(`PARK-${String(index).padStart(4, '0')}`)) index++;
+  return `PARK-${String(index).padStart(4, '0')}`;
 }
 
 function readEditorUnit() {
   const id = document.getElementById('unitMva').value.trim().toUpperCase().replace(/\s+/g, '');
+  const ticket = document.getElementById('unitTicketField').value.trim().toUpperCase().replace(/\s+/g, '');
   const slot = document.getElementById('unitSlotField').value;
   return {
     id,
+    ticket,
     slot,
     status: document.getElementById('unitStatusField').value,
     fuel: document.getElementById('unitFuelField').value,
@@ -2508,6 +2606,72 @@ function readEditorUnit() {
   };
 }
 
+function generateTicketForEditor() {
+  document.getElementById('unitTicketField').value = nextTicket();
+  showToast('Ticket generado');
+}
+
+function attachTicketFromScan() {
+  const scanned = prompt('Escanea o escribe el ticket del estacionamiento');
+  if (!scanned) return;
+  document.getElementById('unitTicketField').value = scanned.trim().toUpperCase().replace(/\s+/g, '');
+  showToast('Ticket adjuntado');
+}
+
+function printCurrentTicket() {
+  const unit = readEditorUnit();
+  if (!unit.ticket) {
+    showToast('Primero genera o adjunta un ticket');
+    return;
+  }
+  printTicket(unit);
+}
+
+function printTicket(unit) {
+  const printable = window.open('', '_blank', 'width=420,height=620');
+  if (!printable) {
+    showToast('No se pudo abrir impresion');
+    return;
+  }
+  printable.document.write(`
+    <html><head><title>Ticket ${unit.ticket}</title>
+    <style>
+      body{font-family:Arial,sans-serif;margin:0;padding:24px;color:#111}
+      .ticket{border:2px dashed #111;border-radius:18px;padding:22px;text-align:center}
+      h1{font-size:28px;margin:0 0 8px}
+      .code{font-size:36px;font-weight:900;letter-spacing:.06em;margin:18px 0}
+      .meta{font-size:14px;text-align:left;line-height:1.7}
+      .qr{width:120px;height:120px;margin:20px auto;border:8px solid #111;display:grid;place-items:center;font-weight:900}
+    </style></head><body>
+      <div class="ticket">
+        <h1>MapGestion Parking</h1>
+        <div>Ticket de estacionamiento</div>
+        <div class="code">${escapeHtml(unit.ticket)}</div>
+        <div class="qr">${escapeHtml(unit.ticket.slice(-4) || 'PARK')}</div>
+        <div class="meta">
+          <strong>Cajon:</strong> ${escapeHtml(unit.slot || '--')}<br>
+          <strong>Placas:</strong> ${escapeHtml(unit.plates || '--')}<br>
+          <strong>Auto / Cliente:</strong> ${escapeHtml(unit.model || '--')}<br>
+          <strong>Fecha:</strong> ${escapeHtml(nowLabel())}
+        </div>
+      </div>
+      <script>window.print();<\/script>
+    </body></html>
+  `);
+  printable.document.close();
+  showToast('Ticket listo para imprimir');
+}
+
+function escapeHtml(value) {
+  return String(value || '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  }[char]));
+}
+
 function saveEditor() {
   const unit = readEditorUnit();
   if (!unit.id) {
@@ -2517,12 +2681,19 @@ function saveEditor() {
 
   const oldId = selectedUnitId;
   const existingById = state.units[unit.id];
+  const existingByTicket = unit.ticket
+    ? Object.values(state.units).find((candidate) => candidate.ticket === unit.ticket && candidate.id !== oldId)
+    : null;
   if (editorMode === 'add' && existingById) {
     showToast('Ese ID ya existe');
     return;
   }
   if (editorMode === 'edit' && existingById && unit.id !== oldId) {
     showToast('Ese ID ya existe');
+    return;
+  }
+  if (existingByTicket) {
+    showToast('Ese ticket ya esta adjunto a otro auto');
     return;
   }
 
@@ -2576,6 +2747,7 @@ function duplicateSelected() {
   const clone = {
     ...source,
     id: nextMva(),
+    ticket: nextTicket(),
     slot,
     place: placeForSlot(slot),
     savedAt: nowLabel(),
@@ -2851,14 +3023,40 @@ function renderActivity() {
 function renderInventory() {
   const units = visibleUnits().sort((a, b) => a.id.localeCompare(b.id));
   inventoryList.innerHTML = units.length
-    ? units.map((unit) => `
-      <button class="inventory-row" type="button" onclick="focusInventoryUnit('${unit.id}')">
-        <strong>${unit.id}</strong>
-        <span>${unit.model || 'Auto / cliente'}</span>
-        <span>${STATUS_LABEL[unit.status] || unit.status}</span>
-        <span>${unit.slot}</span>
-      </button>
-    `).join('')
+    ? `<div class="excel-table-wrap">
+      <table class="excel-table">
+        <thead>
+          <tr>
+            <th>Ticket</th>
+            <th>ID interno</th>
+            <th>Cajon</th>
+            <th>Estado</th>
+            <th>Placas</th>
+            <th>Auto / Cliente</th>
+            <th>Tipo</th>
+            <th>Zona</th>
+            <th>Notas</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${units.map((unit) => `
+            <tr>
+              <td>${escapeHtml(unit.ticket || 'Sin ticket')}</td>
+              <td>${escapeHtml(unit.id)}</td>
+              <td>${escapeHtml(unit.slot)}</td>
+              <td>${escapeHtml(STATUS_LABEL[unit.status] || unit.status)}</td>
+              <td>${escapeHtml(unit.plates || '--')}</td>
+              <td>${escapeHtml(unit.model || 'Auto / cliente')}</td>
+              <td>${escapeHtml(unit.fuel || '--')}</td>
+              <td>${escapeHtml(unit.place || placeForSlot(unit.slot))}</td>
+              <td>${escapeHtml(unit.notes || '--')}</td>
+              <td><button type="button" onclick="focusInventoryUnit('${escapeHtml(unit.id)}')">Ver mapa</button></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>`
     : '<div class="activity-item">Sin resultados<span>Ajusta búsqueda, estado o capas.</span></div>';
 }
 
@@ -2875,21 +3073,29 @@ function focusInventoryUnit(unitId) {
   selectUnit(unitId);
 }
 
-function exportCsv() {
-  const rows = [
-    ['ID / Ticket', 'Estado', 'Cajon', 'Zona', 'Tipo', 'Placas', 'Auto / Cliente', 'Notas'],
-    ...visibleUnits().map((unit) => [unit.id, unit.status, unit.slot, unit.place, unit.fuel, unit.plates, unit.model, unit.notes]),
-  ];
-  const csv = rows.map((row) => row.map((value) => `"${String(value || '').replace(/"/g, '""')}"`).join(',')).join('\n');
-  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+function exportExcel() {
+  const units = visibleUnits().sort((a, b) => a.id.localeCompare(b.id));
+  const headers = ['Ticket', 'ID interno', 'Estado', 'Cajon', 'Zona', 'Tipo', 'Placas', 'Auto / Cliente', 'Notas', 'Ultimo guardado'];
+  const rows = units.map((unit) => [unit.ticket, unit.id, unit.status, unit.slot, unit.place, unit.fuel, unit.plates, unit.model, unit.notes, unit.savedAt]);
+  const table = `
+    <html><head><meta charset="UTF-8"></head><body>
+    <table border="1">
+      <thead><tr>${headers.map((header) => `<th>${escapeHtml(header)}</th>`).join('')}</tr></thead>
+      <tbody>
+        ${rows.map((row) => `<tr>${row.map((value) => `<td>${escapeHtml(value || '')}</td>`).join('')}</tr>`).join('')}
+      </tbody>
+    </table>
+    </body></html>
+  `;
+  const url = URL.createObjectURL(new Blob([table], { type: 'application/vnd.ms-excel;charset=utf-8' }));
   const link = document.createElement('a');
   link.href = url;
-  link.download = `estacionamiento-${new Date().toISOString().slice(0, 10)}.csv`;
+  link.download = `estacionamiento-${new Date().toISOString().slice(0, 10)}.xls`;
   link.click();
   URL.revokeObjectURL(url);
-  addHistory('Exportacion', `${visibleUnits().length} unidades exportadas a CSV`);
+  addHistory('Exportacion Excel', `${units.length} unidades exportadas a Excel`);
   persistState();
-  showToast('CSV generado');
+  showToast('Excel generado');
 }
 
 function toggleHistory() {
