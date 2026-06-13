@@ -2,13 +2,14 @@
 <html class="light" lang="es"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Gestión de flota y mapa de patio | MapGestion México</title>
-<meta name="description" content="MapGestion es software de gestión de flota, mapa de estacionamiento, control de patios, unidades y arrendadoras. Administra flotas, plazas, incidencias y turnos en México."/>
+<title>Software de Gestión de Flotas y Control de Patios | MapGestion</title>
+<meta name="description" content="Optimiza el control de tus patios y flotas con MapGestion. Software integral para administrar unidades, plazas e incidencias. ¡Conoce más!"/>
 <meta name="keywords" content="gestión de flota, gestion de flota, gestión mapa, gestion mapa, mapa gestion, mapa gestión, mapa estacionamiento, gestión arrendadoras, gestion arrendadoras, software para flotillas, control de patio, mapa de patio, patios de maniobras, gestión de unidades, administración de flotillas, rastreo de unidades, logística de patio, control de estacionamiento, arrendadoras de autos, arrendadoras de camiones"/>
 <meta name="robots" content="index, follow, max-image-preview:large"/>
 <meta name="author" content="MapGestion"/>
 <meta name="theme-color" content="#131b2e"/>
 <link rel="canonical" href="https://mapgestion.com/"/>
+<link rel="preload" as="image" href="assets/screenshots/mapa-vivo.png"/>
 <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml"/>
 <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.svg"/>
 <meta property="og:type" content="website"/>
@@ -29,24 +30,37 @@
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "MapGestion",
+  "url": "https://mapgestion.com",
   "applicationCategory": "BusinessApplication",
-  "operatingSystem": "Web",
-  "url": "https://mapgestion.com/",
-  "description": "Software web para gestión de flota, mapa de patio, mapa de estacionamiento, control de unidades, arrendadoras, incidencias, turnos y reportes en operaciones logísticas.",
-  "keywords": "gestión de flota, gestión mapa, mapa gestión, mapa estacionamiento, gestión arrendadoras, control de patio, software para flotillas, mapa de patio, administración de unidades",
+  "operatingSystem": "Any",
+  "description": "Software de gestión de flota, mapa de estacionamiento, control de patios, unidades y arrendadoras.",
   "inLanguage": "es-MX",
   "areaServed": "MX",
+  "featureList": [
+    "Mapa de patio en tiempo real",
+    "Gestión de flota y unidades",
+    "Control de incidencias con evidencia",
+    "Roles y permisos por plaza",
+    "Bitácora y trazabilidad de movimientos",
+    "Exportación de reportes CSV/PDF",
+    "Cola de preparación y cuadre de turno",
+    "Acceso multi-plaza para operaciones regionales"
+  ],
   "publisher": {
     "@type": "Organization",
     "name": "MapGestion",
-    "url": "https://mapgestion.com/",
+    "url": "https://mapgestion.com",
     "email": "contacto@mapgestion.com",
-    "logo": "https://mapgestion.com/assets/brand/favicon.svg"
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mapgestion.com/assets/brand/favicon.svg"
+    }
   },
   "offers": [
     {
       "@type": "Offer",
       "name": "MapGestion Lite",
+      "description": "Para estacionamientos, pensiones y patios con movimiento esporádico.",
       "price": "990",
       "priceCurrency": "MXN",
       "availability": "https://schema.org/InStock"
@@ -54,6 +68,7 @@
     {
       "@type": "Offer",
       "name": "MapGestion Local",
+      "description": "Para una sucursal que necesita mapa en tiempo real y cierre de operación diaria.",
       "price": "1990",
       "priceCurrency": "MXN",
       "availability": "https://schema.org/InStock"
@@ -61,6 +76,7 @@
     {
       "@type": "Offer",
       "name": "MapGestion Regional",
+      "description": "Para empresas con 2 a 3 plazas que necesitan visibilidad directiva.",
       "price": "4490",
       "priceCurrency": "MXN",
       "availability": "https://schema.org/InStock"
@@ -68,15 +84,52 @@
     {
       "@type": "Offer",
       "name": "MapGestion Corporativo",
+      "description": "Para 4+ plazas, operación nacional, API REST e integraciones ERP/TMS.",
       "price": "9990",
       "priceCurrency": "MXN",
       "availability": "https://schema.org/InStock"
     }
   ]
 }
-
-
 </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "MapGestion",
+  "url": "https://mapgestion.com",
+  "description": "Software de Gestión de Flotas y Control de Patios para arrendadoras y logística en México.",
+  "inLanguage": "es-MX",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://mapgestion.com/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "MapGestion",
+  "url": "https://mapgestion.com",
+  "logo": "https://mapgestion.com/assets/brand/favicon.svg",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "contacto@mapgestion.com",
+    "contactType": "customer support",
+    "availableLanguage": "es"
+  },
+  "sameAs": []
+}
+</script>
+
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -764,15 +817,17 @@
     }
   }
 
-  /* MapGestion corporate map aesthetic */
+  /* ── MapGestion Brand Palette v2 ── */
   :root {
-    --mg-blue: #0b72d9;
-    --mg-blue-dark: #075cc4;
-    --mg-teal: #12b8b3;
-    --mg-navy: #07152e;
-    --mg-ink: #0a1633;
-    --mg-muted: #5d667a;
-    --mg-line: #dbe7f3;
+    --mg-blue:      #007BFF;   /* Azul Eléctrico Inteligente */
+    --mg-blue-dark: #0056b3;
+    --mg-teal:      #17A2B8;   /* Teal Operativo Vibrante */
+    --mg-orange:    #FF8C00;   /* Naranja Alerta */
+    --mg-navy:      #333333;   /* Gris Oscuro Corporativo */
+    --mg-ink:       #333333;
+    --mg-muted:     #6c757d;
+    --mg-line:      #dee2e6;
+    --mg-bg:        #FFFFFF;   /* Blanco Puro */
   }
   body {
     background: #ffffff;
@@ -797,8 +852,9 @@
   }
   nav .hidden.md\:flex a {
     position: relative;
-    color: #17213a !important;
+    color: rgba(220,229,245,0.75) !important;
     font-weight: 700;
+    text-decoration: none !important;
   }
   nav .hidden.md\:flex a:first-child {
     color: var(--mg-blue) !important;
@@ -1477,31 +1533,531 @@
   /* Compare cards: improve spacing */
   .compare-card { border-radius: 20px !important; }
 
+  /* ── Numbers / metrics strip ── */
+  .numbers-strip {
+    background: linear-gradient(180deg, #f4f9ff 0%, #ffffff 100%);
+    border-bottom: 1px solid rgba(11,114,217,0.08);
+  }
+  .number-item {
+    text-align: center;
+    padding: 36px 20px;
+    position: relative;
+  }
+  .number-item + .number-item::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 20%; bottom: 20%;
+    width: 1px;
+    background: rgba(11,114,217,0.10);
+  }
+  .number-item-val {
+    display: block;
+    font-size: clamp(38px, 5vw, 56px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--mg-navy);
+    font-feature-settings: "tnum";
+    margin-bottom: 6px;
+  }
+  .number-item-val .gradient-word {
+    font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+  }
+  .number-item-label {
+    font-size: 13px;
+    color: var(--mg-muted);
+    line-height: 1.4;
+  }
+  @media (max-width: 768px) {
+    .number-item + .number-item::before { display: none; }
+    .number-item { padding: 24px 10px; }
+  }
+
+  /* ── Mid-page CTA strip ── */
+  .cta-strip {
+    background: linear-gradient(135deg, #070f1e 0%, #0d2347 50%, #070f1e 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-strip::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 10% 50%, rgba(18,184,179,0.22), transparent 38%),
+      radial-gradient(ellipse at 90% 50%, rgba(11,114,217,0.22), transparent 38%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230b72d9' fill-opacity='0.035'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .cta-strip > .max-w-container-max { position: relative; z-index: 1; }
+
+  /* ── Urgency badge — angular, sin punto, con personalidad ── */
+  .urgency-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 18px;
+    background: rgba(0,123,255,0.10);
+    border: 1.5px solid rgba(0,123,255,0.35);
+    border-left: 3px solid #007BFF;
+    border-radius: 3px;
+    color: #6bb8ff;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .urgency-badge::before {
+    display: none;
+  }
+
+  /* ── Counter animation ── */
+  .counter-num {
+    display: inline-block;
+    min-width: 1ch;
+  }
+  .counter-num.counting {
+    animation: counterPop 0.12s ease-out;
+  }
+  @keyframes counterPop {
+    from { transform: translateY(6px); opacity: 0.6; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  /* ── Marquee for trust logos ── */
+  @keyframes marqueeScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .marquee-wrap {
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 16px;
+    width: max-content;
+    animation: marqueeScroll 28s linear infinite;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+  .marquee-card {
+    flex-shrink: 0;
+    min-width: 130px;
+    min-height: 72px;
+    border: 1px solid rgba(11,114,217,0.12);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.9);
+    box-shadow: 0 10px 28px rgba(27,68,128,0.06);
+    display: grid;
+    place-items: center;
+    color: #5d667a;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 14px;
+  }
+
+  /* ── Heading accent underline ── */
+  .heading-accent {
+    position: relative;
+    display: inline-block;
+  }
+  .heading-accent::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -4px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--mg-blue), var(--mg-teal));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s cubic-bezier(.2,.8,.2,1);
+  }
+  .is-visible .heading-accent::after { transform: scaleX(1); }
+
+  /* ── Pricing grid: mobile-first ── */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-bottom: 4px;
+  }
+  @media (min-width: 640px) {
+    .pricing-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .pricing-grid {
+      grid-template-columns: repeat(4, 1fr);
+      align-items: start;
+    }
+    .plan-card-local {
+      margin-top: -12px;
+    }
+  }
+
+  /* ── Mobile-first global improvements ── */
+  @media (max-width: 640px) {
+    /* Touch targets mínimos de 48px */
+    a, button, [role="button"] {
+      min-height: 44px;
+    }
+    /* Tipografía fluida en hero */
+    .hero-panel h1 {
+      font-size: clamp(28px, 9vw, 38px) !important;
+      line-height: 1.06 !important;
+      letter-spacing: -0.04em !important;
+    }
+    /* Section spacing comprimido */
+    section {
+      padding-top: 48px !important;
+      padding-bottom: 48px !important;
+    }
+    header.hero-panel {
+      padding-top: 52px !important;
+      padding-bottom: 40px !important;
+    }
+    /* Numbers strip: 2 cols */
+    #metricas .grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    #metricas .number-item + .number-item::before {
+      display: none;
+    }
+    .number-item-val {
+      font-size: 32px !important;
+    }
+    /* Antes/después: full width */
+    #antes-despues .grid {
+      grid-template-columns: 1fr !important;
+    }
+    /* CTA strip: stacked */
+    .cta-strip .flex-col.lg\:flex-row {
+      flex-direction: column !important;
+      text-align: center;
+    }
+    .cta-strip .lg\:text-left {
+      text-align: center !important;
+    }
+    /* Feature grid: 1 col */
+    #beneficios .grid {
+      grid-template-columns: 1fr !important;
+    }
+    /* Demo section */
+    #demo .grid {
+      grid-template-columns: 1fr !important;
+    }
+    /* Reviews */
+    #reviews .grid {
+      grid-template-columns: 1fr !important;
+    }
+    /* Trust section */
+    .compare-card, #contacto > div {
+      border-radius: 12px !important;
+    }
+  }
+
+  /* ── Sandbox mobile improvements ── */
+  @media (max-width: 640px) {
+    .sandbox-modal {
+      width: 100%;
+      height: 100dvh;
+      max-height: 100dvh;
+      border-radius: 0;
+    }
+    .sandbox-bar {
+      min-height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .modal-overlay {
+      padding: 0;
+      align-items: stretch;
+    }
+  }
+
+  /* ── WhatsApp CTA glow ── */
+  .wa-cta {
+    background: #25D366;
+    color: #ffffff;
+    box-shadow: 0 12px 28px rgba(37,211,102,0.28);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .wa-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px rgba(37,211,102,0.36);
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     DARK THEME — Toda la página: fondo navy + negro
+     Inspirado en el CTA strip: #070f1e → #0d2347
+     ═══════════════════════════════════════════════════════════ */
+
+  body {
+    background: #070d1b !important;
+    background-image:
+      radial-gradient(ellipse at 85% 5%, rgba(0,123,255,0.07) 0%, transparent 45%),
+      radial-gradient(ellipse at 15% 95%, rgba(23,162,184,0.05) 0%, transparent 40%) !important;
+    color: #dce5f5 !important;
+  }
+
+  nav {
+    background: rgba(7,13,27,0.97) !important;
+    border-bottom-color: rgba(255,255,255,0.07) !important;
+    box-shadow: 0 1px 32px rgba(0,0,0,0.5) !important;
+  }
+  nav .hidden.md\:flex a:hover {
+    color: var(--mg-blue) !important;
+    border-bottom-color: var(--mg-blue) !important;
+  }
+
+  header.hero-panel { background: transparent !important; }
+  .hero-panel h1 { color: #dce5f5 !important; }
+  .hero-panel p.text-on-surface-variant { color: rgba(220,229,245,0.6) !important; }
+  .hero-secondary-cta {
+    border-color: rgba(255,255,255,0.16) !important;
+    color: #dce5f5 !important;
+    background: rgba(255,255,255,0.04) !important;
+  }
+  .hero-secondary-cta:hover { background: rgba(255,255,255,0.08) !important; }
+  .stat-card {
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.09) !important;
+  }
+  .stat-card .text-on-surface-variant { color: rgba(220,229,245,0.5) !important; }
+
+  .numbers-strip {
+    background: rgba(255,255,255,0.025) !important;
+    border-color: rgba(255,255,255,0.07) !important;
+  }
+  .number-item-val { color: #dce5f5 !important; }
+  .number-item-label { color: rgba(220,229,245,0.5) !important; }
+
+  .marquee-wrap {
+    background: rgba(255,255,255,0.02) !important;
+    border-color: rgba(255,255,255,0.06) !important;
+  }
+  .marquee-card {
+    background: rgba(255,255,255,0.05) !important;
+    border-color: rgba(255,255,255,0.09) !important;
+    color: rgba(220,229,245,0.65) !important;
+  }
+
+  .services-strip {
+    background: rgba(255,255,255,0.02) !important;
+    border-color: rgba(255,255,255,0.06) !important;
+  }
+  .service-item {
+    background: rgba(255,255,255,0.04) !important;
+    border-color: rgba(255,255,255,0.08) !important;
+  }
+  .service-item h3 { color: #dce5f5 !important; }
+  .service-item p { color: rgba(220,229,245,0.5) !important; }
+
+  section { background: transparent !important; }
+  section.bg-surface-container-low,
+  section.bg-surface-container-lowest,
+  section[class*="bg-surface-container"] {
+    background: rgba(255,255,255,0.02) !important;
+    border-color: rgba(255,255,255,0.07) !important;
+  }
+
+  .text-on-background { color: #dce5f5 !important; }
+  .text-on-surface { color: #dce5f5 !important; }
+  .text-on-surface-variant { color: rgba(220,229,245,0.55) !important; }
+  #precios h2, section h2, section h3 { color: #dce5f5 !important; }
+  .eyebrow {
+    color: #6bb8ff !important;
+    border-color: rgba(0,123,255,0.3) !important;
+    background: rgba(0,123,255,0.08) !important;
+  }
+
+  .feature-card {
+    background: rgba(255,255,255,0.05) !important;
+    border-color: rgba(255,255,255,0.09) !important;
+  }
+  .feature-card h3 { color: #dce5f5 !important; }
+  .feature-card p { color: rgba(220,229,245,0.5) !important; }
+  .feature-icon {
+    background: rgba(0,123,255,0.12) !important;
+    border-color: rgba(0,123,255,0.18) !important;
+    color: var(--mg-blue) !important;
+  }
+
+  .bg-surface-container-lowest {
+    background: rgba(255,255,255,0.04) !important;
+    border-color: rgba(255,255,255,0.09) !important;
+  }
+  .bg-surface-container-lowest h3 { color: #dce5f5 !important; }
+  .bg-surface-container-lowest p { color: rgba(220,229,245,0.5) !important; }
+
+  .company-logo-card {
+    background: rgba(255,255,255,0.05) !important;
+    border-color: rgba(255,255,255,0.09) !important;
+    color: rgba(220,229,245,0.45) !important;
+  }
+
+  #faq details {
+    background: rgba(255,255,255,0.04) !important;
+    border-color: rgba(255,255,255,0.09) !important;
+  }
+  #faq details summary { color: #dce5f5 !important; }
+  #faq details summary:hover { background: rgba(255,255,255,0.05) !important; }
+  #faq details[open] {
+    background: rgba(0,123,255,0.07) !important;
+    border-color: rgba(0,123,255,0.25) !important;
+  }
+  #faq details[open] summary {
+    background: rgba(0,123,255,0.07) !important;
+    color: #6bb8ff !important;
+  }
+
+  #pantallas article { background: rgba(255,255,255,0.04) !important; }
+  .compare-card {
+    background: rgba(255,255,255,0.05) !important;
+    border-color: rgba(255,255,255,0.09) !important;
+  }
+
+  /* Pricing — fix Local & Corp backgrounds */
+  #precios article.plan-card-local {
+    background: #007BFF !important;
+    border-color: #1a8cff !important;
+    box-shadow: 0 20px 52px rgba(0,123,255,0.30) !important;
+  }
+  #precios article.plan-card-local::before { content: none !important; }
+  #precios article.plan-card-corp {
+    background: #141c2f !important;
+    border-color: rgba(255,255,255,0.15) !important;
+    box-shadow: 0 20px 52px rgba(0,0,0,0.35) !important;
+  }
+  #precios article.plan-card-lite {
+    background: rgba(255,255,255,0.07) !important;
+    border-color: rgba(255,255,255,0.13) !important;
+    box-shadow: none !important;
+  }
+  #precios article.plan-card-regional {
+    background: rgba(23,162,184,0.07) !important;
+    border-color: rgba(23,162,184,0.40) !important;
+  }
+  /* Fix dark text inside light-bg plan cards (Lite & Regional) */
+  #precios article.plan-card-lite span[style*="color:#333333"],
+  #precios article.plan-card-lite strong[style*="color:#333333"],
+  #precios article.plan-card-lite p[style*="color:#555555"] {
+    color: #dce5f5 !important;
+  }
+  #precios article.plan-card-lite span[style*="color:#6c757d"],
+  #precios article.plan-card-lite span[style*="color:#9aa2b0"],
+  #precios article.plan-card-lite p[style*="color:#6c757d"] {
+    color: rgba(220,229,245,0.55) !important;
+  }
+  #precios article.plan-card-lite li[style*="color:#555555"] {
+    color: rgba(220,229,245,0.8) !important;
+  }
+  #precios article.plan-card-regional span[style*="color:#333333"],
+  #precios article.plan-card-regional strong[style*="color:#333333"],
+  #precios article.plan-card-regional p[style*="color:#555555"] {
+    color: #dce5f5 !important;
+  }
+  #precios article.plan-card-regional span[style*="color:#6c757d"],
+  #precios article.plan-card-regional span[style*="color:#9aa2b0"],
+  #precios article.plan-card-regional p[style*="color:#6c757d"] {
+    color: rgba(220,229,245,0.55) !important;
+  }
+  #precios article.plan-card-regional li[style*="color:#555555"] {
+    color: rgba(220,229,245,0.8) !important;
+  }
+  /* Fix background of stat-pills inside lite/regional */
+  #precios article.plan-card-lite div[style*="background:#f8f9fa"],
+  #precios article.plan-card-regional div[style*="background:#e8f7f9"],
+  #precios article.plan-card-regional div[style*="background:#f8f9fa"] {
+    background: rgba(255,255,255,0.08) !important;
+  }
+  /* Restore correct button styles for each plan (override old blue-gradient rule) */
+  #precios article.plan-card-lite a[href="#contacto"] {
+    background: rgba(255,255,255,0.10) !important;
+    color: #dce5f5 !important;
+    border-color: rgba(255,255,255,0.18) !important;
+    box-shadow: none !important;
+  }
+  #precios article.plan-card-local a[href="#contacto"] {
+    background: #ffffff !important;
+    color: #007BFF !important;
+    box-shadow: none !important;
+  }
+  #precios article.plan-card-regional a[href="#contacto"] {
+    background: #17A2B8 !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+  }
+  #precios article.plan-card-corp a[href="#contacto"] {
+    background: #FF8C00 !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+  }
+
+  #contacto .bg-surface-container-lowest {
+    background: rgba(255,255,255,0.04) !important;
+    border-color: rgba(255,255,255,0.09) !important;
+  }
+  #contacto input, #contacto select, #contacto textarea {
+    background: rgba(255,255,255,0.06) !important;
+    border-color: rgba(255,255,255,0.13) !important;
+    color: #dce5f5 !important;
+  }
+  #contacto input::placeholder, #contacto textarea::placeholder {
+    color: rgba(220,229,245,0.35) !important;
+  }
+  #contacto label { color: rgba(220,229,245,0.7) !important; }
+
+  footer {
+    background: rgba(255,255,255,0.015) !important;
+    border-top-color: rgba(255,255,255,0.07) !important;
+  }
+  footer .text-on-surface-variant { color: rgba(220,229,245,0.45) !important; }
+  footer .text-on-surface { color: rgba(220,229,245,0.8) !important; }
+
+  .mobile-sticky-cta {
+    background: rgba(7,13,27,0.97) !important;
+    border-top-color: rgba(255,255,255,0.09) !important;
+  }
+
 </style>
 </head>
 <body class="bg-surface-container-lowest text-on-background">
 
 <!-- TopNavBar -->
-<nav class="bg-surface-container-lowest/95 dark:bg-on-background/95 fixed top-0 w-full z-50 border-b border-outline-variant/30 backdrop-blur-md shadow-none">
+<nav role="navigation" aria-label="Navegación principal de MapGestion" class="bg-surface-container-lowest/95 dark:bg-on-background/95 fixed top-0 w-full z-50 border-b border-outline-variant/30 backdrop-blur-md shadow-none">
 <div class="flex justify-between items-center h-16 max-w-container-max mx-auto px-gutter">
-<a href="/" class="brand-lockup" aria-label="MapGestion inicio"><img src="assets/brand/mapgestion_abstract_logo.png" alt="MapGestion" /></a>
-<div class="hidden md:flex gap-lg">
-<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#producto">Producto</a>
-<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#soluciones">Soluciones</a>
-<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#demo">Demo</a>
-<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#clientes">Clientes</a>
-<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#precios">Precios</a>
-<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#faq">FAQ</a>
-</div>
-<div class="flex gap-md items-center">
-<a href="https://app.mapgestion.com" target="_blank" rel="noopener" class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors px-md py-sm rounded-lg active:scale-95 hidden lg:block">Ya soy cliente</a>
-<a href="https://app.mapgestion.com" target="_blank" rel="noopener" class="mobile-app-link font-label-md text-label-md text-primary dark:text-primary-fixed-dim border border-outline-variant px-md py-sm rounded-lg active:scale-95">App</a>
-<a href="#contacto" class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors px-md py-sm rounded-lg active:scale-95 hidden sm:block">Contacto</a>
-<a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20solicitar%20el%20alta%20de%20mi%20empresa%20en%20MapGestion" target="_blank" rel="noopener" class="cta-primary font-label-md text-label-md font-medium px-lg py-sm rounded-lg active:scale-95 flex items-center gap-xs">
-<span class="material-symbols-outlined text-[18px]">chat</span>
-<span class="hidden sm:inline">WhatsApp</span>
-</a>
-</div>
+  <a href="/" class="brand-lockup" aria-label="MapGestion — Página de inicio">
+    <img src="assets/brand/mapgestion_abstract_logo.png" alt="MapGestion — Software de gestión de flotas y patios" width="204" height="46" />
+  </a>
+
+  <!-- Menú principal: estructura semántica ul/li/a para Sitelinks y rastreadores -->
+  <ul role="list" class="hidden md:flex gap-lg list-none p-0 m-0" aria-label="Secciones principales">
+    <li><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#producto" title="Características del producto MapGestion">Características</a></li>
+    <li><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#servicios" title="Soluciones para arrendadoras y patios logísticos">Soluciones</a></li>
+    <li><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#demo" title="Demo interactiva del sistema">Demo</a></li>
+    <li><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#clientes" title="Empresas y clientes que usan MapGestion">Clientes</a></li>
+    <li><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#precios" title="Planes y precios de MapGestion">Precios</a></li>
+    <li><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors py-sm" href="#faq" title="Preguntas frecuentes sobre MapGestion">Preguntas Frecuentes</a></li>
+  </ul>
+
+  <div class="flex gap-md items-center">
+    <a href="https://app.mapgestion.com" target="_blank" rel="noopener" class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors px-md py-sm rounded-lg active:scale-95 hidden lg:block" title="Acceder al sistema MapGestion">Ya soy cliente</a>
+    <a href="https://app.mapgestion.com" target="_blank" rel="noopener" class="mobile-app-link font-label-md text-label-md text-primary dark:text-primary-fixed-dim border border-outline-variant px-md py-sm rounded-lg active:scale-95" title="Ingresar a la aplicación MapGestion">App</a>
+    <a href="#contacto" class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors px-md py-sm rounded-lg active:scale-95 hidden sm:block" title="Contactar al equipo de MapGestion">Contacto</a>
+    <a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20solicitar%20el%20alta%20de%20mi%20empresa%20en%20MapGestion" target="_blank" rel="noopener" class="cta-primary font-label-md text-label-md font-medium px-lg py-sm rounded-lg active:scale-95 flex items-center gap-xs" aria-label="Contactar por WhatsApp para solicitar acceso a MapGestion">
+      <span class="material-symbols-outlined text-[18px]" aria-hidden="true">chat</span>
+      <span class="hidden sm:inline">WhatsApp</span>
+    </a>
+  </div>
 </div>
 </nav>
 
@@ -1510,9 +2066,9 @@
 <div class="max-w-container-max mx-auto">
 <div class="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-2xl items-center">
 <div class="text-left">
-<span class="eyebrow mb-lg">Software para arrendadoras y logística en México</span>
-<h1 class="font-display text-[34px] md:text-[72px] leading-[1.0] font-extrabold tracking-[-0.055em] text-on-background mb-lg max-w-4xl"><span class="hero-desktop-title">Controla tu patio y flotilla</span><span class="hero-mobile-title">Controla tu patio<br/>y flotilla</span><br/><span class="gradient-word">en un solo mapa</span>.</h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-2xl">Dile adiós al caos de Excel y WhatsApp. Gestiona unidades, plazas e incidencias en tiempo real desde cualquier dispositivo — diseñado para arrendadoras y patios logísticos en México.</p>
+<span class="urgency-badge mb-lg" style="margin-bottom:20px;">Implementación en menos de 1 semana · México</span>
+<h1 class="font-display text-[34px] md:text-[72px] leading-[1.0] font-extrabold tracking-[-0.055em] text-on-background mb-lg max-w-4xl"><span class="hero-desktop-title">Tu patio visible.<br/>Tu flota, controlada.</span><span class="hero-mobile-title">Tu patio visible.<br/>Tu flota, controlada.</span><br/><span class="gradient-word">Sin Excel. Sin WhatsApp.</span></h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-2xl">Cada unidad ubicada, cada movimiento trazado, cada turno cerrado con evidencia — todo desde una plataforma web que tu equipo operativo usará desde el primer día. Diseñado para arrendadoras de autos, camiones y patios logísticos en México.</p>
 <div class="flex flex-col sm:flex-row gap-md mb-xl hero-actions-clean">
 <a href="#contacto" class="cta-primary font-label-md text-label-md px-xl py-md rounded-lg flex items-center justify-center gap-sm">
 <span class="material-symbols-outlined text-[20px]">calendar_month</span>
@@ -1524,10 +2080,20 @@ Ver cómo funciona
 </button>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-md max-w-xl">
-<div class="stat-card rounded-xl p-md"><div class="font-h2 text-h2 text-primary-container">Mapa</div><div class="font-body-sm text-body-sm text-on-surface-variant">de patio y flota</div></div>
-<div class="stat-card rounded-xl p-md"><div class="font-h2 text-h2 text-primary-container">Roles</div><div class="font-body-sm text-body-sm text-on-surface-variant">por plaza y usuario</div></div>
-<div class="stat-card rounded-xl p-md"><div class="font-h2 text-h2 text-primary-container">Bitácora</div><div class="font-body-sm text-body-sm text-on-surface-variant">por unidad</div></div>
+<div class="stat-card rounded-xl p-md">
+  <div class="font-h2 text-h2" style="color:var(--mg-blue);letter-spacing:-0.03em;">30 seg</div>
+  <div class="font-body-sm text-body-sm text-on-surface-variant">actualización al instante</div>
 </div>
+<div class="stat-card rounded-xl p-md">
+  <div class="font-h2 text-h2" style="color:var(--mg-blue);letter-spacing:-0.03em;">&lt; 1 sem</div>
+  <div class="font-body-sm text-body-sm text-on-surface-variant">del alta al primer mapa</div>
+</div>
+<div class="stat-card rounded-xl p-md">
+  <div class="font-h2 text-h2" style="color:var(--mg-blue);letter-spacing:-0.03em;">100% web</div>
+  <div class="font-body-sm text-body-sm text-on-surface-variant">sin instalaciones locales</div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant/60 mt-md" style="font-size:12px;">Sin contrato anual · Cancela cuando quieras · Precios en MXN</p>
 </div>
 <div class="relative hero-stage">
 <div class="map-visual" aria-label="Mapa operativo de MapGestion" style="overflow:hidden;">
@@ -1546,18 +2112,53 @@ Ver cómo funciona
 </div>
 </header>
 
-<!-- Trust Bar -->
-<div class="py-xl px-gutter border-b border-outline-variant/30" style="background:linear-gradient(180deg,#f7fbff,#ffffff);">
-<div class="max-w-container-max mx-auto">
-<p class="text-center font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-lg">Operaciones que ya se gestionan con MapGestion</p>
-<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-md">
-<div class="company-logo-card" style="min-height:72px;font-size:11px;">Arrendadora<br/>de Autos</div>
-<div class="company-logo-card" style="min-height:72px;font-size:11px;">Patio<br/>Logístico</div>
-<div class="company-logo-card" style="min-height:72px;font-size:11px;">Grupo<br/>Empresarial</div>
-<div class="company-logo-card" style="min-height:72px;font-size:11px;">Flotilla<br/>Corporativa</div>
-<div class="company-logo-card" style="min-height:72px;font-size:11px;">Estaciona-<br/>miento</div>
-<div class="company-logo-card" style="min-height:72px;font-size:11px;">Tu<br/>Empresa</div>
+<!-- Trust Bar — marquee animado -->
+<div class="py-lg border-b border-outline-variant/30" style="background:linear-gradient(180deg,#f7fbff,#ffffff);">
+<p class="text-center font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-md px-gutter">Operaciones que ya se gestionan con MapGestion</p>
+<div class="marquee-wrap px-0">
+  <div class="marquee-track" aria-hidden="true">
+    <div class="marquee-card">Arrendadora<br/>de Autos</div>
+    <div class="marquee-card">Patio<br/>Logístico</div>
+    <div class="marquee-card">Grupo<br/>Empresarial</div>
+    <div class="marquee-card">Flotilla<br/>Corporativa</div>
+    <div class="marquee-card">Estaciona-<br/>miento</div>
+    <div class="marquee-card">Taller<br/>Automotriz</div>
+    <div class="marquee-card">Patio de<br/>Maniobras</div>
+    <div class="marquee-card">Tu<br/>Empresa</div>
+    <!-- duplicate for seamless loop -->
+    <div class="marquee-card">Arrendadora<br/>de Autos</div>
+    <div class="marquee-card">Patio<br/>Logístico</div>
+    <div class="marquee-card">Grupo<br/>Empresarial</div>
+    <div class="marquee-card">Flotilla<br/>Corporativa</div>
+    <div class="marquee-card">Estaciona-<br/>miento</div>
+    <div class="marquee-card">Taller<br/>Automotriz</div>
+    <div class="marquee-card">Patio de<br/>Maniobras</div>
+    <div class="marquee-card">Tu<br/>Empresa</div>
+  </div>
 </div>
+</div>
+
+<!-- Numbers / Metrics Strip -->
+<div class="numbers-strip" id="metricas">
+<div class="max-w-container-max mx-auto px-gutter">
+  <div class="grid grid-cols-2 lg:grid-cols-4 divide-x divide-outline-variant/20">
+    <div class="number-item reveal-item">
+      <span class="number-item-val" data-counter="30" data-suffix=" seg">30 seg</span>
+      <span class="number-item-label">Actualización<br/>al instante</span>
+    </div>
+    <div class="number-item reveal-item">
+      <span class="number-item-val" data-counter="99" data-suffix=".9%">99.9%</span>
+      <span class="number-item-label">Disponibilidad<br/>de la plataforma</span>
+    </div>
+    <div class="number-item reveal-item">
+      <span class="number-item-val" data-counter="5" data-prefix="&lt; " data-suffix=" días">&#60; 5 días</span>
+      <span class="number-item-label">Del primer contacto<br/>al mapa operativo</span>
+    </div>
+    <div class="number-item reveal-item">
+      <span class="number-item-val" data-counter="4" data-suffix=" planes">4 planes</span>
+      <span class="number-item-label">Desde $990 MXN/mes<br/>sin contrato anual</span>
+    </div>
+  </div>
 </div>
 </div>
 
@@ -1565,8 +2166,8 @@ Ver cómo funciona
 <section class="services-strip py-2xl px-gutter border-b border-outline-variant/30" id="servicios">
 <div class="max-w-container-max mx-auto">
 <div class="text-center mb-xl">
-<h2 class="font-h1 text-h1 text-on-background mb-sm">Nuestros servicios</h2>
-<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">Software de gestión mapa, mapa de estacionamiento y control de flota para empresas que necesitan ver la operación completa sin perseguir información.</p>
+<h2 class="font-h1 text-h1 text-on-background mb-sm">Todo lo que necesitas para dejar de operar a ciegas</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">Un mapa visual, control de flota y analítica operativa para arrendadoras y patios logísticos que no pueden permitirse perder unidades, tiempo ni evidencia.</p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-lg">
 <article class="service-item">
@@ -1589,37 +2190,110 @@ Ver cómo funciona
 </div>
 </section>
 <!-- Before After Section -->
-<section class="py-3xl px-gutter max-w-container-max mx-auto">
-<div class="text-center mb-2xl">
-<span class="eyebrow mb-md">Antes y después</span>
-<h2 class="font-h1 text-h1 text-on-background mb-md">De operación dispersa a patio bajo control.</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">MapGestion reemplaza la mezcla de llamadas, Excel, pizarrón y WhatsApp por una vista compartida con evidencia.</p>
+<section class=”py-3xl px-gutter max-w-container-max mx-auto” id=”antes-despues”>
+<div class=”text-center mb-2xl”>
+<span class=”eyebrow mb-md”>Antes y después</span>
+<h2 class=”font-h1 text-h1 text-on-background mb-md”>Del caos de Excel y WhatsApp a una sola vista que tu equipo ya entiende.</h2>
+<p class=”font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto”>MapGestion reemplaza la mezcla de llamadas, hojas de cálculo y pizarrones desactualizados por un mapa compartido con evidencia en tiempo real.</p>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
-<div class="compare-card p-lg md:p-xl">
-<div class="flex items-center justify-between gap-md mb-lg">
-<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Antes</span>
-<span class="material-symbols-outlined text-on-surface-variant">scatter_plot</span>
-</div>
-<h3 class="font-h2 text-h2 text-on-background mb-md">La operación vive repartida.</h3>
-<div class="space-y-sm">
-<div class="bg-surface-container-low border border-outline-variant/50 rounded-lg px-md py-sm font-body-sm text-body-sm text-on-surface-variant">WhatsApp: “¿quién movió la unidad?”</div>
-<div class="bg-surface-container-low border border-outline-variant/50 rounded-lg px-md py-sm font-body-sm text-body-sm text-on-surface-variant">Excel: estados desactualizados</div>
-<div class="bg-surface-container-low border border-outline-variant/50 rounded-lg px-md py-sm font-body-sm text-body-sm text-on-surface-variant">Pizarrón: sin historial ni responsable</div>
-</div>
-</div>
-<div class="compare-card dark p-lg md:p-xl">
-<div class="flex items-center justify-between gap-md mb-lg">
-<span class="font-label-sm text-label-sm text-primary-fixed-dim uppercase tracking-wider">Después</span>
-<span class="material-symbols-outlined text-tertiary-fixed">route</span>
-</div>
-<h3 class="font-h2 text-h2 mb-md">Una sola vista para decidir.</h3>
-<div class="space-y-sm">
-<div class="bg-white/8 border border-white/10 rounded-lg px-md py-sm font-body-sm text-body-sm text-primary-fixed-dim">Mapa vivo con ubicación y estado</div>
-<div class="bg-white/8 border border-white/10 rounded-lg px-md py-sm font-body-sm text-body-sm text-primary-fixed-dim">Bitácora automática de movimientos</div>
-<div class="bg-white/8 border border-white/10 rounded-lg px-md py-sm font-body-sm text-body-sm text-primary-fixed-dim">Permisos, incidencias y evidencia</div>
-</div>
-</div>
+<div class=”grid grid-cols-1 lg:grid-cols-2 gap-lg”>
+
+  <!-- ANTES -->
+  <div style=”border:1px solid rgba(255,255,255,0.10);border-radius:16px;padding:28px;background:rgba(255,255,255,0.05);”>
+    <div class=”flex items-center justify-between gap-md mb-lg”>
+      <span style=”font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(220,229,245,0.45);”>Antes</span>
+      <span style=”font-size:12px;font-weight:700;color:rgba(220,229,245,0.5);display:inline-flex;align-items:center;gap:6px;”>
+        <span class=”material-symbols-outlined” style=”font-size:18px;”>scatter_plot</span>
+        Sin control
+      </span>
+    </div>
+    <h3 style=”font-size:20px;font-weight:700;color:#dce5f5;margin-bottom:16px;line-height:1.3;”>La operación vive repartida.</h3>
+    <div style=”display:flex;flex-direction:column;gap:10px;”>
+
+      <!-- WhatsApp row -->
+      <div style=”display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.09);border-radius:10px;padding:12px 14px;”>
+        <span style=”flex-shrink:0;width:34px;height:34px;border-radius:8px;background:rgba(37,211,102,0.15);display:flex;align-items:center;justify-content:center;”>
+          <svg xmlns=”http://www.w3.org/2000/svg” width=”18” height=”18” viewBox=”0 0 24 24” fill=”#25D366” aria-hidden=”true”><path d=”M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z”/></svg>
+        </span>
+        <div>
+          <span style=”display:block;font-size:13px;font-weight:700;color:#dce5f5;”>WhatsApp</span>
+          <span style=”font-size:12px;color:rgba(220,229,245,0.5);”>”¿quién movió la unidad?” — sin respuesta clara</span>
+        </div>
+      </div>
+
+      <!-- Excel row -->
+      <div style=”display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.09);border-radius:10px;padding:12px 14px;”>
+        <span style=”flex-shrink:0;width:34px;height:34px;border-radius:8px;background:rgba(33,115,70,0.20);display:flex;align-items:center;justify-content:center;”>
+          <svg xmlns=”http://www.w3.org/2000/svg” width=”18” height=”18” viewBox=”0 0 24 24” fill=”#4CAF50” aria-hidden=”true”><path d=”M21.17 3.25Q21.5 3.25 21.76 3.5 22 3.74 22 4.08V19.92Q22 20.26 21.76 20.5 21.5 20.75 21.17 20.75H7.83Q7.5 20.75 7.24 20.5 7 20.26 7 19.92V17H2.83Q2.5 17 2.24 16.76 2 16.5 2 16.17V7.83Q2 7.5 2.24 7.24 2.5 7 2.83 7H7V4.08Q7 3.74 7.24 3.5 7.5 3.25 7.83 3.25M7 13.06L8.18 15.28H9.97L8 12.06 9.93 8.89H8.22L7 11.17 5.78 8.89H4.06L6 12.06 4.06 15.28H5.84M13.88 19.5V17H8.25V19.5M13.88 15.75V12.63H8.25V15.75M13.88 11.38V8.25H8.25V11.38M20.75 19.5V17H15.13V19.5M20.75 15.75V12.63H15.13V15.75M20.75 11.38V8.25H15.13V11.38Z”/></svg>
+        </span>
+        <div>
+          <span style=”display:block;font-size:13px;font-weight:700;color:#dce5f5;”>Excel</span>
+          <span style=”font-size:12px;color:rgba(220,229,245,0.5);”>Estados desactualizados, versiones distintas por persona</span>
+        </div>
+      </div>
+
+      <!-- Pizarrón row -->
+      <div style=”display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.09);border-radius:10px;padding:12px 14px;”>
+        <span style=”flex-shrink:0;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;”>
+          <svg xmlns=”http://www.w3.org/2000/svg” width=”18” height=”18” viewBox=”0 0 24 24” fill=”rgba(220,229,245,0.6)” aria-hidden=”true”><path d=”M2 3v14h20V3H2zm18 12H4V5h16v10zm-8 2l-2 3h8l-2-3H12zM9.41 9L8 7.59 6.59 9 8 10.41 6.59 11.83l1.41 1.41L9.41 12l1.42 1.41 1.41-1.41L10.83 11 12.24 9.59 10.83 8.17 9.41 9.59 8 8.17 9.41 7.75V9zM16 8h-4v1.5h4V8zm0 2.5h-4V12h4v-1.5z”/></svg>
+        </span>
+        <div>
+          <span style=”display:block;font-size:13px;font-weight:700;color:#dce5f5;”>Pizarrón / Libreta</span>
+          <span style=”font-size:12px;color:rgba(220,229,245,0.5);”>Sin historial, sin responsable, borrón y cuenta nueva</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DESPUÉS -->
+  <div style=”border-radius:16px;padding:28px;background:#007BFF;color:#ffffff;”>
+    <div class=”flex items-center justify-between gap-md mb-lg”>
+      <span style=”font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.75);”>Después</span>
+      <span style=”font-size:12px;font-weight:700;color:#ffffff;display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);padding:4px 10px;border-radius:999px;”>
+        <span class=”material-symbols-outlined” style=”font-size:16px;”>check_circle</span>
+        Todo en un mapa
+      </span>
+    </div>
+    <h3 style=”font-size:20px;font-weight:700;color:#ffffff;margin-bottom:16px;line-height:1.3;”>Una sola vista para decidir.</h3>
+    <div style=”display:flex;flex-direction:column;gap:10px;”>
+
+      <!-- Mapa vivo -->
+      <div style=”display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:10px;padding:12px 14px;”>
+        <span style=”flex-shrink:0;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;”>
+          <span class=”material-symbols-outlined” style=”font-size:18px;color:#ffffff;”>map</span>
+        </span>
+        <div>
+          <span style=”display:block;font-size:13px;font-weight:700;color:#ffffff;”>Mapa en vivo</span>
+          <span style=”font-size:12px;color:rgba(255,255,255,0.85);”>Ubicación y estado de cada unidad en tiempo real</span>
+        </div>
+      </div>
+
+      <!-- Bitácora -->
+      <div style=”display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:10px;padding:12px 14px;”>
+        <span style=”flex-shrink:0;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;”>
+          <span class=”material-symbols-outlined” style=”font-size:18px;color:#ffffff;”>history</span>
+        </span>
+        <div>
+          <span style=”display:block;font-size:13px;font-weight:700;color:#ffffff;”>Bitácora automática</span>
+          <span style=”font-size:12px;color:rgba(255,255,255,0.85);”>Cada movimiento registrado con responsable y fecha</span>
+        </div>
+      </div>
+
+      <!-- Permisos -->
+      <div style=”display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:10px;padding:12px 14px;”>
+        <span style=”flex-shrink:0;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;”>
+          <span class=”material-symbols-outlined” style=”font-size:18px;color:#ffffff;”>admin_panel_settings</span>
+        </span>
+        <div>
+          <span style=”display:block;font-size:13px;font-weight:700;color:#ffffff;”>Permisos + incidencias + evidencia</span>
+          <span style=”font-size:12px;color:rgba(255,255,255,0.85);”>Control completo sin llamadas ni capturas de pantalla</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </div>
 </section>
 
@@ -1628,7 +2302,7 @@ Ver cómo funciona
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-2xl items-center mb-3xl">
 <div>
 <span class="eyebrow mb-md">Operación visual</span>
-<h2 class="font-h1 text-h1 text-on-background mb-lg">Simplifica tus operaciones de patio</h2>
+<h2 class="font-h1 text-h1 text-on-background mb-lg">Arrastra, ubica y decide — todo desde el mapa</h2>
 <p class="font-body-lg text-body-lg text-on-surface-variant mb-xl">Olvídate de procesos manuales y pizarrones desactualizados. MapGestion te brinda una representación visual exacta de tu patio, permitiendo a tu equipo arrastrar y soltar unidades, actualizar estados al instante y visualizar cuellos de botella antes de que ocurran.</p>
 <ul class="space-y-md mb-xl">
 <li class="flex items-start gap-md">
@@ -1680,8 +2354,8 @@ Ver cómo funciona
 <div class="max-w-container-max mx-auto">
 <div class="text-center mb-2xl">
 <span class="eyebrow mb-md">Módulos clave</span>
-<h2 class="font-h1 text-h1 text-on-background mb-md">Todo lo que necesitas, en un solo lugar</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Funcionalidades diseñadas para cubrir cada aspecto de tu operación diaria.</p>
+<h2 class="font-h1 text-h1 text-on-background mb-md">8 módulos. Una sola plataforma. Operación sin huecos.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Desde la ubicación de unidades hasta el cuadre de turno — cada función fue diseñada para el flujo real de un patio o arrendadora.</p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-lg">
 <div class="feature-card p-lg lift-card">
@@ -1744,12 +2418,36 @@ Ver cómo funciona
 </div>
 </section>
 
+<!-- Mid-page CTA Strip -->
+<section class="cta-strip py-2xl px-gutter">
+<div class="max-w-container-max mx-auto">
+  <div class="flex flex-col lg:flex-row items-center justify-between gap-xl">
+    <div class="text-center lg:text-left">
+      <p class="font-label-sm text-[11px] uppercase tracking-[0.12em] text-white/50 mb-sm">¿Aún operando con Excel y WhatsApp?</p>
+      <h2 class="font-display text-[28px] md:text-[40px] leading-[1.08] font-extrabold tracking-[-0.035em] text-white mb-sm">Tu competencia ya está usando<br/><span style="background:linear-gradient(90deg,#12b8b3,#46b7ff);-webkit-background-clip:text;background-clip:text;color:transparent;">un mapa operativo en tiempo real.</span></h2>
+      <p class="font-body-md text-body-md text-white/60 max-w-xl">Agenda una demo de 15 minutos. Sin compromiso, sin contrato. Revisamos si MapGestion aplica a tu operación antes de hablar de precios.</p>
+    </div>
+    <div class="flex flex-col sm:flex-row lg:flex-col gap-sm flex-shrink-0">
+      <a href="#contacto" class="cta-primary font-label-md text-label-md px-xl py-md rounded-lg flex items-center justify-center gap-sm" style="background:linear-gradient(135deg,#0b72d9,#075cc4);box-shadow:0 14px 32px rgba(11,114,217,0.38);">
+        <span class="material-symbols-outlined text-[20px]">calendar_month</span>
+        Agendar Demo Gratis
+      </a>
+      <a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20ver%20una%20demo%20de%20MapGestion" target="_blank" rel="noopener" class="wa-cta font-label-md text-label-md px-xl py-md rounded-lg flex items-center justify-center gap-sm">
+        <span class="material-symbols-outlined text-[20px]">chat</span>
+        Escribir por WhatsApp
+      </a>
+      <p class="text-center text-white/40 font-body-sm text-[12px]">Respuesta en menos de 2 horas hábiles</p>
+    </div>
+  </div>
+</div>
+</section>
+
 <!-- Process Section -->
 <section class="py-3xl px-gutter max-w-container-max mx-auto" id="como-funciona">
 <div class="text-center mb-2xl">
 <span class="eyebrow mb-md">Implementación</span>
-<h2 class="font-h1 text-h1 text-on-background mb-md">Cómo empieza tu empresa en MapGestion</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Del primer contacto al primer mapa operativo: un flujo claro para que tu equipo no entre a pantallas vacías.</p>
+<h2 class="font-h1 text-h1 text-on-background mb-md">Arrancar es más rápido de lo que imaginas</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Del primer contacto al mapa operativo en menos de una semana. Un flujo probado para que tu equipo empiece a trabajar desde el primer día — sin curvas de aprendizaje largas.</p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-lg relative">
 <div class="flex-1 text-center bg-surface-container-lowest p-lg rounded-xl relative z-10 border border-outline-variant/50 lift-card">
@@ -1944,66 +2642,66 @@ Abrir demo en pestaña
 <section class="py-3xl px-gutter max-w-container-max mx-auto" id="reviews">
 <div class="text-center mb-2xl">
 <span class="eyebrow mb-md mx-auto">Reviews</span>
-<h2 class="font-h1 text-h1 text-on-background mb-md">Lo que dicen los equipos que operan con MapGestion</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mx-auto">Resultados reales de operaciones en arrendadoras, patios logísticos y flotillas que reemplazaron Excel y WhatsApp por MapGestion.</p>
+<h2 class="font-h1 text-h1 text-on-background mb-md">Los que ya operan con MapGestion no vuelven al Excel</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mx-auto">Resultados reales de arrendadoras, patios logísticos y flotillas corporativas que dijeron adiós a las hojas de cálculo y los grupos de WhatsApp.</p>
 </div>
 <div class=”grid grid-cols-1 md:grid-cols-3 gap-lg”>
 
 <!-- Google Review Card 1 -->
-<article style=”border-radius:18px;border:1px solid rgba(11,114,217,0.11);background:#ffffff;box-shadow:0 18px 56px rgba(27,68,128,0.07);padding:24px;display:flex;flex-direction:column;gap:16px;transition:transform 0.22s ease,box-shadow 0.22s ease;” class=”lift-card reveal-item” style=”--reveal-delay:0ms”>
+<article class=”lift-card reveal-item” style=”--reveal-delay:0ms;border-radius:14px;border:1px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.06);backdrop-filter:blur(8px);padding:24px 24px 20px;display:flex;flex-direction:column;gap:14px;transition:transform 0.22s ease,box-shadow 0.22s ease;”>
 <div style=”display:flex;align-items:flex-start;justify-content:space-between;gap:12px;”>
-<div style=”display:flex;align-items:center;gap:12px;”>
-<div style=”width:44px;height:44px;border-radius:999px;background:linear-gradient(135deg,#0b72d9,#12b8b3);display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px;font-weight:800;flex-shrink:0;”>GO</div>
-<div>
-<strong style=”display:block;font-size:14px;line-height:18px;font-weight:700;color:#07152e;”>Gerente de Operaciones</strong>
-<span style=”font-size:12px;color:#5d667a;”>Arrendadora · Guanajuato</span>
+  <div style=”display:flex;align-items:center;gap:11px;”>
+    <div style=”width:42px;height:42px;border-radius:999px;background:linear-gradient(135deg,#0b72d9,#12b8b3);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:800;flex-shrink:0;letter-spacing:0.02em;”>GO</div>
+    <div>
+      <strong style=”display:block;font-size:14px;line-height:1.3;font-weight:700;color:#dce5f5;”>Gerente de Operaciones</strong>
+      <span style=”font-size:12px;color:rgba(220,229,245,0.5);”>Arrendadora · Guanajuato</span>
+    </div>
+  </div>
+  <svg width=”18” height=”18” viewBox=”0 0 24 24” fill=”none” style=”flex-shrink:0;margin-top:2px;opacity:0.9;”><path d=”M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z” fill=”#4285F4”/><path d=”M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z” fill=”#34A853”/><path d=”M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z” fill=”#FBBC05”/><path d=”M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z” fill=”#EA4335”/></svg>
 </div>
+<div style=”display:flex;gap:2px;line-height:1;”>
+  <span style=”color:#FBBC04;font-size:17px;”>★★★★★</span>
 </div>
-<svg width=”18” height=”18” viewBox=”0 0 24 24” fill=”none” xmlns=”http://www.w3.org/2000/svg” style=”flex-shrink:0;margin-top:2px;”><path d=”M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z” fill=”#4285F4”/><path d=”M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z” fill=”#34A853”/><path d=”M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z” fill=”#FBBC05”/><path d=”M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z” fill=”#EA4335”/></svg>
-</div>
-<div style=”display:flex;gap:3px;”>
-<span style=”color:#FBBC04;font-size:18px;”>★</span><span style=”color:#FBBC04;font-size:18px;”>★</span><span style=”color:#FBBC04;font-size:18px;”>★</span><span style=”color:#FBBC04;font-size:18px;”>★</span><span style=”color:#FBBC04;font-size:18px;”>★</span>
-</div>
-<p style=”font-size:15px;line-height:24px;color:#3c4456;flex:1;”>”Antes perdíamos más de 2 horas buscando unidades disponibles en el patio. Con MapGestion el operador ubica y asigna el vehículo en segundos desde el celular.”</p>
-<span style=”font-size:12px;color:#9aa2b0;”>hace 3 semanas</span>
+<p style=”font-size:14px;line-height:1.65;color:rgba(220,229,245,0.8);flex:1;margin:0;”>”Antes perdíamos más de 2 horas buscando unidades disponibles en el patio. Con MapGestion el operador ubica y asigna el vehículo en segundos desde el celular.”</p>
+<span style=”font-size:12px;color:rgba(220,229,245,0.35);”>hace 3 semanas</span>
 </article>
 
 <!-- Google Review Card 2 (featured) -->
-<article style=”border-radius:18px;border:1px solid rgba(11,114,217,0.18);background:linear-gradient(135deg,#07152e,#0d2347);box-shadow:0 28px 72px rgba(7,21,46,0.28);padding:24px;display:flex;flex-direction:column;gap:16px;transform:translateY(-8px);transition:transform 0.22s ease,box-shadow 0.22s ease;” class=”lift-card reveal-item” style=”--reveal-delay:55ms”>
+<article class=”lift-card reveal-item” style=”--reveal-delay:55ms;border-radius:14px;border:1px solid rgba(0,123,255,0.30);background:linear-gradient(145deg,rgba(0,60,140,0.55),rgba(7,21,70,0.65));backdrop-filter:blur(12px);box-shadow:0 24px 64px rgba(0,60,200,0.20);padding:24px 24px 20px;display:flex;flex-direction:column;gap:14px;transform:translateY(-6px);transition:transform 0.22s ease,box-shadow 0.22s ease;”>
 <div style=”display:flex;align-items:flex-start;justify-content:space-between;gap:12px;”>
-<div style=”display:flex;align-items:center;gap:12px;”>
-<div style=”width:44px;height:44px;border-radius:999px;background:linear-gradient(135deg,#12b8b3,#0b72d9);display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px;font-weight:800;flex-shrink:0;”>DG</div>
-<div>
-<strong style=”display:block;font-size:14px;line-height:18px;font-weight:700;color:#ffffff;”>Director General</strong>
-<span style=”font-size:12px;color:rgba(255,255,255,0.6);”>Patio logístico · Jalisco</span>
+  <div style=”display:flex;align-items:center;gap:11px;”>
+    <div style=”width:42px;height:42px;border-radius:999px;background:linear-gradient(135deg,#12b8b3,#0b72d9);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:800;flex-shrink:0;letter-spacing:0.02em;”>DG</div>
+    <div>
+      <strong style=”display:block;font-size:14px;line-height:1.3;font-weight:700;color:#ffffff;”>Director General</strong>
+      <span style=”font-size:12px;color:rgba(255,255,255,0.5);”>Patio logístico · Jalisco</span>
+    </div>
+  </div>
+  <svg width=”18” height=”18” viewBox=”0 0 24 24” fill=”none” style=”flex-shrink:0;margin-top:2px;opacity:0.9;”><path d=”M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z” fill=”#4285F4”/><path d=”M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z” fill=”#34A853”/><path d=”M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z” fill=”#FBBC05”/><path d=”M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z” fill=”#EA4335”/></svg>
 </div>
+<div style=”display:flex;gap:2px;line-height:1;”>
+  <span style=”color:#FBBC04;font-size:17px;”>★★★★★</span>
 </div>
-<svg width=”18” height=”18” viewBox=”0 0 24 24” fill=”none” xmlns=”http://www.w3.org/2000/svg” style=”flex-shrink:0;margin-top:2px;opacity:0.85;”><path d=”M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z” fill=”#4285F4”/><path d=”M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z” fill=”#34A853”/><path d=”M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z” fill=”#FBBC05”/><path d=”M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z” fill=”#EA4335”/></svg>
-</div>
-<div style=”display:flex;gap:3px;”>
-<span style=”color:#FBBC04;font-size:18px;”>★</span><span style=”color:#FBBC04;font-size:18px;”>★</span><span style=”color:#FBBC04;font-size:18px;”>★</span><span style=”color:#FBBC04;font-size:18px;”>★</span><span style=”color:#FBBC04;font-size:18px;”>★</span>
-</div>
-<p style=”font-size:15px;line-height:24px;color:rgba(255,255,255,0.85);flex:1;”>”El equipo ya no depende de llamadas ni de WhatsApp para saber dónde está cada auto. Cerramos turno con evidencia real, no con lo que alguien recuerda.”</p>
-<span style=”font-size:12px;color:rgba(255,255,255,0.45);”>hace 1 mes</span>
+<p style=”font-size:14px;line-height:1.65;color:rgba(255,255,255,0.88);flex:1;margin:0;”>”El equipo ya no depende de llamadas ni de WhatsApp para saber dónde está cada auto. Cerramos turno con evidencia real, no con lo que alguien recuerda.”</p>
+<span style=”font-size:12px;color:rgba(255,255,255,0.35);”>hace 1 mes</span>
 </article>
 
 <!-- Google Review Card 3 -->
-<article style=”border-radius:18px;border:1px solid rgba(11,114,217,0.11);background:#ffffff;box-shadow:0 18px 56px rgba(27,68,128,0.07);padding:24px;display:flex;flex-direction:column;gap:16px;transition:transform 0.22s ease,box-shadow 0.22s ease;” class=”lift-card reveal-item” style=”--reveal-delay:110ms”>
+<article class=”lift-card reveal-item” style=”--reveal-delay:110ms;border-radius:14px;border:1px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.06);backdrop-filter:blur(8px);padding:24px 24px 20px;display:flex;flex-direction:column;gap:14px;transition:transform 0.22s ease,box-shadow 0.22s ease;”>
 <div style=”display:flex;align-items:flex-start;justify-content:space-between;gap:12px;”>
-<div style=”display:flex;align-items:center;gap:12px;”>
-<div style=”width:44px;height:44px;border-radius:999px;background:linear-gradient(135deg,#4285F4,#12b8b3);display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px;font-weight:800;flex-shrink:0;”>SF</div>
-<div>
-<strong style=”display:block;font-size:14px;line-height:18px;font-weight:700;color:#07152e;”>Dueño / Socio Fundador</strong>
-<span style=”font-size:12px;color:#5d667a;”>Flotilla corporativa · CDMX</span>
+  <div style=”display:flex;align-items:center;gap:11px;”>
+    <div style=”width:42px;height:42px;border-radius:999px;background:linear-gradient(135deg,#4285F4,#12b8b3);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:800;flex-shrink:0;letter-spacing:0.02em;”>SF</div>
+    <div>
+      <strong style=”display:block;font-size:14px;line-height:1.3;font-weight:700;color:#dce5f5;”>Dueño / Socio Fundador</strong>
+      <span style=”font-size:12px;color:rgba(220,229,245,0.5);”>Flotilla corporativa · CDMX</span>
+    </div>
+  </div>
+  <svg width=”18” height=”18” viewBox=”0 0 24 24” fill=”none” style=”flex-shrink:0;margin-top:2px;opacity:0.9;”><path d=”M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z” fill=”#4285F4”/><path d=”M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z” fill=”#34A853”/><path d=”M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z” fill=”#FBBC05”/><path d=”M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z” fill=”#EA4335”/></svg>
 </div>
+<div style=”display:flex;gap:2px;line-height:1;”>
+  <span style=”color:#FBBC04;font-size:17px;”>★★★★★</span>
 </div>
-<svg width=”18” height=”18” viewBox=”0 0 24 24” fill=”none” xmlns=”http://www.w3.org/2000/svg” style=”flex-shrink:0;margin-top:2px;”><path d=”M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z” fill=”#4285F4”/><path d=”M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z” fill=”#34A853”/><path d=”M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z” fill=”#FBBC05”/><path d=”M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z” fill=”#EA4335”/></svg>
-</div>
-<div style=”display:flex;gap:3px;”>
-<span style=”color:#FBBC04;font-size:18px;”>★</span><span style=”color:#FBBC04;font-size:18px;”>★</span><span style=”color:#FBBC04;font-size:18px;”>★</span><span style=”color:#FBBC04;font-size:18px;”>★</span><span style=”color:#FBBC04;font-size:18px;”>★</span>
-</div>
-<p style=”font-size:15px;line-height:24px;color:#3c4456;flex:1;”>”Lo que más nos convenció fue ver el sandbox antes de hablar con nadie. En 10 minutos entendimos cómo iba a funcionar para nuestro patio y decidimos contratar.”</p>
-<span style=”font-size:12px;color:#9aa2b0;”>hace 2 meses</span>
+<p style=”font-size:14px;line-height:1.65;color:rgba(220,229,245,0.8);flex:1;margin:0;”>”Lo que más nos convenció fue ver el sandbox antes de hablar con nadie. En 10 minutos entendimos cómo iba a funcionar para nuestro patio y decidimos contratar.”</p>
+<span style=”font-size:12px;color:rgba(220,229,245,0.35);”>hace 2 meses</span>
 </article>
 
 </div>
@@ -2062,108 +2760,125 @@ Abrir demo en pestaña
 <div class="max-w-container-max mx-auto">
   <div class="text-center mb-2xl">
     <span class="eyebrow mb-lg">Planes y precios</span>
-    <h2 class="font-display text-[30px] md:text-[52px] text-on-background mb-md leading-[1.04] tracking-[-0.04em] font-extrabold">Elige el plan por el tamaño real de tu operación.</h2>
-    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mx-auto">Sin tablas eternas ni letra chiquita: cada plan está pensado para un nivel de operación distinto. Precios en MXN, sin IVA.</p>
+    <h2 class="font-display text-[30px] md:text-[52px] text-on-background mb-md leading-[1.04] tracking-[-0.04em] font-extrabold">Precios claros. Sin letra chica.<br/><span class="gradient-word">Elige según tu operación.</span></h2>
+    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mx-auto">Cuatro planes diseñados para el tamaño real de tu patio — desde un estacionamiento hasta una red de sucursales. Precios en MXN, sin IVA, sin contratos anuales obligatorios.</p>
     <p class="font-body-sm text-body-sm text-on-surface-variant/60 mt-sm">Referencia: 1 USD = $17.2679 MXN al 25 mayo 2026. USD aproximado calculado desde el precio MXN.</p>
   </div>
 
-  <!-- Plan cards -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-lg items-stretch">
-    <article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg md:p-xl flex flex-col gap-md lift-card">
-      <div class="flex items-center justify-between gap-sm">
-        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Lite</span>
-        <span class="font-label-sm text-[11px] bg-surface-container-low text-on-surface-variant px-sm py-xs rounded-full">Patio estático</span>
+  <!-- Plan cards — mobile-first scroll en xs, grid en lg+ -->
+  <div class="pricing-grid">
+
+    <!-- LITE -->
+    <article class="plan-card-lite lift-card" style="border:1.5px solid #dee2e6;border-radius:14px;padding:24px;background:#ffffff;display:flex;flex-direction:column;gap:14px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <span style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6c757d;">Lite</span>
+        <span style="font-size:11px;font-weight:700;background:#f0f4f8;color:#6c757d;padding:3px 10px;border-radius:999px;">Patio estático</span>
       </div>
       <div>
-        <div class="flex items-end gap-xs mb-xs"><span class="text-[42px] font-extrabold text-on-background leading-none">$990</span><span class="font-body-sm text-body-sm text-on-surface-variant mb-1">MXN/mes</span></div>
-        <p class="font-body-sm text-body-sm text-on-surface-variant/60">Equivalente USD: $57/mes · anual $49/mes</p>
+        <div style="display:flex;align-items:flex-end;gap:4px;margin-bottom:2px;">
+          <span style="font-size:40px;font-weight:900;color:#333333;line-height:1;letter-spacing:-0.03em;">$990</span>
+          <span style="font-size:13px;color:#6c757d;margin-bottom:4px;">MXN/mes</span>
+        </div>
+        <p style="font-size:12px;color:#6c757d;">≈ USD $57/mes · anual $49/mes</p>
       </div>
-      <p class="font-body-sm text-body-sm text-on-surface-variant">Para estacionamientos, pensiones, depósitos y patios donde las unidades se mueven poco.</p>
-      <div class="grid grid-cols-3 gap-xs">
-        <div class="bg-surface-container-low rounded-lg p-sm"><strong class="block font-label-sm text-label-sm text-on-background">1</strong><span class="font-body-sm text-body-sm text-on-surface-variant">plaza</span></div>
-        <div class="bg-surface-container-low rounded-lg p-sm"><strong class="block font-label-sm text-label-sm text-on-background">3</strong><span class="font-body-sm text-body-sm text-on-surface-variant">usuarios</span></div>
-        <div class="bg-surface-container-low rounded-lg p-sm"><strong class="block font-label-sm text-label-sm text-on-background">5 min</strong><span class="font-body-sm text-body-sm text-on-surface-variant">GPS</span></div>
+      <p style="font-size:14px;color:#555555;line-height:1.5;">Para estacionamientos, pensiones y patios con movimiento esporádico.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
+        <div style="background:#f8f9fa;border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#333333;">1</strong><span style="font-size:11px;color:#6c757d;">plaza</span></div>
+        <div style="background:#f8f9fa;border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#333333;">3</strong><span style="font-size:11px;color:#6c757d;">usuarios</span></div>
+        <div style="background:#f8f9fa;border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#333333;">5 min</strong><span style="font-size:11px;color:#6c757d;">actuali.</span></div>
       </div>
-      <ul class="space-y-sm flex-1">
-        <li class="flex gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Mapa de inventario y buscador de unidades</span></li>
-        <li class="flex gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Entradas, salidas y estados básicos</span></li>
-        <li class="flex gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Historial de 30 días</span></li>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;flex:1;">
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#555555;"><span class="material-symbols-outlined" style="font-size:16px;color:#17A2B8;flex-shrink:0;margin-top:1px;">check_circle</span>Mapa de inventario y buscador de unidades</li>
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#555555;"><span class="material-symbols-outlined" style="font-size:16px;color:#17A2B8;flex-shrink:0;margin-top:1px;">check_circle</span>Entradas, salidas y estados básicos</li>
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#555555;"><span class="material-symbols-outlined" style="font-size:16px;color:#17A2B8;flex-shrink:0;margin-top:1px;">check_circle</span>Historial de 30 días</li>
       </ul>
-      <p class="font-body-sm text-body-sm text-on-surface-variant/70 border-t border-outline-variant/40 pt-md">No incluye operación fluida en vivo, cuadre, incidencias ni reportes exportables.</p>
-      <a href="#contacto" data-plan="Lite" class="block text-center font-label-md text-label-md bg-surface-container-high text-on-background px-lg py-sm rounded-lg hover:bg-surface-container-highest active:scale-95 transition-all">Solicitar Lite</a>
+      <p style="font-size:12px;color:#9aa2b0;border-top:1px solid #dee2e6;padding-top:12px;">No incluye cuadre, incidencias ni reportes exportables.</p>
+      <a href="#contacto" data-plan="Lite" style="display:block;text-align:center;background:#f0f4f8;color:#333333;font-size:14px;font-weight:700;padding:12px 20px;border-radius:10px;text-decoration:none;border:1.5px solid #dee2e6;transition:background 0.18s ease;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f0f4f8'">Solicitar Lite</a>
     </article>
 
-    <article class="bg-primary-container rounded-xl p-lg md:p-xl flex flex-col gap-md shadow-xl relative xl:-mt-4">
-      <div class="absolute -top-4 left-1/2 -translate-x-1/2 hidden xl:block"><span class="text-white font-label-sm text-label-sm px-md py-xs rounded-full shadow-sm whitespace-nowrap" style="background:#0c9488">Recomendado</span></div>
-      <div class="flex items-center justify-between gap-sm">
-        <span class="font-label-sm text-label-sm text-primary-fixed-dim uppercase tracking-wider">Local</span>
-        <span class="font-label-sm text-[11px] text-white px-sm py-xs rounded-full" style="background:#0c9488">Mejor inicio</span>
+    <!-- LOCAL — Recomendado -->
+    <article class="plan-card-local lift-card" style="border:2px solid #007BFF;border-radius:14px;padding:24px;background:#007BFF;display:flex;flex-direction:column;gap:14px;position:relative;">
+      <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:#FF8C00;color:#ffffff;font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:5px 14px;border-radius:999px;white-space:nowrap;box-shadow:0 4px 12px rgba(255,140,0,0.35);">⭐ Recomendado</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <span style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.8);">Local</span>
+        <span style="font-size:11px;font-weight:700;background:rgba(255,255,255,0.2);color:#ffffff;padding:3px 10px;border-radius:999px;">Mejor inicio</span>
       </div>
       <div>
-        <div class="flex items-end gap-xs mb-xs"><span class="text-[42px] font-extrabold text-white leading-none">$1,990</span><span class="font-body-sm text-body-sm text-primary-fixed-dim mb-1">MXN/mes</span></div>
-        <p class="font-body-sm text-body-sm text-primary-fixed-dim/70">Equivalente USD: $115/mes · anual $98/mes</p>
+        <div style="display:flex;align-items:flex-end;gap:4px;margin-bottom:2px;">
+          <span style="font-size:40px;font-weight:900;color:#ffffff;line-height:1;letter-spacing:-0.03em;">$1,990</span>
+          <span style="font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:4px;">MXN/mes</span>
+        </div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.7);">≈ USD $115/mes · anual $98/mes</p>
       </div>
-      <p class="font-body-sm text-body-sm text-primary-fixed-dim">Para una sucursal que necesita ver unidades en tiempo real y cerrar operación diaria con control.</p>
-      <div class="grid grid-cols-3 gap-xs">
-        <div class="bg-white/8 border border-white/10 rounded-lg p-sm"><strong class="block font-label-sm text-label-sm text-white">1</strong><span class="font-body-sm text-body-sm text-primary-fixed-dim">plaza</span></div>
-        <div class="bg-white/8 border border-white/10 rounded-lg p-sm"><strong class="block font-label-sm text-label-sm text-white">25</strong><span class="font-body-sm text-body-sm text-primary-fixed-dim">usuarios</span></div>
-        <div class="bg-white/8 border border-white/10 rounded-lg p-sm"><strong class="block font-label-sm text-label-sm text-white">30 seg</strong><span class="font-body-sm text-body-sm text-primary-fixed-dim">GPS</span></div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.95);line-height:1.5;">Para una sucursal con operación diaria que necesita mapa en tiempo real y cierre de turno con control.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
+        <div style="background:rgba(255,255,255,0.18);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#ffffff;">1</strong><span style="font-size:11px;color:rgba(255,255,255,0.8);">plaza</span></div>
+        <div style="background:rgba(255,255,255,0.18);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#ffffff;">25</strong><span style="font-size:11px;color:rgba(255,255,255,0.8);">usuarios</span></div>
+        <div style="background:rgba(255,255,255,0.18);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#ffffff;">30 seg</strong><span style="font-size:11px;color:rgba(255,255,255,0.8);">actuali.</span></div>
       </div>
-      <ul class="space-y-sm flex-1">
-        <li class="flex gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Mapa en tiempo real, alertas y notificaciones</span></li>
-        <li class="flex gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Cuadre por turno, incidencias y cola de preparación</span></li>
-        <li class="flex gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-tertiary-fixed">check_circle</span><span class="font-body-sm text-body-sm text-primary-fixed-dim">Reportes CSV/PDF e historial de 90 días</span></li>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;flex:1;">
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#ffffff;"><span class="material-symbols-outlined" style="font-size:16px;color:#ffffff;flex-shrink:0;margin-top:1px;">check_circle</span>Mapa en tiempo real, alertas y notificaciones</li>
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#ffffff;"><span class="material-symbols-outlined" style="font-size:16px;color:#ffffff;flex-shrink:0;margin-top:1px;">check_circle</span>Cuadre por turno, incidencias y cola de preparación</li>
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#ffffff;"><span class="material-symbols-outlined" style="font-size:16px;color:#ffffff;flex-shrink:0;margin-top:1px;">check_circle</span>Reportes CSV/PDF e historial de 90 días</li>
       </ul>
-      <p class="font-body-sm text-body-sm text-primary-fixed-dim/75 border-t border-white/10 pt-md">Soporte por email con respuesta en 48 horas hábiles.</p>
-      <a href="#contacto" data-plan="Local" class="block text-center font-label-md text-label-md font-semibold bg-white text-primary-container px-lg py-sm rounded-lg hover:bg-primary-fixed active:scale-95 transition-all">Solicitar Local</a>
+      <p style="font-size:12px;color:rgba(255,255,255,0.75);border-top:1px solid rgba(255,255,255,0.25);padding-top:12px;">Soporte por email con respuesta en 48 horas hábiles.</p>
+      <a href="#contacto" data-plan="Local" style="display:block;text-align:center;background:#ffffff;color:#007BFF;font-size:14px;font-weight:800;padding:14px 20px;border-radius:10px;text-decoration:none;transition:background 0.18s ease;" onmouseover="this.style.background='#f0f7ff'" onmouseout="this.style.background='#ffffff'">Solicitar Local</a>
     </article>
 
-    <article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg md:p-xl flex flex-col gap-md lift-card">
-      <div class="flex items-center justify-between gap-sm">
-        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Regional</span>
-        <span class="font-label-sm text-[11px] bg-surface-container-low text-on-surface-variant px-sm py-xs rounded-full">2 a 3 plazas</span>
+    <!-- REGIONAL -->
+    <article class="plan-card-regional lift-card" style="border:1.5px solid #17A2B8;border-radius:14px;padding:24px;background:#ffffff;display:flex;flex-direction:column;gap:14px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <span style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#17A2B8;">Regional</span>
+        <span style="font-size:11px;font-weight:700;background:#e8f7f9;color:#17A2B8;padding:3px 10px;border-radius:999px;">2 a 3 plazas</span>
       </div>
       <div>
-        <div class="flex items-end gap-xs mb-xs"><span class="text-[42px] font-extrabold text-on-background leading-none">$4,490</span><span class="font-body-sm text-body-sm text-on-surface-variant mb-1">MXN/mes</span></div>
-        <p class="font-body-sm text-body-sm text-on-surface-variant/60">Equivalente USD: $260/mes · anual $221/mes</p>
+        <div style="display:flex;align-items:flex-end;gap:4px;margin-bottom:2px;">
+          <span style="font-size:40px;font-weight:900;color:#333333;line-height:1;letter-spacing:-0.03em;">$4,490</span>
+          <span style="font-size:13px;color:#6c757d;margin-bottom:4px;">MXN/mes</span>
+        </div>
+        <p style="font-size:12px;color:#6c757d;">≈ USD $260/mes · anual $221/mes</p>
       </div>
-      <p class="font-body-sm text-body-sm text-on-surface-variant">Para empresas con varias sucursales que necesitan operación local y visibilidad directiva.</p>
-      <div class="grid grid-cols-3 gap-xs">
-        <div class="bg-surface-container-low rounded-lg p-sm"><strong class="block font-label-sm text-label-sm text-on-background">3</strong><span class="font-body-sm text-body-sm text-on-surface-variant">plazas</span></div>
-        <div class="bg-surface-container-low rounded-lg p-sm"><strong class="block font-label-sm text-label-sm text-on-background">75</strong><span class="font-body-sm text-body-sm text-on-surface-variant">usuarios</span></div>
-        <div class="bg-surface-container-low rounded-lg p-sm"><strong class="block font-label-sm text-label-sm text-on-background">30 seg</strong><span class="font-body-sm text-body-sm text-on-surface-variant">GPS</span></div>
+      <p style="font-size:14px;color:#555555;line-height:1.5;">Para empresas con varias sucursales que necesitan operación local y visibilidad directiva.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
+        <div style="background:#e8f7f9;border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#333333;">3</strong><span style="font-size:11px;color:#6c757d;">plazas</span></div>
+        <div style="background:#e8f7f9;border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#333333;">75</strong><span style="font-size:11px;color:#6c757d;">usuarios</span></div>
+        <div style="background:#e8f7f9;border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#333333;">30 seg</strong><span style="font-size:11px;color:#6c757d;">actuali.</span></div>
       </div>
-      <ul class="space-y-sm flex-1">
-        <li class="flex gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Todo lo de Local</span></li>
-        <li class="flex gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Dashboard global, selector de plaza y RBAC regional</span></li>
-        <li class="flex gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Reportes comparativos y administración corporativa</span></li>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;flex:1;">
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#555555;"><span class="material-symbols-outlined" style="font-size:16px;color:#17A2B8;flex-shrink:0;margin-top:1px;">check_circle</span>Todo lo de Local</li>
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#555555;"><span class="material-symbols-outlined" style="font-size:16px;color:#17A2B8;flex-shrink:0;margin-top:1px;">check_circle</span>Dashboard global, selector de plaza y RBAC regional</li>
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#555555;"><span class="material-symbols-outlined" style="font-size:16px;color:#17A2B8;flex-shrink:0;margin-top:1px;">check_circle</span>Reportes comparativos y administración corporativa</li>
       </ul>
-      <p class="font-body-sm text-body-sm text-on-surface-variant/70 border-t border-outline-variant/40 pt-md">Ahorra frente a contratar Local + plazas adicionales.</p>
-      <a href="#contacto" data-plan="Regional" class="block text-center font-label-md text-label-md bg-surface-container-high text-on-background px-lg py-sm rounded-lg hover:bg-surface-container-highest active:scale-95 transition-all">Solicitar Regional</a>
+      <p style="font-size:12px;color:#9aa2b0;border-top:1px solid #dee2e6;padding-top:12px;">Ahorra frente a contratar Local + plazas adicionales.</p>
+      <a href="#contacto" data-plan="Regional" style="display:block;text-align:center;background:#17A2B8;color:#ffffff;font-size:14px;font-weight:700;padding:12px 20px;border-radius:10px;text-decoration:none;transition:background 0.18s ease;" onmouseover="this.style.background='#138496'" onmouseout="this.style.background='#17A2B8'">Solicitar Regional</a>
     </article>
 
-    <article class="bg-surface-container-lowest border-2 border-on-background/15 rounded-xl p-lg md:p-xl flex flex-col gap-md lift-card">
-      <div class="flex items-center justify-between gap-sm">
-        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Corporativo</span>
-        <span class="font-label-sm text-[11px] bg-on-background text-on-primary px-sm py-xs rounded-full">Enterprise</span>
+    <!-- CORPORATIVO -->
+    <article class="plan-card-corp lift-card" style="border:1.5px solid #333333;border-radius:14px;padding:24px;background:#333333;display:flex;flex-direction:column;gap:14px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <span style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Corporativo</span>
+        <span style="font-size:11px;font-weight:700;background:rgba(255,255,255,0.15);color:#ffffff;padding:3px 10px;border-radius:999px;">Enterprise</span>
       </div>
       <div>
-        <div class="flex items-end gap-xs mb-xs"><span class="text-[34px] font-extrabold text-on-background leading-none">Desde $9,990</span><span class="font-body-sm text-body-sm text-on-surface-variant mb-1">MXN/mes</span></div>
-        <p class="font-body-sm text-body-sm text-on-surface-variant/60">Equivalente USD: desde $579/mes · anual negociable</p>
+        <div style="display:flex;align-items:flex-end;gap:4px;margin-bottom:2px;">
+          <span style="font-size:32px;font-weight:900;color:#ffffff;line-height:1;letter-spacing:-0.03em;">Desde $9,990</span>
+          <span style="font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:4px;">MXN/mes</span>
+        </div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.6);">≈ USD $579/mes · anual negociable</p>
       </div>
-      <p class="font-body-sm text-body-sm text-on-surface-variant">Para 4+ plazas, operación nacional, integraciones o requerimientos corporativos.</p>
-      <div class="grid grid-cols-3 gap-xs">
-        <div class="bg-surface-container-low rounded-lg p-sm"><strong class="block font-label-sm text-label-sm text-on-background">∞</strong><span class="font-body-sm text-body-sm text-on-surface-variant">plazas</span></div>
-        <div class="bg-surface-container-low rounded-lg p-sm"><strong class="block font-label-sm text-label-sm text-on-background">∞</strong><span class="font-body-sm text-body-sm text-on-surface-variant">usuarios</span></div>
-        <div class="bg-surface-container-low rounded-lg p-sm"><strong class="block font-label-sm text-label-sm text-on-background">10 seg</strong><span class="font-body-sm text-body-sm text-on-surface-variant">GPS</span></div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.9);line-height:1.5;">Para 4+ plazas, operación nacional, integraciones o requerimientos corporativos.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
+        <div style="background:rgba(255,255,255,0.12);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#ffffff;">∞</strong><span style="font-size:11px;color:rgba(255,255,255,0.7);">plazas</span></div>
+        <div style="background:rgba(255,255,255,0.12);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#ffffff;">∞</strong><span style="font-size:11px;color:rgba(255,255,255,0.7);">usuarios</span></div>
+        <div style="background:rgba(255,255,255,0.12);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#ffffff;">10 seg</strong><span style="font-size:11px;color:rgba(255,255,255,0.7);">actuali.</span></div>
       </div>
-      <ul class="space-y-sm flex-1">
-        <li class="flex gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">Todo lo de Regional</span></li>
-        <li class="flex gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">API REST, white-label parcial e historial de 365 días</span></li>
-        <li class="flex gap-sm"><span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0" style="color:#0c9488">check_circle</span><span class="font-body-sm text-body-sm text-on-surface-variant">SLA 99.5%, onboarding dedicado y cuenta asignada</span></li>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;flex:1;">
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,0.9);"><span class="material-symbols-outlined" style="font-size:16px;color:#FF8C00;flex-shrink:0;margin-top:1px;">check_circle</span>Todo lo de Regional</li>
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,0.9);"><span class="material-symbols-outlined" style="font-size:16px;color:#FF8C00;flex-shrink:0;margin-top:1px;">check_circle</span>API REST, white-label parcial e historial de 365 días</li>
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,0.9);"><span class="material-symbols-outlined" style="font-size:16px;color:#FF8C00;flex-shrink:0;margin-top:1px;">check_circle</span>SLA 99.5%, onboarding dedicado y cuenta asignada</li>
       </ul>
-      <p class="font-body-sm text-body-sm text-on-surface-variant/70 border-t border-outline-variant/40 pt-md">Para ERP/TMS, operación binacional o acuerdos especiales.</p>
-      <a href="#contacto" data-plan="Corporativo" class="cta-primary block text-center font-label-md text-label-md px-lg py-sm rounded-lg active:scale-95">Solicitar Corporativo</a>
+      <p style="font-size:12px;color:rgba(255,255,255,0.55);border-top:1px solid rgba(255,255,255,0.15);padding-top:12px;">Para ERP/TMS, operación binacional o acuerdos especiales.</p>
+      <a href="#contacto" data-plan="Corporativo" style="display:block;text-align:center;background:#FF8C00;color:#ffffff;font-size:14px;font-weight:800;padding:12px 20px;border-radius:10px;text-decoration:none;transition:background 0.18s ease;" onmouseover="this.style.background='#e07b00'" onmouseout="this.style.background='#FF8C00'">Solicitar Corporativo</a>
     </article>
   </div>
 
@@ -2228,8 +2943,9 @@ Abrir demo en pestaña
 <section class="bg-surface-container-low py-3xl px-gutter border-t border-outline-variant/20" id="contacto">
 <div class="max-w-3xl mx-auto bg-surface-container-lowest p-2xl rounded-xl border border-outline-variant shadow-sm">
 <div class="text-center mb-xl">
-<h2 class="font-h2 text-h2 text-on-background mb-sm">Agenda tu demo gratuita de 15 minutos</h2>
-<p class="font-body-md text-body-md text-on-surface-variant">Déjanos tus datos y te contactamos ese mismo día para revisar si MapGestion aplica a tu arrendadora, patio o flotilla. Sin compromiso.</p>
+<span class="urgency-badge mb-md" style="margin-bottom:16px;">Respondemos en menos de 2 horas hábiles</span>
+<h2 class="font-h2 text-h2 text-on-background mb-sm" style="margin-top:14px;">Agenda tu demo gratuita de 15 minutos</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Déjanos tus datos y te contactamos ese mismo día para revisar si MapGestion aplica a tu arrendadora, patio o flotilla. <strong>Sin compromiso, sin contrato.</strong></p>
 </div>
 <form class="space-y-lg">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
@@ -2289,7 +3005,8 @@ TELEFONO
 MapGestion
 </div>
 <div class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant text-center md:text-left">
-© 2026 MapGestion. Precisión y Velocidad en Logística.
+© 2026 MapGestion · Tu patio, siempre bajo control.<br/>
+<span style="font-size:11px;opacity:0.65;">Hecho en México para operaciones logísticas y arrendadoras.</span>
 </div>
 <div class="flex gap-lg font-label-md text-label-md">
 <a class="text-on-surface-variant dark:text-surface-variant hover:text-on-surface transition-colors" href="terminos.html#privacidad">Privacidad</a>
@@ -2471,6 +3188,54 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft') lightboxStep(-1);
 });
 
+/* ── Counter animation on scroll ── */
+(function initCounters() {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) return;
+
+  const counterEls = document.querySelectorAll('[data-counter]');
+  if (!counterEls.length) return;
+
+  const easeOutQuart = t => 1 - Math.pow(1 - t, 4);
+
+  function animateCounter(el) {
+    const target = parseFloat(el.dataset.counter);
+    const suffix = el.dataset.suffix || '';
+    const prefix = el.dataset.prefix || '';
+    const isDecimal = suffix.includes('.');
+    const duration = 1400;
+    const start = performance.now();
+
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeOutQuart(progress);
+      let val = target * eased;
+      let display;
+      if (suffix === '.9%') {
+        display = prefix + Math.floor(val) + (progress > 0.8 ? '.9%' : '%');
+      } else if (suffix === ' seg' || suffix === ' planes') {
+        display = prefix + Math.round(val) + suffix;
+      } else {
+        display = prefix + Math.round(val) + suffix;
+      }
+      el.textContent = display;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      animateCounter(entry.target);
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.5 });
+
+  counterEls.forEach(el => obs.observe(el));
+})();
+
 (function initMapGestionMotion() {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const items = document.querySelectorAll([
@@ -2487,6 +3252,7 @@ document.addEventListener('keydown', (e) => {
     '#precios article',
     '#precios .mt-2xl > div',
     '#contacto .lift-card',
+    '#metricas .number-item',
     'footer'
   ].join(','));
 
