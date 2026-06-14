@@ -1934,28 +1934,15 @@
     border-color: rgba(255,255,255,0.09) !important;
   }
 
-  /* Pricing — fix Local & Corp backgrounds */
-  #precios article.plan-card-local {
-    background: #007BFF !important;
-    border-color: #1a8cff !important;
-    box-shadow: 0 20px 52px rgba(0,123,255,0.30) !important;
+  /* Hero floating info cards — dark overlay */
+  .map-caption-card {
+    background: rgba(7,18,42,0.92) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important;
   }
-  #precios article.plan-card-local::before { content: none !important; }
-  #precios article.plan-card-corp {
-    background: #141c2f !important;
-    border-color: rgba(255,255,255,0.15) !important;
-    box-shadow: 0 20px 52px rgba(0,0,0,0.35) !important;
-  }
-  #precios article.plan-card-lite {
-    background: rgba(255,255,255,0.07) !important;
-    border-color: rgba(255,255,255,0.13) !important;
-    box-shadow: none !important;
-  }
-  #precios article.plan-card-regional {
-    background: rgba(23,162,184,0.07) !important;
-    border-color: rgba(23,162,184,0.40) !important;
-  }
-  /* Fix dark text inside light-bg plan cards (Lite & Regional) */
+  .map-caption-card strong { color: #dce5f5 !important; }
+  .map-caption-card small { color: rgba(220,229,245,0.5) !important; }
+  /* Dead-code text overrides (kept harmless) */
   #precios article.plan-card-lite span[style*="color:#333333"],
   #precios article.plan-card-lite strong[style*="color:#333333"],
   #precios article.plan-card-lite p[style*="color:#555555"] {
@@ -2127,7 +2114,7 @@
 <div class="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-2xl items-center">
 <div class="text-left">
 <span class="urgency-badge mb-lg" style="margin-bottom:20px;">Implementación en menos de 1 semana </span>
-<h1 class="font-display text-[34px] md:text-[72px] leading-[1.0] font-extrabold tracking-[-0.055em] text-on-background mb-lg max-w-4xl"><span class="hero-desktop-title">Tu patio visible.<br/>Tu flota, controlada.</span><span class="hero-mobile-title">Tu patio visible.<br/>Tu flota, controlada.</span><br/><span class="gradient-word">Sin Herramientas Extras</span></h1>
+<h1 class="font-display text-[34px] md:text-[72px] leading-[1.0] font-extrabold tracking-[-0.055em] text-on-background mb-lg max-w-4xl"><span class="hero-desktop-title">Tu patio visible.<br/>Tu flota, controlada.</span><span class="hero-mobile-title">Tu patio visible.<br/>Tu flota, controlada.</span><br/><span class="gradient-word">Sin Excel. Sin WhatsApp.</span></h1>
 <p class="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-2xl">Cada unidad ubicada, cada movimiento trazado, cada turno cerrado con evidencia — todo desde una plataforma web que tu equipo operativo usará desde el primer día. Diseñado para arrendadoras de autos, camiones y patios logísticos en México.</p>
 <div class="flex flex-col sm:flex-row gap-md mb-xl hero-actions-clean">
 <a href="#contacto" class="cta-primary font-label-md text-label-md px-xl py-md rounded-lg flex items-center justify-center gap-sm">
@@ -2138,20 +2125,6 @@ Agendar Demo Gratuita
 <span class="material-symbols-outlined text-[20px]">play_circle</span>
 Ver cómo funciona
 </button>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-3 gap-md max-w-xl">
-<div class="stat-card rounded-xl p-md">
-  <div class="font-h2 text-h2" style="color:var(--mg-blue);letter-spacing:-0.03em;">30 seg</div>
-  <div class="font-body-sm text-body-sm text-on-surface-variant">actualización al instante</div>
-</div>
-<div class="stat-card rounded-xl p-md">
-  <div class="font-h2 text-h2" style="color:var(--mg-blue);letter-spacing:-0.03em;">&lt; 1 sem</div>
-  <div class="font-body-sm text-body-sm text-on-surface-variant">del alta al primer mapa</div>
-</div>
-<div class="stat-card rounded-xl p-md">
-  <div class="font-h2 text-h2" style="color:var(--mg-blue);letter-spacing:-0.03em;">100% web</div>
-  <div class="font-body-sm text-body-sm text-on-surface-variant">sin instalaciones locales</div>
-</div>
 </div>
 <p class="font-body-sm text-body-sm text-on-surface-variant/60 mt-md" style="font-size:12px;">Sin contrato anual · Cancela cuando quieras · Precios en MXN</p>
 </div>
@@ -2203,7 +2176,7 @@ Ver cómo funciona
 <div class="max-w-container-max mx-auto px-gutter">
   <div class="grid grid-cols-2 lg:grid-cols-4 divide-x divide-outline-variant/20">
     <div class="number-item reveal-item">
-      <span class="number-item-val" data-counter="30" data-suffix=" seg">30 seg</span>
+      <span class="number-item-val" data-counter="30" data-suffix=" seg">1 seg</span>
       <span class="number-item-label">Actualización<br/>al instante</span>
     </div>
     <div class="number-item reveal-item">
@@ -2629,7 +2602,7 @@ Ver cómo funciona
 <span class="material-symbols-outlined text-[20px]">play_circle</span>
 Ver cómo funciona (Sandbox)
 </button>
-<a href="https://mex-mapa-bjx.web.app" target="_blank" rel="noopener" class="border border-outline-variant text-on-surface-variant font-label-md text-label-md px-lg py-md rounded-lg hover:bg-surface-container-low transition-colors flex items-center justify-center gap-sm" style="border-color:rgba(11,114,217,0.22);color:var(--mg-blue);">
+<a href="app.mapgestion.com" target="_blank" rel="noopener" class="border border-outline-variant text-on-surface-variant font-label-md text-label-md px-lg py-md rounded-lg hover:bg-surface-container-low transition-colors flex items-center justify-center gap-sm" style="border-color:rgba(11,114,217,0.22);color:var(--mg-blue);">
 <span class="material-symbols-outlined text-[20px]">open_in_new</span>
 Abrir demo en pestaña
 </a>
