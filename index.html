@@ -2075,6 +2075,97 @@
     background: rgba(255,255,255,0.025) !important;
   }
 
+  /* ── Contrast fixes (dark theme legibility) ── */
+  nav a.text-primary,
+  nav a.mobile-app-link.text-primary {
+    color: rgba(220,229,245,0.88) !important;
+  }
+  nav a.text-primary:hover,
+  nav .hidden.md\:flex a.hover\:text-primary:hover,
+  nav li a:hover {
+    color: var(--mg-blue) !important;
+  }
+
+  /* Demo sandbox card: undo light-theme white override */
+  #demo .bg-primary-container {
+    background: linear-gradient(135deg, #07152e 0%, #0d2347 100%) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+  }
+  #demo .bg-primary-container h3,
+  #demo .bg-primary-container p,
+  #demo .bg-primary-container span:not(.material-symbols-outlined) {
+    color: #dce5f5 !important;
+  }
+  #demo .bg-primary-container .text-primary-fixed-dim {
+    color: rgba(220,229,245,0.78) !important;
+  }
+  #demo .bg-primary-container [class*="text-inverse-on-surface"] {
+    color: rgba(220,229,245,0.78) !important;
+  }
+  #demo .bg-primary-container .material-symbols-outlined {
+    color: #6bb8ff !important;
+  }
+  #demo .bg-primary-container button.bg-surface-container-lowest {
+    background: #ffffff !important;
+    color: #07152e !important;
+  }
+  #demo .bg-primary-container button.bg-surface-container-lowest * {
+    color: #07152e !important;
+  }
+
+  /* Pricing add-ons: labels were too dim on navy */
+  #precios .bg-primary-container .text-primary-fixed-dim,
+  #precios .bg-primary-container [class*="text-primary-fixed-dim"] {
+    color: rgba(220,229,245,0.82) !important;
+  }
+
+  /* Muted body copy: bump minimum contrast */
+  .text-on-surface-variant\/60,
+  [class*="text-on-surface-variant/"] {
+    color: rgba(220,229,245,0.72) !important;
+  }
+
+  /* Form fields */
+  #contacto input,
+  #contacto select,
+  #contacto textarea {
+    color: #dce5f5 !important;
+    background: rgba(255,255,255,0.06) !important;
+    border-color: rgba(255,255,255,0.14) !important;
+  }
+  #contacto input::placeholder,
+  #contacto textarea::placeholder {
+    color: rgba(220,229,245,0.45) !important;
+  }
+  #contacto select option {
+    background: #0d1525;
+    color: #dce5f5;
+  }
+  #contacto .bg-surface-container-low,
+  #contacto .bg-surface-container-low.text-on-surface {
+    background: rgba(255,255,255,0.06) !important;
+    color: #dce5f5 !important;
+    border-color: rgba(255,255,255,0.12) !important;
+  }
+
+  /* Footer: surface-variant token is a light gray — force readable on dark */
+  footer .dark\:text-surface-variant,
+  footer .text-on-surface-variant {
+    color: rgba(220,229,245,0.62) !important;
+  }
+  footer .dark\:text-inverse-on-surface,
+  footer .text-on-surface {
+    color: #dce5f5 !important;
+  }
+
+  /* Story step numbers: white on gradient circle */
+  .story-step {
+    background: linear-gradient(135deg, var(--mg-blue), var(--mg-teal)) !important;
+    color: #ffffff !important;
+    border: none !important;
+  }
+
 </style>
 </head>
 <body class="bg-surface-container-lowest text-on-background">
@@ -2223,20 +2314,21 @@ Ver cómo funciona
 </div>
 </section>
 <!-- Before After Section -->
-<section id=”antes-despues” style=”padding:80px 24px;max-width:1280px;margin:0 auto;width:min(1280px,calc(100vw - 48px));”>
+<section id=”antes-despues” style=”padding:80px 0;”>
+  <div style=”max-width:1200px;margin:0 auto;padding:0 24px;”>
 
   <!-- Encabezado -->
-  <div style=”text-align:center;margin-bottom:48px;”>
+  <div style=”text-align:center;margin:0 auto 48px;max-width:680px;”>
     <span style=”display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(0,123,255,0.08);border:1px solid rgba(0,123,255,0.25);font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#6bb8ff;margin-bottom:20px;”>Antes y después</span>
-    <h2 style=”font-size:clamp(24px,4vw,36px);font-weight:700;color:#dce5f5;line-height:1.2;margin:0 0 16px;max-width:640px;margin-left:auto;margin-right:auto;”>Del caos de Excel y WhatsApp a una sola vista que tu equipo ya entiende.</h2>
-    <p style=”font-size:16px;color:rgba(220,229,245,0.6);max-width:560px;margin:0 auto;line-height:1.6;”>MapGestion reemplaza la mezcla de llamadas, hojas de cálculo y pizarrones desactualizados por un mapa compartido con evidencia en tiempo real.</p>
+    <h2 style=”font-size:clamp(24px,4vw,36px);font-weight:700;color:#dce5f5;line-height:1.2;margin:0 0 16px;”>Del caos de Excel y WhatsApp a una sola vista que tu equipo ya entiende.</h2>
+    <p style=”font-size:16px;color:rgba(220,229,245,0.6);line-height:1.6;margin:0;”>MapGestion reemplaza la mezcla de llamadas, hojas de cálculo y pizarrones desactualizados por un mapa compartido con evidencia en tiempo real.</p>
   </div>
 
   <!-- Grid de tarjetas -->
-  <div style=”display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;align-items:start;”>
+  <div style=”display:flex;flex-wrap:wrap;gap:20px;justify-content:center;align-items:start;”>
 
     <!-- ── ANTES ── -->
-    <div style=”border-radius:16px;overflow:hidden;border:1px solid rgba(255,80,80,0.2);background:#160a0a;box-shadow:0 8px 40px rgba(0,0,0,0.4);”>
+    <div style=”flex:1 1 300px;max-width:500px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,80,80,0.2);background:#160a0a;box-shadow:0 8px 40px rgba(0,0,0,0.4);”>
       <!-- Header rojo -->
       <div style=”padding:16px 20px;background:rgba(220,50,50,0.12);border-bottom:1px solid rgba(255,80,80,0.18);display:flex;align-items:center;justify-content:space-between;”>
         <span style=”font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,120,120,0.9);”>Antes</span>
@@ -2285,7 +2377,7 @@ Ver cómo funciona
     </div>
 
     <!-- ── DESPUÉS ── -->
-    <div style=”border-radius:16px;overflow:hidden;border:1px solid rgba(18,184,179,0.3);background:#081a17;box-shadow:0 8px 40px rgba(18,184,179,0.1);”>
+    <div style=”flex:1 1 300px;max-width:500px;border-radius:16px;overflow:hidden;border:1px solid rgba(18,184,179,0.3);background:#081a17;box-shadow:0 8px 40px rgba(18,184,179,0.1);”>
       <!-- Header verde/teal -->
       <div style=”padding:16px 20px;background:rgba(18,184,179,0.12);border-bottom:1px solid rgba(18,184,179,0.2);display:flex;align-items:center;justify-content:space-between;”>
         <span style=”font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#12b8b3;”>Después</span>
@@ -2333,6 +2425,7 @@ Ver cómo funciona
       </div>
     </div>
 
+  </div>
   </div>
 </section>
 
@@ -3031,6 +3124,7 @@ contacto@mapgestion.com
 <a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20solicitar%20el%20alta%20de%20mi%20empresa%20en%20MapGestion" target="_blank" rel="noopener" class="bg-surface-container-low text-on-surface font-label-md border border-outline-variant px-lg py-sm rounded-lg hover:bg-surface-container-highest transition-all inline-flex items-center justify-center gap-sm">
 <span class="material-symbols-outlined text-[18px]">chat</span>
 Whatsapp
+
 </a>
 </div>
 </div>
