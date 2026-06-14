@@ -260,8 +260,8 @@
     overflow-x: hidden;
     max-width: 100%;
     font-family: 'Inter', sans-serif;
-    background:
-      linear-gradient(180deg, #ffffff 0%, #f7f9fb 36%, #ffffff 100%);
+    background: #070d1b;
+    color: #dce5f5;
   }
   
   /* Hero section */
@@ -1891,9 +1891,14 @@
     color: var(--mg-blue) !important;
   }
 
-  .bg-surface-container-lowest {
-    background: rgba(255,255,255,0.04) !important;
+  /* Cards dark — applies to divs/articles with these classes, NOT body */
+  .bg-surface-container-lowest:not(body) {
+    background: rgba(255,255,255,0.055) !important;
     border-color: rgba(255,255,255,0.09) !important;
+  }
+  .bg-surface-container-low:not(body):not(section) {
+    background: rgba(255,255,255,0.03) !important;
+    border-color: rgba(255,255,255,0.07) !important;
   }
   .bg-surface-container-lowest h3 { color: #dce5f5 !important; }
   .bg-surface-container-lowest p { color: rgba(220,229,245,0.5) !important; }
@@ -2028,6 +2033,44 @@
     border-top-color: rgba(255,255,255,0.09) !important;
   }
 
+  /* ── Body override — DEBE IR AL FINAL para ganar a .bg-surface-container-lowest ──
+     Especificidad (0,1,1) > clase sola (0,1,0), incluso con !important */
+  body.bg-surface-container-lowest,
+  body.text-on-background {
+    background: #070d1b !important;
+    background-image:
+      radial-gradient(ellipse at 85% 5%, rgba(0,123,255,0.07) 0%, transparent 45%),
+      radial-gradient(ellipse at 15% 95%, rgba(23,162,184,0.05) 0%, transparent 40%) !important;
+    color: #dce5f5 !important;
+  }
+
+  /* Global text legibility on dark bg */
+  .text-on-background { color: #dce5f5 !important; }
+  .text-on-surface     { color: #dce5f5 !important; }
+  .text-on-surface-variant { color: rgba(220,229,245,0.55) !important; }
+  /* Secciones con clases de Tailwind → fondo oscuro */
+  section.bg-surface-container-low   { background: rgba(255,255,255,0.025) !important; }
+  section.bg-surface-container-lowest { background: rgba(255,255,255,0.025) !important; }
+  /* Reglas de CSS existentes que quedaron con fondo blanco → override */
+  .numbers-strip { background: rgba(255,255,255,0.025) !important; }
+  .gallery-frame { background: rgba(255,255,255,0.04) !important; }
+  .feature-card  { background: rgba(255,255,255,0.05) !important; }
+  .feature-icon  { background: rgba(0,123,255,0.12) !important; }
+  .services-strip { background: rgba(255,255,255,0.02) !important; }
+  /* border-outline-variant en oscuro */
+  [class*="border-outline"] { border-color: rgba(255,255,255,0.08) !important; }
+  /* Gradientes blancos en secciones de producto */
+  .hero-panel, header.hero-panel { background: transparent !important; }
+  /* Sandbox / product window */
+  .product-window { background: rgba(255,255,255,0.04) !important; }
+  /* Any remaining inline-styled divs that use light gradients */
+  div[style*="background:linear-gradient(180deg,#f7fbff"] {
+    background: transparent !important;
+  }
+  div[style*="background:linear-gradient(180deg, #f4f9ff"] {
+    background: rgba(255,255,255,0.025) !important;
+  }
+
 </style>
 </head>
 <body class="bg-surface-container-lowest text-on-background">
@@ -2113,7 +2156,7 @@ Ver cómo funciona
 </header>
 
 <!-- Trust Bar — marquee animado -->
-<div class="py-lg border-b border-outline-variant/30" style="background:linear-gradient(180deg,#f7fbff,#ffffff);">
+<div class="py-lg border-b border-outline-variant/30" style="background:rgba(255,255,255,0.025);">
 <p class="text-center font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-md px-gutter">Operaciones que ya se gestionan con MapGestion</p>
 <div class="marquee-wrap px-0">
   <div class="marquee-track" aria-hidden="true">
