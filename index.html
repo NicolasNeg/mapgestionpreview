@@ -2033,6 +2033,19 @@
     border-top-color: rgba(255,255,255,0.09) !important;
   }
 
+  /* ── Nav dark ── */
+  nav {
+    background: rgba(7,13,27,0.92) !important;
+    border-bottom-color: rgba(255,255,255,0.08) !important;
+  }
+  nav a:not(.cta-primary) {
+    color: rgba(220,229,245,0.72) !important;
+    text-decoration: none !important;
+  }
+  nav a:not(.cta-primary):hover { color: #dce5f5 !important; }
+  nav .brand-lockup img { filter: brightness(0) invert(1); }
+  nav .cta-primary { color: #ffffff !important; }
+
   /* ── Body override — DEBE IR AL FINAL para ganar a .bg-surface-container-lowest ──
      Especificidad (0,1,1) > clase sola (0,1,0), incluso con !important */
   body.bg-surface-container-lowest,
@@ -2290,47 +2303,47 @@ Ver cómo funciona
   </div>
 
   <!-- DESPUÉS -->
-  <div style=”border-radius:16px;padding:28px;background:#007BFF;color:#ffffff;”>
+  <div style=”border:1px solid rgba(47,177,255,0.22);border-radius:16px;padding:28px;background:linear-gradient(135deg,rgba(0,180,160,0.14) 0%,rgba(47,177,255,0.09) 100%);color:#dce5f5;”>
     <div class=”flex items-center justify-between gap-md mb-lg”>
-      <span style=”font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.75);”>Después</span>
-      <span style=”font-size:12px;font-weight:700;color:#ffffff;display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);padding:4px 10px;border-radius:999px;”>
+      <span style=”font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(220,229,245,0.55);”>Después</span>
+      <span style=”font-size:12px;font-weight:700;color:#6bb8ff;display:inline-flex;align-items:center;gap:6px;background:rgba(47,177,255,0.12);border:1px solid rgba(47,177,255,0.25);padding:4px 10px;border-radius:999px;”>
         <span class=”material-symbols-outlined” style=”font-size:16px;”>check_circle</span>
         Todo en un mapa
       </span>
     </div>
-    <h3 style=”font-size:20px;font-weight:700;color:#ffffff;margin-bottom:16px;line-height:1.3;”>Una sola vista para decidir.</h3>
+    <h3 style=”font-size:20px;font-weight:700;color:#dce5f5;margin-bottom:16px;line-height:1.3;”>Una sola vista para decidir.</h3>
     <div style=”display:flex;flex-direction:column;gap:10px;”>
 
       <!-- Mapa vivo -->
-      <div style=”display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:10px;padding:12px 14px;”>
-        <span style=”flex-shrink:0;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;”>
-          <span class=”material-symbols-outlined” style=”font-size:18px;color:#ffffff;”>map</span>
+      <div style=”display:flex;align-items:center;gap:12px;background:rgba(47,177,255,0.08);border:1px solid rgba(47,177,255,0.18);border-radius:10px;padding:12px 14px;”>
+        <span style=”flex-shrink:0;width:34px;height:34px;border-radius:8px;background:rgba(47,177,255,0.15);display:flex;align-items:center;justify-content:center;”>
+          <span class=”material-symbols-outlined” style=”font-size:18px;color:#6bb8ff;”>map</span>
         </span>
         <div>
-          <span style=”display:block;font-size:13px;font-weight:700;color:#ffffff;”>Mapa en vivo</span>
-          <span style=”font-size:12px;color:rgba(255,255,255,0.85);”>Ubicación y estado de cada unidad en tiempo real</span>
+          <span style=”display:block;font-size:13px;font-weight:700;color:#dce5f5;”>Mapa en vivo</span>
+          <span style=”font-size:12px;color:rgba(220,229,245,0.55);”>Ubicación y estado de cada unidad en tiempo real</span>
         </div>
       </div>
 
       <!-- Bitácora -->
-      <div style=”display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:10px;padding:12px 14px;”>
-        <span style=”flex-shrink:0;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;”>
-          <span class=”material-symbols-outlined” style=”font-size:18px;color:#ffffff;”>history</span>
+      <div style=”display:flex;align-items:center;gap:12px;background:rgba(47,177,255,0.08);border:1px solid rgba(47,177,255,0.18);border-radius:10px;padding:12px 14px;”>
+        <span style=”flex-shrink:0;width:34px;height:34px;border-radius:8px;background:rgba(47,177,255,0.15);display:flex;align-items:center;justify-content:center;”>
+          <span class=”material-symbols-outlined” style=”font-size:18px;color:#6bb8ff;”>history</span>
         </span>
         <div>
-          <span style=”display:block;font-size:13px;font-weight:700;color:#ffffff;”>Bitácora automática</span>
-          <span style=”font-size:12px;color:rgba(255,255,255,0.85);”>Cada movimiento registrado con responsable y fecha</span>
+          <span style=”display:block;font-size:13px;font-weight:700;color:#dce5f5;”>Bitácora automática</span>
+          <span style=”font-size:12px;color:rgba(220,229,245,0.55);”>Cada movimiento registrado con responsable y fecha</span>
         </div>
       </div>
 
       <!-- Permisos -->
-      <div style=”display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:10px;padding:12px 14px;”>
-        <span style=”flex-shrink:0;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;”>
-          <span class=”material-symbols-outlined” style=”font-size:18px;color:#ffffff;”>admin_panel_settings</span>
+      <div style=”display:flex;align-items:center;gap:12px;background:rgba(47,177,255,0.08);border:1px solid rgba(47,177,255,0.18);border-radius:10px;padding:12px 14px;”>
+        <span style=”flex-shrink:0;width:34px;height:34px;border-radius:8px;background:rgba(47,177,255,0.15);display:flex;align-items:center;justify-content:center;”>
+          <span class=”material-symbols-outlined” style=”font-size:18px;color:#6bb8ff;”>admin_panel_settings</span>
         </span>
         <div>
-          <span style=”display:block;font-size:13px;font-weight:700;color:#ffffff;”>Permisos + incidencias + evidencia</span>
-          <span style=”font-size:12px;color:rgba(255,255,255,0.85);”>Control completo sin llamadas ni capturas de pantalla</span>
+          <span style=”display:block;font-size:13px;font-weight:700;color:#dce5f5;”>Permisos + incidencias + evidencia</span>
+          <span style=”font-size:12px;color:rgba(220,229,245,0.55);”>Control completo sin llamadas ni capturas de pantalla</span>
         </div>
       </div>
 
