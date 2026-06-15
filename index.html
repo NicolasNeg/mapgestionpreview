@@ -1484,13 +1484,13 @@
     box-shadow: 0 0 0 3px rgba(11,114,217,0.12) !important;
   }
 
-  /* Scroll reveal: process steps numbered circles */
-  #como-funciona .w-20.h-20 {
-    background: linear-gradient(135deg, var(--mg-blue), var(--mg-teal)) !important;
-    border: none !important;
-    box-shadow: 0 14px 34px rgba(11,114,217,0.22) !important;
+  /* Scroll reveal: process steps */
+  #como-funciona .process-step-num {
+    color: #12b8b3 !important;
+    background: rgba(18,184,179,0.08) !important;
+    border: 2px solid rgba(18,184,179,0.45) !important;
+    box-shadow: none !important;
   }
-  #como-funciona .text-on-primary { color: #ffffff !important; }
 
   /* Footer: subtle top border glow */
   footer { border-top: 1px solid rgba(11,114,217,0.12); }
@@ -2136,12 +2136,615 @@
     border: none !important;
   }
 
+  /* ── Process steps (Implementación) ── */
+  #como-funciona {
+    background: transparent !important;
+  }
+  .process-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 920px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .process-step {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 20px;
+    align-items: start;
+    padding: 0 0 36px;
+    position: relative;
+  }
+  .process-step:last-child {
+    padding-bottom: 0;
+  }
+  .process-step::before {
+    content: "";
+    position: absolute;
+    left: 27px;
+    top: 56px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, rgba(18,184,179,0.55), rgba(18,184,179,0.08));
+  }
+  .process-step:last-child::before {
+    display: none;
+  }
+  .process-step-marker {
+    display: flex;
+    justify-content: center;
+    padding-top: 4px;
+    position: relative;
+    z-index: 1;
+  }
+  .process-step-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    font-feature-settings: "tnum";
+    color: #12b8b3 !important;
+    background: rgba(18,184,179,0.08) !important;
+    border: 2px solid rgba(18,184,179,0.4) !important;
+    box-shadow: none !important;
+  }
+  .process-step-body {
+    background: #0d1525 !important;
+    border: 1px solid rgba(255,255,255,0.09) !important;
+    border-radius: 14px;
+    padding: 20px 22px;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.22) !important;
+  }
+  .process-step-body h3 {
+    color: #dce5f5 !important;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 8px;
+  }
+  .process-step-body p {
+    color: rgba(220,229,245,0.72) !important;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .process-step-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(11,114,217,0.1);
+    border: 1px solid rgba(11,114,217,0.2);
+    color: #6bb8ff !important;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  @media (min-width: 1024px) {
+    .process-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: none;
+    }
+    .process-step {
+      grid-template-columns: 1fr;
+      gap: 14px;
+      padding: 0;
+      text-align: center;
+    }
+    .process-step::before {
+      display: none;
+    }
+    .process-flow::before {
+      content: "";
+      position: absolute;
+      top: 28px;
+      left: 12%;
+      right: 12%;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(18,184,179,0.08), rgba(18,184,179,0.45) 20%, rgba(18,184,179,0.45) 80%, rgba(18,184,179,0.08));
+      z-index: 0;
+    }
+    .process-step-marker {
+      justify-content: center;
+      padding-top: 0;
+    }
+    .process-step-num {
+      margin: 0 auto;
+    }
+    .process-step-body {
+      text-align: left;
+      min-height: 148px;
+    }
+  }
+
+  /* ── Admin section ── */
+  #administracion {
+    background: #080e1c !important;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  #administracion .admin-intro h2 {
+    color: #dce5f5 !important;
+  }
+  #administracion .admin-intro p {
+    color: rgba(220,229,245,0.72) !important;
+  }
+  .admin-feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .admin-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 20px;
+    background: #0d1525 !important;
+    border: 1px solid rgba(255,255,255,0.09) !important;
+    border-radius: 14px;
+    box-shadow: 0 10px 32px rgba(0,0,0,0.18) !important;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .admin-feature:hover {
+    border-color: rgba(18,184,179,0.28) !important;
+    transform: translateY(-2px);
+  }
+  .admin-feature-icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: rgba(11,114,217,0.1) !important;
+    border: 1px solid rgba(11,114,217,0.2) !important;
+    color: #6bb8ff !important;
+  }
+  .admin-feature-icon .material-symbols-outlined {
+    font-size: 22px;
+  }
+  .admin-feature h4 {
+    color: #dce5f5 !important;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 6px;
+  }
+  .admin-feature p {
+    color: rgba(220,229,245,0.68) !important;
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .admin-visual {
+    background: #0d1525 !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 56px rgba(0,0,0,0.28) !important;
+  }
+  .admin-visual img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .admin-visual-caption {
+    padding: 14px 18px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
+  }
+  .admin-visual-caption strong {
+    display: block;
+    color: #dce5f5 !important;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .admin-visual-caption span {
+    color: rgba(220,229,245,0.55) !important;
+    font-size: 12px;
+  }
+  @media (max-width: 1023px) {
+    .admin-visual {
+      margin-top: 8px;
+    }
+  }
+
   /* Pricing button hover states (JS onmouseover overridden by !important; add via CSS) */
   #precios article.plan-card-lite a[href="#contacto"]:hover {
     background: rgba(255,255,255,0.18) !important;
   }
   #precios article.plan-card-local a[href="#contacto"]:hover {
     background: rgba(235,245,255,0.90) !important;
+  }
+
+  /* ── Pricing section — dark theme (override light rules) ── */
+  #precios {
+    background: #080e1c !important;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+  #precios .pricing-intro h2 {
+    color: #dce5f5 !important;
+  }
+  #precios .pricing-intro p {
+    color: rgba(220,229,245,0.72) !important;
+  }
+  #precios .pricing-intro .pricing-ref {
+    color: rgba(220,229,245,0.5) !important;
+  }
+  #precios article:nth-child(2)::before {
+    display: none !important;
+  }
+
+  #precios article.plan-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 24px;
+    border-radius: 14px;
+    background: #0d1525 !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    color: #dce5f5 !important;
+    box-shadow: 0 10px 36px rgba(0,0,0,0.24) !important;
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  }
+  #precios article.plan-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 48px rgba(0,0,0,0.32) !important;
+  }
+  #precios article.plan-card--lite {
+    border-left: 3px solid rgba(160,174,208,0.55) !important;
+    background: #111827 !important;
+  }
+  #precios article.plan-card--local {
+    border: 2px solid rgba(100,180,255,0.5) !important;
+    background: linear-gradient(165deg, #0a2248 0%, #0d1525 55%, #0a1a35 100%) !important;
+    box-shadow: 0 20px 52px rgba(11,114,217,0.22) !important;
+    position: relative;
+  }
+  #precios article.plan-card--regional {
+    border-color: rgba(18,184,179,0.45) !important;
+    background: #0c1e28 !important;
+  }
+  #precios article.plan-card--corp {
+    border-color: rgba(255,140,0,0.38) !important;
+    background: linear-gradient(165deg, #1a1230 0%, #13192e 100%) !important;
+  }
+
+  .plan-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .plan-card__name {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(220,229,245,0.55);
+  }
+  .plan-card--local .plan-card__name,
+  .plan-card--corp .plan-card__name { color: rgba(255,255,255,0.85); }
+  .plan-card--regional .plan-card__name { color: #12b8b3; }
+  .plan-card__pill {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(220,229,245,0.55);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .plan-card--local .plan-card__pill {
+    background: rgba(11,114,217,0.2);
+    color: #89c4ff;
+    border-color: rgba(11,114,217,0.3);
+  }
+  .plan-card--regional .plan-card__pill {
+    background: rgba(18,184,179,0.15);
+    color: #12b8b3;
+    border-color: rgba(18,184,179,0.28);
+  }
+  .plan-card--corp .plan-card__pill {
+    background: rgba(255,140,0,0.12);
+    color: #FF8C00;
+    border-color: rgba(255,140,0,0.28);
+  }
+  .plan-card__badge {
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FF8C00;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(255,140,0,0.35);
+  }
+  .plan-card__price-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    margin-bottom: 2px;
+  }
+  .plan-card__amount {
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: #dce5f5;
+  }
+  .plan-card--local .plan-card__amount,
+  .plan-card--corp .plan-card__amount { color: #ffffff; }
+  .plan-card--corp .plan-card__amount { font-size: 32px; }
+  .plan-card__period {
+    font-size: 13px;
+    color: rgba(220,229,245,0.5);
+    margin-bottom: 4px;
+  }
+  .plan-card--local .plan-card__period { color: rgba(255,255,255,0.75); }
+  .plan-card__usd {
+    font-size: 12px;
+    color: rgba(220,229,245,0.42);
+    margin: 0;
+  }
+  .plan-card--local .plan-card__usd { color: rgba(255,255,255,0.65); }
+  .plan-card__desc {
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(220,229,245,0.72);
+    margin: 0;
+  }
+  .plan-card--local .plan-card__desc { color: rgba(255,255,255,0.92); }
+  .plan-card__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+  .plan-card__stat {
+    background: rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 8px 4px;
+    text-align: center;
+  }
+  .plan-card--local .plan-card__stat { background: rgba(11,114,217,0.18); }
+  .plan-card--regional .plan-card__stat { background: rgba(18,184,179,0.12); }
+  .plan-card--corp .plan-card__stat { background: rgba(255,140,0,0.1); }
+  .plan-card__stat strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 800;
+    color: #dce5f5;
+  }
+  .plan-card--local .plan-card__stat strong,
+  .plan-card--corp .plan-card__stat strong { color: #ffffff; }
+  .plan-card__stat span {
+    font-size: 11px;
+    color: rgba(220,229,245,0.48);
+  }
+  .plan-card--local .plan-card__stat span { color: rgba(255,255,255,0.72); }
+  .plan-card__features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+  .plan-card__features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(220,229,245,0.78);
+  }
+  .plan-card--local .plan-card__features li { color: rgba(255,255,255,0.92); }
+  .plan-card__features .material-symbols-outlined {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: #6bb8ff;
+  }
+  .plan-card--regional .plan-card__features .material-symbols-outlined { color: #12b8b3; }
+  .plan-card--corp .plan-card__features .material-symbols-outlined { color: #FF8C00; }
+  .plan-card--local .plan-card__features .material-symbols-outlined { color: #89f5e7; }
+  .plan-card__note {
+    font-size: 12px;
+    color: rgba(220,229,245,0.38);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 12px;
+    margin: 0;
+  }
+  .plan-card--local .plan-card__note {
+    color: rgba(255,255,255,0.62);
+    border-top-color: rgba(255,255,255,0.15);
+  }
+  .plan-card--regional .plan-card__note { border-top-color: rgba(18,184,179,0.2); }
+  .plan-card--corp .plan-card__note { border-top-color: rgba(255,140,0,0.18); }
+  .plan-card__cta {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 13px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.18s ease, transform 0.18s ease;
+  }
+  #precios .plan-card__cta,
+  #precios .plan-card__cta * {
+    box-shadow: none !important;
+  }
+  #precios article.plan-card--lite .plan-card__cta {
+    background: rgba(255,255,255,0.08) !important;
+    color: #dce5f5 !important;
+    border: 1.5px solid rgba(255,255,255,0.14) !important;
+  }
+  #precios article.plan-card--lite .plan-card__cta:hover {
+    background: rgba(255,255,255,0.14) !important;
+    transform: translateY(-2px);
+  }
+  #precios article.plan-card--local .plan-card__cta {
+    background: #0b72d9 !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    border: none !important;
+  }
+  #precios article.plan-card--local .plan-card__cta:hover {
+    background: #0960b8 !important;
+    transform: translateY(-2px);
+  }
+  #precios article.plan-card--regional .plan-card__cta {
+    background: #12b8b3 !important;
+    color: #ffffff !important;
+    border: none !important;
+  }
+  #precios article.plan-card--regional .plan-card__cta:hover {
+    background: #0fa09b !important;
+    transform: translateY(-2px);
+  }
+  #precios article.plan-card--corp .plan-card__cta {
+    background: #FF8C00 !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    border: none !important;
+  }
+  #precios article.plan-card--corp .plan-card__cta:hover {
+    background: #e07b00 !important;
+    transform: translateY(-2px);
+  }
+
+  .pricing-guide,
+  .pricing-addons,
+  .pricing-legal {
+    background: #0d1525 !important;
+    border: 1px solid rgba(255,255,255,0.09) !important;
+    border-radius: 14px;
+    color: #dce5f5 !important;
+    box-shadow: 0 10px 32px rgba(0,0,0,0.2) !important;
+  }
+  .pricing-guide { padding: 24px 28px; }
+  .pricing-guide h3,
+  .pricing-addons h3 {
+    color: #dce5f5 !important;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .pricing-guide__item {
+    background: rgba(255,255,255,0.05) !important;
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .pricing-guide__item strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #dce5f5 !important;
+    margin-bottom: 4px;
+  }
+  .pricing-guide__item p {
+    font-size: 12px;
+    color: rgba(220,229,245,0.58) !important;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .pricing-addons {
+    padding: 24px 28px;
+    background: linear-gradient(165deg, #0a1e3d 0%, #0d1525 100%) !important;
+  }
+  .pricing-addon-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+  }
+  .pricing-addon-row span {
+    font-size: 13px;
+    color: rgba(220,229,245,0.72) !important;
+  }
+  .pricing-addon-row strong {
+    font-size: 13px;
+    font-weight: 700;
+    color: #dce5f5 !important;
+    text-align: right;
+  }
+  .pricing-addons__note {
+    font-size: 13px;
+    color: rgba(220,229,245,0.55) !important;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 14px;
+    margin: 16px 0 0;
+  }
+  .pricing-legal {
+    padding: 20px;
+  }
+  .pricing-legal strong,
+  .pricing-legal p:first-of-type {
+    color: #dce5f5 !important;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .pricing-legal p {
+    font-size: 13px;
+    color: rgba(220,229,245,0.58) !important;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .pricing-legal a {
+    color: #6bb8ff !important;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .pricing-disclaimer {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.04) !important;
+    border: 1px solid rgba(255,255,255,0.09) !important;
+    border-radius: 999px;
+    padding: 8px 20px;
+  }
+  .pricing-disclaimer p {
+    font-size: 13px;
+    color: rgba(220,229,245,0.58) !important;
+    margin: 0;
+  }
+  .pricing-disclaimer a {
+    color: #6bb8ff !important;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  @media (min-width: 1024px) {
+    #precios article.plan-card--local {
+      margin-top: -8px;
+    }
   }
 
 </style>
@@ -2559,72 +3162,80 @@ Ver cómo funciona
 <h2 class="font-h1 text-h1 text-on-background mb-md">Arrancar es más rápido de lo que imaginas</h2>
 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Del primer contacto al mapa operativo en menos de una semana. Un flujo probado para que tu equipo empiece a trabajar desde el primer día — sin curvas de aprendizaje largas.</p>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-lg relative">
-<div class="flex-1 text-center p-lg rounded-xl relative z-10 lift-card" style="background:#0d1525;border:1px solid rgba(255,255,255,0.08);">
-<div class="w-20 h-20 bg-primary-container border-2 border-primary-container rounded-full flex items-center justify-center mx-auto mb-lg shadow-sm">
-<span class="font-h2 text-[24px] text-on-primary">1</span>
+<div class="process-flow">
+<article class="process-step reveal-item" style="--reveal-delay:0ms">
+<div class="process-step-marker"><span class="process-step-num">01</span></div>
+<div class="process-step-body">
+<span class="process-step-tag">Paso 1</span>
+<h3>Solicita acceso</h3>
+<p>Envíanos tu empresa, plan deseado y datos de contacto para preparar tu alta sin vueltas.</p>
 </div>
-<h3 class="font-h3 text-h3 text-on-background mb-sm">Solicita acceso</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Envíanos tu empresa, plan deseado y datos de contacto para preparar tu alta sin vueltas.</p>
+</article>
+<article class="process-step reveal-item" style="--reveal-delay:55ms">
+<div class="process-step-marker"><span class="process-step-num">02</span></div>
+<div class="process-step-body">
+<span class="process-step-tag">Paso 2</span>
+<h3>Revisión y aprobación</h3>
+<p>Revisamos plazas, usuarios, unidades aproximadas y necesidades operativas antes de activar la empresa.</p>
 </div>
-<div class="flex-1 text-center p-lg rounded-xl relative z-10 lift-card" style="background:#0d1525;border:1px solid rgba(255,255,255,0.08);">
-<div class="w-20 h-20 bg-primary-container border-2 border-primary-container rounded-full flex items-center justify-center mx-auto mb-lg shadow-sm">
-<span class="font-h2 text-[24px] text-on-primary">2</span>
+</article>
+<article class="process-step reveal-item" style="--reveal-delay:110ms">
+<div class="process-step-marker"><span class="process-step-num">03</span></div>
+<div class="process-step-body">
+<span class="process-step-tag">Paso 3</span>
+<h3>Alta inicial</h3>
+<p>Creamos tu empresa, activamos el plan y entregamos el usuario administrador para iniciar.</p>
 </div>
-<h3 class="font-h3 text-h3 text-on-background mb-sm">Revisión y aprobación</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Revisamos plazas, usuarios, unidades aproximadas y necesidades operativas antes de activar la empresa.</p>
+</article>
+<article class="process-step reveal-item" style="--reveal-delay:165ms">
+<div class="process-step-marker"><span class="process-step-num">04</span></div>
+<div class="process-step-body">
+<span class="process-step-tag">Paso 4</span>
+<h3>Onboarding guiado</h3>
+<p>Configuramos mapa, estados, usuarios y primeras unidades para que el equipo arranque con contexto.</p>
 </div>
-<div class="flex-1 text-center p-lg rounded-xl relative z-10 lift-card" style="background:#0d1525;border:1px solid rgba(255,255,255,0.08);">
-<div class="w-20 h-20 bg-primary-container border-2 border-primary-container rounded-full flex items-center justify-center mx-auto mb-lg shadow-sm">
-<span class="font-h2 text-[24px] text-on-primary">3</span>
-</div>
-<h3 class="font-h3 text-h3 text-on-background mb-sm">Alta inicial</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Creamos tu empresa, activamos el plan y entregamos el usuario administrador para iniciar.</p>
-</div>
-<div class="flex-1 text-center p-lg rounded-xl relative z-10 lift-card" style="background:#0d1525;border:1px solid rgba(255,255,255,0.08);">
-<div class="w-20 h-20 bg-primary-container border-2 border-primary-container rounded-full flex items-center justify-center mx-auto mb-lg shadow-sm">
-<span class="font-h2 text-[24px] text-on-primary">4</span>
-</div>
-<h3 class="font-h3 text-h3 text-on-background mb-sm">Onboarding guiado</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Configuramos mapa, estados, usuarios y primeras unidades para que el equipo arranque con contexto.</p>
-</div>
+</article>
 </div>
 </section>
 
 <!-- Admin Section -->
-<section class="py-3xl px-gutter" style="background:#080e1c;border-top:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(255,255,255,0.07);">
+<section class="py-3xl px-gutter" id="administracion">
 <div class="max-w-container-max mx-auto">
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-2xl items-center">
-<div>
+<div class="admin-intro">
 <span class="eyebrow mb-md">Administración</span>
-<h2 class="font-h1 text-h1 text-on-background mb-lg">Lo que la administración necesita</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant mb-xl">MapGestion no solo ayuda en el patio, sino que proporciona a los administradores las herramientas necesarias para supervisar, auditar y optimizar la operación global desde una perspectiva gerencial.</p>
-<div class="space-y-md">
-<div class="flex gap-md items-start lift-card" style="background:#0d1525;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;">
-<span class="material-symbols-outlined check-dot text-[18px]">analytics</span>
+<h2 class="font-h1 text-h1 mb-lg">Lo que la administración necesita</h2>
+<p class="font-body-lg text-body-lg mb-xl">MapGestion no solo ayuda en el patio, sino que proporciona a los administradores las herramientas necesarias para supervisar, auditar y optimizar la operación global desde una perspectiva gerencial.</p>
+<div class="admin-feature-list">
+<article class="admin-feature reveal-item" style="--reveal-delay:0ms">
+<span class="admin-feature-icon"><span class="material-symbols-outlined">analytics</span></span>
 <div>
-<h4 class="font-h3 text-[18px] text-on-background mb-xs">Control detallado</h4>
-<p class="font-body-md text-body-md text-on-surface-variant">Acceso a métricas clave de rendimiento y reportes de eficiencia.</p>
+<h4>Control detallado</h4>
+<p>Acceso a métricas clave de rendimiento y reportes de eficiencia.</p>
 </div>
-</div>
-<div class="flex gap-md items-start lift-card" style="background:#0d1525;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;">
-<span class="material-symbols-outlined check-dot text-[18px]">manage_accounts</span>
+</article>
+<article class="admin-feature reveal-item" style="--reveal-delay:55ms">
+<span class="admin-feature-icon"><span class="material-symbols-outlined">manage_accounts</span></span>
 <div>
-<h4 class="font-h3 text-[18px] text-on-background mb-xs">Catálogo de usuarios</h4>
-<p class="font-body-md text-body-md text-on-surface-variant">Gestión centralizada de accesos y roles para todo tu personal.</p>
+<h4>Catálogo de usuarios</h4>
+<p>Gestión centralizada de accesos y roles para todo tu personal.</p>
 </div>
-</div>
-<div class="flex gap-md items-start lift-card" style="background:#0d1525;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;">
-<span class="material-symbols-outlined check-dot text-[18px]">diversity_3</span>
+</article>
+<article class="admin-feature reveal-item" style="--reveal-delay:110ms">
+<span class="admin-feature-icon"><span class="material-symbols-outlined">diversity_3</span></span>
 <div>
-<h4 class="font-h3 text-[18px] text-on-background mb-xs">Equipos que trabajan diferente</h4>
-<p class="font-body-md text-body-md text-on-surface-variant">Perfiles personalizados según la función de cada equipo en el flujo logístico.</p>
+<h4>Equipos que trabajan diferente</h4>
+<p>Perfiles personalizados según la función de cada equipo en el flujo logístico.</p>
+</div>
+</article>
 </div>
 </div>
+<div class="admin-visual reveal-item" style="--reveal-delay:80ms">
+<img alt="Usuarios, roles y permisos de administración" src="assets/screenshots/roles-permisos.png" loading="lazy" decoding="async"/>
+<div class="admin-visual-caption">
+<strong>Roles y permisos</strong>
+<span>Control administrativo centralizado para todo el equipo</span>
 </div>
-</div>
-<div class="rounded-xl overflow-hidden border border-outline-variant product-window image-card">
-<img alt="Usuarios, roles y permisos de administración" class="w-full" src="assets/screenshots/roles-permisos.png" loading="lazy" decoding="async" />
 </div>
 </div>
 </div>
@@ -2793,184 +3404,177 @@ Ver cómo funciona (Sandbox)
 </section>
 
 <!-- Pricing Section -->
-<section class="py-3xl px-gutter" style="background:#080e1c;border-top:1px solid rgba(255,255,255,0.07);" id="precios">
+<section class="py-3xl px-gutter" id="precios">
 <div class="max-w-container-max mx-auto">
-  <div class="text-center mb-2xl">
+  <div class="text-center mb-2xl pricing-intro">
     <span class="eyebrow mb-lg">Planes y precios</span>
-    <h2 class="font-display text-[30px] md:text-[52px] text-on-background mb-md leading-[1.04] tracking-[-0.04em] font-extrabold">Precios claros. Sin letra chica.<br/><span class="gradient-word">Elige según tu operación.</span></h2>
-    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mx-auto">Cuatro planes diseñados para el tamaño real de tu patio — desde un estacionamiento hasta una red de sucursales. Precios en MXN, sin IVA, sin contratos anuales obligatorios.</p>
-    <p class="font-body-sm text-body-sm text-on-surface-variant/60 mt-sm">Referencia: 1 USD = $17.2679 MXN al 25 mayo 2026. USD aproximado calculado desde el precio MXN.</p>
+    <h2 class="font-display text-[30px] md:text-[52px] mb-md leading-[1.04] tracking-[-0.04em] font-extrabold">Precios claros. Sin letra chica.<br/><span class="gradient-word">Elige según tu operación.</span></h2>
+    <p class="font-body-lg text-body-lg max-w-3xl mx-auto">Cuatro planes diseñados para el tamaño real de tu patio — desde un estacionamiento hasta una red de sucursales. Precios en MXN, sin IVA, sin contratos anuales obligatorios.</p>
+    <p class="font-body-sm text-body-sm pricing-ref mt-sm">Referencia: 1 USD = $17.2679 MXN al 25 mayo 2026. USD aproximado calculado desde el precio MXN.</p>
   </div>
 
-  <!-- Plan cards — mobile-first scroll en xs, grid en lg+ -->
   <div class="pricing-grid">
 
-    <!-- LITE — entrada, tono neutro/slate -->
-    <article class="plan-card-lite lift-card" style="border:1.5px solid rgba(255,255,255,0.13);border-left:3px solid rgba(160,174,208,0.5);border-radius:14px;padding:24px;background:#111827;box-shadow:0 4px 28px rgba(0,0,0,0.4);display:flex;flex-direction:column;gap:14px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
-        <span style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(220,229,245,0.5);">Lite</span>
-        <span style="font-size:11px;font-weight:700;background:rgba(255,255,255,0.08);color:rgba(220,229,245,0.5);padding:3px 10px;border-radius:999px;">Patio estático</span>
+    <article class="plan-card plan-card--lite reveal-item" style="--reveal-delay:0ms">
+      <div class="plan-card__top">
+        <span class="plan-card__name">Lite</span>
+        <span class="plan-card__pill">Patio estático</span>
       </div>
       <div>
-        <div style="display:flex;align-items:flex-end;gap:4px;margin-bottom:2px;">
-          <span style="font-size:40px;font-weight:900;color:#c8d4e8;line-height:1;letter-spacing:-0.03em;">$990</span>
-          <span style="font-size:13px;color:rgba(220,229,245,0.45);margin-bottom:4px;">MXN/mes</span>
+        <div class="plan-card__price-row">
+          <span class="plan-card__amount">$990</span>
+          <span class="plan-card__period">MXN/mes</span>
         </div>
-        <p style="font-size:12px;color:rgba(220,229,245,0.35);">≈ USD $57/mes · anual $49/mes</p>
+        <p class="plan-card__usd">≈ USD $57/mes · anual $49/mes</p>
       </div>
-      <p style="font-size:14px;color:rgba(220,229,245,0.65);line-height:1.5;">Para estacionamientos, pensiones y patios con movimiento esporádico.</p>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
-        <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#dce5f5;">1</strong><span style="font-size:11px;color:rgba(220,229,245,0.45);">plaza</span></div>
-        <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#dce5f5;">3</strong><span style="font-size:11px;color:rgba(220,229,245,0.45);">usuarios</span></div>
-        <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#dce5f5;">5 min</strong><span style="font-size:11px;color:rgba(220,229,245,0.45);">actuali.</span></div>
+      <p class="plan-card__desc">Para estacionamientos, pensiones y patios con movimiento esporádico.</p>
+      <div class="plan-card__stats">
+        <div class="plan-card__stat"><strong>1</strong><span>plaza</span></div>
+        <div class="plan-card__stat"><strong>3</strong><span>usuarios</span></div>
+        <div class="plan-card__stat"><strong>5 min</strong><span>actuali.</span></div>
       </div>
-      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;flex:1;">
-        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(220,229,245,0.75);"><span class="material-symbols-outlined" style="font-size:16px;color:#6bb8ff;flex-shrink:0;margin-top:1px;">check_circle</span>Mapa de inventario y buscador de unidades</li>
-        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(220,229,245,0.75);"><span class="material-symbols-outlined" style="font-size:16px;color:#6bb8ff;flex-shrink:0;margin-top:1px;">check_circle</span>Entradas, salidas y estados básicos</li>
-        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(220,229,245,0.75);"><span class="material-symbols-outlined" style="font-size:16px;color:#6bb8ff;flex-shrink:0;margin-top:1px;">check_circle</span>Historial de 30 días</li>
+      <ul class="plan-card__features">
+        <li><span class="material-symbols-outlined">check_circle</span>Mapa de inventario y buscador de unidades</li>
+        <li><span class="material-symbols-outlined">check_circle</span>Entradas, salidas y estados básicos</li>
+        <li><span class="material-symbols-outlined">check_circle</span>Historial de 30 días</li>
       </ul>
-      <p style="font-size:12px;color:rgba(220,229,245,0.3);border-top:1px solid rgba(255,255,255,0.07);padding-top:12px;">No incluye cuadre, incidencias ni reportes exportables.</p>
-      <a href="#contacto" data-plan="Lite" style="display:block;text-align:center;background:rgba(255,255,255,0.08);color:#dce5f5;font-size:14px;font-weight:700;padding:12px 20px;border-radius:10px;text-decoration:none;border:1.5px solid rgba(255,255,255,0.12);transition:background 0.18s ease;" onmouseover="this.style.background='rgba(255,255,255,0.13)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">Solicitar Lite</a>
+      <p class="plan-card__note">No incluye cuadre, incidencias ni reportes exportables.</p>
+      <a href="#contacto" data-plan="Lite" class="plan-card__cta">Solicitar Lite</a>
     </article>
 
-    <!-- LOCAL — Recomendado, azul brillante -->
-    <article class="plan-card-local lift-card" style="border:2px solid rgba(100,180,255,0.45);border-radius:14px;padding:24px;background:linear-gradient(145deg,#0556d9 0%,#0b72e8 55%,#0b8fd4 100%);box-shadow:0 20px 56px rgba(0,100,255,0.35);display:flex;flex-direction:column;gap:14px;position:relative;">
-      <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:#FF8C00;color:#ffffff;font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:5px 14px;border-radius:999px;white-space:nowrap;box-shadow:0 4px 12px rgba(255,140,0,0.35);">⭐ Recomendado</div>
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
-        <span style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.8);">Local</span>
-        <span style="font-size:11px;font-weight:700;background:rgba(255,255,255,0.2);color:#ffffff;padding:3px 10px;border-radius:999px;">Mejor inicio</span>
+    <article class="plan-card plan-card--local reveal-item" style="--reveal-delay:55ms">
+      <span class="plan-card__badge">⭐ Recomendado</span>
+      <div class="plan-card__top">
+        <span class="plan-card__name">Local</span>
+        <span class="plan-card__pill">Mejor inicio</span>
       </div>
       <div>
-        <div style="display:flex;align-items:flex-end;gap:4px;margin-bottom:2px;">
-          <span style="font-size:40px;font-weight:900;color:#ffffff;line-height:1;letter-spacing:-0.03em;">$1,990</span>
-          <span style="font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:4px;">MXN/mes</span>
+        <div class="plan-card__price-row">
+          <span class="plan-card__amount">$1,990</span>
+          <span class="plan-card__period">MXN/mes</span>
         </div>
-        <p style="font-size:12px;color:rgba(255,255,255,0.7);">≈ USD $115/mes · anual $98/mes</p>
+        <p class="plan-card__usd">≈ USD $115/mes · anual $98/mes</p>
       </div>
-      <p style="font-size:14px;color:rgba(255,255,255,0.95);line-height:1.5;">Para una sucursal con operación diaria que necesita mapa en tiempo real y cierre de turno con control.</p>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
-        <div style="background:rgba(255,255,255,0.18);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#ffffff;">1</strong><span style="font-size:11px;color:rgba(255,255,255,0.8);">plaza</span></div>
-        <div style="background:rgba(255,255,255,0.18);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#ffffff;">25</strong><span style="font-size:11px;color:rgba(255,255,255,0.8);">usuarios</span></div>
-        <div style="background:rgba(255,255,255,0.18);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#ffffff;">30 seg</strong><span style="font-size:11px;color:rgba(255,255,255,0.8);">actuali.</span></div>
+      <p class="plan-card__desc">Para una sucursal con operación diaria que necesita mapa en tiempo real y cierre de turno con control.</p>
+      <div class="plan-card__stats">
+        <div class="plan-card__stat"><strong>1</strong><span>plaza</span></div>
+        <div class="plan-card__stat"><strong>25</strong><span>usuarios</span></div>
+        <div class="plan-card__stat"><strong>30 seg</strong><span>actuali.</span></div>
       </div>
-      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;flex:1;">
-        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#ffffff;"><span class="material-symbols-outlined" style="font-size:16px;color:#89f5e7;flex-shrink:0;margin-top:1px;">check_circle</span>Mapa en tiempo real, alertas y notificaciones</li>
-        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#ffffff;"><span class="material-symbols-outlined" style="font-size:16px;color:#89f5e7;flex-shrink:0;margin-top:1px;">check_circle</span>Cuadre por turno, incidencias y cola de preparación</li>
-        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#ffffff;"><span class="material-symbols-outlined" style="font-size:16px;color:#89f5e7;flex-shrink:0;margin-top:1px;">check_circle</span>Reportes CSV/PDF e historial de 90 días</li>
+      <ul class="plan-card__features">
+        <li><span class="material-symbols-outlined">check_circle</span>Mapa en tiempo real, alertas y notificaciones</li>
+        <li><span class="material-symbols-outlined">check_circle</span>Cuadre por turno, incidencias y cola de preparación</li>
+        <li><span class="material-symbols-outlined">check_circle</span>Reportes CSV/PDF e historial de 90 días</li>
       </ul>
-      <p style="font-size:12px;color:rgba(255,255,255,0.7);border-top:1px solid rgba(255,255,255,0.25);padding-top:12px;">Soporte por email con respuesta en 48 horas hábiles.</p>
-      <a href="#contacto" data-plan="Local" style="display:block;text-align:center;background:#ffffff;color:#0556d9;font-size:14px;font-weight:800;padding:14px 20px;border-radius:10px;text-decoration:none;transition:background 0.18s ease;" onmouseover="this.style.background='#e8f0fe'" onmouseout="this.style.background='#ffffff'">Solicitar Local</a>
+      <p class="plan-card__note">Soporte por email con respuesta en 48 horas hábiles.</p>
+      <a href="#contacto" data-plan="Local" class="plan-card__cta">Solicitar Local</a>
     </article>
 
-    <!-- REGIONAL — teal sólido -->
-    <article class="plan-card-regional lift-card" style="border:1.5px solid rgba(18,184,179,0.45);border-radius:14px;padding:24px;background:#0c1e28;box-shadow:0 8px 40px rgba(18,184,179,0.18);display:flex;flex-direction:column;gap:14px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
-        <span style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#12b8b3;">Regional</span>
-        <span style="font-size:11px;font-weight:700;background:rgba(18,184,179,0.18);color:#12b8b3;padding:3px 10px;border-radius:999px;border:1px solid rgba(18,184,179,0.3);">2 a 3 plazas</span>
+    <article class="plan-card plan-card--regional reveal-item" style="--reveal-delay:110ms">
+      <div class="plan-card__top">
+        <span class="plan-card__name">Regional</span>
+        <span class="plan-card__pill">2 a 3 plazas</span>
       </div>
       <div>
-        <div style="display:flex;align-items:flex-end;gap:4px;margin-bottom:2px;">
-          <span style="font-size:40px;font-weight:900;color:#dce5f5;line-height:1;letter-spacing:-0.03em;">$4,490</span>
-          <span style="font-size:13px;color:rgba(220,229,245,0.55);margin-bottom:4px;">MXN/mes</span>
+        <div class="plan-card__price-row">
+          <span class="plan-card__amount">$4,490</span>
+          <span class="plan-card__period">MXN/mes</span>
         </div>
-        <p style="font-size:12px;color:rgba(220,229,245,0.4);">≈ USD $260/mes · anual $221/mes</p>
+        <p class="plan-card__usd">≈ USD $260/mes · anual $221/mes</p>
       </div>
-      <p style="font-size:14px;color:rgba(220,229,245,0.8);line-height:1.5;">Para empresas con varias sucursales que necesitan operación local y visibilidad directiva.</p>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
-        <div style="background:rgba(18,184,179,0.12);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#dce5f5;">3</strong><span style="font-size:11px;color:rgba(220,229,245,0.5);">plazas</span></div>
-        <div style="background:rgba(18,184,179,0.12);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#dce5f5;">75</strong><span style="font-size:11px;color:rgba(220,229,245,0.5);">usuarios</span></div>
-        <div style="background:rgba(18,184,179,0.12);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#dce5f5;">30 seg</strong><span style="font-size:11px;color:rgba(220,229,245,0.5);">actuali.</span></div>
+      <p class="plan-card__desc">Para empresas con varias sucursales que necesitan operación local y visibilidad directiva.</p>
+      <div class="plan-card__stats">
+        <div class="plan-card__stat"><strong>3</strong><span>plazas</span></div>
+        <div class="plan-card__stat"><strong>75</strong><span>usuarios</span></div>
+        <div class="plan-card__stat"><strong>30 seg</strong><span>actuali.</span></div>
       </div>
-      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;flex:1;">
-        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(220,229,245,0.85);"><span class="material-symbols-outlined" style="font-size:16px;color:#12b8b3;flex-shrink:0;margin-top:1px;">check_circle</span>Todo lo de Local</li>
-        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(220,229,245,0.85);"><span class="material-symbols-outlined" style="font-size:16px;color:#12b8b3;flex-shrink:0;margin-top:1px;">check_circle</span>Dashboard global, selector de plaza y RBAC regional</li>
-        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(220,229,245,0.85);"><span class="material-symbols-outlined" style="font-size:16px;color:#12b8b3;flex-shrink:0;margin-top:1px;">check_circle</span>Reportes comparativos y administración corporativa</li>
+      <ul class="plan-card__features">
+        <li><span class="material-symbols-outlined">check_circle</span>Todo lo de Local</li>
+        <li><span class="material-symbols-outlined">check_circle</span>Dashboard global, selector de plaza y RBAC regional</li>
+        <li><span class="material-symbols-outlined">check_circle</span>Reportes comparativos y administración corporativa</li>
       </ul>
-      <p style="font-size:12px;color:rgba(220,229,245,0.35);border-top:1px solid rgba(18,184,179,0.2);padding-top:12px;">Ahorra frente a contratar Local + plazas adicionales.</p>
-      <a href="#contacto" data-plan="Regional" style="display:block;text-align:center;background:#12b8b3;color:#ffffff;font-size:14px;font-weight:700;padding:12px 20px;border-radius:10px;text-decoration:none;transition:background 0.18s ease;" onmouseover="this.style.background='#0fa09b'" onmouseout="this.style.background='#12b8b3'">Solicitar Regional</a>
+      <p class="plan-card__note">Ahorra frente a contratar Local + plazas adicionales.</p>
+      <a href="#contacto" data-plan="Regional" class="plan-card__cta">Solicitar Regional</a>
     </article>
 
-    <!-- CORPORATIVO — premium oscuro con acento naranja -->
-    <article class="plan-card-corp lift-card" style="border:1.5px solid rgba(255,140,0,0.35);border-radius:14px;padding:24px;background:linear-gradient(160deg,#13192e 0%,#1a1230 100%);box-shadow:0 12px 48px rgba(255,140,0,0.12);display:flex;flex-direction:column;gap:14px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
-        <span style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,200,120,0.85);">Corporativo</span>
-        <span style="font-size:11px;font-weight:700;background:rgba(255,140,0,0.15);color:#FF8C00;padding:3px 10px;border-radius:999px;border:1px solid rgba(255,140,0,0.3);">Enterprise</span>
+    <article class="plan-card plan-card--corp reveal-item" style="--reveal-delay:165ms">
+      <div class="plan-card__top">
+        <span class="plan-card__name">Corporativo</span>
+        <span class="plan-card__pill">Enterprise</span>
       </div>
       <div>
-        <div style="display:flex;align-items:flex-end;gap:4px;margin-bottom:2px;">
-          <span style="font-size:32px;font-weight:900;color:#ffffff;line-height:1;letter-spacing:-0.03em;">Desde $9,990</span>
-          <span style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:4px;">MXN/mes</span>
+        <div class="plan-card__price-row">
+          <span class="plan-card__amount">Desde $9,990</span>
+          <span class="plan-card__period">MXN/mes</span>
         </div>
-        <p style="font-size:12px;color:rgba(255,255,255,0.45);">≈ USD $579/mes · anual negociable</p>
+        <p class="plan-card__usd">≈ USD $579/mes · anual negociable</p>
       </div>
-      <p style="font-size:14px;color:rgba(255,255,255,0.85);line-height:1.5;">Para 4+ plazas, operación nacional, integraciones o requerimientos corporativos.</p>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
-        <div style="background:rgba(255,140,0,0.10);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#ffffff;">∞</strong><span style="font-size:11px;color:rgba(255,255,255,0.6);">plazas</span></div>
-        <div style="background:rgba(255,140,0,0.10);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#ffffff;">∞</strong><span style="font-size:11px;color:rgba(255,255,255,0.6);">usuarios</span></div>
-        <div style="background:rgba(255,140,0,0.10);border-radius:8px;padding:8px 4px;text-align:center;"><strong style="display:block;font-size:14px;font-weight:800;color:#ffffff;">10 seg</strong><span style="font-size:11px;color:rgba(255,255,255,0.6);">actuali.</span></div>
+      <p class="plan-card__desc">Para 4+ plazas, operación nacional, integraciones o requerimientos corporativos.</p>
+      <div class="plan-card__stats">
+        <div class="plan-card__stat"><strong>∞</strong><span>plazas</span></div>
+        <div class="plan-card__stat"><strong>∞</strong><span>usuarios</span></div>
+        <div class="plan-card__stat"><strong>10 seg</strong><span>actuali.</span></div>
       </div>
-      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;flex:1;">
-        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,0.9);"><span class="material-symbols-outlined" style="font-size:16px;color:#FF8C00;flex-shrink:0;margin-top:1px;">check_circle</span>Todo lo de Regional</li>
-        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,0.9);"><span class="material-symbols-outlined" style="font-size:16px;color:#FF8C00;flex-shrink:0;margin-top:1px;">check_circle</span>API REST, white-label parcial e historial de 365 días</li>
-        <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,0.9);"><span class="material-symbols-outlined" style="font-size:16px;color:#FF8C00;flex-shrink:0;margin-top:1px;">check_circle</span>SLA 99.5%, onboarding dedicado y cuenta asignada</li>
+      <ul class="plan-card__features">
+        <li><span class="material-symbols-outlined">check_circle</span>Todo lo de Regional</li>
+        <li><span class="material-symbols-outlined">check_circle</span>API REST, white-label parcial e historial de 365 días</li>
+        <li><span class="material-symbols-outlined">check_circle</span>SLA 99.5%, onboarding dedicado y cuenta asignada</li>
       </ul>
-      <p style="font-size:12px;color:rgba(255,255,255,0.4);border-top:1px solid rgba(255,140,0,0.18);padding-top:12px;">Para ERP/TMS, operación binacional o acuerdos especiales.</p>
-      <a href="#contacto" data-plan="Corporativo" style="display:block;text-align:center;background:#FF8C00;color:#ffffff;font-size:14px;font-weight:800;padding:12px 20px;border-radius:10px;text-decoration:none;transition:background 0.18s ease;" onmouseover="this.style.background='#e07b00'" onmouseout="this.style.background='#FF8C00'">Solicitar Corporativo</a>
+      <p class="plan-card__note">Para ERP/TMS, operación binacional o acuerdos especiales.</p>
+      <a href="#contacto" data-plan="Corporativo" class="plan-card__cta">Solicitar Corporativo</a>
     </article>
   </div>
 
-  <!-- Decision helper + add-ons -->
   <div class="mt-2xl grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-lg">
-    <div style="background:#0d1525;border:1px solid rgba(255,255,255,0.09);border-radius:14px;padding:24px 28px;">
+    <div class="pricing-guide reveal-item">
       <div class="flex items-center gap-sm mb-lg">
         <span class="material-symbols-outlined text-[20px]" style="color:#12b8b3">route</span>
-        <h3 style="font-size:16px;font-weight:700;color:#dce5f5;">Cómo elegir rápido</h3>
+        <h3>Cómo elegir rápido</h3>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-sm">
-        <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:14px;"><strong style="display:block;font-size:13px;font-weight:700;color:#dce5f5;margin-bottom:4px;">Elige Lite</strong><p style="font-size:12px;color:rgba(220,229,245,0.55);line-height:1.5;">si solo necesitas inventario y movimientos esporádicos.</p></div>
-        <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:14px;"><strong style="display:block;font-size:13px;font-weight:700;color:#dce5f5;margin-bottom:4px;">Elige Local</strong><p style="font-size:12px;color:rgba(220,229,245,0.55);line-height:1.5;">si tu equipo opera una sucursal todos los días.</p></div>
-        <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:14px;"><strong style="display:block;font-size:13px;font-weight:700;color:#dce5f5;margin-bottom:4px;">Elige Regional</strong><p style="font-size:12px;color:rgba(220,229,245,0.55);line-height:1.5;">si tienes 2 o 3 plazas y necesitas comparar resultados.</p></div>
-        <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:14px;"><strong style="display:block;font-size:13px;font-weight:700;color:#dce5f5;margin-bottom:4px;">Elige Corporativo</strong><p style="font-size:12px;color:rgba(220,229,245,0.55);line-height:1.5;">si necesitas API, SLA, white-label o más de 3 plazas.</p></div>
+        <div class="pricing-guide__item"><strong>Elige Lite</strong><p>si solo necesitas inventario y movimientos esporádicos.</p></div>
+        <div class="pricing-guide__item"><strong>Elige Local</strong><p>si tu equipo opera una sucursal todos los días.</p></div>
+        <div class="pricing-guide__item"><strong>Elige Regional</strong><p>si tienes 2 o 3 plazas y necesitas comparar resultados.</p></div>
+        <div class="pricing-guide__item"><strong>Elige Corporativo</strong><p>si necesitas API, SLA, white-label o más de 3 plazas.</p></div>
       </div>
     </div>
 
-    <div class="bg-primary-container rounded-xl p-lg md:p-xl text-on-primary">
+    <div class="pricing-addons reveal-item">
       <div class="flex items-center gap-sm mb-lg">
-        <span class="material-symbols-outlined text-[20px] text-tertiary-fixed">add_circle</span>
-        <h3 class="font-h3 text-h3 text-white">Add-ons</h3>
+        <span class="material-symbols-outlined text-[20px]" style="color:#89f5e7">add_circle</span>
+        <h3>Add-ons</h3>
       </div>
       <div class="space-y-sm">
-        <div class="flex items-center justify-between gap-md bg-white/8 border border-white/10 rounded-lg px-md py-sm"><span class="font-body-sm text-body-sm text-primary-fixed-dim">Plaza adicional</span><strong class="font-label-sm text-label-sm text-white text-right">$1,490/mes</strong></div>
-        <div class="flex items-center justify-between gap-md bg-white/8 border border-white/10 rounded-lg px-md py-sm"><span class="font-body-sm text-body-sm text-primary-fixed-dim">Usuario adicional</span><strong class="font-label-sm text-label-sm text-white text-right">$99/mes</strong></div>
-        <div class="flex items-center justify-between gap-md bg-white/8 border border-white/10 rounded-lg px-md py-sm"><span class="font-body-sm text-body-sm text-primary-fixed-dim">Historial +90 días</span><strong class="font-label-sm text-label-sm text-white text-right">$299/mes</strong></div>
-        <div class="flex items-center justify-between gap-md bg-white/8 border border-white/10 rounded-lg px-md py-sm"><span class="font-body-sm text-body-sm text-primary-fixed-dim">Onboarding asistido</span><strong class="font-label-sm text-label-sm text-white text-right">$2,500 único</strong></div>
+        <div class="pricing-addon-row"><span>Plaza adicional</span><strong>$1,490/mes</strong></div>
+        <div class="pricing-addon-row"><span>Usuario adicional</span><strong>$99/mes</strong></div>
+        <div class="pricing-addon-row"><span>Historial +90 días</span><strong>$299/mes</strong></div>
+        <div class="pricing-addon-row"><span>Onboarding asistido</span><strong>$2,500 único</strong></div>
       </div>
-      <p class="font-body-sm text-body-sm text-primary-fixed-dim/75 mt-lg border-t border-white/10 pt-md">Pago anual: 15% de descuento, equivalente a casi 2 meses gratis.</p>
+      <p class="pricing-addons__note">Pago anual: 15% de descuento, equivalente a casi 2 meses gratis.</p>
     </div>
   </div>
 
-  <!-- SaaS model + Legal -->
   <div class="mt-xl grid grid-cols-1 md:grid-cols-2 gap-md">
-    <div style="background:#0d1525;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px;">
+    <div class="pricing-legal reveal-item">
       <div class="flex items-center gap-sm mb-xs">
         <span class="material-symbols-outlined text-[20px]" style="color:#12b8b3">public</span>
-        <p style="font-size:13px;font-weight:700;color:#dce5f5;">MapGestion es una plataforma SaaS global</p>
+        <p>MapGestion es una plataforma SaaS global</p>
       </div>
-      <p style="font-size:13px;color:rgba(220,229,245,0.55);line-height:1.6;">No construimos software exclusivo para una sola empresa. MapGestion mejora de forma continua y las actualizaciones llegan según el alcance del plan contratado.</p>
+      <p>No construimos software exclusivo para una sola empresa. MapGestion mejora de forma continua y las actualizaciones llegan según el alcance del plan contratado.</p>
     </div>
-    <div style="background:#0d1525;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px;">
+    <div class="pricing-legal reveal-item">
       <div class="flex items-center gap-sm mb-xs">
         <span class="material-symbols-outlined text-[20px]" style="color:#12b8b3">shield</span>
-        <p style="font-size:13px;font-weight:700;color:#dce5f5;">Licencia de servicio, no venta de software</p>
+        <p>Licencia de servicio, no venta de software</p>
       </div>
-      <p style="font-size:13px;color:rgba(220,229,245,0.55);line-height:1.6;">Al contratar MapGestion adquieres una <strong style="color:#dce5f5;">licencia de uso del servicio</strong>, no la propiedad ni el código fuente. Consulta los <a href="terminos.html" style="color:#6bb8ff;font-weight:600;text-decoration:underline;text-underline-offset:3px;">Términos y Condiciones</a>.</p>
+      <p>Al contratar MapGestion adquieres una <strong>licencia de uso del servicio</strong>, no la propiedad ni el código fuente. Consulta los <a href="terminos.html">Términos y Condiciones</a>.</p>
     </div>
   </div>
 
   <div class="mt-xl text-center">
-    <div style="display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:999px;padding:8px 20px;">
-      <span class="material-symbols-outlined text-[18px]" style="color:rgba(220,229,245,0.5);">info</span>
-      <p style="font-size:13px;color:rgba(220,229,245,0.55);">Aún no se realizan cobros en línea — <a href="#contacto" style="color:#6bb8ff;font-weight:600;text-decoration:underline;text-underline-offset:3px;">contáctanos</a> para comenzar.</p>
+    <div class="pricing-disclaimer">
+      <span class="material-symbols-outlined text-[18px]" style="color:rgba(220,229,245,0.5)">info</span>
+      <p>Aún no se realizan cobros en línea — <a href="#contacto">contáctanos</a> para comenzar.</p>
     </div>
   </div>
 </div>
@@ -3280,14 +3884,18 @@ document.addEventListener('keydown', (e) => {
     '.services-strip .service-item',
     '.compare-card',
     '.feature-card',
-    '#como-funciona .lift-card',
+    '#como-funciona .process-step',
+    '#administracion .admin-feature',
+    '#administracion .admin-visual',
     '#demo .product-window',
     '#pantallas article',
     '#clientes .company-logo-card',
     '#clientes .lift-card',
     '#faq details',
-    '#precios article',
-    '#precios .mt-2xl > div',
+    '#precios .plan-card',
+    '#precios .pricing-guide',
+    '#precios .pricing-addons',
+    '#precios .pricing-legal',
     '#contacto .lift-card',
     '#metricas .number-item',
     'footer'
