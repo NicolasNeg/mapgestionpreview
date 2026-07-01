@@ -170,6 +170,10 @@
     /* Marco de app tipo macOS (hero + sandbox) */
     .app-dot { height: 12px; width: 12px; border-radius: 999px; }
 
+    /* Tab activo del carrusel de módulos */
+    .sc-tab.active { background: rgba(255,255,255,.1); color: #fff; border-color: rgba(255,255,255,.25); }
+    #sc-tabs::-webkit-scrollbar { display: none; }
+
     .logo-mono { filter: grayscale(1); opacity: .5; transition: opacity .3s ease; }
     .logo-mono:hover { opacity: .9; }
 
@@ -199,6 +203,7 @@
       <div class="hidden md:flex items-center gap-1 text-sm text-slate-300">
         <a href="#sandbox" class="px-3 py-2 rounded-full hover:text-white hover:bg-white/5 transition">Simulador</a>
         <a href="#modulos" class="px-3 py-2 rounded-full hover:text-white hover:bg-white/5 transition">Módulos</a>
+        <a href="#sistema" class="px-3 py-2 rounded-full hover:text-white hover:bg-white/5 transition">El sistema</a>
         <a href="#proceso" class="px-3 py-2 rounded-full hover:text-white hover:bg-white/5 transition">Implementación</a>
       </div>
       <div class="flex items-center gap-2">
@@ -215,47 +220,51 @@
   </nav>
 
   <!-- ============ SECCIÓN 1 · HERO ============ -->
-  <header id="top" class="relative px-6 pt-20 pb-24 sm:pt-28 overflow-hidden">
-    <div class="mx-auto max-w-4xl text-center">
-      <span class="hero-el inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm font-medium text-indigo-300 mb-8">
-        <span class="h-1.5 w-1.5 rounded-full bg-indigo-400"></span>
-        Implementación llave en mano · Enterprise
-      </span>
-      <h1 class="hero-el font-extrabold text-white text-5xl sm:text-6xl lg:text-7xl leading-[1.02] mb-6">
-        Cada auto de tu arrendadora, <span class="text-gradient">localizado.</span>
-      </h1>
-      <p class="hero-el d2 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10">
-        Implementamos la infraestructura digital de tu patio. Cero Excel, cero WhatsApp, cero autos perdidos.
-      </p>
-      <div class="hero-el d3 flex flex-col sm:flex-row gap-3 justify-center">
-        <a href="#contacto"
-          class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 px-7 py-4 font-semibold text-white shadow-xl shadow-indigo-500/30 hover:shadow-indigo-500/50 transition">
-          <span class="material-symbols-outlined">event</span>
-          Agendar Consultoría de Implementación
-        </a>
-        <a href="#sandbox"
-          class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-7 py-4 font-semibold text-white hover:bg-white/10 transition">
-          <span class="material-symbols-outlined">play_circle</span>
-          Ver el simulador
-        </a>
-      </div>
-    </div>
-
-    <!-- Producto en marco de app con resplandor -->
-    <div class="hero-el d4 relative mx-auto max-w-5xl mt-16">
-      <div class="pointer-events-none absolute -inset-x-10 -top-10 bottom-0 bg-indigo-500/20 blur-[100px] rounded-full"></div>
-      <div class="relative rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-md shadow-2xl shadow-indigo-500/10 overflow-hidden">
-        <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10">
-          <span class="app-dot bg-red-400/80"></span><span class="app-dot bg-amber-400/80"></span><span class="app-dot bg-green-400/80"></span>
-          <span class="ml-3 text-xs text-slate-500">mapgestion.com · Patio en vivo</span>
+  <header id="top" class="relative px-6 pt-16 pb-20 sm:pt-24 overflow-hidden">
+    <!-- Texto pequeño a un lado + imagen dominante -->
+    <div class="mx-auto max-w-6xl grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+      <div class="lg:col-span-5 text-center lg:text-left">
+        <span class="hero-el inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm font-medium text-indigo-300 mb-6">
+          <span class="h-1.5 w-1.5 rounded-full bg-indigo-400"></span>
+          Implementación llave en mano · Enterprise
+        </span>
+        <h1 class="hero-el font-extrabold text-white text-4xl sm:text-5xl leading-[1.05] mb-5">
+          Cada auto de tu arrendadora, en el <span class="text-gradient">mapa de tu patio.</span>
+        </h1>
+        <p class="hero-el d2 text-base sm:text-lg text-slate-400 mb-8">
+          Replicamos tu estacionamiento en un plano digital donde ves cada unidad y su estado.
+          No es GPS: es tu patio, digitalizado y bajo control. Cero Excel, cero WhatsApp.
+        </p>
+        <div class="hero-el d3 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+          <a href="#contacto"
+            class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 px-6 py-3.5 font-semibold text-white shadow-xl shadow-indigo-500/30 hover:shadow-indigo-500/50 transition">
+            <span class="material-symbols-outlined">event</span>
+            Agendar Consultoría
+          </a>
+          <a href="#sandbox"
+            class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 font-semibold text-white hover:bg-white/10 transition">
+            <span class="material-symbols-outlined">play_circle</span>
+            Ver el simulador
+          </a>
         </div>
-        <!-- VISUAL: mockup del mapa de patio con autos ubicados -->
-        <img src="assets/screenshots/mapa-vivo.png" alt="Mapa del patio de una arrendadora con autos ubicados"
-          class="w-full aspect-[16/9] object-cover object-top" loading="eager" decoding="async" />
+      </div>
+
+      <!-- Imagen dominante en marco de app con resplandor -->
+      <div class="hero-el d4 relative lg:col-span-7">
+        <div class="pointer-events-none absolute -inset-6 bg-indigo-500/20 blur-[100px] rounded-full"></div>
+        <div class="relative rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-md shadow-2xl shadow-indigo-500/10 overflow-hidden">
+          <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10">
+            <span class="app-dot bg-red-400/80"></span><span class="app-dot bg-amber-400/80"></span><span class="app-dot bg-green-400/80"></span>
+            <span class="ml-3 text-xs text-slate-500">mapgestion.com · Mapa del patio</span>
+          </div>
+          <!-- VISUAL: plano digital del patio con las unidades ubicadas (no GPS) -->
+          <img src="assets/screenshots/mapa-vivo.png" alt="Plano digital del patio de una arrendadora con las unidades ubicadas"
+            class="w-full aspect-[16/10] object-cover object-top" loading="eager" decoding="async" />
+        </div>
       </div>
     </div>
 
-    <a href="#sandbox" aria-label="Bajar" class="scroll-hint block w-fit mx-auto mt-12 text-slate-500 hover:text-white">
+    <a href="#sandbox" aria-label="Bajar" class="scroll-hint block w-fit mx-auto mt-14 text-slate-500 hover:text-white">
       <span class="material-symbols-outlined text-3xl">keyboard_arrow_down</span>
     </a>
   </header>
@@ -355,6 +364,69 @@
     </div>
   </section>
 
+  <!-- ============ SECCIÓN 3b · EL SISTEMA POR DENTRO (collage deslizable) ============ -->
+  <section id="sistema" class="py-24 sm:py-32 px-6">
+    <div class="mx-auto max-w-6xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-5xl font-bold text-white mb-4">El sistema por dentro</h2>
+        <p class="text-slate-400 max-w-2xl mx-auto">Desliza y explora cada módulo en pantalla completa.</p>
+      </div>
+
+      <!-- Carrusel: pantalla grande (marco de app) + track deslizable -->
+      <div id="showcase" class="relative select-none">
+        <div class="pointer-events-none absolute -inset-6 bg-gradient-to-r from-indigo-500/20 to-violet-500/20 blur-[90px] rounded-full"></div>
+
+        <div class="relative rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-md shadow-2xl shadow-indigo-500/10 overflow-hidden">
+          <!-- Barra superior tipo macOS con título dinámico -->
+          <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10">
+            <span class="app-dot bg-red-400/80"></span><span class="app-dot bg-amber-400/80"></span><span class="app-dot bg-green-400/80"></span>
+            <span id="sc-title" class="ml-3 text-xs text-slate-400 transition-opacity duration-300">Mapa de Patio</span>
+          </div>
+
+          <!-- Viewport + track (transform => slide suave) -->
+          <div class="overflow-hidden">
+            <div id="sc-track" class="flex will-change-transform" style="transition: transform .6s cubic-bezier(.22,.61,.36,1);">
+              <!-- ASSETS: capturas reales de cada módulo del sistema -->
+              <div class="sc-slide min-w-full"><img src="assets/screenshots/mapa-vivo.png" alt="Mapa de patio" class="w-full aspect-[16/9] object-cover object-top" loading="lazy" /></div>
+              <div class="sc-slide min-w-full"><img src="assets/screenshots/editor-mapa.png" alt="Editor de mapa" class="w-full aspect-[16/9] object-cover object-top" loading="lazy" /></div>
+              <div class="sc-slide min-w-full"><img src="assets/screenshots/resumen-flota.png" alt="Resumen de flota" class="w-full aspect-[16/9] object-cover object-top" loading="lazy" /></div>
+              <div class="sc-slide min-w-full"><img src="assets/screenshots/gestion-flota.png" alt="Gestión de flota" class="w-full aspect-[16/9] object-cover object-top" loading="lazy" /></div>
+              <div class="sc-slide min-w-full"><img src="assets/screenshots/bitacora-gestion.png" alt="Bitácora de movimientos" class="w-full aspect-[16/9] object-cover object-top" loading="lazy" /></div>
+              <div class="sc-slide min-w-full"><img src="assets/screenshots/bitacora-incidencias.png" alt="Incidencias con evidencia" class="w-full aspect-[16/9] object-cover object-top" loading="lazy" /></div>
+              <div class="sc-slide min-w-full"><img src="assets/screenshots/roles-permisos.png" alt="Roles y permisos" class="w-full aspect-[16/9] object-cover object-top" loading="lazy" /></div>
+              <div class="sc-slide min-w-full"><img src="assets/screenshots/ubicaciones.png" alt="Ubicaciones y sucursales" class="w-full aspect-[16/9] object-cover object-top" loading="lazy" /></div>
+            </div>
+          </div>
+
+          <!-- Flechas -->
+          <button id="sc-prev" aria-label="Anterior"
+            class="absolute left-3 top-1/2 -translate-y-1/2 h-11 w-11 rounded-full bg-black/40 backdrop-blur border border-white/10 text-white hover:bg-black/60 transition flex items-center justify-center">
+            <span class="material-symbols-outlined">chevron_left</span>
+          </button>
+          <button id="sc-next" aria-label="Siguiente"
+            class="absolute right-3 top-1/2 -translate-y-1/2 h-11 w-11 rounded-full bg-black/40 backdrop-blur border border-white/10 text-white hover:bg-black/60 transition flex items-center justify-center">
+            <span class="material-symbols-outlined">chevron_right</span>
+          </button>
+        </div>
+
+        <!-- Descripción activa -->
+        <p id="sc-desc" class="text-center text-slate-400 mt-6 transition-opacity duration-300">Tu patio replicado: zonas, cajones y cada unidad.</p>
+
+        <!-- Tabs deslizables (nombres de módulo) -->
+        <div id="sc-tabs" class="mt-6 flex gap-2 overflow-x-auto pb-2 justify-start sm:justify-center [scrollbar-width:none]">
+          <button data-idx="0" class="sc-tab whitespace-nowrap rounded-full border border-white/10 px-4 py-2 text-sm text-slate-300 hover:text-white transition">Mapa de Patio</button>
+          <button data-idx="1" class="sc-tab whitespace-nowrap rounded-full border border-white/10 px-4 py-2 text-sm text-slate-300 hover:text-white transition">Editor de Mapa</button>
+          <button data-idx="2" class="sc-tab whitespace-nowrap rounded-full border border-white/10 px-4 py-2 text-sm text-slate-300 hover:text-white transition">Resumen de Flota</button>
+          <button data-idx="3" class="sc-tab whitespace-nowrap rounded-full border border-white/10 px-4 py-2 text-sm text-slate-300 hover:text-white transition">Gestión de Flota</button>
+          <button data-idx="4" class="sc-tab whitespace-nowrap rounded-full border border-white/10 px-4 py-2 text-sm text-slate-300 hover:text-white transition">Bitácora</button>
+          <button data-idx="5" class="sc-tab whitespace-nowrap rounded-full border border-white/10 px-4 py-2 text-sm text-slate-300 hover:text-white transition">Incidencias</button>
+          <button data-idx="6" class="sc-tab whitespace-nowrap rounded-full border border-white/10 px-4 py-2 text-sm text-slate-300 hover:text-white transition">Roles y Permisos</button>
+          <button data-idx="7" class="sc-tab whitespace-nowrap rounded-full border border-white/10 px-4 py-2 text-sm text-slate-300 hover:text-white transition">Ubicaciones</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ SECCIÓN 4 · POR QUÉ NOS CONTRATAN (scrollytelling) ============ -->
   <section id="beneficios" class="relative">
     <div class="mx-auto max-w-6xl px-6 pt-8">
@@ -367,7 +439,7 @@
         <div class="scrolly-trigger min-h-screen flex flex-col justify-center" data-step="0">
           <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500/15 text-indigo-300 mb-4"><span class="material-symbols-outlined text-3xl">location_on</span></span>
           <h3 class="text-3xl font-bold text-white mb-3">Ubicación visual exacta</h3>
-          <p class="text-slate-400 text-lg max-w-sm">Cada unidad localizada en el mapa, sin llamadas ni búsquedas.</p>
+          <p class="text-slate-400 text-lg max-w-sm">Cada unidad ubicada en el plano de tu patio, sin llamadas ni búsquedas.</p>
         </div>
         <div class="scrolly-trigger min-h-screen flex flex-col justify-center" data-step="1">
           <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-violet-500/15 text-violet-300 mb-4"><span class="material-symbols-outlined text-3xl">gpp_good</span></span>
@@ -401,7 +473,7 @@
       <div class="reveal stagger rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6">
         <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-500/15 text-indigo-300 mb-3"><span class="material-symbols-outlined">location_on</span></span>
         <h3 class="text-lg font-bold text-white">Ubicación visual exacta</h3>
-        <p class="text-slate-400 text-sm">Cada unidad localizada en el mapa, sin llamadas ni búsquedas.</p>
+        <p class="text-slate-400 text-sm">Cada unidad ubicada en el plano de tu patio, sin llamadas ni búsquedas.</p>
       </div>
       <div class="reveal stagger rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6">
         <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-violet-500/15 text-violet-300 mb-3"><span class="material-symbols-outlined">gpp_good</span></span>
@@ -564,6 +636,65 @@
       });
     }, { threshold: 0.5 });
     document.querySelectorAll('[data-counter]').forEach((el) => counterObs.observe(el));
+
+    // ---- Carrusel "El sistema por dentro" ----
+    (function () {
+      const showcase = document.getElementById('showcase');
+      if (!showcase) return;
+      const track = document.getElementById('sc-track');
+      const tabs = Array.from(document.querySelectorAll('#sc-tabs .sc-tab'));
+      const titleEl = document.getElementById('sc-title');
+      const descEl = document.getElementById('sc-desc');
+      const meta = [
+        ['Mapa de Patio', 'Tu patio replicado: zonas, cajones y cada unidad.'],
+        ['Editor de Mapa', 'Dibuja tu estacionamiento tal como es.'],
+        ['Resumen de Flota', 'El estado de toda tu flota de un vistazo.'],
+        ['Gestión de Flota', 'Cada unidad, su estado y su ficha completa.'],
+        ['Bitácora', 'Quién movió qué unidad y cuándo.'],
+        ['Incidencias', 'Daños y reportes con evidencia fotográfica.'],
+        ['Roles y Permisos', 'Cada rol ve y hace solo lo suyo.'],
+        ['Ubicaciones', 'Todas tus sucursales y plazas en orden.'],
+      ];
+      const n = meta.length;
+      let i = 0;
+
+      function go(next) {
+        i = (next + n) % n;
+        track.style.transform = 'translateX(' + (-i * 100) + '%)';
+        tabs.forEach((t, k) => t.classList.toggle('active', k === i));
+        // Fade de textos al cambiar
+        titleEl.style.opacity = descEl.style.opacity = '0';
+        setTimeout(() => {
+          titleEl.textContent = meta[i][0];
+          descEl.textContent = meta[i][1];
+          titleEl.style.opacity = descEl.style.opacity = '1';
+        }, 150);
+        // Mantener el tab activo visible
+        tabs[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+
+      document.getElementById('sc-prev').addEventListener('click', () => { go(i - 1); rearm(); });
+      document.getElementById('sc-next').addEventListener('click', () => { go(i + 1); rearm(); });
+      tabs.forEach((t) => t.addEventListener('click', () => { go(Number(t.dataset.idx)); rearm(); }));
+
+      // Autoplay con pausa al interactuar / hover
+      let timer = null;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function rearm() { clearInterval(timer); if (!reduce) timer = setInterval(() => go(i + 1), 5000); }
+      showcase.addEventListener('mouseenter', () => clearInterval(timer));
+      showcase.addEventListener('mouseleave', rearm);
+
+      // Swipe táctil
+      let x0 = null;
+      showcase.addEventListener('pointerdown', (e) => { x0 = e.clientX; });
+      showcase.addEventListener('pointerup', (e) => {
+        if (x0 === null) return;
+        const dx = e.clientX - x0; x0 = null;
+        if (Math.abs(dx) > 40) { go(dx < 0 ? i + 1 : i - 1); rearm(); }
+      });
+
+      go(0); rearm();
+    })();
   </script>
 </body>
 
