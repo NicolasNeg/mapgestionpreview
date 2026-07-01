@@ -205,6 +205,9 @@
             "outline": "#76777d",
             "primary": "#000000",
             "tertiary-fixed": "#89f5e7",
+            "avail": "#22c55e",
+            "alert": "#f59e0b",
+            "incident": "#ef4444",
             "on-background": "#191c1e",
             "on-surface-variant": "#45464d",
             "on-surface": "#191c1e",
@@ -3717,6 +3720,22 @@
         margin-top: -8px;
       }
     }
+
+    /* ── Scrollytelling "Operación" (#operacion) ── */
+    /* Triggers: activo opaco, inactivos atenuados. Sólo opacity => sin thrashing. */
+    .scrolly-trigger { opacity: .3; transition: opacity .4s ease; }
+    .scrolly-trigger.active { opacity: 1; }
+    /* Visuales apilados con crossfade */
+    .scrolly-visual { opacity: 0; transition: opacity .5s ease; }
+    .scrolly-visual.active { opacity: 1; }
+    /* Carrusel móvil con scroll-snap */
+    .scrolly-snap { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .scrolly-snap::-webkit-scrollbar { display: none; }
+    .scrolly-card { scroll-snap-align: center; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scrolly-trigger { opacity: 1; }
+    }
   </style>
 </head>
 
@@ -4187,80 +4206,106 @@
   </section>
 
   <!-- Features Grid -->
+  <!-- Operación · Scrollytelling (texto fluye + visual sticky en desktop, carrusel snap en móvil) -->
   <section class="py-3xl px-gutter" style="background:#080e1c;border-top:1px solid rgba(255,255,255,0.07);"
-    id="beneficios">
+    id="operacion">
     <div class="max-w-container-max mx-auto">
       <div class="text-center mb-2xl">
-        <span class="eyebrow mb-md">Módulos clave</span>
-        <h2 class="font-h1 text-h1 text-on-background mb-md">8 módulos. Una sola plataforma. Operación sin huecos.</h2>
-        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Desde la ubicación de unidades
-          hasta el cuadre de turno — cada función fue diseñada para el flujo real de un patio o arrendadora.</p>
+        <span class="eyebrow mb-md">La operación en vivo</span>
+        <h2 class="font-h1 text-h1 text-on-background mb-md">Todo tu patio, en una sola narrativa visual.</h2>
+        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Desplázate y sigue la operación
+          paso a paso — de la ubicación de cada unidad al cierre auditado del turno.</p>
+        <!-- Leyenda de estados: paleta funcional de mapa -->
+        <div class="flex flex-wrap justify-center gap-lg mt-lg font-body-sm text-body-sm text-on-surface-variant">
+          <span class="flex items-center gap-xs"><span class="inline-block h-2.5 w-2.5 rounded-full bg-avail"></span>Disponible</span>
+          <span class="flex items-center gap-xs"><span class="inline-block h-2.5 w-2.5 rounded-full bg-alert"></span>En alerta</span>
+          <span class="flex items-center gap-xs"><span class="inline-block h-2.5 w-2.5 rounded-full bg-incident"></span>Incidencia</span>
+        </div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-lg">
-        <div class="feature-card p-lg lift-card">
-          <div class="flex items-center justify-center mb-md feature-icon">
-            <span class="material-symbols-outlined text-on-surface-variant text-[20px]">map</span>
+
+      <!-- DESKTOP: columna de texto que fluye + visual sticky (oculto < lg) -->
+      <div class="hidden lg:flex gap-2xl">
+        <div class="w-1/2">
+          <!-- data-step enlaza cada bloque con su visual (data-visual) -->
+          <div class="scrolly-trigger min-h-screen flex flex-col justify-center" data-step="0">
+            <span class="material-symbols-outlined text-tertiary-fixed text-[36px] mb-sm">location_on</span>
+            <h3 class="font-h2 text-h2 text-on-background mb-sm">Visibilidad en vivo</h3>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">Cada unidad ubicada en el mapa del
+              patio en tiempo real. Sabes qué hay, dónde y en qué estado — sin llamadas ni WhatsApp.</p>
           </div>
-          <h3 class="font-h3 text-h3 text-on-background mb-sm">Mapa principal</h3>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Visualiza la ubicación exacta de cada unidad en
-            tu patio en tiempo real. Toma decisiones rápidas basadas en el espacio disponible.</p>
-        </div>
-        <div class="feature-card p-lg lift-card">
-          <div class="flex items-center justify-center mb-md feature-icon">
-            <span class="material-symbols-outlined text-on-surface-variant text-[20px]">hourglass_top</span>
+          <div class="scrolly-trigger min-h-screen flex flex-col justify-center" data-step="1">
+            <span class="material-symbols-outlined text-tertiary-fixed text-[36px] mb-sm">route</span>
+            <h3 class="font-h2 text-h2 text-on-background mb-sm">Trazabilidad completa</h3>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">Cada movimiento queda registrado: quién,
+              cuándo y a dónde. Reconstruyes cualquier turno con evidencia.</p>
           </div>
-          <h3 class="font-h3 text-h3 text-on-background mb-sm">Cola de preparación</h3>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Organiza unidades pendientes, listas y en proceso
-            para reducir esperas y cuellos de botella.</p>
-        </div>
-        <div class="feature-card p-lg lift-card">
-          <div class="flex items-center justify-center mb-md feature-icon">
-            <span class="material-symbols-outlined text-on-surface-variant text-[20px]">warning</span>
+          <div class="scrolly-trigger min-h-screen flex flex-col justify-center" data-step="2">
+            <span class="material-symbols-outlined text-tertiary-fixed text-[36px] mb-sm">admin_panel_settings</span>
+            <h3 class="font-h2 text-h2 text-on-background mb-sm">Control por roles</h3>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">Permisos granulares por plaza, área y
+              responsabilidad. Cada quien ve y hace exactamente lo que le toca.</p>
           </div>
-          <h3 class="font-h3 text-h3 text-on-background mb-sm">Incidencias</h3>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Reporta problemas con evidencia, responsables y
-            seguimiento hasta su resolución.</p>
-        </div>
-        <div class="feature-card p-lg lift-card">
-          <div class="flex items-center justify-center mb-md feature-icon">
-            <span class="material-symbols-outlined text-on-surface-variant text-[20px]">analytics</span>
+          <div class="scrolly-trigger min-h-screen flex flex-col justify-center" data-step="3">
+            <span class="material-symbols-outlined text-tertiary-fixed text-[36px] mb-sm">verified_user</span>
+            <h3 class="font-h2 text-h2 text-on-background mb-sm">Auditoría permanente</h3>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">Bitácora inmutable de accesos y
+              acciones. Auditas la operación completa cuando lo necesites.</p>
           </div>
-          <h3 class="font-h3 text-h3 text-on-background mb-sm">Cuadre operativo</h3>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Revisa movimientos, estados y diferencias para
-            cerrar turno con datos confiables.</p>
         </div>
-        <div class="feature-card p-lg lift-card">
-          <div class="flex items-center justify-center mb-md feature-icon">
-            <span class="material-symbols-outlined text-on-surface-variant text-[20px]">history</span>
+
+        <div class="w-1/2">
+          <div class="sticky top-0 h-screen flex items-center">
+            <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-primary-container"
+              style="border:1px solid rgba(255,255,255,0.08);">
+              <!-- ASSETS: capturas reales de cada módulo -->
+              <img data-visual="0" src="assets/screenshots/mapa-vivo.png" alt="Mapa en vivo del patio"
+                class="scrolly-visual active absolute inset-0 w-full h-full object-cover" loading="lazy" />
+              <img data-visual="1" src="assets/screenshots/historial-mapa.png" alt="Historial de movimientos"
+                class="scrolly-visual absolute inset-0 w-full h-full object-cover" loading="lazy" />
+              <img data-visual="2" src="assets/screenshots/roles-permisos.png" alt="Roles y permisos"
+                class="scrolly-visual absolute inset-0 w-full h-full object-cover" loading="lazy" />
+              <img data-visual="3" src="assets/screenshots/auditoria-sistema.png" alt="Auditoría del sistema"
+                class="scrolly-visual absolute inset-0 w-full h-full object-cover" loading="lazy" />
+            </div>
           </div>
-          <h3 class="font-h3 text-h3 text-on-background mb-sm">Trazabilidad</h3>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Cada movimiento queda registrado con fecha,
-            responsable y contexto.</p>
         </div>
-        <div class="feature-card p-lg lift-card">
-          <div class="flex items-center justify-center mb-md feature-icon">
-            <span class="material-symbols-outlined text-on-surface-variant text-[20px]">group</span>
+      </div>
+
+      <!-- MOBILE: carrusel horizontal scroll-snap (oculto lg+) -->
+      <!-- ponytail: contenido duplicado a propósito; sticky-scroll y snap-carousel son mecánicas distintas. -->
+      <div class="lg:hidden scrolly-snap flex gap-md overflow-x-auto pb-md -mx-gutter px-gutter">
+        <article class="scrolly-card flex-shrink-0 w-[80vw] rounded-xl overflow-hidden bg-primary-container"
+          style="border:1px solid rgba(255,255,255,0.08);">
+          <img src="assets/screenshots/mapa-vivo.png" alt="Mapa en vivo" class="w-full aspect-[4/3] object-cover" loading="lazy" />
+          <div class="p-lg">
+            <h3 class="font-h3 text-h3 text-on-background mb-xs">Visibilidad en vivo</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Cada unidad ubicada en el mapa en tiempo real.</p>
           </div>
-          <h3 class="font-h3 text-h3 text-on-background mb-sm">Colaboración</h3>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Todos ven la misma información y trabajan sin
-            hojas paralelas.</p>
-        </div>
-        <div class="feature-card p-lg lift-card">
-          <div class="flex items-center justify-center mb-md feature-icon">
-            <span class="material-symbols-outlined text-on-surface-variant text-[20px]">admin_panel_settings</span>
+        </article>
+        <article class="scrolly-card flex-shrink-0 w-[80vw] rounded-xl overflow-hidden bg-primary-container"
+          style="border:1px solid rgba(255,255,255,0.08);">
+          <img src="assets/screenshots/historial-mapa.png" alt="Historial de movimientos" class="w-full aspect-[4/3] object-cover" loading="lazy" />
+          <div class="p-lg">
+            <h3 class="font-h3 text-h3 text-on-background mb-xs">Trazabilidad completa</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Cada movimiento registrado con evidencia.</p>
           </div>
-          <h3 class="font-h3 text-h3 text-on-background mb-sm">Permisos</h3>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Controla quién puede consultar, editar, aprobar o
-            administrar cada módulo.</p>
-        </div>
-        <div class="feature-card p-lg lift-card">
-          <div class="flex items-center justify-center mb-md feature-icon">
-            <span class="material-symbols-outlined text-on-surface-variant text-[20px]">palette</span>
+        </article>
+        <article class="scrolly-card flex-shrink-0 w-[80vw] rounded-xl overflow-hidden bg-primary-container"
+          style="border:1px solid rgba(255,255,255,0.08);">
+          <img src="assets/screenshots/roles-permisos.png" alt="Roles y permisos" class="w-full aspect-[4/3] object-cover" loading="lazy" />
+          <div class="p-lg">
+            <h3 class="font-h3 text-h3 text-on-background mb-xs">Control por roles</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Permisos granulares por plaza y área.</p>
           </div>
-          <h3 class="font-h3 text-h3 text-on-background mb-sm">Branding</h3>
-          <p class="font-body-sm text-body-sm text-on-surface-variant">Personaliza logo y colores para mantener
-            identidad frente a tu equipo.</p>
-        </div>
+        </article>
+        <article class="scrolly-card flex-shrink-0 w-[80vw] rounded-xl overflow-hidden bg-primary-container"
+          style="border:1px solid rgba(255,255,255,0.08);">
+          <img src="assets/screenshots/auditoria-sistema.png" alt="Auditoría del sistema" class="w-full aspect-[4/3] object-cover" loading="lazy" />
+          <div class="p-lg">
+            <h3 class="font-h3 text-h3 text-on-background mb-xs">Auditoría permanente</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Bitácora inmutable de accesos y acciones.</p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -5282,6 +5327,38 @@
       }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
 
       items.forEach((el) => observer.observe(el));
+    })();
+  </script>
+
+  <!-- FAB sticky sólo móvil: el CTA siempre disponible en scroll -->
+  <a href="#contacto" class="mobile-fab" aria-label="Agendar demo de MapGestion">
+    <span class="material-symbols-outlined text-[20px]" aria-hidden="true">calendar_month</span>
+    Agendar Demo
+  </a>
+
+  <!-- Scrollytelling #operacion: sincroniza trigger activo <-> visual (crossfade) -->
+  <script>
+    (function () {
+      var triggers = document.querySelectorAll('#operacion .scrolly-trigger');
+      var visuals = document.querySelectorAll('#operacion .scrolly-visual');
+      if (!triggers.length) return;
+
+      function setActive(i) {
+        triggers.forEach(function (t, k) { t.classList.toggle('active', k === i); });
+        visuals.forEach(function (v, k) { v.classList.toggle('active', k === i); });
+      }
+
+      if (!('IntersectionObserver' in window)) { setActive(0); return; }
+
+      // Banda estrecha en el centro del viewport: sólo un trigger gana a la vez.
+      // Sólo togglea clases (opacity) => sin layout thrashing.
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) setActive(Number(e.target.dataset.step));
+        });
+      }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+      triggers.forEach(function (t) { obs.observe(t); });
     })();
   </script>
 
