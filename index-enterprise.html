@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MapGestion — Control de patios Enterprise</title>
+  <meta name="description"
+    content="Solución Enterprise de control de patios con infraestructura dedicada. Visibilidad, trazabilidad y control total de tu flota." />
+  <link rel="icon" href="assets/brand/favicon.svg" />
+
+  <!-- Fuente e íconos: mismo stack que index.html -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            // Paleta de mapa: base azul marino/slate + acentos funcionales
+            ink: '#070d1b',
+            panel: '#0d1526',
+            accent: '#89f5e7',   // teal de marca
+            avail: '#22c55e',    // verde disponible
+            alert: '#f59e0b',    // naranja alerta
+            incident: '#ef4444', // rojo incidencia
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #070d1b; color: #dce5f5; }
+    .material-symbols-outlined { font-family: 'Material Symbols Outlined'; }
+
+    /* --- Reveal genérico (hero + timeline). Sólo opacity/transform => sin layout thrashing. --- */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    /* Stagger en cascada para la Sección 3 (timeline) */
+    .step:nth-child(1).in { transition-delay: 0s; }
+    .step:nth-child(2).in { transition-delay: .15s; }
+    .step:nth-child(3).in { transition-delay: .30s; }
+
+    /* --- Hero entrada al cargar --- */
+    .hero-el { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+    body.loaded .hero-el { opacity: 1; transform: none; }
+    body.loaded .hero-el.d1 { transition-delay: .1s; }
+    body.loaded .hero-el.d2 { transition-delay: .25s; }
+    body.loaded .hero-el.d3 { transition-delay: .4s; }
+
+    /* Indicador scroll-down bounce */
+    @keyframes bounce-y { 0%,100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+    .scroll-hint { animation: bounce-y 1.8s ease-in-out infinite; }
+
+    /* --- Sección 2 desktop: triggers activos/inactivos --- */
+    .trigger { opacity: .3; transition: opacity .4s ease; }
+    .trigger.active { opacity: 1; }
+    /* Crossfade de visuales (apilados en absolute) */
+    .visual { opacity: 0; transition: opacity .5s ease; }
+    .visual.active { opacity: 1; }
+
+    /* --- Sección 2 mobile: carrusel con scroll-snap --- */
+    .snap-row { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .snap-row::-webkit-scrollbar { display: none; }
+    .snap-card { scroll-snap-align: center; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .hero-el { transition: none; opacity: 1; transform: none; }
+      .scroll-hint { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body class="antialiased selection:bg-accent/30">
+
+  <!-- ============================================================= -->
+  <!-- SECCIÓN 1 · HERO (min-h-screen, full-viewport, overlay oscuro) -->
+  <!-- ============================================================= -->
+  <header class="relative min-h-screen flex items-center overflow-hidden">
+    <!-- ASSET DE FONDO: reemplaza por tu mockup de mapa de alta fidelidad -->
+    <img src="assets/screenshots/mapa-vivo.png" alt="Mapa operativo de patio en MapGestion"
+      class="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async" />
+    <!-- Overlay oscuro (scrim) para contraste AA del texto sobre el mapa -->
+    <div class="absolute inset-0 bg-gradient-to-tr from-ink via-ink/85 to-ink/40"></div>
+
+    <div class="relative z-10 w-full max-w-6xl mx-auto px-6 py-24">
+      <span class="hero-el d1 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent mb-6">
+        <span class="material-symbols-outlined text-[18px]">verified</span>
+        Infraestructura dedicada · Enterprise
+      </span>
+      <h1 class="hero-el d1 font-extrabold tracking-tight text-white text-[13vw] leading-[0.95] sm:text-6xl lg:text-7xl max-w-4xl mb-6">
+        Tu patio, bajo control total.
+      </h1>
+      <p class="hero-el d2 text-lg sm:text-xl text-slate-200 max-w-2xl mb-10">
+        Visibilidad en vivo, trazabilidad completa y control por roles sobre cada unidad —
+        desplegado sobre infraestructura dedicada para tu operación.
+      </p>
+      <div class="hero-el d2 flex flex-col sm:flex-row gap-4">
+        <a href="#contacto"
+          class="inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-7 py-4 font-semibold text-ink hover:bg-white transition-colors">
+          <span class="material-symbols-outlined">event</span>
+          Agendar consultoría de implementación
+        </a>
+        <a href="#operacion"
+          class="inline-flex items-center justify-center gap-2 rounded-lg border border-white/25 px-7 py-4 font-semibold text-white hover:bg-white/10 transition-colors">
+          <span class="material-symbols-outlined">map</span>
+          Ver la operación
+        </a>
+      </div>
+
+      <!-- Pines de estado con paleta funcional -->
+      <div class="hero-el d3 mt-12 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-300">
+        <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-avail"></span>27 disponibles</span>
+        <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-alert"></span>3 en alerta</span>
+        <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-incident"></span>1 incidencia</span>
+      </div>
+    </div>
+
+    <!-- Indicador scroll-down (bounce) -->
+    <a href="#operacion" aria-label="Bajar a la sección de operación"
+      class="scroll-hint absolute bottom-6 left-1/2 -translate-x-1/2 z-10 text-white/70 hover:text-white">
+      <span class="material-symbols-outlined text-4xl">keyboard_arrow_down</span>
+    </a>
+  </header>
+
+  <!-- ============================================================= -->
+  <!-- SECCIÓN 2 · OPERACIÓN (Scrollytelling sticky en desktop)       -->
+  <!-- ============================================================= -->
+  <section id="operacion" class="bg-ink">
+
+    <!-- ---------- DESKTOP: scrollytelling (oculto en < lg) ---------- -->
+    <!-- Patrón: la columna de texto fluye normal (cada trigger ~100vh) y la
+         columna visual es sticky. IntersectionObserver detecta el trigger que
+         cruza el centro del viewport y sincroniza el visual. 4 pasos ≈ 400vh. -->
+    <div class="hidden lg:flex max-w-6xl mx-auto px-6 gap-16">
+      <!-- Columna izquierda: triggers que fluyen con el scroll -->
+      <div class="w-1/2">
+        <!-- data-step enlaza cada trigger con su visual -->
+        <div class="trigger min-h-screen flex flex-col justify-center" data-step="0">
+          <span class="material-symbols-outlined text-accent text-4xl mb-3">location_on</span>
+          <h3 class="text-3xl font-bold text-white mb-3">Visibilidad en vivo</h3>
+          <p class="text-slate-300 text-lg max-w-md">Cada unidad ubicada en el mapa del patio en tiempo real. Sabes qué hay, dónde y en qué estado, sin llamadas ni WhatsApp.</p>
+        </div>
+        <div class="trigger min-h-screen flex flex-col justify-center" data-step="1">
+          <span class="material-symbols-outlined text-accent text-4xl mb-3">route</span>
+          <h3 class="text-3xl font-bold text-white mb-3">Trazabilidad completa</h3>
+          <p class="text-slate-300 text-lg max-w-md">Cada movimiento queda registrado: quién, cuándo y a dónde. Reconstruyes cualquier turno con evidencia.</p>
+        </div>
+        <div class="trigger min-h-screen flex flex-col justify-center" data-step="2">
+          <span class="material-symbols-outlined text-accent text-4xl mb-3">shield_person</span>
+          <h3 class="text-3xl font-bold text-white mb-3">Control por roles</h3>
+          <p class="text-slate-300 text-lg max-w-md">Permisos granulares por plaza, área y responsabilidad. Cada quien ve y hace exactamente lo que le toca.</p>
+        </div>
+        <div class="trigger min-h-screen flex flex-col justify-center" data-step="3">
+          <span class="material-symbols-outlined text-accent text-4xl mb-3">verified_user</span>
+          <h3 class="text-3xl font-bold text-white mb-3">Auditoría permanente</h3>
+          <p class="text-slate-300 text-lg max-w-md">Bitácora inmutable de accesos y acciones. Auditas la operación completa cuando lo necesites.</p>
+        </div>
+      </div>
+
+      <!-- Columna derecha: visual sticky con crossfade -->
+      <div class="w-1/2">
+        <div class="sticky top-0 h-screen flex items-center">
+          <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden ring-1 ring-white/10 bg-panel">
+            <!-- ASSETS: sustituye por las capturas/vídeos reales de cada módulo -->
+            <img data-visual="0" src="assets/screenshots/mapa-vivo.png" alt="Mapa en vivo" class="visual active absolute inset-0 w-full h-full object-cover" loading="lazy" />
+            <img data-visual="1" src="assets/screenshots/historial-mapa.png" alt="Historial de movimientos" class="visual absolute inset-0 w-full h-full object-cover" loading="lazy" />
+            <img data-visual="2" src="assets/screenshots/roles-permisos.png" alt="Roles y permisos" class="visual absolute inset-0 w-full h-full object-cover" loading="lazy" />
+            <img data-visual="3" src="assets/screenshots/auditoria-sistema.png" alt="Auditoría del sistema" class="visual absolute inset-0 w-full h-full object-cover" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- MOBILE: carrusel horizontal scroll-snap (oculto en lg+) ---------- -->
+    <!-- ponytail: contenido duplicado a propósito; sticky-scroll y snap-carousel
+         son mecánicas distintas, un solo DOM para ambas sería frágil. Son 4 tarjetas cortas. -->
+    <div class="lg:hidden py-16">
+      <p class="text-accent font-semibold px-6 mb-6 tracking-wide uppercase text-sm">La operación, paso a paso</p>
+      <div class="snap-row flex gap-4 overflow-x-auto px-6 pb-4">
+        <article class="snap-card shrink-0 w-[80vw] rounded-xl overflow-hidden ring-1 ring-white/10 bg-panel">
+          <img src="assets/screenshots/mapa-vivo.png" alt="Mapa en vivo" class="w-full aspect-[4/3] object-cover" loading="lazy" />
+          <div class="p-5">
+            <h3 class="text-xl font-bold text-white mb-1">Visibilidad en vivo</h3>
+            <p class="text-slate-300 text-sm">Cada unidad ubicada en el mapa en tiempo real.</p>
+          </div>
+        </article>
+        <article class="snap-card shrink-0 w-[80vw] rounded-xl overflow-hidden ring-1 ring-white/10 bg-panel">
+          <img src="assets/screenshots/historial-mapa.png" alt="Historial de movimientos" class="w-full aspect-[4/3] object-cover" loading="lazy" />
+          <div class="p-5">
+            <h3 class="text-xl font-bold text-white mb-1">Trazabilidad completa</h3>
+            <p class="text-slate-300 text-sm">Cada movimiento registrado con evidencia.</p>
+          </div>
+        </article>
+        <article class="snap-card shrink-0 w-[80vw] rounded-xl overflow-hidden ring-1 ring-white/10 bg-panel">
+          <img src="assets/screenshots/roles-permisos.png" alt="Roles y permisos" class="w-full aspect-[4/3] object-cover" loading="lazy" />
+          <div class="p-5">
+            <h3 class="text-xl font-bold text-white mb-1">Control por roles</h3>
+            <p class="text-slate-300 text-sm">Permisos granulares por plaza y área.</p>
+          </div>
+        </article>
+        <article class="snap-card shrink-0 w-[80vw] rounded-xl overflow-hidden ring-1 ring-white/10 bg-panel">
+          <img src="assets/screenshots/auditoria-sistema.png" alt="Auditoría del sistema" class="w-full aspect-[4/3] object-cover" loading="lazy" />
+          <div class="p-5">
+            <h3 class="text-xl font-bold text-white mb-1">Auditoría permanente</h3>
+            <p class="text-slate-300 text-sm">Bitácora inmutable de accesos y acciones.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- SECCIÓN 3 · PROCESO (Timeline, reveal staggered)              -->
+  <!-- ============================================================= -->
+  <section id="proceso" class="bg-panel py-24 sm:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-2xl mb-16">
+        <p class="text-accent font-semibold mb-3 tracking-wide uppercase text-sm">Implementación</p>
+        <h2 class="text-4xl sm:text-5xl font-bold text-white">De diagnóstico a operación en semanas, no meses.</h2>
+      </div>
+
+      <div class="grid gap-8 md:grid-cols-3">
+        <div class="step reveal rounded-xl border border-white/10 bg-ink p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-accent font-bold">1</span>
+            <span class="material-symbols-outlined text-accent">travel_explore</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Diagnóstico</h3>
+          <p class="text-slate-300">Mapeamos tu patio, tus flujos y tus roles. Definimos el modelo de datos y los indicadores que importan.</p>
+        </div>
+        <div class="step reveal rounded-xl border border-white/10 bg-ink p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-accent font-bold">2</span>
+            <span class="material-symbols-outlined text-accent">rocket_launch</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Despliegue</h3>
+          <p class="text-slate-300">Levantamos tu infraestructura dedicada, cargamos tu mapa y capacitamos a tu equipo operativo.</p>
+        </div>
+        <div class="step reveal rounded-xl border border-white/10 bg-ink p-8">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-accent font-bold">3</span>
+            <span class="material-symbols-outlined text-accent">monitoring</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Operación</h3>
+          <p class="text-slate-300">Tu patio corre sobre MapGestion con soporte continuo y evolución según tu operación.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- SECCIÓN 4 · CONVERSIÓN (Dark premium + CTA final + FAB móvil)  -->
+  <!-- ============================================================= -->
+  <section id="contacto" class="bg-slate-950 py-24 sm:py-32">
+    <div class="max-w-2xl mx-auto px-6 text-center">
+      <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4">Hablemos de tu patio.</h2>
+      <p class="text-lg text-slate-300 mb-10">Déjanos dos datos y un especialista te contacta para agendar la consultoría de implementación.</p>
+
+      <!-- Form mínimo: nombre + WhatsApp. Envía por WhatsApp (sin backend). -->
+      <form id="leadForm" class="flex flex-col gap-4 text-left">
+        <div>
+          <label for="nombre" class="block text-sm text-slate-400 mb-1">Nombre</label>
+          <input id="nombre" name="nombre" required autocomplete="name"
+            class="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-slate-500 focus:border-accent focus:outline-none"
+            placeholder="Tu nombre" />
+        </div>
+        <div>
+          <label for="whatsapp" class="block text-sm text-slate-400 mb-1">WhatsApp</label>
+          <input id="whatsapp" name="whatsapp" required inputmode="tel" autocomplete="tel"
+            class="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-slate-500 focus:border-accent focus:outline-none"
+            placeholder="Ej. 55 1234 5678" />
+        </div>
+        <button type="submit"
+          class="mt-2 inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-7 py-4 font-semibold text-ink hover:bg-white transition-colors">
+          <span class="material-symbols-outlined">send</span>
+          Agendar consultoría de implementación
+        </button>
+        <p class="text-xs text-slate-500 text-center">Sin compromiso · Respuesta en horario hábil</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAB sticky sólo móvil -->
+  <a href="#contacto"
+    class="lg:hidden fixed bottom-4 inset-x-4 z-50 flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-4 font-semibold text-ink shadow-lg shadow-black/40">
+    <span class="material-symbols-outlined">event</span>
+    Agendar consultoría
+  </a>
+
+  <script>
+    // Hero: dispara entrada al cargar (fade + translate-y)
+    window.addEventListener('DOMContentLoaded', () => document.body.classList.add('loaded'));
+
+    // ---- Sección 2 · Scrollytelling desktop ----
+    // Un solo observer detecta qué trigger cruza el centro del viewport
+    // y sincroniza el visual correspondiente. Sólo togglea clases => sin thrashing.
+    const triggers = document.querySelectorAll('.trigger');
+    const visuals = document.querySelectorAll('.visual');
+    if (triggers.length) {
+      const setActive = (i) => {
+        triggers.forEach((t, k) => t.classList.toggle('active', k === i));
+        visuals.forEach((v, k) => v.classList.toggle('active', k === i));
+      };
+      const scrollyObs = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(Number(e.target.dataset.step));
+        });
+      }, {
+        // banda estrecha en el centro: sólo un trigger "gana" a la vez
+        rootMargin: '-45% 0px -45% 0px',
+        threshold: 0,
+      });
+      triggers.forEach((t) => scrollyObs.observe(t));
+    }
+
+    // ---- Sección 3 · Reveal staggered (y hero-els que quedaran fuera) ----
+    const revealObs = new IntersectionObserver((entries, obs) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.reveal').forEach((el) => revealObs.observe(el));
+
+    // ---- Form: arma mensaje de WhatsApp (sin backend) ----
+    document.getElementById('leadForm').addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      const nombre = document.getElementById('nombre').value.trim();
+      const wa = document.getElementById('whatsapp').value.trim();
+      const msg = `Hola, soy ${nombre} (WhatsApp: ${wa}). Quiero agendar una consultoría de implementación de MapGestion.`;
+      // Número de destino: el mismo que usa index.html
+      window.open('https://wa.me/524778024682?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+    });
+  </script>
+</body>
+
+</html>
