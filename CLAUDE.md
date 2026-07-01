@@ -21,7 +21,7 @@ Deployment is automatic: push to `main` and GitHub Pages publishes within second
 
 All pages are self-contained single-file HTML with inline `<style>` and `<script>` tags. External dependencies are loaded via CDN only:
 
-- **Tailwind CSS** (`cdn.tailwindcss.com`) — utility classes plus a custom `tailwind.config` block at `index.html:178`
+- **Tailwind CSS** (`cdn.tailwindcss.com`) — utility classes plus a custom `tailwind.config` block at `index.html:186`
 - **Inter** (Google Fonts) — sole typeface across all pages
 - **Material Symbols Outlined** (Google Fonts CDN) — icon font used in `index.html`
 
@@ -43,7 +43,7 @@ The dark map pages (`sandbox-mapa.html`, `estacionamientos-mapa.html`) use a sep
 
 ### Design tokens
 
-Tailwind theme extension (colors, spacing, type scale) is defined at `index.html:178`. Notable aliases: `primary-container` = `#131b2e` (dark navy), `tertiary-fixed` = `#89f5e7` (teal accent). Border radii are overridden to be tighter than Tailwind defaults (`lg` = 0.25rem, `full` = 0.75rem).
+Tailwind theme extension (colors, spacing, type scale) is defined at `index.html:186`. Notable aliases: `primary-container` = `#131b2e` (dark navy), `tertiary-fixed` = `#89f5e7` (teal accent). Border radii are overridden to be tighter than Tailwind defaults (`lg` = 0.25rem, `full` = 0.75rem).
 
 ### `index.html` section IDs
 
