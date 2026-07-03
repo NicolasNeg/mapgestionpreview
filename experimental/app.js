@@ -107,6 +107,52 @@ function mobileSimplified() {
   });
 }
 
+/* ---- TRANSFORMACIÓN (desktop): timeline pineada ligada al scroll ----
+   Sube 'end' (+=2600) para hacer TODA la secuencia más lenta/larga. */
+function xformDesktop() {
+  const cap = document.getElementById('xcap');
+  gsap.set(['#xApp', '#xMap'], { opacity: 0 });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#transformacion',
+      start: 'top top',
+      end: '+=2600',          // ← longitud total de la secuencia en px de scroll
+      scrub: 1,               // ← ligado al scroll (1s de suavizado)
+      pin: '.xform__sticky',  // ← fija la escena mientras dura la timeline
+      anticipatePin: 1,
+      onUpdate: (self) => {   // subtítulo según el avance
+        const p = self.progress;
+        cap.textContent = p < 0.34 ? 'Hoy: hojas de Excel y mensajes sueltos.'
+          : p < 0.68 ? 'Con MapGestión: cada unidad, clara y a la vista.'
+            : 'Y es un mapa real: pruébalo tú mismo.';
+      },
+    },
+  });
+
+  // 1) El Excel se VACÍA (celdas de datos) y se retira
+  tl.to('#xExcel .xc', { opacity: 0, stagger: { each: 0.03, from: 'random' }, duration: 2 }, 0)
+    .to('#xExcel', { opacity: 0, scale: 0.92, duration: 1 }, '>-0.3')
+    // 2) Aparece el formato claro (tarjetas en cascada)
+    .to('#xApp', { opacity: 1, duration: 1 }, '<')
+    .from('#xApp .xcard', { opacity: 0, y: 24, stagger: 0.15, duration: 1.2, ease: 'power2.out' }, '<')
+    .to('#xApp', { opacity: 0, scale: 0.96, duration: 1 }, '+=1')
+    // 3) Aparece el mapa y las unidades se acomodan en sus spots
+    .to('#xMap', { opacity: 1, duration: 1 }, '<')
+    .from('#xMap .spot', { opacity: 0, scale: 0.3, y: -20, stagger: 0.12, ease: 'back.out(1.7)', duration: 1 }, '<0.2')
+    .from('#xMap .xmap__try', { opacity: 0, y: 16, duration: 0.6 }, '>-0.2');
+}
+
+/* ---- TRANSFORMACIÓN (móvil): sin pin, 3 bloques con fade-in ---- */
+function xformMobile() {
+  gsap.utils.toArray('#transformacion .xpanel').forEach((el) => {
+    gsap.from(el, {
+      opacity: 0, y: 30, duration: 0.7, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 85%' },
+    });
+  });
+}
+
 /* ============================================================
    Responsive con gsap.matchMedia:
    - Animaciones solo si el usuario NO pidió reduce-motion.
@@ -131,5 +177,13 @@ mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
 // Móvil: simplificado
 mm.add('(max-width: 767px) and (prefers-reduced-motion: no-preference)', () => {
   mobileSimplified();
+});
+
+// Transformación Excel→mapa: pineada en desktop, apilada en móvil
+mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
+  xformDesktop();
+});
+mm.add('(max-width: 899px) and (prefers-reduced-motion: no-preference)', () => {
+  xformMobile();
 });
 
