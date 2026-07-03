@@ -1,0 +1,135 @@
+/* ============================================================
+   MapGestión — prototipo inmersivo · Mobile-First
+   Variables + Flexbox/Grid. Sin frameworks.
+   ============================================================ */
+:root {
+  --ink: #020617;          /* fondo base */
+  --panel: #0d1526;        /* superficies */
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #818cf8;       /* indigo */
+  --accent-2: #c4b5fd;     /* violeta */
+  --teal: #89f5e7;         /* acento de marca */
+  --radius: 16px;
+  --maxw: 1200px;
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--ink);
+  color: var(--text);
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+.container { width: min(100% - 2.5rem, var(--maxw)); margin-inline: auto; }
+.section-title { font-size: clamp(1.6rem, 5vw, 2.75rem); font-weight: 800; letter-spacing: -.02em; text-align: center; }
+.section-sub { color: var(--muted); text-align: center; margin: .6rem auto 2.5rem; max-width: 42ch; }
+
+/* ===== Botones (grandes y accesibles; hover en PC, activo en móvil) ===== */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 52px; padding: 0 1.6rem; border-radius: 12px;
+  font-weight: 700; font-size: 1rem; cursor: pointer;
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .2s var(--ease);
+}
+.btn--lg { min-height: 60px; padding: 0 2.2rem; font-size: 1.1rem; }
+.btn--primary { background: linear-gradient(100deg, var(--accent), var(--accent-2)); color: #0b1020; box-shadow: 0 10px 30px rgba(129,140,248,.35); }
+.btn--ghost { background: rgba(255,255,255,.06); color: #fff; border: 1px solid rgba(255,255,255,.15); }
+.btn:active { transform: scale(.97); }               /* estado activo claro (móvil) */
+@media (hover: hover) {                                /* hover elegante solo en PC */
+  .btn--primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(129,140,248,.5); }
+  .btn--ghost:hover { background: rgba(255,255,255,.12); }
+}
+
+/* ============================================================
+   1 · HERO — 100vh / 100vw
+   ============================================================ */
+.hero { position: relative; width: 100vw; min-height: 100svh; display: grid; place-items: center; text-align: center; overflow: hidden; }
+.hero__bg {
+  position: absolute; inset: -10% 0; /* margen extra para el parallax */
+  background: url('../assets/screenshots/mapa-vivo.png') center/cover no-repeat;
+  will-change: transform;
+}
+.hero__overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(2,6,23,.55), rgba(2,6,23,.85)); }
+.hero__content { position: relative; z-index: 2; width: min(100% - 2.5rem, 760px); }
+.hero__eyebrow { text-transform: uppercase; letter-spacing: .25em; font-size: .8rem; color: var(--teal); margin-bottom: 1rem; }
+/* Texto Hero: más pequeño de lo habitual, pero grueso y nítido */
+.hero__title { font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 900; letter-spacing: -.03em; line-height: 1.05; }
+.hero__desc { color: #cbd5e1; margin: 1rem auto 2rem; max-width: 46ch; }
+.hero__actions { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; }
+
+.hero__scroll { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); width: 26px; height: 42px; border: 2px solid rgba(255,255,255,.4); border-radius: 14px; z-index: 2; }
+.hero__scroll span { position: absolute; top: 8px; left: 50%; width: 4px; height: 8px; background: #fff; border-radius: 2px; transform: translateX(-50%); animation: scrolldot 1.6s infinite; }
+@keyframes scrolldot { 0% { opacity: 0; top: 8px; } 50% { opacity: 1; } 100% { opacity: 0; top: 22px; } }
+
+/* ============================================================
+   2 · OPERACIONES
+   ============================================================ */
+.ops { padding: 6rem 0; }
+.route { position: relative; width: 100%; margin: 2rem 0 4rem; }
+.route__svg { width: 100%; height: auto; }
+.car { position: absolute; top: 0; left: 0; font-size: 2rem; will-change: transform; filter: drop-shadow(0 6px 12px rgba(0,0,0,.5)); }
+
+.cards { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+.card {
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius); padding: 1.6rem;
+}
+.card__ico { font-size: 1.8rem; display: block; margin-bottom: .6rem; }
+.card h3 { font-size: 1.15rem; margin-bottom: .3rem; }
+.card p { color: var(--muted); font-size: .95rem; }
+
+.lottie-block { text-align: center; margin-top: 3rem; }
+.lottie-container { width: min(320px, 80%); aspect-ratio: 1; margin: 0 auto; }
+.lottie-caption { color: var(--muted); font-size: .85rem; margin-top: .5rem; }
+
+/* ============================================================
+   3 · UI FLOTANTE
+   ============================================================ */
+.ui-float { padding: 6rem 0; }
+.stage { position: relative; width: min(100% - 2.5rem, var(--maxw)); margin: 2rem auto 0; min-height: 60vh; }
+.panel { position: absolute; border-radius: 14px; border: 1px solid rgba(255,255,255,.1); box-shadow: 0 30px 60px rgba(0,0,0,.5); will-change: transform; }
+.panel--main { position: relative; width: 100%; z-index: 1; }
+.panel--a { width: 46%; top: -6%; right: -2%; z-index: 3; }
+.panel--b { width: 40%; bottom: -8%; left: -3%; z-index: 2; }
+.glow { position: absolute; border-radius: 50%; filter: blur(90px); z-index: 0; }
+.glow--1 { width: 320px; height: 320px; background: rgba(129,140,248,.35); top: -10%; left: 10%; }
+.glow--2 { width: 280px; height: 280px; background: rgba(137,245,231,.25); bottom: -10%; right: 8%; }
+
+/* ============================================================
+   4 · CTA + Footer
+   ============================================================ */
+.cta { padding: 7rem 0; text-align: center; }
+.cta__inner h2 { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 900; letter-spacing: -.02em; }
+.cta__inner p { color: var(--muted); margin: .8rem 0 2rem; }
+.foot { padding: 2.5rem 0; color: var(--muted); text-align: center; font-size: .85rem; border-top: 1px solid rgba(255,255,255,.08); }
+
+/* ===== Estado inicial de las animaciones GSAP (evita flash) ===== */
+.gsap-fade, .gsap-card { opacity: 0; }
+
+/* ============================================================
+   Desktop: paneles flotantes más grandes, cards en cuadrícula
+   ============================================================ */
+@media (min-width: 768px) {
+  .cards { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .panel--a { width: 38%; }
+  .panel--b { width: 34%; }
+}
+@media (min-width: 1024px) {
+  .cards { grid-template-columns: repeat(4, 1fr); }
+  .stage { min-height: 70vh; }
+}
+
+/* ===== Accesibilidad: respeta reduce-motion (todo visible, sin animación) ===== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .gsap-fade, .gsap-card { opacity: 1 !important; transform: none !important; }
+  .hero__scroll span { animation: none; }
+}

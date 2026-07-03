@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MapGestión — Experiencia inmersiva (experimental)</title>
+  <meta name="description" content="Prototipo inmersivo de la landing de MapGestión con GSAP, ScrollTrigger y Lottie." />
+  <link rel="icon" href="../assets/brand/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- ============================================================= -->
+  <!-- 1 · HERO — 100vh/100vw, imagen de fondo + overlay + parallax   -->
+  <!-- ============================================================= -->
+  <header class="hero" id="hero">
+    <!-- .hero__bg es la capa que recibe el parallax en PC. Sustituye la imagen. -->
+    <div class="hero__bg" data-parallax="0.25"></div>
+    <div class="hero__overlay"></div>
+
+    <div class="hero__content">
+      <p class="hero__eyebrow gsap-fade">Operaciones y logística</p>
+      <h1 class="hero__title gsap-fade">Tu patio, bajo control total.</h1>
+      <p class="hero__desc gsap-fade">Cada unidad ubicada en el mapa de tu operación, en tiempo real. Sin Excel, sin llamadas.</p>
+      <div class="hero__actions gsap-fade">
+        <a class="btn btn--primary" href="#operaciones">Ver cómo funciona</a>
+        <a class="btn btn--ghost" href="#contacto">Agendar demo</a>
+      </div>
+    </div>
+
+    <a href="#operaciones" class="hero__scroll" aria-label="Desplazar">
+      <span></span>
+    </a>
+  </header>
+
+  <!-- ============================================================= -->
+  <!-- 2 · OPERACIONES Y LOGÍSTICA                                    -->
+  <!-- ============================================================= -->
+  <section class="ops" id="operaciones">
+    <div class="container">
+      <h2 class="section-title">Cómo se mueve tu operación</h2>
+      <p class="section-sub">Desplázate: el vehículo recorre la ruta a medida que avanzas.</p>
+    </div>
+
+    <!-- Rutas y Autos: el .car se anima sobre el trazado #route con ScrollTrigger -->
+    <div class="route" aria-hidden="true">
+      <svg class="route__svg" viewBox="0 0 1200 400" fill="none" preserveAspectRatio="xMidYMid meet">
+        <!-- #route = trazado que sigue el vehículo. Cambia la 'd' para rediseñar la ruta. -->
+        <path id="route" d="M20 340 C 220 340, 260 80, 460 80 S 760 340, 980 300 S 1180 120, 1180 120"
+          stroke="rgba(137,245,231,.35)" stroke-width="3" stroke-dasharray="10 10" />
+        <path id="route-fill" d="M20 340 C 220 340, 260 80, 460 80 S 760 340, 980 300 S 1180 120, 1180 120"
+          stroke="#89f5e7" stroke-width="4" pathLength="1" />
+      </svg>
+      <!-- El vehículo (puedes reemplazar por un <img> o SVG de auto) -->
+      <div class="car" id="car">🚚</div>
+    </div>
+
+    <!-- Cargas e Inventario: cards con stagger al entrar -->
+    <div class="container">
+      <div class="cards" id="cards">
+        <article class="card gsap-card">
+          <span class="card__ico">📍</span>
+          <h3>Ubicación en vivo</h3>
+          <p>Cada unidad en el plano de tu patio.</p>
+        </article>
+        <article class="card gsap-card">
+          <span class="card__ico">🧾</span>
+          <h3>Cuadre de cargas</h3>
+          <p>Movimientos y estados sin huecos.</p>
+        </article>
+        <article class="card gsap-card">
+          <span class="card__ico">🛡️</span>
+          <h3>Incidencias</h3>
+          <p>Reportes con evidencia y responsable.</p>
+        </article>
+        <article class="card gsap-card">
+          <span class="card__ico">📊</span>
+          <h3>Datos de operación</h3>
+          <p>Indicadores claros para decidir.</p>
+        </article>
+      </div>
+
+      <!-- Contenedor Lottie: se carga desde app.js. Reproduce en hover / al entrar. -->
+      <div class="lottie-block">
+        <div class="lottie-container" id="lottie-ops" role="img" aria-label="Animación de logística"></div>
+        <p class="lottie-caption">Pasa el cursor sobre la animación (o entra en pantalla) para reproducir.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- 3 · UI FLOTANTE — mockup con parallax de profundidad           -->
+  <!-- ============================================================= -->
+  <section class="ui-float" id="plataforma">
+    <div class="container">
+      <h2 class="section-title">La plataforma en acción</h2>
+      <p class="section-sub">Paneles y gráficas que flotan a distintas velocidades para dar profundidad.</p>
+    </div>
+
+    <div class="stage">
+      <!-- Cada capa flota a distinta velocidad: data-parallax = intensidad (px por scroll). -->
+      <img class="panel panel--main" src="../assets/screenshots/mapa-vivo.png" alt="Panel principal — mapa" data-parallax="0.05" />
+      <img class="panel panel--a" src="../assets/screenshots/resumen-flota.png" alt="Gráfica de flota" data-parallax="0.18" />
+      <img class="panel panel--b" src="../assets/screenshots/gestion-flota.png" alt="Gestión de flota" data-parallax="-0.12" />
+      <div class="glow glow--1" data-parallax="0.3"></div>
+      <div class="glow glow--2" data-parallax="-0.22"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- 4 · CTA final                                                  -->
+  <!-- ============================================================= -->
+  <section class="cta" id="contacto">
+    <div class="container cta__inner">
+      <h2>Sube de nivel tu operación.</h2>
+      <p>Agenda una consultoría y vemos tu patio en el mapa.</p>
+      <a class="btn btn--primary btn--lg" href="https://wa.me/524778024682" target="_blank" rel="noopener">Agendar consultoría</a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="container">© <span id="year"></span> MapGestión — prototipo experimental.</div>
+  </footer>
+
+  <!-- ===== Dependencias (CDN) ===== -->
+  <!-- GSAP + ScrollTrigger + MotionPathPlugin (mueve el auto sobre el SVG) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+  <!-- Lottie (bodymovin) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
