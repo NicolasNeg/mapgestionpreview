@@ -1,6 +1,6 @@
 /* ============================================================
    MapGestión — prototipo inmersivo · app.js
-   GSAP + ScrollTrigger + MotionPathPlugin + Lottie
+   GSAP + ScrollTrigger + MotionPathPlugin
 
    CÓMO AJUSTAR (lee estos comentarios):
    • scrub:  true = la animación sigue el scroll 1:1. Un número (p.ej. 1)
@@ -44,6 +44,20 @@ function cardsStagger() {
         start: 'top 80%', // ← gatillo: dispara al 80% del viewport
       },
     });
+}
+
+/* ---- Marcadores que se ACOMODAN en los spots del mapa (entrada con rebote) ---- */
+function mapSimAnimation() {
+  gsap.from('#mapSim .spot', {
+    opacity: 0, scale: 0.3, y: -30,
+    duration: 0.6,
+    ease: 'back.out(1.7)',            // ← el rebote da el efecto de "encajar" en el spot
+    stagger: { each: 0.08, from: 'random' }, // ← se colocan uno a uno, en orden aleatorio
+    scrollTrigger: {
+      trigger: '#mapSim',
+      start: 'top 75%',               // ← gatillo: dispara al entrar el mapa
+    },
+  });
 }
 
 /* ---- Vehículo recorriendo la ruta SVG + trazo que se dibuja (scrub) ---- */
@@ -105,6 +119,7 @@ const mm = gsap.matchMedia();
 mm.add('(prefers-reduced-motion: no-preference)', () => {
   heroIntro();
   cardsStagger();
+  mapSimAnimation();
 });
 
 // Escritorio: efectos pesados
@@ -118,31 +133,3 @@ mm.add('(max-width: 767px) and (prefers-reduced-motion: no-preference)', () => {
   mobileSimplified();
 });
 
-/* ============================================================
-   LOTTIE — carga la animación y la reproduce en hover / al entrar.
-   Sustituye 'path' por la URL de TU animación (.json export de LottieFiles).
-   ============================================================ */
-(function initLottie() {
-  const container = document.getElementById('lottie-ops');
-  if (!container || typeof lottie === 'undefined') return;
-
-  const anim = lottie.loadAnimation({
-    container,
-    renderer: 'svg',
-    loop: true,
-    autoplay: false, // no reproduce hasta hover / entrar en pantalla
-    // ← Reemplaza por tu animación. Si esta URL pública no carga, pon la tuya.
-    path: 'https://assets9.lottiefiles.com/packages/lf20_touohxv0.json',
-  });
-
-  // Reproduce al pasar el cursor (PC)
-  container.addEventListener('mouseenter', () => anim.play());
-  container.addEventListener('mouseleave', () => anim.pause());
-
-  // Reproduce una vez al entrar en pantalla (útil en móvil)
-  ScrollTrigger.create({
-    trigger: container,
-    start: 'top 85%',
-    onEnter: () => anim.play(),
-  });
-})();

@@ -86,9 +86,41 @@ a { color: inherit; text-decoration: none; }
 .card h3 { font-size: 1.15rem; margin-bottom: .3rem; }
 .card p { color: var(--muted); font-size: .95rem; }
 
-.lottie-block { text-align: center; margin-top: 3rem; }
-.lottie-container { width: min(320px, 80%); aspect-ratio: 1; margin: 0 auto; }
-.lottie-caption { color: var(--muted); font-size: .85rem; margin-top: .5rem; }
+/* ----- Simulador sobre el mapa real ----- */
+.map-sim { position: relative; margin: 3rem auto 0; max-width: 960px; border-radius: var(--radius); overflow: hidden; border: 1px solid rgba(255,255,255,.1); box-shadow: 0 30px 70px rgba(0,0,0,.55); }
+.map-sim__img { width: 100%; display: block; }
+.map-sim__layer { position: absolute; inset: 0; }
+
+/* Chip de unidad que se acomoda en el spot. --c = color de estado. */
+.spot {
+  position: absolute; transform: translate(-50%, -50%);
+  font: 800 10px/1 'Inter', sans-serif; color: #0b1020;   /* label oscuro */
+  background: var(--c); padding: 4px 6px; border-radius: 6px; white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0,0,0,.45); will-change: transform, opacity;
+}
+/* Anillo de pulso, del mismo color de estado */
+.spot::before {
+  content: ""; position: absolute; inset: -4px; border-radius: 9px;
+  border: 2px solid var(--c); opacity: .6; animation: spotpulse 2.4s ease-out infinite;
+}
+@keyframes spotpulse { 0% { transform: scale(1); opacity: .6; } 70%, 100% { transform: scale(1.8); opacity: 0; } }
+
+.spot--avail  { --c: #34d399; }
+.spot--prep   { --c: #fbbf24; }
+.spot--patio  { --c: #818cf8; }
+.spot--taller { --c: #f87171; }
+
+.map-sim__legend {
+  position: absolute; left: 12px; bottom: 12px; display: flex; flex-wrap: wrap; gap: .5rem .9rem;
+  background: rgba(2,6,23,.6); backdrop-filter: blur(6px); padding: .5rem .7rem; border-radius: 10px;
+  font-size: .72rem; color: #cbd5e1;
+}
+.map-sim__legend span { display: inline-flex; align-items: center; gap: .35rem; }
+.dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.dot--avail { background: #34d399; } .dot--prep { background: #fbbf24; }
+.dot--patio { background: #818cf8; } .dot--taller { background: #f87171; }
+
+@media (max-width: 600px) { .spot { font-size: 8px; padding: 3px 4px; } .map-sim__legend { font-size: .65rem; } }
 
 /* ============================================================
    3 · UI FLOTANTE
@@ -131,5 +163,5 @@ a { color: inherit; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .gsap-fade, .gsap-card { opacity: 1 !important; transform: none !important; }
-  .hero__scroll span { animation: none; }
+  .hero__scroll span, .spot::before { animation: none; }
 }
