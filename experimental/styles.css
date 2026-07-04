@@ -143,8 +143,9 @@ a { color: inherit; text-decoration: none; }
 .cta__inner p { color: var(--muted); margin: .8rem 0 2rem; }
 .foot { padding: 2.5rem 0; color: var(--muted); text-align: center; font-size: .85rem; border-top: 1px solid rgba(255,255,255,.08); }
 
-/* ===== Estado inicial de las animaciones GSAP (evita flash) ===== */
-.gsap-fade, .gsap-card { opacity: 0; }
+/* ===== Estado inicial de las animaciones GSAP (evita flash) =====
+   Solo se ocultan si hay JS (clase .js). Sin JS/GSAP, el contenido se ve. */
+.js .gsap-fade, .js .gsap-card { opacity: 0; }
 
 /* ============================================================
    Desktop: paneles flotantes más grandes, cards en cuadrícula

@@ -11,7 +11,10 @@
    • BASE_PARALLAX (abajo):  intensidad global del parallax en px.
    ============================================================ */
 
-gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+/* Progressive enhancement: si GSAP no cargó (CDN caído), revela el contenido. */
+const HAS_GSAP = typeof gsap !== 'undefined';
+if (!HAS_GSAP) document.documentElement.classList.remove('js');
+if (HAS_GSAP) gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -159,6 +162,7 @@ function xformMobile() {
    - PC (≥768px): parallax + ruta con MotionPath.
    - Móvil (<768px): fade-ins ligeros.
    ============================================================ */
+if (HAS_GSAP) {
 const mm = gsap.matchMedia();
 
 // Entradas ligeras: en cualquier tamaño (siempre que no haya reduce-motion)
@@ -186,4 +190,5 @@ mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
 mm.add('(max-width: 899px) and (prefers-reduced-motion: no-preference)', () => {
   xformMobile();
 });
+} // fin if (HAS_GSAP)
 

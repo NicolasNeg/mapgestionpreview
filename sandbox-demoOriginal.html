@@ -1,0 +1,3203 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>MEX MAPA - Sandbox Mapa BJX</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href="https://mapgestion.com/" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563eb'/><text x='16' y='22' text-anchor='middle' font-size='18' font-family='sans-serif' font-weight='900' fill='white'>M</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!-- Modo embed: ?embed=1 oculta la barra de título del navegador y ajusta el layout -->
+    <script>
+        (function () {
+            var p = new URLSearchParams(location.search);
+            if (p.get('embed') === '1') document.documentElement.classList.add('is-embed');
+        })();
+    </script>
+    <style>
+        /* Embed mode: sin fondo de página, sin padding exterior, border-radius 0 */
+        html.is-embed body { background: transparent; padding: 0; margin: 0; }
+        html.is-embed .app { border-radius: 0; box-shadow: none; height: 100vh; height: 100dvh; }
+    </style>
+    <style>
+        :root {
+            --bg: #111329;
+            --panel: #15172e;
+            --panel-2: #202742;
+            --yard: #263346;
+            --slot: rgba(33, 43, 62, .52);
+            --slot-border: rgba(137, 152, 181, .22);
+            --line: rgba(159, 174, 203, .18);
+            --text: #f6f7ff;
+            --muted: #8e99b5;
+            --soft: #b7c1d9;
+            --blue: #2fb1ff;
+            --green: #00d489;
+            --yellow: #ffd426;
+            --pink: #ff5874;
+            --cyan: #00c8ff;
+            --orange: #ffc16a;
+            --purple: #25216f;
+            --shadow: 0 24px 70px rgba(0, 0, 0, .42);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        html {
+            background: #121329;
+        }
+
+        body {
+            overflow: hidden;
+            background-color: #121329;
+            background:
+                radial-gradient(circle at 100% 35%, rgba(86, 55, 156, .42), transparent 34%),
+                linear-gradient(180deg, #4b5873 0, #48546d 18%, #222941 18%, #121329 100%);
+            color: var(--text);
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            border: 0;
+            cursor: pointer;
+        }
+
+        input,
+        select,
+        textarea {
+            border: 0;
+            outline: 0;
+        }
+
+        .app {
+            min-width: 1024px;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .top-shell {
+            height: 185px;
+            padding: 30px 24px 0;
+            position: relative;
+        }
+
+        .command-bar {
+            height: 76px;
+            border-radius: 0 0 10px 10px;
+            background: #12142a;
+            box-shadow: 0 16px 40px rgba(3, 5, 17, .28);
+            position: relative;
+        }
+
+        .plaza-card {
+            position: absolute;
+            left: 12px;
+            top: 6px;
+            width: 90px;
+            height: 64px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, .18);
+            background: rgba(255, 255, 255, .08);
+            display: grid;
+            place-items: center;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .plaza-card strong {
+            display: block;
+            font-size: 12px;
+            letter-spacing: .08em;
+            line-height: 1;
+        }
+
+        .plaza-card small {
+            display: block;
+            margin-top: 7px;
+            color: #00ff9a;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: .02em;
+        }
+
+        .plaza-card .mini-counts {
+            margin-top: 3px;
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            font-size: 9px;
+            font-weight: 900;
+        }
+
+        .mini-ok {
+            color: #00ff9a;
+        }
+
+        .mini-warn {
+            color: #ffd426;
+        }
+
+        .mini-bad {
+            color: #ff5574;
+        }
+
+        .scoreboard {
+            position: absolute;
+            left: 50%;
+            top: 2px;
+            transform: translateX(-50%);
+            min-width: 574px;
+            height: 66px;
+            padding: 12px 28px;
+            border: 1px solid rgba(94, 94, 149, .55);
+            border-radius: 18px;
+            background: #12142a;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .metric {
+            min-width: 54px;
+            display: grid;
+            place-items: center;
+            text-align: center;
+        }
+
+        .metric+.metric {
+            position: relative;
+        }
+
+        .metric+.metric::before {
+            content: "";
+            position: absolute;
+            left: -12px;
+            top: 6px;
+            width: 1px;
+            height: 31px;
+            background: rgba(138, 145, 184, .38);
+        }
+
+        .metric strong {
+            display: block;
+            font-size: 25px;
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: .01em;
+        }
+
+        .metric span {
+            display: block;
+            margin-top: 7px;
+            color: #969fbd;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .ops-panel {
+            position: fixed;
+            right: 18px;
+            top: 96px;
+            z-index: 64;
+            width: 292px;
+            display: grid;
+            gap: 12px;
+            pointer-events: none;
+        }
+
+        .ops-card {
+            border-radius: 18px;
+            background: rgba(15, 17, 35, .9);
+            border: 1px solid rgba(255, 255, 255, .1);
+            box-shadow: 0 18px 46px rgba(0, 0, 0, .34);
+            backdrop-filter: blur(16px);
+            padding: 16px;
+        }
+
+        .ops-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .ops-title {
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .live-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 999px;
+            padding: 5px 8px;
+            background: rgba(0, 212, 137, .12);
+            color: #7affc5;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .live-pill::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 0 5px rgba(0, 212, 137, .12);
+        }
+
+        .ops-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .ops-stat {
+            border-radius: 12px;
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .08);
+            padding: 10px;
+        }
+
+        .ops-stat span {
+            display: block;
+            color: var(--muted);
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .ops-stat strong {
+            display: block;
+            margin-top: 5px;
+            font-size: 20px;
+            line-height: 1;
+            font-weight: 900;
+        }
+
+        .activity-list {
+            display: grid;
+            gap: 8px;
+            max-height: 214px;
+            overflow: auto;
+            padding-right: 2px;
+        }
+
+        .activity-item {
+            border-radius: 12px;
+            background: rgba(255, 255, 255, .055);
+            border: 1px solid rgba(255, 255, 255, .075);
+            padding: 10px;
+            font-size: 11px;
+            font-weight: 900;
+            line-height: 1.35;
+        }
+
+        .activity-item span {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .map-tools {
+            position: fixed;
+            left: 18px;
+            top: 96px;
+            z-index: 64;
+            width: 292px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .tool-card {
+            border-radius: 18px;
+            background: rgba(15, 17, 35, .9);
+            border: 1px solid rgba(255, 255, 255, .1);
+            box-shadow: 0 18px 46px rgba(0, 0, 0, .34);
+            backdrop-filter: blur(16px);
+            padding: 16px;
+        }
+
+        .tool-title {
+            margin-bottom: 10px;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .map-search {
+            width: 100%;
+            min-height: 40px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, .1);
+            background: rgba(255, 255, 255, .08);
+            color: #fff;
+            padding: 0 12px;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .map-search::placeholder {
+            color: rgba(183, 193, 217, .62);
+        }
+
+        .filter-row,
+        .layer-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .filter-chip,
+        .layer-chip,
+        .tool-link {
+            min-height: 30px;
+            border-radius: 999px;
+            padding: 0 10px;
+            background: rgba(255, 255, 255, .08);
+            color: rgba(242, 245, 255, .82);
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+        }
+
+        .filter-chip.active {
+            background: var(--green);
+            color: #081a13;
+        }
+
+        .layer-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            cursor: pointer;
+        }
+
+        .layer-chip input {
+            accent-color: var(--green);
+        }
+
+        .tool-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .tool-link {
+            border: 1px solid rgba(255, 255, 255, .08);
+        }
+
+        .unit.filtered-out {
+            opacity: .16;
+            filter: grayscale(.8);
+            pointer-events: none;
+        }
+
+        /* Coincidencia de búsqueda: resalta la unidad (las demás se atenúan con .filtered-out) */
+        .unit.search-match {
+            outline: 3px solid #38bdf8;
+            outline-offset: 2px;
+            z-index: 20;
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, .25), 0 14px 26px rgba(0, 0, 0, .45);
+        }
+
+        .slot.layer-hidden {
+            opacity: .08;
+            pointer-events: none;
+        }
+
+        .slot.search-hit {
+            box-shadow: 0 0 0 2px rgba(0, 200, 255, .8), inset 0 0 22px rgba(0, 200, 255, .16);
+        }
+
+        .inventory-drawer {
+            position: fixed;
+            left: 330px;
+            top: 96px;
+            z-index: 70;
+            width: 520px;
+            max-width: calc(100vw - 660px);
+            max-height: calc(100vh - 180px);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, .12);
+            background: rgba(20, 22, 44, .96);
+            box-shadow: var(--shadow);
+            transform: translateX(-16px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .18s ease, transform .18s ease;
+            overflow: hidden;
+            display: grid;
+            grid-template-rows: auto 1fr;
+        }
+
+        .inventory-drawer.open {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .inventory-head {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #151738, #234fbc);
+        }
+
+        .inventory-head span {
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .inventory-list {
+            overflow: auto;
+            padding: 10px;
+        }
+
+        .inventory-row {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 76px 1fr 92px 70px;
+            gap: 8px;
+            align-items: center;
+            min-height: 46px;
+            border-radius: 12px;
+            padding: 8px 10px;
+            background: rgba(255, 255, 255, .055);
+            color: #fff;
+            text-align: left;
+        }
+
+        .inventory-row+.inventory-row {
+            margin-top: 7px;
+        }
+
+        .inventory-row strong,
+        .inventory-row span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .inventory-row strong {
+            font-size: 12px;
+        }
+
+        .inventory-row span {
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 900;
+        }
+
+        .yard-wrap {
+            position: absolute;
+            inset: 56px 0 0;
+            overflow: hidden;
+        }
+
+        .yard-viewport {
+            position: absolute;
+            inset: 0;
+            overflow: auto;
+            border-top: 1px solid rgba(255, 255, 255, .03);
+        }
+
+        .yard-viewport::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .yard-viewport::-webkit-scrollbar-track {
+            background: rgba(18, 20, 42, .2);
+        }
+
+        .yard-viewport::-webkit-scrollbar-thumb {
+            border-radius: 99px;
+            background: rgba(114, 123, 155, .82);
+        }
+
+        /* Wrapper externo: reserva el tamaño escalado para que el scroll sea correcto (lo ajusta el JS). */
+        .yard-stage {
+            position: relative;
+            width: 1840px;
+            height: 930px;
+            margin: 0 0 0 20px;
+        }
+
+        /* Canvas interno: se escala con transform (uniforme + GPU), sin deformar. */
+        .yard-canvas {
+            position: relative;
+            width: 1840px;
+            height: 930px;
+            transform-origin: 0 0;
+            will-change: transform;
+            border-radius: 22px 0 0 0;
+            background:
+                radial-gradient(circle, rgba(115, 133, 164, .32) 1px, transparent 1.5px) 0 0 / 18px 18px,
+                linear-gradient(90deg, rgba(31, 40, 58, .88), rgba(35, 43, 65, .9));
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04);
+        }
+
+        .slot,
+        .area {
+            position: absolute;
+        }
+
+        .slot {
+            border: 1px solid var(--slot-border);
+            border-radius: 6px;
+            background: var(--slot);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .03);
+            transition: border-color .16s ease, background .16s ease, box-shadow .16s ease;
+        }
+
+        .slot.interactive {
+            cursor: crosshair;
+        }
+
+        .slot.drop-target,
+        .slot:hover.interactive {
+            border-color: rgba(225, 231, 248, .44);
+            background: rgba(43, 55, 78, .70);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 0 0 2px rgba(96, 147, 255, .10);
+        }
+
+        .slot.selected-slot {
+            border-color: rgba(255, 255, 255, .58);
+            box-shadow: 0 0 0 2px rgba(115, 70, 255, .36), inset 0 1px 0 rgba(255, 255, 255, .08);
+        }
+
+        .slot::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -15px;
+            color: rgba(189, 198, 219, .62);
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .02em;
+            text-align: center;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, .45);
+        }
+
+        .slot.wide::before {
+            top: -14px;
+        }
+
+        .label-inside {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 6px;
+            color: rgba(219, 225, 239, .75);
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: .04em;
+            text-align: center;
+            text-transform: uppercase;
+            pointer-events: none;
+        }
+
+        .area {
+            border: 1px solid rgba(137, 152, 181, .22);
+            border-radius: 6px;
+            color: rgba(192, 201, 222, .58);
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-align: center;
+            text-transform: uppercase;
+            display: grid;
+            place-items: center;
+        }
+
+        .area::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -15px;
+            font-size: 9px;
+            color: rgba(189, 198, 219, .62);
+        }
+
+        .workshop {
+            background:
+                repeating-linear-gradient(45deg, rgba(147, 159, 188, .10) 0 7px, rgba(8, 12, 28, .18) 7px 16px),
+                rgba(21, 28, 44, .52);
+            border: 0;
+            border-radius: 0;
+            font-size: 19px;
+            color: rgba(222, 228, 241, .44);
+        }
+
+        .unit {
+            position: absolute;
+            inset: 5px;
+            border-radius: 16px 16px 10px 10px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            font-weight: 900;
+            letter-spacing: .01em;
+            text-align: center;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, .32);
+            box-shadow:
+                0 9px 18px rgba(0, 0, 0, .32),
+                inset 0 1px 0 rgba(255, 255, 255, .20);
+            transition: transform .16s ease, box-shadow .16s ease, outline .16s ease, opacity .28s ease, filter .28s ease;
+            user-select: none;
+        }
+
+        .unit:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 14px 24px rgba(0, 0, 0, .38),
+                inset 0 1px 0 rgba(255, 255, 255, .24);
+        }
+
+        .unit.selected {
+            outline: 2px solid #d9d6ff;
+            outline-offset: 3px;
+        }
+
+        .unit.dragging {
+            opacity: .45;
+        }
+
+        /* Estados reales del proyecto — gradiente 160deg color -> darken(color,20) */
+        .unit.listo         { background: linear-gradient(160deg, #10b981, #0c9467); }
+        .unit.sucio         { background: linear-gradient(160deg, #f59e0b, #c47e08); }
+        .unit.mantenimiento { background: linear-gradient(160deg, #ef4444, #bf3636); }
+        .unit.resguardo     { background: linear-gradient(160deg, #64748b, #505c6f); }
+        .unit.traslado      { background: linear-gradient(160deg, #c084fc, #9969c9); }
+        .unit.no-arrendable { background: linear-gradient(160deg, #cbd5e1, #a2aab4); color: #1e293b; text-shadow: none; }
+        .unit.venta         { background: linear-gradient(160deg, #1e293b, #18202f); }
+        .unit.en-renta      { background: linear-gradient(160deg, #3b82f6, #2f68c4); }
+        .unit.retenida      { background: linear-gradient(160deg, #92400e, #74330b); }
+
+        /* Entrada de unidades — "van apareciendo" (como popInCar del mapa real) */
+        @keyframes popInUnit {
+            0% { opacity: 0; transform: scale(.88) translateY(8px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .unit.just-in { animation: popInUnit .3s cubic-bezier(.16, 1, .3, 1); }
+
+        /* Badges de esquina — iconos reales (estilo profesional) */
+        .unit .u-badge {
+            position: absolute;
+            width: 21px;
+            height: 21px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .45);
+            z-index: 6;
+        }
+        .unit .u-badge .material-icons { font-size: 13px; line-height: 1; }
+
+        .unit .u-badge.manto { bottom: -7px; left: -7px; border: 2px solid #ef4444; }
+        .unit .u-badge.manto .material-icons { color: #ef4444; }
+
+        .unit .u-badge.lock { top: -7px; left: -7px; border: 2px solid #f59e0b; }
+        .unit .u-badge.lock .material-icons { color: #f59e0b; }
+
+        .unit .u-badge.doble { bottom: -7px; right: -7px; border: 2px solid #3b82f6; }
+        .unit .u-badge.doble .material-icons { color: #3b82f6; }
+
+        .unit .u-badge.urgent { top: -7px; left: 18px; border: 2px solid #ef4444; }
+        .unit .u-badge.urgent .material-icons { color: #ef4444; }
+
+        .unit .u-badge.trasl {
+            top: -7px;
+            right: -7px;
+            width: auto;
+            height: auto;
+            min-width: 21px;
+            padding: 2px 5px;
+            border-radius: 11px;
+            background: #7c3aed;
+            border: 2px solid #fff;
+        }
+        .unit .u-badge.trasl .material-icons { color: #fff; }
+
+        .fuel {
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            bottom: 9px;
+            height: 10px;
+            border-radius: 99px;
+            background: rgba(7, 10, 20, .75);
+            overflow: hidden;
+        }
+
+        .fuel::after {
+            content: attr(data-fuel);
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            color: #eaffd9;
+            font-size: 7px;
+            font-weight: 900;
+        }
+
+        .fuel i {
+            display: block;
+            width: var(--fill);
+            height: 100%;
+            border-radius: inherit;
+            background: #19ef6e;
+        }
+
+        .drag-token {
+            position: absolute;
+            right: -10px;
+            top: -8px;
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 57% 46%, #00df5f 0 3px, transparent 4px),
+                conic-gradient(from 260deg, #7346ff 0 32%, #fff 0 73%, #7346ff 0);
+            border: 2px solid rgba(255, 255, 255, .9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .16s ease;
+        }
+
+        .unit:hover .drag-token,
+        .unit.selected .drag-token {
+            opacity: 1;
+        }
+
+        .unit-popover {
+            position: fixed;
+            right: 28px;
+            top: 132px;
+            width: 318px;
+            z-index: 40;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, .12);
+            background: rgba(20, 22, 44, .94);
+            box-shadow: var(--shadow);
+            transform: translateX(16px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .18s ease, transform .18s ease;
+            overflow: hidden;
+        }
+
+        .unit-popover.open {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .popover-head {
+            padding: 18px 18px 14px;
+            background: linear-gradient(135deg, #151738, #234fbc);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .eyebrow {
+            color: rgba(223, 229, 248, .68);
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .popover-title {
+            margin-top: 6px;
+            font-size: 25px;
+            font-weight: 900;
+        }
+
+        .icon-button {
+            width: 32px;
+            height: 32px;
+            border-radius: 9px;
+            background: rgba(255, 255, 255, .11);
+            color: #fff;
+            display: grid;
+            place-items: center;
+        }
+
+        .popover-body {
+            padding: 16px 18px 18px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .field {
+            display: grid;
+            gap: 6px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            color: rgba(217, 224, 245, .58);
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            min-width: 0;
+            border-radius: 9px;
+            border: 1px solid rgba(255, 255, 255, .10);
+            background: rgba(255, 255, 255, .08);
+            color: #fff;
+            padding: 10px 11px;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .field select option {
+            color: #161932;
+        }
+
+        .field textarea {
+            min-height: 74px;
+            resize: vertical;
+            line-height: 1.45;
+        }
+
+        .panel-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 9px;
+            padding-top: 4px;
+        }
+
+        .panel-actions button,
+        .sandbox-toolbar button {
+            min-height: 38px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: .02em;
+        }
+
+        .primary-action {
+            background: #08c884;
+            color: #fff;
+            box-shadow: 0 10px 22px rgba(8, 200, 132, .22);
+        }
+
+        .secondary-action {
+            background: rgba(255, 255, 255, .11);
+            color: rgba(242, 245, 255, .86);
+        }
+
+        .danger-action {
+            background: rgba(255, 84, 112, .14);
+            color: #ff8ca0;
+        }
+
+        .sandbox-toolbar {
+            position: fixed;
+            left: 26px;
+            bottom: 28px;
+            z-index: 36;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            max-width: calc(100vw - 160px);
+            padding: 9px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, .10);
+            background: rgba(12, 14, 31, .86);
+            box-shadow: 0 18px 36px rgba(0, 0, 0, .35);
+            backdrop-filter: blur(12px);
+        }
+
+        .sandbox-mark {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            height: 38px;
+            padding: 0 12px;
+            border-radius: 11px;
+            background: rgba(255, 255, 255, .08);
+            color: rgba(239, 242, 255, .78);
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: .10em;
+        }
+
+        .sandbox-mark::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #08c884;
+            box-shadow: 0 0 0 4px rgba(8, 200, 132, .14);
+        }
+
+        .sandbox-toolbar button {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 0 12px;
+            background: rgba(255, 255, 255, .10);
+            color: #fff;
+        }
+
+        .sandbox-toolbar button:hover,
+        .panel-actions button:hover,
+        .zoom-stack button:hover {
+            filter: brightness(1.08);
+        }
+
+        .history-drawer {
+            position: fixed;
+            left: 26px;
+            bottom: 88px;
+            width: 344px;
+            max-height: 340px;
+            z-index: 37;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            border-radius: 17px;
+            border: 1px solid rgba(255, 255, 255, .10);
+            background: rgba(16, 18, 39, .94);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(14px);
+            pointer-events: none;
+            transition: opacity .18s ease, transform .18s ease;
+        }
+
+        .history-drawer.open {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .history-head {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 0 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
+            color: rgba(235, 239, 255, .92);
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .history-list {
+            overflow: auto;
+            padding: 10px;
+        }
+
+        .history-item {
+            padding: 10px 11px;
+            border-radius: 11px;
+            background: rgba(255, 255, 255, .06);
+            color: rgba(236, 241, 255, .90);
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .history-item+.history-item {
+            margin-top: 7px;
+        }
+
+        .history-item span {
+            display: block;
+            margin-top: 4px;
+            color: rgba(187, 197, 224, .62);
+            font-size: 10px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, .07);
+            color: var(--soft);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .info-row strong {
+            color: #fff;
+            text-align: right;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 88px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(0, 212, 137, .16);
+            color: #32efaa;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+        }
+
+        .summary-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            display: grid;
+            place-items: center;
+            padding: 28px;
+            background: rgba(9, 10, 26, .60);
+            backdrop-filter: blur(7px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .18s ease;
+        }
+
+        .summary-modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .summary-card {
+            width: min(520px, 100%);
+            overflow: hidden;
+            border-radius: 22px;
+            border: 1px solid rgba(255, 255, 255, .12);
+            background: #f6f7fb;
+            color: #161932;
+            box-shadow: var(--shadow);
+        }
+
+        .summary-head {
+            padding: 28px 24px 20px;
+            background: linear-gradient(135deg, #15183a, #2755bd);
+            color: #fff;
+            position: relative;
+        }
+
+        .summary-chip {
+            display: inline-flex;
+            gap: 5px;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, .20);
+            border-radius: 999px;
+            padding: 7px 14px;
+            background: rgba(16, 18, 42, .50);
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: .06em;
+        }
+
+        .summary-chip b {
+            color: var(--cyan);
+        }
+
+        .summary-head h2 {
+            margin: 12px 0 3px;
+            font-size: 27px;
+            line-height: 1;
+            letter-spacing: -.03em;
+        }
+
+        .summary-head p {
+            margin: 0;
+            color: rgba(255, 255, 255, .58);
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: .04em;
+        }
+
+        .summary-close {
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            width: 37px;
+            height: 37px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .14);
+            color: #fff;
+            display: grid;
+            place-items: center;
+        }
+
+        .summary-body {
+            padding: 16px 22px 24px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .summary-stat,
+        .summary-wide {
+            min-height: 62px;
+            border-radius: 14px;
+            background: #fff;
+            border-left: 4px solid transparent;
+            padding: 12px 14px;
+            box-shadow: 0 8px 22px rgba(24, 28, 49, .05);
+        }
+
+        .summary-stat span,
+        .summary-wide span {
+            display: block;
+            color: #8d98b4;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .summary-stat strong,
+        .summary-wide strong {
+            display: block;
+            margin-top: 3px;
+            font-size: 25px;
+            line-height: 1;
+            color: #20233d;
+        }
+
+        .summary-wide-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .summary-wide {
+            min-height: 102px;
+            padding-top: 22px;
+        }
+
+        .summary-foot {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e6f0;
+            color: #6f7893;
+            font-size: 12px;
+            font-weight: 900;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .zoom-stack {
+            position: fixed;
+            right: 28px;
+            bottom: 39px;
+            z-index: 30;
+            display: grid;
+            gap: 14px;
+        }
+
+        .zoom-stack button {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: #f7f5fb;
+            color: #2b2092;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, .28);
+            display: grid;
+            place-items: center;
+            font-size: 31px;
+            font-weight: 900;
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            z-index: 80;
+            transform: translateX(-50%) translateY(8px);
+            min-width: 250px;
+            border-radius: 999px;
+            padding: 11px 17px;
+            background: rgba(10, 12, 27, .92);
+            color: #f8f9ff;
+            border: 1px solid rgba(255, 255, 255, .12);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .30);
+            opacity: 0;
+            pointer-events: none;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 900;
+            transition: opacity .18s ease, transform .18s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        @media (max-width: 1200px) {
+            .app {
+                min-width: 920px;
+            }
+
+            .top-shell {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .scoreboard {
+                min-width: 520px;
+                gap: 18px;
+            }
+
+            .ops-panel,
+            .map-tools {
+                display: none;
+            }
+
+            .inventory-drawer {
+                left: 20px;
+                max-width: calc(100vw - 40px);
+            }
+        }
+    </style>
+
+    <!-- ===== Píldora de unidad — réplica del panel real del mapa ===== -->
+    <style>
+      .unit-popover.pill-panel {
+        right: 28px; left: auto; top: auto; bottom: 24px;
+        width: 384px; max-width: calc(100vw - 32px);
+        background: rgba(255, 255, 255, .97);
+        color: #1e293b;
+        border: 1px solid rgba(15, 23, 42, .08);
+        border-radius: 24px;
+        padding: 22px 20px 16px;
+        box-shadow: 0 25px 60px -12px rgba(0, 0, 0, .45);
+        overflow: visible;
+        transform: translateY(16px);
+      }
+      .unit-popover.pill-panel.open { transform: translateY(0); }
+      .pill-close { position: absolute; right: 14px; top: 14px; width: 32px; height: 32px; border-radius: 50%; background: #f1f5f9; color: #64748b; display: grid; place-items: center; }
+      .pill-close:hover { background: #e2e8f0; }
+      .pill-head { text-align: center; }
+      .pill-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #64748b; }
+      .pill-mva { font-size: 32px; font-weight: 900; line-height: 1; color: #0f172a; margin: 3px 0 12px; }
+      .pill-chips { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #475569; background: #f1f5f9; padding: 10px 12px; border-radius: 14px; }
+      .pill-chips .chip-sep { color: #cbd5e1; }
+      .pill-panel.is-add .pill-chips { display: none; }
+
+      .pill-edit { margin-top: 12px; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; background: #fff; }
+      .pill-edit > summary { list-style: none; cursor: pointer; padding: 12px 14px; font-size: 12px; font-weight: 800; color: #334155; background: #f8fafc; display: flex; align-items: center; gap: 8px; }
+      .pill-edit > summary::-webkit-details-marker { display: none; }
+      .pill-edit > summary .material-icons { font-size: 16px; color: #3b82f6; }
+      .pill-edit[open] > summary { border-bottom: 1px solid #e2e8f0; }
+      .pill-edit .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 14px; }
+      .pill-edit .field { display: grid; gap: 6px; }
+      .pill-edit .field.full { grid-column: 1 / -1; }
+      .pill-edit .field label { color: #64748b; font-size: 10px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+      .pill-edit .field input, .pill-edit .field select, .pill-edit .field textarea { border-radius: 9px; border: 1px solid #e2e8f0; background: #f8fafc; color: #1e293b; padding: 9px 10px; font-size: 12px; font-weight: 800; }
+      .pill-edit .field textarea { min-height: 60px; resize: vertical; }
+      .pill-edit-actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 0 14px 14px; }
+      .pill-edit-actions button { min-height: 38px; border-radius: 10px; font-size: 12px; font-weight: 900; }
+
+      .pill-footer { display: grid; grid-template-columns: 1fr 1.1fr 1fr; gap: 10px; margin-top: 14px; }
+      .pill-panel.is-add .pill-footer { display: none; }
+      .pill-btn { min-height: 54px; border-radius: 16px; font-size: 14px; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 6px; letter-spacing: .02em; }
+      .pill-btn-limbo { background: #fee2e2; color: #ef4444; }
+      .pill-btn-limbo:hover { background: #fecaca; }
+      .pill-btn-acc { background: #e0f2fe; color: #0284c7; box-shadow: 0 4px 12px rgba(2, 132, 199, .18); }
+      .pill-btn-acc:hover { background: #bae6fd; }
+      .pill-btn-acc .material-icons { font-size: 18px; }
+      .pill-btn-cerrar { background: #f1f5f9; color: #334155; }
+      .pill-btn-cerrar:hover { background: #e2e8f0; }
+
+      .pill-acciones { position: relative; }
+      .acciones-dropdown { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%) scale(.96); transform-origin: bottom center; width: 252px; max-width: 82vw; background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; box-shadow: 0 20px 45px rgba(0, 0, 0, .22); padding: 6px; opacity: 0; pointer-events: none; transition: opacity .16s ease, transform .16s ease; z-index: 30; }
+      .acciones-dropdown.show { opacity: 1; pointer-events: auto; transform: translateX(-50%) scale(1); }
+      .action-item { display: flex; align-items: center; gap: 11px; width: 100%; padding: 12px; border-radius: 10px; background: transparent; color: #1e293b; font-size: 12.5px; font-weight: 800; text-align: left; line-height: 1.25; }
+      .action-item:hover { background: #f1f5f9; }
+      .action-item .material-icons { font-size: 19px; flex-shrink: 0; }
+
+      @media (max-width: 640px) {
+        .unit-popover.pill-panel { right: 0; left: 0; bottom: 0; width: 100%; max-width: 100%; border-radius: 22px 22px 0 0; padding-bottom: 20px; transform: translateY(100%); }
+        .unit-popover.pill-panel.open { transform: translateY(0); }
+        .acciones-dropdown { width: min(340px, 88vw); }
+      }
+
+      /* ===== Header limpio del mapa (búsqueda arriba, como el original) ===== */
+      .map-header { position: relative; z-index: 40; height: 56px; display: flex; align-items: center; gap: 16px; padding: 0 16px; background: #12142a; border-bottom: 1px solid rgba(255, 255, 255, .08); }
+      .map-header-title { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 15px; color: #f6f7ff; white-space: nowrap; }
+      .mh-logo { width: 30px; height: 30px; border-radius: 8px; background: #2563eb; display: grid; place-items: center; font-weight: 900; color: #fff; font-size: 15px; }
+      .map-header-search { position: relative; flex: 1; max-width: 560px; display: flex; align-items: center; }
+      .map-header-search .mh-search-ic { position: absolute; left: 12px; color: #8e99b5; display: flex; pointer-events: none; }
+      .map-header-search input { width: 100%; height: 40px; border-radius: 12px; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .1); color: #fff; padding: 0 14px 0 36px; font-size: 13px; font-weight: 700; outline: none; }
+      .map-header-search input::placeholder { color: rgba(183, 193, 217, .6); }
+      .map-header-search input:focus { border-color: rgba(47, 177, 255, .5); background: rgba(255, 255, 255, .12); }
+      .map-header-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+      .mh-btn { width: 40px; height: 40px; border-radius: 10px; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .1); color: #cbd5e1; display: grid; place-items: center; cursor: pointer; }
+      .mh-btn:hover { background: rgba(255, 255, 255, .14); color: #fff; }
+      .mh-plaza { background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .14); border-radius: 999px; padding: 7px 13px; font-size: 12px; font-weight: 900; color: #e2e8f0; }
+      @media (max-width: 640px) {
+        .map-header { gap: 10px; padding: 0 12px; }
+        .mh-title-text { display: none; }
+        .mh-plaza { display: none; }
+      }
+
+      /* ===== RESPONSIVE — móvil (iPhone) y tablet (iPad) ===== */
+      /* Quita el ancho mínimo que forzaba scroll horizontal + usa dvh (barra del navegador móvil) */
+      .app { min-width: 0 !important; width: 100%; height: 100vh; height: 100dvh; }
+
+      @media (max-width: 1024px) {
+        .history-drawer { left: 10px; right: 10px; width: auto; max-width: 420px; }
+        .zoom-stack { right: 12px; bottom: 12px; gap: 10px; }
+        .zoom-stack button { width: 48px; height: 48px; font-size: 26px; border-radius: 14px; }
+      }
+
+      @media (max-width: 640px) {
+        .sandbox-toolbar {
+          left: 8px; right: 8px; bottom: 8px; max-width: none;
+          gap: 6px; padding: 7px; overflow-x: auto; flex-wrap: nowrap;
+          -webkit-overflow-scrolling: touch;
+        }
+        .sandbox-toolbar::-webkit-scrollbar { display: none; }
+        .sandbox-toolbar button, .sandbox-mark { min-height: 34px; font-size: 11px; flex-shrink: 0; white-space: nowrap; padding: 0 10px; }
+        .zoom-stack { right: 8px; bottom: 68px; }
+        .zoom-stack button { width: 44px; height: 44px; font-size: 24px; }
+        .history-drawer { left: 8px; right: 8px; max-width: none; max-height: 46dvh; bottom: 76px; }
+        .map-header-search input { font-size: 12px; }
+        /* El toast sube (debajo del header) para no tapar la píldora ni las acciones rápidas */
+        .toast { top: 66px; bottom: auto; }
+      }
+
+      /* ===== Sidebar UNIDADES (unidades sin cajón) — Patio / Taller ===== */
+      .units-drawer { left: auto; right: 0; top: 56px; bottom: 0; width: 340px; max-width: 90vw; max-height: none; border-radius: 0; border: none; border-left: 1px solid #e2e8f0; background: #fff; transform: translateX(16px); grid-template-rows: auto auto 1fr; box-shadow: -8px 0 32px rgba(0, 0, 0, .15); }
+      .units-drawer.open { transform: translateX(0); }
+      .units-drawer .inventory-head { background: linear-gradient(135deg, #0d2a54, #234fbc); }
+      .units-search { position: relative; display: flex; align-items: center; padding: 12px 14px; border-bottom: 1px solid #e2e8f0; background: #f8fafc; }
+      .units-search .units-search-ic { position: absolute; left: 24px; color: #94a3b8; pointer-events: none; }
+      .units-search input { width: 100%; height: 42px; border-radius: 12px; border: 1px solid #e2e8f0; background: #fff; color: #1e293b; padding: 0 12px 0 34px; font-size: 13px; font-weight: 700; outline: none; }
+      .units-search input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, .12); }
+      .units-drawer .inventory-list { background: #f8fafc; }
+
+      .units-section { padding: 12px 12px 4px; }
+      .units-section-label { display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 5px 10px; border-radius: 8px; margin-bottom: 8px; }
+      .units-section-label .material-icons { font-size: 15px; }
+      .units-section-label--patio { color: #1d4ed8; background: #eff6ff; }
+      .units-section-label--taller { color: #92400e; background: #fffbeb; }
+      .units-section-label--traslado { color: #6d28d9; background: #f5f3ff; }
+      .units-section-body--traslado { background: rgba(124,58,237,.04); border: 1.5px dashed rgba(124,58,237,.3); border-radius: 12px; padding: 8px; min-height: 46px; }
+      .units-section-body--traslado .units-card { border-left-color: #7c3aed; }
+      .units-card-dest { display: flex; align-items: center; gap: 3px; font-size: 10px; color: #7c3aed; font-weight: 700; margin-top: 2px; }
+      .units-card-dest .material-icons { font-size: 12px; }
+      /* Pulso de movimiento en la card de traslado */
+      .traslado-pulse { display: inline-flex; align-items: center; gap: 5px; }
+      .traslado-dot { width: 6px; height: 6px; border-radius: 50%; background: #7c3aed; animation: tPulse 1.4s ease-in-out infinite; flex-shrink: 0; }
+      @keyframes tPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.7)} }
+      @keyframes roadMove { 0%,100%{transform:translateX(0)} 50%{transform:translateX(4px)} }
+      .units-section-label--traslado .material-icons { animation: roadMove 2s ease-in-out infinite; }
+      .units-section-count { margin-left: auto; }
+      .units-section-body--taller { background: rgba(251, 191, 36, .06); border: 1.5px dashed #fcd34d; border-radius: 12px; padding: 8px; min-height: 46px; }
+
+      .units-card { display: block; width: 100%; text-align: left; background: #fff; border: 1px solid #eef2f7; border-left: 4px solid #3b82f6; border-radius: 12px; padding: 10px 12px; box-shadow: 0 1px 4px rgba(0, 0, 0, .06); cursor: pointer; transition: box-shadow .15s, transform .12s; }
+      .units-card + .units-card { margin-top: 8px; }
+      .units-card:hover { transform: translateX(-2px); box-shadow: 3px 4px 14px rgba(0, 0, 0, .1); }
+      .units-section-body--taller .units-card { border-left-color: #f59e0b; }
+      .units-card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 5px; }
+      .units-card-mva { font-size: 15px; font-weight: 800; color: #0f172a; letter-spacing: .3px; }
+      .units-card-badge { font-size: 9px; font-weight: 800; padding: 2px 8px; border-radius: 999px; letter-spacing: .3px; text-transform: uppercase; }
+      .units-card-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+      .units-card-meta span { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: #64748b; }
+      .units-card-meta .material-icons { font-size: 13px; color: #94a3b8; }
+      .units-empty { padding: 10px; text-align: center; font-size: 11px; font-weight: 600; color: #94a3b8; font-style: italic; }
+
+      .b-listo { background: #dcfce7; color: #166534; }
+      .b-sucio { background: #fff7ed; color: #9a3412; }
+      .b-mantenimiento { background: #fee2e2; color: #991b1b; }
+      .b-resguardo { background: #fef3c7; color: #78350f; }
+      .b-traslado { background: #ede9fe; color: #5b21b6; }
+      .b-no-arrendable { background: #cffafe; color: #0e7490; }
+      .b-venta { background: #1e293b; color: #fff; }
+      .b-en-renta { background: #dbeafe; color: #1e3a8a; }
+      .b-retenida { background: #fef3c7; color: #92400e; }
+
+      /* ===== Modo ADD — agregar unidad desde catálogo ===== */
+      .add-search-wrap { margin-top: 12px; }
+      .add-search-label { display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; color: #3b82f6; margin-bottom: 8px; }
+      .add-search-label .material-icons { font-size: 15px; }
+      .add-search-box { position: relative; display: flex; align-items: center; }
+      .add-search-ic { position: absolute; left: 11px; color: #94a3b8; font-size: 18px; pointer-events: none; }
+      .add-search-box input { width: 100%; height: 46px; border-radius: 12px; border: 2px solid #e2e8f0; background: #f8fafc; color: #1e293b; padding: 0 14px 0 38px; font-size: 14px; font-weight: 700; outline: none; }
+      .add-search-box input:focus { border-color: #3b82f6; background: #fff; box-shadow: 0 0 0 3px rgba(59,130,246,.1); }
+      .add-hint { display: flex; align-items: center; gap: 7px; margin-top: 12px; padding: 10px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; color: #64748b; font-size: 12px; font-weight: 600; }
+      .add-hint .material-icons { font-size: 16px; color: #94a3b8; }
+      .add-form-fields { margin-top: 12px; display: flex; flex-direction: column; gap: 10px; }
+      .add-unit-card { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-radius: 14px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+      .add-unit-card-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(59,130,246,.2); display: grid; place-items: center; }
+      .add-unit-card-icon .material-icons { color: #60a5fa; font-size: 22px; }
+      .add-unit-card-info { flex: 1; min-width: 0; }
+      .add-unit-card-mva { font-size: 20px; font-weight: 900; color: #fff; line-height: 1; }
+      .add-unit-card-sub { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+      .add-unit-card-badge { font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 999px; background: rgba(59,130,246,.18); color: #60a5fa; }
+      .add-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .add-form-fields .field { display: grid; gap: 5px; }
+      .add-form-fields .field label { font-size: 10px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; color: #64748b; }
+      .add-form-fields .field select, .add-form-fields .field input { border-radius: 9px; border: 1px solid #e2e8f0; background: #f8fafc; color: #1e293b; padding: 9px 10px; font-size: 13px; font-weight: 700; outline: none; }
+      .add-form-fields .field select:focus, .add-form-fields .field input:focus { border-color: #3b82f6; }
+      .add-save-btn { width: 100%; padding: 14px; border-radius: 14px; border: none; background: #2563eb; color: #fff; font-size: 14px; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: background .15s, transform .12s; box-shadow: 0 6px 16px rgba(37,99,235,.3); }
+      .add-save-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+      .add-save-btn .material-icons { font-size: 18px; }
+      .pill-panel .field { display: grid; gap: 5px; }
+      .pill-panel .field label { font-size: 10px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; color: #64748b; }
+
+      /* Autocompletado MVA al crear unidad */
+      .mva-suggest { display: none; margin-top: 6px; max-height: 190px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 10px; background: #fff; box-shadow: 0 10px 24px rgba(0, 0, 0, .12); }
+      .mva-sug { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; width: 100%; text-align: left; padding: 8px 11px; background: transparent; border: none; border-bottom: 1px solid #f1f5f9; cursor: pointer; }
+      .mva-sug:last-child { border-bottom: none; }
+      .mva-sug:hover { background: #eff6ff; }
+      .mva-sug strong { font-size: 13px; font-weight: 800; color: #0f172a; }
+      .mva-sug span { font-size: 11px; color: #64748b; }
+      .mva-sug-empty { padding: 10px; font-size: 11px; color: #94a3b8; text-align: center; }
+
+      @media (max-width: 640px) {
+        .units-drawer { width: 100%; max-width: 100%; }
+      }
+
+      /* ===== Rail de navegación (Mapa | Cuadre) ===== */
+      .nav-rail { position: absolute; left: 0; top: 56px; bottom: 0; width: 56px; z-index: 45; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0; background: #0d1327; border-right: 1px solid rgba(255, 255, 255, .08); }
+      .nav-rail-btn { width: 46px; height: 52px; border-radius: 12px; background: transparent; border: none; color: #8e99b5; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; transition: background .15s, color .15s; }
+      .nav-rail-btn .material-icons { font-size: 22px; }
+      .nav-rail-lbl { font-size: 9px; font-weight: 800; letter-spacing: .02em; }
+      .nav-rail-btn:hover { background: rgba(255, 255, 255, .06); color: #e2e8f0; }
+      .nav-rail-btn.active { background: rgba(59, 130, 246, .16); color: #60a5fa; }
+
+      /* El mapa y el cuadre empiezan después del rail */
+      .yard-wrap { left: 56px; }
+
+      /* ===== Vista Cuadre ===== */
+      .cuadre-view { position: absolute; inset: 56px 0 0 56px; overflow: hidden; background: #f1f5f9; display: flex; flex-direction: column; }
+      .cuadre-view[hidden] { display: none; }
+      .cuadre-inner { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 16px clamp(12px, 3vw, 28px); gap: 12px; }
+      .cuadre-topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+      .cuadre-title { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 900; color: #0f172a; }
+      .cuadre-title .material-icons { color: #2563eb; }
+      .cuadre-badge { background: #e2e8f0; color: #475569; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; }
+      .cuadre-stats { display: flex; gap: 10px; }
+      .cuadre-stat { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 8px 14px; text-align: center; min-width: 70px; }
+      .cuadre-stat b { display: block; font-size: 20px; font-weight: 900; color: #0f172a; line-height: 1; }
+      .cuadre-stat span { font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; }
+      .cuadre-tools { display: flex; gap: 10px; }
+      .cuadre-search { position: relative; flex: 1; display: flex; align-items: center; }
+      .cuadre-search .material-icons { position: absolute; left: 12px; color: #94a3b8; font-size: 18px; }
+      .cuadre-search input { width: 100%; height: 44px; border-radius: 12px; border: 1px solid #e2e8f0; background: #fff; color: #1e293b; padding: 0 14px 0 38px; font-size: 14px; font-weight: 600; outline: none; }
+      .cuadre-search input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, .12); }
+      .cuadre-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+      .cchip { border: 1px solid #e2e8f0; background: #fff; color: #475569; border-radius: 999px; padding: 6px 12px; font-size: 12px; font-weight: 800; cursor: pointer; }
+      .cchip:hover { background: #f1f5f9; }
+      .cchip.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+      .cuadre-table-wrap { flex: 1; min-height: 0; overflow: auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; }
+      .cuadre-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+      .cuadre-table thead th { position: sticky; top: 0; background: #f8fafc; text-align: left; padding: 12px 14px; font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: .5px; border-bottom: 1px solid #e2e8f0; white-space: nowrap; }
+      .cuadre-table tbody tr { border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background .12s; }
+      .cuadre-table tbody tr:hover { background: #f8fafc; }
+      .cuadre-table tbody tr.is-sel { background: #eff6ff; }
+      .cuadre-table td { padding: 11px 14px; color: #1e293b; white-space: nowrap; }
+      .cuadre-table .c-mva { font-weight: 900; color: #0f172a; }
+      .cuadre-table .c-pla { font-family: ui-monospace, monospace; font-weight: 700; color: #475569; }
+      .cuadre-table .c-empty { text-align: center; color: #94a3b8; padding: 32px; font-weight: 600; }
+      .c-badge { font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 999px; text-transform: uppercase; }
+
+      @media (max-width: 640px) {
+        .nav-rail { width: 48px; }
+        .yard-wrap { left: 48px; }
+
+        .cuadre-view { inset: 56px 0 0 48px; }
+        .nav-rail-lbl { display: none; }
+        .nav-rail-btn { height: 46px; }
+      }
+
+
+      /* ===== Modo claro ===== */
+      body.light { background: #eef2f7; }
+      body.light .map-header { background: #fff; border-bottom-color: #e2e8f0; }
+      body.light .map-header-title { color: #0f172a; }
+      body.light .map-header-search input { background: #f1f5f9; border-color: #e2e8f0; color: #1e293b; }
+      body.light .map-header-search input::placeholder { color: #94a3b8; }
+      body.light .mh-btn { background: #f1f5f9; border-color: #e2e8f0; color: #475569; }
+      body.light .mh-btn:hover { background: #e2e8f0; color: #0f172a; }
+      body.light .mh-plaza { background: #f1f5f9; border-color: #e2e8f0; color: #334155; }
+      body.light .nav-rail { background: #fff; border-right-color: #e2e8f0; }
+      body.light .nav-rail-btn { color: #64748b; }
+      body.light .nav-rail-btn:hover { background: #f1f5f9; color: #0f172a; }
+      body.light .nav-rail-btn.active { background: #eff6ff; color: #2563eb; }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <header class="map-header" aria-label="Barra del mapa">
+            <div class="map-header-title"><span class="mh-logo">M</span><span class="mh-title-text">Mapa operativo</span></div>
+            <div class="map-header-search">
+                <svg class="mh-search-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>
+                <input id="mapSearch" type="search" placeholder="Buscar unidad, placas, modelo…" autocomplete="off" />
+            </div>
+            <div class="map-header-right">
+                <button class="mh-btn" type="button" onclick="toggleTheme()" title="Modo claro / oscuro" aria-label="Cambiar tema"><span class="material-icons" id="themeIcon">light_mode</span></button>
+                <button class="mh-btn" type="button" onclick="toggleInventory()" title="Unidades" aria-label="Unidades">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M6.5 17l1.2-4.6a2 2 0 0 1 1.9-1.4h4.8a2 2 0 0 1 1.9 1.4L17.5 17" /><circle cx="7.5" cy="17.5" r="1.6" /><circle cx="16.5" cy="17.5" r="1.6" /></svg>
+                </button>
+                <span class="mh-plaza">BJX</span>
+            </div>
+        </header>
+
+        <nav class="nav-rail" id="navRail" aria-label="Vistas">
+            <button class="nav-rail-btn active" type="button" data-view="mapa" onclick="setView('mapa')" title="Mapa">
+                <span class="material-icons">map</span><span class="nav-rail-lbl">Mapa</span>
+            </button>
+            <button class="nav-rail-btn" type="button" data-view="cuadre" onclick="setView('cuadre')" title="Cuadre">
+                <span class="material-icons">table_rows</span><span class="nav-rail-lbl">Cuadre</span>
+            </button>
+        </nav>
+
+        <section id="cuadreView" class="cuadre-view" hidden aria-label="Cuadre de flota">
+            <div class="cuadre-inner">
+                <div class="cuadre-topbar">
+                    <div class="cuadre-title"><span class="material-icons">local_shipping</span> Gestión de Flota <span class="cuadre-badge">DEMO</span></div>
+                    <div class="cuadre-stats">
+                        <div class="cuadre-stat"><b id="cuadreTotal">0</b><span>Total</span></div>
+                        <div class="cuadre-stat"><b id="cuadreListos" style="color:#16a34a">0</b><span>Listos</span></div>
+                    </div>
+                </div>
+                <div class="cuadre-tools">
+                    <div class="cuadre-search">
+                        <span class="material-icons">search</span>
+                        <input id="cuadreSearch" type="search" placeholder="Buscar MVA, placas o modelo…" autocomplete="off" oninput="renderCuadre()">
+                    </div>
+                </div>
+                <div class="cuadre-chips" id="cuadreChips">
+                    <button class="cchip active" data-est="TODOS" onclick="cuadreChip(this)">Todos</button>
+                    <button class="cchip" data-est="LISTO" onclick="cuadreChip(this)">🟢 Listo</button>
+                    <button class="cchip" data-est="SUCIO" onclick="cuadreChip(this)">🟡 Sucio</button>
+                    <button class="cchip" data-est="MANTENIMIENTO" onclick="cuadreChip(this)">🔴 Manto</button>
+                    <button class="cchip" data-est="TRASLADO" onclick="cuadreChip(this)">🟣 Traslado</button>
+                    <button class="cchip" data-est="RESGUARDO" onclick="cuadreChip(this)">🔘 Resguardo</button>
+                    <button class="cchip" data-est="NO ARRENDABLE" onclick="cuadreChip(this)">▫️ No arrend.</button>
+                    <button class="cchip" data-est="TALLER" onclick="cuadreChip(this)">🏭 Taller</button>
+                </div>
+                <div class="cuadre-table-wrap">
+                    <table class="cuadre-table">
+                        <thead><tr><th>MVA</th><th>Cat.</th><th>Modelo</th><th>Placas</th><th>Gas</th><th>Estado</th><th>Ubicación</th></tr></thead>
+                        <tbody id="cuadreBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <main class="yard-wrap" aria-label="Mapa vivo BJX">
+            <div class="yard-viewport" id="yardViewport">
+                <section class="yard-stage" id="yardStage">
+                  <div class="yard-canvas" id="yardCanvas">
+                    <div class="slot" data-label="L-1" style="left:34px;top:32px;width:92px;height:132px;"></div>
+                    <div class="slot" data-label="L-2" style="left:138px;top:32px;width:92px;height:132px;"></div>
+                    <div class="slot" data-label="L-3" style="left:242px;top:32px;width:96px;height:132px;"></div>
+                    <div class="slot" data-label="L-4" style="left:346px;top:32px;width:96px;height:132px;"></div>
+                    <div class="slot" data-label="L-5" style="left:450px;top:32px;width:96px;height:132px;"></div>
+                    <div class="slot" data-label="L-6" style="left:554px;top:32px;width:96px;height:132px;"></div>
+                    <div class="slot" data-label="L-7" style="left:658px;top:32px;width:96px;height:132px;"></div>
+                    <div class="slot" data-label="L-8" style="left:762px;top:32px;width:96px;height:132px;"></div>
+                    <div class="slot" data-label="L-9" style="left:866px;top:32px;width:96px;height:132px;"></div>
+                    <div class="slot" data-label="L-10" style="left:970px;top:32px;width:96px;height:132px;"></div>
+                    <div class="slot" data-label="L-11" style="left:1074px;top:32px;width:96px;height:132px;"></div>
+
+                    <div class="slot" data-label="L2-1" style="left:34px;top:180px;width:92px;height:132px;"></div>
+                    <div class="slot" data-label="L2-2" style="left:138px;top:180px;width:92px;height:132px;"></div>
+                    <div class="slot" data-label="L2-3" style="left:242px;top:180px;width:96px;height:132px;"></div>
+                    <div class="slot" data-label="L2-4" style="left:346px;top:180px;width:96px;height:132px;"></div>
+                    <div class="slot" data-label="L2-5" style="left:450px;top:180px;width:96px;height:132px;"></div>
+                    <div class="slot" data-label="L2-6" style="left:554px;top:180px;width:96px;height:132px;"></div>
+                    <div class="slot" data-label="L2-7" style="left:658px;top:180px;width:96px;height:132px;"></div>
+                    <div class="slot" data-label="L2-8" style="left:762px;top:180px;width:96px;height:132px;"></div>
+                    <div class="slot" data-label="L2-9" style="left:866px;top:180px;width:96px;height:132px;"></div>
+                    <div class="slot" data-label="L2-10" style="left:970px;top:180px;width:96px;height:132px;"></div>
+                    <div class="slot" data-label="L2-11" style="left:1074px;top:180px;width:96px;height:132px;"></div>
+
+                    <div class="slot wide" data-label="O-1" style="left:34px;top:330px;width:196px;height:64px;"></div>
+                    <div class="slot wide" data-label="O-2" style="left:242px;top:330px;width:196px;height:64px;"></div>
+                    <div class="slot wide" data-label="O-3" style="left:450px;top:330px;width:196px;height:64px;"></div>
+                    <div class="slot wide" data-label="O-4" style="left:658px;top:330px;width:196px;height:64px;"></div>
+
+                    <div class="slot wide" data-label="S4-7" style="left:866px;top:330px;width:196px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S3-7" style="left:1074px;top:330px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S2-7" style="left:1178px;top:330px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S1-7" style="left:1282px;top:330px;width:96px;height:64px;">
+                    </div>
+
+                    <div class="slot wide" data-label="" style="left:34px;top:406px;width:400px;height:132px;">
+                        <span class="label-inside">Entrada / Salida</span>
+                    </div>
+
+                    <div class="slot wide" data-label="S4-6" style="left:866px;top:406px;width:196px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S3-6" style="left:1074px;top:406px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S2-6" style="left:1178px;top:406px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S1-6" style="left:1282px;top:406px;width:96px;height:64px;">
+                    </div>
+
+                    <div class="slot wide" data-label="M-1" style="left:138px;top:548px;width:196px;height:132px;">
+                    </div>
+                    <div class="slot" data-label="OFICINA-1" style="left:554px;top:548px;width:96px;height:132px;">
+                    </div>
+                    <div class="slot" data-label="OFICINA-2" style="left:670px;top:548px;width:96px;height:132px;">
+                    </div>
+
+                    <div class="slot wide" data-label="S4-5" style="left:866px;top:482px;width:196px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S3-5" style="left:1074px;top:482px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S2-5" style="left:1178px;top:482px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S1-5" style="left:1282px;top:482px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S4-4" style="left:866px;top:558px;width:196px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S3-4" style="left:1074px;top:558px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S2-4" style="left:1178px;top:558px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S1-4" style="left:1282px;top:558px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S4-3" style="left:866px;top:634px;width:196px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S3-3" style="left:1074px;top:634px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S2-3" style="left:1178px;top:634px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S1-3" style="left:1282px;top:634px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S4-2" style="left:866px;top:710px;width:196px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S3-2" style="left:1074px;top:710px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S2-2" style="left:1178px;top:710px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S1-2" style="left:1282px;top:710px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S4-1" style="left:866px;top:786px;width:196px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S3-1" style="left:1074px;top:786px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S2-1" style="left:1178px;top:786px;width:96px;height:64px;">
+                    </div>
+                    <div class="slot wide" data-label="S1-1" style="left:1282px;top:786px;width:96px;height:64px;">
+                    </div>
+
+                    <div class="slot" data-label="B-1" style="left:34px;top:612px;width:92px;height:64px;">
+                        <span class="label-inside" style="bottom:-18px;">BAÑO</span>
+                    </div>
+                    <div class="slot wide" data-label="B-2" style="left:138px;top:612px;width:92px;height:64px;"></div>
+                    <div class="slot wide" data-label="B-3" style="left:242px;top:612px;width:96px;height:64px;"></div>
+                    <div class="slot wide" data-label="B-4" style="left:346px;top:612px;width:96px;height:64px;"></div>
+
+                    <div class="slot wide" data-label="" style="left:450px;top:710px;width:500px;height:128px;">
+                        <span class="label-inside" style="top:-17px;bottom:auto;">Oficina / Check In</span>
+                    </div>
+                    <div class="slot wide" data-label="VS-2" style="left:970px;top:710px;width:96px;height:128px;">
+                    </div>
+                    <div class="slot wide" data-label="VS-1" style="left:1074px;top:710px;width:96px;height:128px;">
+                    </div>
+
+                    <div class="area" data-label="AREA DE LAVADO - 1"
+                        style="left:1200px;top:32px;width:188px;height:132px;"></div>
+                    <div class="area workshop" style="left:1404px;top:32px;width:194px;height:818px;">Taller</div>
+                    <div class="slot" data-label="TLLRS-1" style="left:1612px;top:32px;width:194px;height:90px;"></div>
+                    <div class="slot" data-label="TLLRS-2" style="left:1612px;top:132px;width:194px;height:90px;"></div>
+                    <div class="slot" data-label="TLLRS-3" style="left:1612px;top:232px;width:194px;height:90px;"></div>
+                    <div class="slot" data-label="TLLRS-4" style="left:1612px;top:332px;width:194px;height:90px;"></div>
+                    <div class="slot" data-label="TLLRS-5" style="left:1612px;top:432px;width:194px;height:90px;"></div>
+                    <div class="slot" data-label="TLLRS-6" style="left:1612px;top:532px;width:194px;height:90px;"></div>
+                  </div>
+                </section>
+            </div>
+        </main>
+
+        <aside class="unit-popover pill-panel" id="unitPopover" aria-live="polite">
+            <button class="pill-close" type="button" onclick="closeUnit()" aria-label="Cerrar"><span class="material-icons">close</span></button>
+
+            <!-- ── Modo ADD: buscar en catálogo ── -->
+            <div id="pillAddMode">
+                <div class="pill-head">
+                    <div class="pill-eyebrow">AGREGAR UNIDAD</div>
+                    <div class="pill-mva" id="addSlotLabel" style="font-size:18px;">Cajón —</div>
+                </div>
+                <div class="add-search-wrap">
+                    <label class="add-search-label"><span class="material-icons">manage_search</span> Buscar en base maestra</label>
+                    <div class="add-search-box">
+                        <span class="material-icons add-search-ic">search</span>
+                        <input id="unitMva" type="text" placeholder="MVA, placas o modelo…" autocomplete="off" oninput="mvaAutocomplete(this.value)" />
+                    </div>
+                    <div id="mvaSuggest" class="mva-suggest"></div>
+                </div>
+                <!-- Formulario que aparece SOLO después de elegir del catálogo -->
+                <div id="addFormFields" class="add-form-fields" hidden>
+                    <div class="add-unit-card" id="addUnitCard"></div>
+                    <div class="add-form-row">
+                        <div class="field"><label for="addStatusField">Estado inicial</label>
+                            <select id="addStatusField">
+                                <option value="SUCIO">🟡 SUCIO</option>
+                                <option value="LISTO">🟢 LISTO</option>
+                                <option value="MANTENIMIENTO">🔴 MANTENIMIENTO</option>
+                                <option value="RESGUARDO">🔘 RESGUARDO</option>
+                                <option value="NO ARRENDABLE">▫️ NO ARRENDABLE</option>
+                            </select>
+                        </div>
+                        <div class="field"><label for="addFuelField">Gasolina</label>
+                            <select id="addFuelField">
+                                <option value="F">F — Lleno</option>
+                                <option value="3/4">3/4</option>
+                                <option value="H" selected>H — Medio</option>
+                                <option value="1/4">1/4</option>
+                                <option value="E">E — Vacío</option>
+                                <option value="N/A">N/A</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field"><label for="addNotasField">Notas (opcional)</label>
+                        <input id="addNotasField" type="text" placeholder="Observaciones…" autocomplete="off" />
+                    </div>
+                    <input id="addMvaHidden" type="hidden" />
+                    <input id="unitSlotField" type="hidden" />
+                    <!-- campos ocultos que readEditorUnit() necesita leer -->
+                    <input id="unitStatusField" type="hidden" />
+                    <input id="unitFuelField" type="hidden" />
+                    <input id="unitPlaceField" type="hidden" />
+                    <input id="unitPlatesField" type="hidden" />
+                    <input id="unitModelField" type="hidden" />
+                    <input id="unitNotesField" type="hidden" />
+                    <span id="unitSavedAt" hidden></span>
+                    <button class="add-save-btn" type="button" onclick="confirmAdd()">
+                        <span class="material-icons">add_circle</span> Registrar en patio
+                    </button>
+                </div>
+                <div class="add-hint" id="addHint">
+                    <span class="material-icons">info</span> Escribe el MVA, placas o modelo para buscarlo en la base maestra
+                </div>
+            </div>
+
+            <!-- ── Modo EDIT: detalle + acciones rápidas ── -->
+            <div id="pillEditMode" hidden>
+                <div class="pill-head">
+                    <div class="pill-eyebrow" id="editorMode">UNIDAD SELECCIONADA</div>
+                    <div class="pill-mva" id="unitTitle">-</div>
+                    <div class="pill-chips" id="unitChips"></div>
+                </div>
+                <details class="pill-edit" id="pillEdit">
+                    <summary><span class="material-icons">edit</span> Editar datos</summary>
+                    <div class="field-grid">
+                        <div class="field full"><label>MVA (no editable)</label><input id="editMvaDisplay" disabled style="background:#f1f5f9;color:#94a3b8;" /></div>
+                        <div class="field"><label for="editSlotField">Cajón</label><select id="editSlotField"></select></div>
+                        <div class="field"><label for="editStatusField">Estado</label>
+                            <select id="editStatusField">
+                                <option>LISTO</option><option>SUCIO</option><option>MANTENIMIENTO</option>
+                                <option>RESGUARDO</option><option>NO ARRENDABLE</option><option>VENTA</option><option>EN RENTA</option>
+                            </select>
+                        </div>
+                        <div class="field"><label for="editFuelField">Gasolina</label>
+                            <select id="editFuelField">
+                                <option>F</option><option>7/8</option><option>3/4</option><option>H</option>
+                                <option>1/2</option><option>1/4</option><option>1/8</option><option>E</option><option>N/A</option>
+                            </select>
+                        </div>
+                        <div class="field"><label for="editPlatesField">Placas</label><input id="editPlatesField" autocomplete="off" /></div>
+                        <div class="field"><label for="editModelField">Modelo</label><input id="editModelField" autocomplete="off" /></div>
+                        <div class="field full"><label for="editNotasField">Notas</label><textarea id="editNotasField"></textarea></div>
+                    </div>
+                    <div class="pill-edit-actions">
+                        <button class="primary-action" type="button" onclick="saveEdit()">Guardar</button>
+                        <button class="secondary-action" type="button" onclick="duplicateSelected()">Duplicar</button>
+                        <button class="danger-action" type="button" onclick="deleteSelected()">Eliminar</button>
+                    </div>
+                </details>
+                <div class="pill-footer">
+                    <button class="pill-btn pill-btn-limbo" type="button" onclick="mgxAction('LIMBO')"><span class="material-icons" style="font-size:18px">delete</span> LIMBO</button>
+                    <div class="pill-acciones">
+                        <button class="pill-btn pill-btn-acc" type="button" onclick="toggleAcciones(event)"><span class="material-icons">bolt</span> ACCIONES</button>
+                        <div class="acciones-dropdown" id="accionesDropdown"></div>
+                    </div>
+                    <button class="pill-btn pill-btn-cerrar" type="button" onclick="closeUnit()">CERRAR</button>
+                </div>
+            </div>
+        </aside>
+
+        <aside class="history-drawer" id="historyDrawer" aria-label="Historial sandbox">
+            <div class="history-head">
+                <span>Movimientos</span>
+                <button class="icon-button" type="button" onclick="toggleHistory()" aria-label="Cerrar historial">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round">
+                        <path d="M3 3l8 8M11 3l-8 8" />
+                    </svg>
+                </button>
+            </div>
+            <div class="history-list" id="historyList"></div>
+        </aside>
+
+
+        <aside class="inventory-drawer units-drawer" id="inventoryDrawer" aria-label="Unidades sin asignar">
+            <div class="inventory-head">
+                <span>UNIDADES</span>
+                <button class="icon-button" type="button" onclick="toggleInventory()" aria-label="Cerrar unidades">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round">
+                        <path d="M3 3l8 8M11 3l-8 8" />
+                    </svg>
+                </button>
+            </div>
+            <div class="units-search">
+                <svg class="units-search-ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>
+                <input id="unitsSearch" type="search" placeholder="MVA, Placas o Modelo…" autocomplete="off" oninput="renderInventory()" />
+            </div>
+            <div class="inventory-list" id="inventoryList"></div>
+        </aside>
+
+
+        <section class="summary-modal" id="summaryModal" role="dialog" aria-modal="true" aria-label="Resumen de flota">
+            <article class="summary-card">
+                <div class="summary-head">
+                    <div class="summary-chip">ARMENTA RENT A CAR <b>BJX</b></div>
+                    <h2>RESUMEN DE FLOTA</h2>
+                    <p>LUN, 20 DE ABR DE 2026 · 06:02 P.M.</p>
+                    <button class="summary-close" type="button" onclick="closeSummary()" aria-label="Cerrar resumen">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round">
+                            <path d="M3 3l10 10M13 3L3 13" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="summary-body">
+                    <div class="summary-grid">
+                        <div class="summary-stat"><span>Total flota</span><strong id="summaryTotal">4</strong></div>
+                        <div class="summary-stat" style="border-left-color:#00c66f;"><span>En patio</span><strong
+                                id="summaryPatio" style="color:#00b765;">3</strong></div>
+                        <div class="summary-stat" style="border-left-color:#5a58ff;"><span>Fuera</span><strong
+                                id="summaryFuera" style="color:#5a58ff;">1</strong></div>
+                    </div>
+                    <div class="summary-wide-grid">
+                        <div class="summary-wide" style="border-left-color:#596074;"><span>No arrendable</span><strong
+                                id="summaryNoRent">2</strong></div>
+                        <div class="summary-wide" style="border-left-color:#00c66f;"><span>Listo</span><strong
+                                id="summaryListo" style="color:#00b765;">1</strong></div>
+                    </div>
+                    <div class="summary-foot">
+                        <span>Total <strong id="summaryFooterTotal" style="font-size:26px;color:#151832;">3</strong>
+                            vehiculos</span>
+                        <span id="summaryClock">06:02:41 p.m.</span>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+
+        <div class="zoom-stack" aria-label="Controles de zoom">
+            <button type="button" onclick="zoomMap(1.12)" aria-label="Acercar">+</button>
+            <button type="button" onclick="zoomMap(.89)" aria-label="Alejar">-</button>
+        </div>
+        <div class="toast" id="toast"></div>
+    </div>
+
+    <script>
+        const stage = document.getElementById('yardStage');
+        const canvas = document.getElementById('yardCanvas');
+        const viewport = document.getElementById('yardViewport');
+        const popover = document.getElementById('unitPopover');
+        const historyDrawer = document.getElementById('historyDrawer');
+        const historyList = document.getElementById('historyList');
+        const activityList = document.getElementById('activityList');
+        const inventoryDrawer = document.getElementById('inventoryDrawer');
+        const inventoryList = document.getElementById('inventoryList');
+        const mapSearch = document.getElementById('mapSearch');
+        const slotField = document.getElementById('unitSlotField');
+        const STORAGE_KEY = 'mex-mapa:sandbox-bjx:v4';
+        // Clase por estado — igual que el mapa real (id -> clase kebab)
+        const STATUS_STYLE = {
+            'LISTO': 'listo',
+            'SUCIO': 'sucio',
+            'MANTENIMIENTO': 'mantenimiento',
+            'RESGUARDO': 'resguardo',
+            'TRASLADO': 'traslado',
+            'NO ARRENDABLE': 'no-arrendable',
+            'VENTA': 'venta',
+            'EN RENTA': 'en-renta',
+            'RETENIDA': 'retenida',
+            'EN TALLER': 'mantenimiento',
+        };
+        const STATUS_LABEL = {
+            'LISTO': 'Listo',
+            'SUCIO': 'Sucio',
+            'MANTENIMIENTO': 'Manto',
+            'RESGUARDO': 'Resguardo',
+            'TRASLADO': 'Traslado',
+            'NO ARRENDABLE': 'No arrendable',
+            'VENTA': 'Venta',
+            'EN RENTA': 'En renta',
+            'RETENIDA': 'Retenida',
+            'EN TALLER': 'En taller',
+        };
+        const SIM_USERS = ['Ana · Admin', 'Luis · Patio', 'Marta · Taller', 'Diego · Supervisor'];
+        const DEMO_UNITS = [
+            { id: 'M159',    slot: 'LIMBO',     status: 'SUCIO',         fuel: 'H',   place: 'Limbo',   cat: 'SUV',    model: 'Chevrolet Suburban', plates: 'DSR767E' },
+            { id: 'A1842',   slot: 'L-3',       status: 'LISTO',         fuel: '3/4', place: 'Patio',   cat: 'ECAR',   model: 'Nissan Versa',       plates: 'GLM184A' },
+            { id: 'B7310',   slot: 'L-4',       status: 'SUCIO',         fuel: '1/2', place: 'Patio',   cat: 'ECAR',   model: 'Chevrolet Aveo',     plates: 'GNK731B' },
+            { id: 'C5209',   slot: 'L-5',       status: 'MANTENIMIENTO', fuel: '1/4', place: 'Patio',   cat: 'CCAR',   model: 'Kia Rio',            plates: 'GBP520C' },
+            { id: 'D8841',   slot: 'LIMBO',     status: 'TRASLADO',      fuel: 'F',   place: 'Carretera', cat: 'ICAR', model: 'Nissan Kicks',       plates: 'GRT884D', destino: 'SUC. NORTE' },
+            { id: 'E4112',   slot: 'S3-5',      status: 'LISTO',         fuel: 'F',   place: 'Patio',   cat: 'ICAR',   model: 'Toyota Corolla',     plates: 'GVF411E' },
+            { id: 'G9024',   slot: 'TLLRS-1',   status: 'EN TALLER',     fuel: '1/2', place: 'Taller',  cat: 'CCAR',   model: 'VW Jetta',           plates: 'GKW902G' },
+            { id: 'H3377',   slot: 'OFICINA-1', status: 'NO ARRENDABLE', fuel: 'N/A', place: 'Oficina', cat: 'ECAR',   model: 'Hyundai Grand i10',  plates: 'GHY337H' },
+            { id: 'Z018',    slot: 'L-1',       status: 'NO ARRENDABLE', fuel: 'F',   place: 'Patio',   cat: 'ICAR',   model: 'Kia Forte',          plates: 'GTH118A' },
+            { id: 'F998',    slot: 'L-2',       status: 'LISTO',         fuel: 'E',   place: 'Patio',   cat: 'ECAR',   model: 'Nissan March',       plates: 'GPD774B' },
+            { id: 'OSVALDO', slot: 'L2-1',      status: 'NO ARRENDABLE', fuel: 'N/A', place: 'Patio',   cat: 'ICAR',   model: 'VW Vento',           plates: 'SIN PLACA' },
+            { id: 'N372',    slot: 'B-1',       status: 'RESGUARDO',     fuel: 'H',   place: 'Bano',    cat: 'CCAR',   model: 'Chevrolet Aveo',     plates: 'GXR552H' },
+        ];
+        // Catálogo maestro (base de datos simulada) para el autocompletado al crear.
+        // Incluye las del mapa + otras que NO están, para sugerir con "intenta con X".
+        const CATALOGO = [
+            ...DEMO_UNITS.map((u) => ({ id: u.id, cat: u.cat, model: u.model, plates: u.plates })),
+            { id: 'J1994', cat: 'ECAR',   model: 'Nissan Versa',   plates: 'GJP199J' },
+            { id: 'M092',  cat: 'CCAR',   model: 'Kia Rio',        plates: 'GMD092M' },
+            { id: 'K540',  cat: 'SUV',    model: 'Toyota RAV4',    plates: 'GKV540K' },
+            { id: 'P233',  cat: 'PICKUP', model: 'Nissan NP300',   plates: 'GPN233P' },
+            { id: 'R118',  cat: 'ECAR',   model: 'Suzuki Swift',   plates: 'GRS118R' },
+            { id: 'S760',  cat: 'ICAR',   model: 'Mazda 3',        plates: 'GSM760S' },
+            { id: 'T044',  cat: 'PICKUP', model: 'Toyota Hilux',   plates: 'GTH044T' },
+            { id: 'V612',  cat: 'CCAR',   model: 'Chevrolet Onix', plates: 'GVC612V' },
+            { id: 'W283',  cat: 'ECAR',   model: 'Renault Kwid',   plates: 'GWK283W' },
+            { id: 'Y905',  cat: 'ICAR',   model: 'VW Vento',       plates: 'GYV905Y' },
+        ];
+        let currentScale = 1;
+        let _searchZoomed = false;
+        let toastTimer = 0;
+        let selectedUnitId = '';
+        let editorMode = 'edit';
+        let draggingUnitId = '';
+        let state = null;
+        let simulationTimer = 0;
+        const recentlyChanged = new Set();
+        let recentTimer = 0;
+        function markChanged(...ids) {
+            ids.forEach((id) => { if (id) recentlyChanged.add(id); });
+            clearTimeout(recentTimer);
+            recentTimer = setTimeout(() => recentlyChanged.clear(), 420);
+        }
+        const filterState = {
+            query: '',
+            status: 'TODOS',
+            layers: new Set(['limbo', 'patio', 'oficina', 'taller', 'bano']),
+        };
+
+        function getSlotId(slot) {
+            return (slot?.dataset?.label || '').trim();
+        }
+
+        const slotNodes = Array.from(document.querySelectorAll('.slot')).filter((slot) => getSlotId(slot));
+        const slotIds = slotNodes.map((slot) => getSlotId(slot));
+
+        function slotNode(slotId) {
+            return slotNodes.find((slot) => getSlotId(slot) === slotId);
+        }
+
+        function placeForSlot(slotId) {
+            if (slotId.startsWith('TLLRS')) return 'Taller';
+            if (slotId.startsWith('B-')) return 'Bano';
+            if (slotId.startsWith('L')) return 'Limbo';
+            if (slotId.startsWith('OFICINA')) return 'Oficina';
+            return 'Patio';
+        }
+
+        function layerForSlot(slotId) {
+            if (slotId.startsWith('TLLRS')) return 'taller';
+            if (slotId.startsWith('B-')) return 'bano';
+            if (slotId.startsWith('L')) return 'limbo';
+            if (slotId.startsWith('OFICINA')) return 'oficina';
+            return 'patio';
+        }
+
+        function fuelFill(fuel) {
+            return {
+                'F': '100%',
+                '3/4': '75%',
+                '1/2': '50%',
+                '1/4': '25%',
+                'E': '0%',
+                'N/A': '0%',
+                '': '0%',
+            }[fuel] || '0%';
+        }
+
+        function nowLabel() {
+            return new Date().toLocaleString('es-MX', {
+                day: 'numeric',
+                month: 'numeric',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+            });
+        }
+
+        function captureInitialState() {
+            const units = {};
+            document.querySelectorAll('.unit').forEach((button) => {
+                const slot = button.closest('.slot');
+                const slotId = getSlotId(slot);
+                if (!slotId || !button.dataset.id) return;
+                const unitId = button.dataset.id.trim().toUpperCase();
+                const color = ['listo', 'sucio', 'mantenimiento', 'resguardo', 'traslado', 'no-arrendable', 'venta', 'en-renta', 'retenida'].find((name) => button.classList.contains(name)) || '';
+                units[unitId] = {
+                    id: unitId,
+                    slot: slotId,
+                    status: button.dataset.status || 'NO ARRENDABLE',
+                    fuel: button.dataset.fuel || 'N/A',
+                    place: button.dataset.place || placeForSlot(slotId),
+                    model: button.dataset.model || '',
+                    plates: button.dataset.plates || '',
+                    notes: '',
+                    color,
+                    savedAt: '19/4/2026, 5:51 p.m.',
+                };
+            });
+            DEMO_UNITS.forEach((unit) => {
+                if (!units[unit.id] && (unit.slot === 'LIMBO' || slotIds.includes(unit.slot))) {
+                    units[unit.id] = { ...unit, savedAt: nowLabel() };
+                }
+            });
+            return {
+                version: 3,
+                units,
+                history: [
+                    { action: 'Carga inicial', detail: 'Sandbox BJX con autos ficticios y actividad simulada', actor: 'Sistema', at: nowLabel() },
+                    { action: 'Aprobación', detail: 'Ana aprobó acceso para operador de patio', actor: 'Ana · Admin', at: nowLabel() },
+                    { action: 'Movimiento remoto', detail: 'Luis movió A1842 de preparación a patio', actor: 'Luis · Patio', at: nowLabel() },
+                ],
+                activity: [
+                    { title: 'Autos ficticios cargados', detail: `${DEMO_UNITS.length} unidades demo agregadas`, actor: 'Sistema', at: nowLabel() },
+                    { title: 'Simulación activa', detail: 'Otros usuarios moverán unidades automáticamente', actor: 'Sistema', at: nowLabel() },
+                ],
+                simulationPaused: false,
+            };
+        }
+
+        function loadState() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return captureInitialState();
+                const parsed = JSON.parse(raw);
+                if (!parsed || parsed.version !== 3 || !parsed.units) return captureInitialState();
+                return normalizeState(parsed);
+            } catch {
+                return captureInitialState();
+            }
+        }
+
+        function normalizeState(candidate) {
+            const fresh = captureInitialState();
+            return {
+                version: 3,
+                units: { ...fresh.units, ...candidate.units },
+                history: Array.isArray(candidate.history) && candidate.history.length ? candidate.history : fresh.history,
+                activity: Array.isArray(candidate.activity) && candidate.activity.length ? candidate.activity : fresh.activity,
+                simulationPaused: Boolean(candidate.simulationPaused),
+            };
+        }
+
+        function persistState(showMessage = false) {
+            const payload = {
+                version: 3,
+                units: state.units,
+                history: state.history.slice(0, 80),
+                activity: (state.activity || []).slice(0, 50),
+                simulationPaused: Boolean(state.simulationPaused),
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+            if (showMessage) showToast('Cambios guardados en este sandbox');
+        }
+
+        function saveSandbox() {
+            Object.values(state.units).forEach((unit) => {
+                unit.savedAt = nowLabel();
+            });
+            addHistory('Guardado', 'Cambios persistidos localmente');
+            persistState(true);
+            renderAll();
+        }
+
+        function resetSandbox() {
+            localStorage.removeItem(STORAGE_KEY);
+            state = captureInitialState();
+            selectedUnitId = '';
+            editorMode = 'edit';
+            closeUnit();
+            renderAll();
+            persistState();
+            showToast('Sandbox restaurado');
+        }
+
+        function statusClass(unit) {
+            return STATUS_STYLE[unit.status] || 'no-arrendable';
+        }
+
+        function createUnitElement(unit) {
+            const button = document.createElement('button');
+            button.className = `unit ${statusClass(unit)}`;
+            button.type = 'button';
+            button.draggable = true;
+            button.dataset.id = unit.id;
+            button.dataset.slot = unit.slot;
+            button.dataset.status = unit.status;
+            button.dataset.place = unit.place || placeForSlot(unit.slot);
+            button.dataset.fuel = unit.fuel || 'N/A';
+            button.style.fontSize = unit.id.length > 7 ? '14px' : '';
+            button.textContent = unit.id;
+            if (unit.id === selectedUnitId) button.classList.add('selected');
+            if (recentlyChanged.has(unit.id)) button.classList.add('just-in');
+
+            if (unit.fuel && unit.fuel !== 'N/A') {
+                const fuel = document.createElement('span');
+                fuel.className = 'fuel';
+                fuel.dataset.fuel = unit.fuel;
+                const fill = document.createElement('i');
+                fill.style.setProperty('--fill', fuelFill(unit.fuel));
+                fuel.appendChild(fill);
+                button.appendChild(fuel);
+            }
+
+            const token = document.createElement('span');
+            token.className = 'drag-token';
+            token.setAttribute('aria-hidden', 'true');
+            button.appendChild(token);
+
+            // Badges de esquina — iconos reales (taller, apartado, doble cero, urgente, traslado)
+            const notesUpper = (unit.notes || '').toUpperCase();
+            const addBadge = (cls, icon) => { const b = document.createElement('span'); b.className = 'u-badge ' + cls; b.innerHTML = `<span class="material-icons">${icon}</span>`; button.appendChild(b); };
+            if (unit.status === 'MANTENIMIENTO' || unit.status === 'EN TALLER') addBadge('manto', 'build');
+            if (notesUpper.includes('RESERVAD') || notesUpper.includes('APARTAD')) addBadge('lock', 'lock');
+            if (notesUpper.includes('DOBLE CERO')) addBadge('doble', 'verified');
+            if (notesUpper.includes('URGENTE')) addBadge('urgent', 'bolt');
+            if (unit.status === 'TRASLADO') addBadge('trasl', 'local_shipping');
+
+            button.addEventListener('click', (event) => {
+                event.stopPropagation();
+                selectUnit(unit.id);
+            });
+            button.addEventListener('dragstart', (event) => {
+                draggingUnitId = unit.id;
+                button.classList.add('dragging');
+                event.dataTransfer.setData('text/plain', unit.id);
+                event.dataTransfer.effectAllowed = 'move';
+            });
+            button.addEventListener('dragend', () => {
+                draggingUnitId = '';
+                button.classList.remove('dragging');
+                slotNodes.forEach((slot) => slot.classList.remove('drop-target'));
+            });
+            return button;
+        }
+
+        // ══════════════════════════════════════════════════════════════
+        //  RENDER DEL MAPA — patrón de producción: requestAnimationFrame + diffing
+        //  Problema del render ingenuo: borrar y recrear TODOS los .unit en cada
+        //  cambio (cada tick de simulación, cada acción) genera lag y parpadeo.
+        //  Solución: cada unidad tiene una "firma" (data-sig) con sus campos
+        //  visibles. En cada render solo se crea/actualiza/reubica el nodo cuya
+        //  firma cambió; los demás no se tocan. Los cambios se agrupan en un
+        //  requestAnimationFrame para repintar una sola vez por ráfaga.
+        //  → Directamente replicable en la app de producción (mismo enfoque que
+        //    `sincronizarMapa`/`_firmaUnidadMapa` en js/views/mapa.js).
+        // ══════════════════════════════════════════════════════════════
+        let _rafPending = 0;
+        function scheduleRender() {
+            if (_rafPending) return;
+            _rafPending = requestAnimationFrame(renderMapNow);
+        }
+        function unitSignature(u) {
+            return [u.slot, u.status, u.fuel, u.notes || '', u.plates || '', u.model || '', u.id === selectedUnitId ? 1 : 0].join('|');
+        }
+        // ponytail: self-check del diffing (avisa en consola si la firma se rompe)
+        console.assert(
+            unitSignature({ slot: 'L-1', status: 'LISTO', fuel: 'F' }) === unitSignature({ slot: 'L-1', status: 'LISTO', fuel: 'F' }) &&
+            unitSignature({ slot: 'L-1', status: 'LISTO', fuel: 'F' }) !== unitSignature({ slot: 'L-2', status: 'LISTO', fuel: 'F' }),
+            'unitSignature: debe ser estable e ir campo por campo'
+        );
+        // Unidades en TRASLADO: no están en el patio.
+        // Se excluyen del canvas del mapa y aparecen en el sidebar de UNIDADES.
+        const isInRoad = (u) => u.status === 'TRASLADO';
+
+        function renderMapNow() {
+            _rafPending = 0;
+            // Actualiza badge del botón cuando el sidebar está cerrado
+            if (!inventoryDrawer.classList.contains('open')) {
+                const n = Object.values(state.units).filter(isInRoad).length;
+                updateUnitsBtnBadge(n);
+            }
+            const present = new Set();
+            for (const u of Object.values(state.units)) {
+                if (isInRoad(u)) continue;             // en TRASLADO → fuera del mapa, en la franja
+                const target = slotNode(u.slot);
+                if (!target) continue;                 // LIMBO / sin cajón → fuera del mapa
+                present.add(u.id);
+                const sig = unitSignature(u);
+                const el = document.getElementById('u-' + u.id);
+                if (el && el.dataset.sig === sig) {
+                    if (el.parentElement !== target) target.appendChild(el);  // solo cambió de cajón
+                    continue;                          // sin cambios → no se toca el DOM
+                }
+                const fresh = createUnitElement(u);    // nueva o firma cambiada → un solo nodo
+                fresh.id = 'u-' + u.id;
+                fresh.dataset.sig = sig;
+                if (el) el.replaceWith(fresh); else target.appendChild(fresh);
+                if (fresh.parentElement !== target) target.appendChild(fresh);
+            }
+            for (const el of document.querySelectorAll('.unit')) {
+                if (!present.has(el.dataset.id)) el.remove();   // eliminadas / en limbo
+            }
+            for (const s of slotNodes) s.classList.toggle('selected-slot', getSlotId(s) === state.units[selectedUnitId]?.slot);
+            applyMapFilters();
+        }
+
+        function renderAll() {
+            scheduleRender();                          // mapa: diffing + rAF (barato)
+            if (inventoryDrawer.classList.contains('open')) renderInventory();
+            if (historyDrawer.classList.contains('open')) renderHistory();
+            if (currentView === 'cuadre') renderCuadre();
+            renderActivity();
+            updateSummary();
+        }
+
+        function fillSlotOptions() {
+            const current = slotField.value;
+            slotField.innerHTML = slotIds.map((slotId) => `<option value="${slotId}">${slotId}</option>`).join('');
+            if (current && slotIds.includes(current)) slotField.value = current;
+        }
+
+        function unitMatchesFilters(unit) {
+            const query = filterState.query.trim().toUpperCase();
+            const layer = layerForSlot(unit.slot || '');
+            const statusOk = filterState.status === 'TODOS' || unit.status === filterState.status;
+            const layerOk = filterState.layers.has(layer);
+            const searchText = [unit.id, unit.slot, unit.status, unit.place, unit.fuel, unit.plates, unit.model, unit.notes]
+                .join(' ')
+                .toUpperCase();
+            const queryOk = !query || searchText.includes(query);
+            return statusOk && layerOk && queryOk;
+        }
+
+        function visibleUnits() {
+            return Object.values(state.units).filter(unitMatchesFilters);
+        }
+
+        function applyMapFilters() {
+            const query = filterState.query.trim().toUpperCase();
+            slotNodes.forEach((slot) => {
+                const slotId = getSlotId(slot);
+                const layer = layerForSlot(slotId);
+                slot.classList.toggle('layer-hidden', !filterState.layers.has(layer));
+                slot.classList.remove('search-hit');
+            });
+            Object.values(state.units).forEach((unit) => {
+                const el = document.querySelector(`.unit[data-id="${CSS.escape(unit.id)}"]`);
+                if (!el) return;
+                const visible = unitMatchesFilters(unit);
+                el.classList.toggle('filtered-out', !visible);
+                el.classList.toggle('search-match', !!query && visible);
+                if (query && visible) slotNode(unit.slot)?.classList.add('search-hit');
+            });
+            document.querySelectorAll('.filter-chip').forEach((button) => {
+                button.classList.toggle('active', button.dataset.status === filterState.status);
+            });
+        }
+
+        function setStatusFilter(status) {
+            filterState.status = status;
+            renderAll();
+        }
+
+        function toggleLayer(input) {
+            if (input.checked) filterState.layers.add(input.dataset.layer);
+            else filterState.layers.delete(input.dataset.layer);
+            renderAll();
+        }
+
+        function clearMapFilters() {
+            filterState.query = '';
+            filterState.status = 'TODOS';
+            filterState.layers = new Set(['limbo', 'patio', 'oficina', 'taller', 'bano']);
+            mapSearch.value = '';
+            document.querySelectorAll('.layer-chip input').forEach((input) => {
+                input.checked = true;
+            });
+            renderAll();
+            showToast('Filtros limpiados');
+        }
+
+        function selectUnit(target) {
+            const unitId = typeof target === 'string' ? target : target?.dataset?.id;
+            if (!unitId || !state.units[unitId]) return;
+            selectedUnitId = unitId;
+            editorMode = 'edit';
+            if (_searchZoomed) { _searchZoomed = false; applyResponsiveZoom(); } // el clic quita el zoom de búsqueda
+            openEditor(state.units[unitId]);
+            renderAll();
+            showToast(`${unitId} seleccionado`);
+        }
+
+        function openEditor(unit) {
+            const isAdd = editorMode === 'add';
+            // Alterna entre los dos modos de la píldora
+            document.getElementById('pillAddMode').hidden = !isAdd;
+            document.getElementById('pillEditMode').hidden = isAdd;
+            popover.classList.add('open');
+            if (isAdd) {
+                // Modo ADD: limpia la búsqueda y muestra el cajón destino
+                const slotLabel = document.getElementById('addSlotLabel');
+                if (slotLabel) slotLabel.textContent = 'Cajón ' + (unit.slot && unit.slot !== 'LIMBO' ? unit.slot : '—');
+                document.getElementById('unitMva').value = '';
+                document.getElementById('addFormFields').hidden = true;
+                document.getElementById('addHint').style.display = 'flex';
+                document.getElementById('mvaSuggest').style.display = 'none';
+                document.getElementById('unitSlotField').value = unit.slot || '';
+                setTimeout(() => document.getElementById('unitMva').focus(), 120);
+            } else {
+                // Modo EDIT: rellena todos los campos de edición
+                document.getElementById('editorMode').textContent = 'UNIDAD SELECCIONADA';
+                document.getElementById('unitTitle').textContent = unit.id || '—';
+                const chips = document.getElementById('unitChips');
+                if (chips) chips.innerHTML = renderChips(unit);
+                document.getElementById('editMvaDisplay').value = unit.id || '';
+                // Rellena el select de cajón de edición
+                const eSel = document.getElementById('editSlotField');
+                if (eSel) {
+                    fillSlotOptions(eSel);
+                    eSel.value = unit.slot || firstEmptySlot();
+                }
+                const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+                set('editStatusField', unit.status || 'SUCIO');
+                set('editFuelField', unit.fuel || 'N/A');
+                set('editPlatesField', unit.plates || '');
+                set('editModelField', unit.model || '');
+                set('editNotasField', unit.notes || '');
+                const dd = document.getElementById('accionesDropdown');
+                if (dd) { dd.innerHTML = buildAcciones(unit); dd.classList.remove('show'); }
+            }
+        }
+
+        // fillSlotOptions acepta un elemento select opcional (para el modo EDIT)
+        function fillSlotOptions(targetSel) {
+            const sel = targetSel || document.getElementById('editSlotField');
+            if (!sel) return;
+            const current = sel.value;
+            sel.innerHTML = ['LIMBO', ...slotIds].map((id) => `<option value="${id}">${id === 'LIMBO' ? 'Patio — sin cajón' : id}</option>`).join('');
+            if (current && (slotIds.includes(current) || current === 'LIMBO')) sel.value = current;
+        }
+
+        // ── Píldora: chips + acciones rápidas (como el mapa real) ──
+        function renderChips(unit) {
+            const st = unit.status || 'N/A';
+            return `<span>📍 ${unit.slot || '—'}</span><span class="chip-sep">•</span>`
+                + `<span>🏷️ ${unit.plates || 'N/A'}</span><span class="chip-sep">•</span>`
+                + `<span>🚗 ${unit.model || 'S/M'}</span><span class="chip-sep">•</span>`
+                + `<span style="text-transform:capitalize;">⚙️ ${st}</span>`;
+        }
+
+        // Autocompletado al crear — busca en CATALOGO (base maestra simulada)
+        function mvaAutocomplete(val) {
+            const box = document.getElementById('mvaSuggest');
+            const hint = document.getElementById('addHint');
+            const formFields = document.getElementById('addFormFields');
+            if (!box) return;
+            const q = String(val || '').trim().toUpperCase();
+            if (!q) {
+                box.style.display = 'none';
+                if (hint) hint.style.display = 'flex';
+                if (formFields) formFields.hidden = true;
+                return;
+            }
+            const libres = CATALOGO.filter((c) => !state.units[c.id]);
+            const list = libres.filter((c) => `${c.id} ${c.plates} ${c.model}`.toUpperCase().includes(q)).slice(0, 7);
+            box.innerHTML = list.length
+                ? list.map((c) => `<button type="button" class="mva-sug" onclick="applySuggestion('${c.id}')">
+                    <strong>${c.id}</strong>
+                    <span>${c.model} · <span style="font-family:monospace">${c.plates}</span> · ${c.cat}</span>
+                  </button>`).join('')
+                : `<div class="mva-sug-empty">Sin coincidencias — <b onclick="confirmUnknown('${q}')" style="cursor:pointer;text-decoration:underline">agregar "${q}" igual</b></div>`;
+            box.style.display = 'block';
+            if (hint) hint.style.display = 'none';
+            if (formFields) formFields.hidden = true;
+        }
+
+        function applySuggestion(id) {
+            const c = CATALOGO.find((x) => x.id === id);
+            if (!c) return;
+            document.getElementById('unitMva').value = c.id;
+            document.getElementById('mvaSuggest').style.display = 'none';
+            document.getElementById('addHint').style.display = 'none';
+            // Muestra la card con la unidad del catálogo
+            const card = document.getElementById('addUnitCard');
+            if (card) card.innerHTML = `
+                <div class="add-unit-card-icon"><span class="material-icons">directions_car</span></div>
+                <div class="add-unit-card-info">
+                    <div class="add-unit-card-mva">${c.id}</div>
+                    <div class="add-unit-card-sub">${c.model} · <span style="font-family:monospace">${c.plates}</span></div>
+                </div>
+                <span class="add-unit-card-badge">${c.cat}</span>`;
+            document.getElementById('addMvaHidden').value = c.id;
+            document.getElementById('addFormFields').hidden = false;
+            setTimeout(() => document.getElementById('addStatusField').focus(), 80);
+        }
+
+        function confirmUnknown(mva) {
+            // Permite agregar una unidad que NO está en el catálogo
+            const libres = CATALOGO.filter((c) => !state.units[c.id]);
+            const sug = libres.length ? libres[Math.floor(Math.random() * libres.length)].id : null;
+            if (sug) showToast(`"${mva}" no está en catálogo. Intenta con ${sug}`);
+            else showToast(`"${mva}" no está en catálogo`);
+        }
+        function accItem(action, icon, color, label) {
+            return `<button type="button" class="action-item" onclick="mgxAction('${action}')"><span class="material-icons" style="color:${color}">${icon}</span> ${label}</button>`;
+        }
+        function buildAcciones(unit) {
+            const n = (unit.notes || '').toUpperCase();
+            const apartado = n.includes('RESERVAD') || n.includes('APARTAD');
+            const dobleCero = n.includes('DOBLE CERO');
+            const urgente = n.includes('URGENTE');
+            const manto = unit.status === 'MANTENIMIENTO' || unit.status === 'EN TALLER';
+            const enRoad = unit.status === 'TRASLADO';
+            let h = '';
+            // Si está en carretera, solo mostrar "Recibir" — las demás acciones no aplican
+            if (enRoad) {
+                h += accItem('RECIBIR', 'where_to_vote', '#10b981', 'RECIBIR EN PATIO');
+                return h;
+            }
+            h += apartado ? accItem('QUITAR_APARTADO', 'lock_open', '#64748b', 'QUITAR APARTADO') : accItem('APARTAR', 'lock', '#fbbf24', 'APARTAR UNIDAD');
+            h += dobleCero ? accItem('QUITAR_DOBLE_CERO', 'do_not_disturb_on', '#64748b', 'QUITAR DOBLE CERO') : accItem('DOBLE_CERO', 'verified', '#3b82f6', 'AÑADIR DOBLE CERO');
+            h += urgente ? accItem('QUITAR_URGENTE', 'notifications_paused', '#64748b', 'QUITAR URGENTE') : accItem('URGENTE', 'priority_high', '#ef4444', 'MARCAR COMO URGENTE');
+            h += manto ? accItem('QUITAR_MANTENIMIENTO', 'build_circle', '#64748b', 'QUITAR DE MANTENIMIENTO') : accItem('MANTENIMIENTO', 'build', '#ef4444', 'PONER EN "TALLER"');
+            if (unit.status !== 'LISTO') h += accItem('LISTO', 'check_circle', '#10b981', 'PONER EN "LISTO"');
+            h += accItem('TRASLADO', 'local_shipping', '#7c3aed', 'MANDAR EN TRASLADO');
+            h += accItem('SWAP', 'swap_horiz', '#2563eb', 'CAMBIAR POSICIÓN');
+            return h;
+        }
+        function toggleAcciones(e) {
+            if (e) e.stopPropagation();
+            document.getElementById('accionesDropdown')?.classList.toggle('show');
+        }
+        function addTag(notes, tag) { const s = (notes || '').trim(); return (s + (s ? ' ' : '') + tag).trim(); }
+        function delTag(notes, re) { return (notes || '').replace(new RegExp(re, 'ig'), '').replace(/\s+/g, ' ').trim(); }
+        function firstFreeTaller() { return slotIds.find((s) => s.startsWith('TLLRS') && !Object.values(state.units).some((u) => u.slot === s)); }
+        function firstEmptyNonTaller() { return slotIds.find((s) => !s.startsWith('TLLRS') && !Object.values(state.units).some((u) => u.slot === s)); }
+        function mgxAction(action) {
+            const unit = state.units[selectedUnitId];
+            document.getElementById('accionesDropdown')?.classList.remove('show');
+            if (!unit) return;
+            if (action === 'SWAP') { showToast('Toca un cajón vacío para mover ' + unit.id); closeUnit(); return; }
+            if (action === 'LIMBO') {
+                unit.slot = 'LIMBO';
+                unit.place = 'Limbo';
+                unit.savedAt = nowLabel();
+                addHistory('Limbo', `${unit.id} enviada al limbo (sin cajón)`);
+                closeUnit(); persistState(); renderAll();
+                showToast(`${unit.id} enviada al limbo`);
+                return;
+            }
+            switch (action) {
+                case 'APARTAR': unit.notes = addTag(unit.notes, 'RESERVADO'); break;
+                case 'QUITAR_APARTADO': unit.notes = delTag(unit.notes, 'RESERVAD|APARTAD'); break;
+                case 'DOBLE_CERO': unit.notes = addTag(unit.notes, 'DOBLE CERO'); break;
+                case 'QUITAR_DOBLE_CERO': unit.notes = delTag(unit.notes, 'DOBLE CERO'); break;
+                case 'URGENTE': unit.notes = addTag(unit.notes, 'URGENTE'); break;
+                case 'QUITAR_URGENTE': unit.notes = delTag(unit.notes, 'URGENTE'); break;
+                case 'MANTENIMIENTO': { unit.status = 'MANTENIMIENTO'; const t = firstFreeTaller(); if (t) { unit.slot = t; unit.place = 'Taller'; } break; }
+                case 'QUITAR_MANTENIMIENTO': { unit.status = 'LISTO'; if (String(unit.slot).startsWith('TLLRS')) { const e = firstEmptyNonTaller(); if (e) { unit.slot = e; unit.place = placeForSlot(e); } } break; }
+                case 'TRASLADO': {
+                    // Sale del cajón — va a carretera, ya no ocupa espacio en el mapa
+                    unit._prevSlot = unit.slot !== 'LIMBO' ? unit.slot : (unit._prevSlot || '');
+                    unit.status = 'TRASLADO'; unit.slot = 'LIMBO'; unit.place = 'Carretera';
+                    closeUnit(); // cierra la píldora, aparece en la franja
+                    break;
+                }
+                case 'RECIBIR': {
+                    // Regresa de carretera al patio (entra a LIMBO para asignar cajón)
+                    unit.status = 'SUCIO'; unit.slot = 'LIMBO'; unit.place = 'Patio';
+                    showToast(`${unit.id} recibida — asigna un cajón`);
+                    break;
+                }
+                case 'LISTO': unit.status = 'LISTO'; break;
+            }
+            unit.color = STATUS_STYLE[unit.status] || unit.color;
+            unit.savedAt = nowLabel();
+            addHistory('Acción rápida', `${unit.id} · ${STATUS_LABEL[unit.status] || unit.status}`);
+            markChanged(unit.id);
+            persistState(); renderAll(); selectUnit(unit.id);
+        }
+
+        function closeUnit() {
+            popover.classList.remove('open');
+            editorMode = 'edit';
+            document.querySelectorAll('.unit.selected').forEach((unit) => unit.classList.remove('selected'));
+            slotNodes.forEach((slot) => slot.classList.remove('selected-slot'));
+        }
+
+        function firstEmptySlot() {
+            return slotIds.find((slotId) => !Object.values(state.units).some((unit) => unit.slot === slotId)) || slotIds[0];
+        }
+
+        function openAdd(preferredSlot = '') {
+            selectedUnitId = '';
+            editorMode = 'add';
+            const slot = preferredSlot || 'LIMBO';
+            openEditor({ slot });
+        }
+
+        function nextMva() {
+            let index = 1;
+            while (state.units[`DEMO${String(index).padStart(2, '0')}`]) index++;
+            return `DEMO${String(index).padStart(2, '0')}`;
+        }
+
+        // Confirmar alta desde el modo ADD
+        function confirmAdd() {
+            const mvaId = document.getElementById('addMvaHidden').value.trim().toUpperCase();
+            const slot = document.getElementById('unitSlotField').value;
+            if (!mvaId) { showToast('Elige una unidad del catálogo primero'); return; }
+            if (state.units[mvaId]) { showToast(`${mvaId} ya está registrada`); return; }
+            const cat = CATALOGO.find((c) => c.id === mvaId);
+            if (!cat) { showToast(`${mvaId} no está en catálogo`); return; }
+            const status = document.getElementById('addStatusField').value;
+            const fuel = document.getElementById('addFuelField').value;
+            const notes = document.getElementById('addNotasField').value.trim();
+            // Si el cajón destino está ocupado, va a LIMBO
+            const occupied = slot && slot !== 'LIMBO' && Object.values(state.units).some((u) => u.slot === slot);
+            const finalSlot = occupied ? 'LIMBO' : (slot || 'LIMBO');
+            if (occupied) showToast(`${slot} ocupado — se colocó en Patio sin cajón`);
+            const newUnit = {
+                id: mvaId, cat: cat.cat, model: cat.model, plates: cat.plates,
+                slot: finalSlot, place: placeForSlot(finalSlot),
+                status, fuel, notes, savedAt: nowLabel(),
+            };
+            state.units[mvaId] = newUnit;
+            selectedUnitId = mvaId;
+            editorMode = 'edit';
+            addHistory('Alta', `${mvaId} · ${finalSlot}`);
+            markChanged(mvaId);
+            persistState();
+            renderAll();
+            selectUnit(mvaId);
+            showToast(`✓ ${mvaId} registrada en patio`);
+        }
+
+        // Guardar edición en modo EDIT
+        function saveEdit() {
+            const unit = state.units[selectedUnitId];
+            if (!unit) return;
+            const slot = document.getElementById('editSlotField')?.value || unit.slot;
+            const status = document.getElementById('editStatusField')?.value || unit.status;
+            const fuel = document.getElementById('editFuelField')?.value || unit.fuel;
+            const plates = document.getElementById('editPlatesField')?.value.trim().toUpperCase() || unit.plates;
+            const model = document.getElementById('editModelField')?.value.trim() || unit.model;
+            const notes = document.getElementById('editNotasField')?.value.trim() || '';
+            const oldSlot = unit.slot;
+            // Maneja swap si el cajón destino está ocupado
+            const occupied = slot !== 'LIMBO' && Object.values(state.units).find((u) => u.slot === slot && u.id !== unit.id);
+            if (occupied) {
+                occupied.slot = oldSlot;
+                occupied.place = placeForSlot(oldSlot);
+                occupied.savedAt = nowLabel();
+                addHistory('Swap', `${unit.id} ${oldSlot} → ${slot} · ${occupied.id} → ${oldSlot}`);
+                markChanged(occupied.id);
+            }
+            unit.slot = slot; unit.place = placeForSlot(slot);
+            unit.status = status; unit.fuel = fuel;
+            unit.plates = plates; unit.model = model; unit.notes = notes;
+            unit.savedAt = nowLabel();
+            addHistory('Edición', `${unit.id} · ${slot}`);
+            markChanged(unit.id);
+            persistState(); renderAll(); selectUnit(unit.id);
+            showToast(`${unit.id} guardado`);
+        }
+
+        // saveEditor redirige al método correcto según el modo (compatibilidad)
+        function saveEditor() { if (editorMode === 'add') confirmAdd(); else saveEdit(); }
+
+        // readEditorUnit mantiene compatibilidad con duplicateSelected y otros callers
+        function readEditorUnit() {
+            if (editorMode === 'edit') {
+                const unit = state.units[selectedUnitId] || {};
+                return {
+                    id: selectedUnitId,
+                    slot: document.getElementById('editSlotField')?.value || unit.slot,
+                    status: document.getElementById('editStatusField')?.value || unit.status,
+                    fuel: document.getElementById('editFuelField')?.value || unit.fuel,
+                    place: placeForSlot(document.getElementById('editSlotField')?.value || unit.slot),
+                    plates: document.getElementById('editPlatesField')?.value?.trim().toUpperCase() || unit.plates,
+                    model: document.getElementById('editModelField')?.value?.trim() || unit.model,
+                    notes: document.getElementById('editNotasField')?.value?.trim() || '',
+                    cat: unit.cat,
+                    savedAt: nowLabel(),
+                };
+            }
+            return { id: document.getElementById('addMvaHidden')?.value?.trim().toUpperCase() || '' };
+        }
+
+        function deleteSelected() {
+            if (!selectedUnitId || !state.units[selectedUnitId]) return;
+            const removed = state.units[selectedUnitId];
+            delete state.units[selectedUnitId];
+            addHistory('Baja', `${removed.id} removido de ${removed.slot}`);
+            selectedUnitId = '';
+            closeUnit();
+            persistState();
+            renderAll();
+            showToast('Unidad eliminada');
+        }
+
+        function duplicateSelected() {
+            const source = selectedUnitId ? state.units[selectedUnitId] : null;
+            if (!source) {
+                showToast('Selecciona una unidad');
+                return;
+            }
+            const slot = firstEmptySlot();
+            if (!slot) {
+                showToast('Sin cajones libres');
+                return;
+            }
+            const clone = {
+                ...source,
+                id: nextMva(),
+                slot,
+                place: placeForSlot(slot),
+                savedAt: nowLabel(),
+            };
+            state.units[clone.id] = clone;
+            selectedUnitId = clone.id;
+            addHistory('Duplicado', `${source.id} -> ${clone.id} en ${slot}`);
+            markChanged(clone.id);
+            persistState();
+            renderAll();
+            selectUnit(clone.id);
+        }
+
+        function moveUnit(unitId, targetSlot) {
+            const unit = state.units[unitId];
+            if (!unit || !slotIds.includes(targetSlot) || unit.slot === targetSlot) return;
+            const originSlot = unit.slot;
+            const occupied = Object.values(state.units).find((candidate) => candidate.slot === targetSlot && candidate.id !== unitId);
+            if (occupied) {
+                occupied.slot = originSlot;
+                occupied.place = placeForSlot(originSlot);
+                occupied.savedAt = nowLabel();
+                addHistory('Swap', `${unit.id} ${originSlot} -> ${targetSlot} · ${occupied.id} -> ${originSlot}`);
+            } else {
+                addHistory('Movimiento', `${unit.id} ${originSlot} -> ${targetSlot}`);
+            }
+            unit.slot = targetSlot;
+            unit.place = placeForSlot(targetSlot);
+            if (targetSlot.startsWith('TLLRS')) {
+                unit.status = 'EN TALLER';
+                unit.color = STATUS_STYLE[unit.status];
+            }
+            unit.savedAt = nowLabel();
+            selectedUnitId = unit.id;
+            markChanged(unit.id, occupied && occupied.id);
+            persistState();
+            renderAll();
+            selectUnit(unit.id);
+        }
+
+        function bindSlotInteractions() {
+            slotNodes.forEach((slot) => {
+                const slotId = getSlotId(slot);
+                slot.classList.add('interactive');
+                slot.addEventListener('click', (event) => {
+                    if (event.target.closest('.unit')) return;
+                    if (selectedUnitId && state.units[selectedUnitId]) {
+                        moveUnit(selectedUnitId, slotId);
+                    } else {
+                        openAdd(slotId);
+                    }
+                });
+                slot.addEventListener('dragover', (event) => {
+                    event.preventDefault();
+                    event.dataTransfer.dropEffect = 'move';
+                    slot.classList.add('drop-target');
+                });
+                slot.addEventListener('dragleave', () => {
+                    slot.classList.remove('drop-target');
+                });
+                slot.addEventListener('drop', (event) => {
+                    event.preventDefault();
+                    slot.classList.remove('drop-target');
+                    const unitId = event.dataTransfer.getData('text/plain') || draggingUnitId;
+                    moveUnit(unitId, slotId);
+                });
+            });
+        }
+
+        function addHistory(action, detail, actor = 'Tú') {
+            if (!Array.isArray(state.history)) state.history = [];
+            state.history.unshift({ action, detail, actor, at: nowLabel() });
+            state.history = state.history.slice(0, 80);
+            addActivity(action, detail, actor);
+            renderHistory();
+        }
+
+        function addActivity(title, detail, actor = 'Sistema') {
+            if (!Array.isArray(state.activity)) state.activity = [];
+            state.activity.unshift({ title, detail, actor, at: nowLabel() });
+            state.activity = state.activity.slice(0, 50);
+        }
+
+        function renderHistory() {
+            const items = state.history || [];
+            historyList.innerHTML = items.length
+                ? items.slice(0, 24).map((item) => `<div class="history-item">${item.action}<span>${item.detail} · ${item.actor || 'Sistema'} · ${item.at}</span></div>`).join('')
+                : '<div class="history-item">Sin movimientos<span>Los cambios del sandbox apareceran aqui.</span></div>';
+        }
+
+        function renderActivity() {
+            if (activityList) {
+                const items = state.activity || [];
+                activityList.innerHTML = items.length
+                    ? items.slice(0, 8).map((item) => `<div class="activity-item">${item.title}<span>${item.detail} · ${item.actor || 'Sistema'}</span></div>`).join('')
+                    : '<div class="activity-item">Sin actividad<span>La simulación aparecerá aquí.</span></div>';
+            }
+            const simToggle = document.getElementById('simToggle');
+            if (simToggle) simToggle.textContent = state.simulationPaused ? 'Reanudar vivo' : 'Pausar vivo';
+            const simStatus = document.getElementById('simStatus');
+            if (simStatus) simStatus.textContent = state.simulationPaused ? 'Pausado' : 'Simulado';
+        }
+
+        // Sidebar UNIDADES — solo las unidades SIN cajón (slot 'LIMBO'), agrupadas
+        // en Patio / Taller (igual que el mapa real: #unidades-limbo / #unidades-taller).
+        function unitsCardHTML(u) {
+            const sc = STATUS_STYLE[u.status] || 'no-arrendable';
+            const isTraslado = u.status === 'TRASLADO';
+            const dest = u.destino || '';
+            return `
+      <button class="units-card" type="button" onclick="focusInventoryUnit('${u.id}')">
+        <div class="units-card-top">
+          ${isTraslado ? `<span class="traslado-dot"></span>` : ''}
+          <span class="units-card-mva">${u.id}</span>
+          <span class="units-card-badge b-${sc}">${STATUS_LABEL[u.status] || u.status}</span>
+        </div>
+        <div class="units-card-meta">
+          <span><span class="material-icons">badge</span>${u.plates || 'S/P'}</span>
+          <span><span class="material-icons">directions_car</span>${u.model || 'S/M'}</span>
+        </div>
+        ${dest ? `<div class="units-card-dest"><span class="material-icons">arrow_forward</span>${dest}</div>` : ''}
+      </button>`;
+        }
+        function unitsSectionHTML(icon, title, kind, list) {
+            const body = list.length ? list.map(unitsCardHTML).join('') : '<div class="units-empty">Sin unidades</div>';
+            return `
+      <div class="units-section">
+        <div class="units-section-label units-section-label--${kind}">
+          <span class="material-icons">${icon}</span>${title} <span class="units-section-count">${list.length}</span>
+        </div>
+        <div class="units-section-body units-section-body--${kind}">${body}</div>
+      </div>`;
+        }
+        function renderInventory() {
+            const q = (document.getElementById('unitsSearch')?.value || '').trim().toUpperCase();
+            const match = (u) => !q || [u.id, u.plates, u.model, STATUS_LABEL[u.status] || u.status, u.destino || ''].join(' ').toUpperCase().includes(q);
+            const byId = (a, b) => a.id.localeCompare(b.id);
+            // Patio sin cajón (LIMBO, no en taller, no en traslado)
+            const limbo = Object.values(state.units).filter((u) => u.slot === 'LIMBO' && match(u));
+            const enTaller = (u) => u.status === 'MANTENIMIENTO' || u.status === 'EN TALLER';
+            const patio = limbo.filter((u) => !enTaller(u) && !isInRoad(u)).sort(byId);
+            const taller = limbo.filter((u) => enTaller(u)).sort(byId);
+            const traslado = Object.values(state.units).filter((u) => isInRoad(u) && match(u)).sort(byId);
+            inventoryList.innerHTML =
+                (traslado.length ? unitsSectionHTML('local_shipping', 'En traslado', 'traslado', traslado) : '') +
+                unitsSectionHTML('local_parking', 'Patio — sin asignar', 'patio', patio) +
+                unitsSectionHTML('build', 'Taller — sin asignar', 'taller', taller);
+            // Actualiza badge del botón de unidades si hay unidades en traslado
+            updateUnitsBtnBadge(traslado.length);
+        }
+
+        function updateUnitsBtnBadge(n) {
+            let badge = document.getElementById('unitsBtnBadge');
+            const btn = document.querySelector('.mh-btn[aria-label="Unidades"]');
+            if (!btn) return;
+            if (n > 0) {
+                if (!badge) {
+                    badge = document.createElement('span');
+                    badge.id = 'unitsBtnBadge';
+                    badge.style.cssText = 'position:absolute;top:-4px;right:-4px;width:16px;height:16px;border-radius:50%;background:#7c3aed;color:#fff;font-size:9px;font-weight:900;display:grid;place-items:center;border:2px solid #12142a;';
+                    btn.style.position = 'relative';
+                    btn.appendChild(badge);
+                }
+                badge.textContent = n;
+            } else if (badge) {
+                badge.remove();
+            }
+        }
+
+        function toggleInventory() {
+            inventoryDrawer.classList.toggle('open');
+            renderInventory();
+        }
+
+        function focusInventoryUnit(unitId) {
+            const unit = state.units[unitId];
+            if (!unit) return;
+            inventoryDrawer.classList.remove('open'); // cierra el sidebar para ver la píldora / asignar cajón
+            const target = slotNode(unit.slot);
+            if (target) target.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+            selectUnit(unitId);
+        }
+
+        // ══════════════ Vistas: Mapa | Cuadre + Modo claro ══════════════
+        let currentView = 'mapa';
+        const cuadreFilter = { estado: 'TODOS' };
+
+        function setView(v) {
+            currentView = v;
+            const cv = document.getElementById('cuadreView');
+            const yard = document.querySelector('.yard-wrap');
+            if (cv) cv.hidden = v !== 'cuadre';
+            if (yard) yard.style.display = v === 'mapa' ? '' : 'none';
+            document.querySelectorAll('.nav-rail-btn').forEach((b) => b.classList.toggle('active', b.dataset.view === v));
+            if (v === 'cuadre') renderCuadre();
+        }
+
+        function cuadreChip(el) {
+            document.querySelectorAll('#cuadreChips .cchip').forEach((c) => c.classList.remove('active'));
+            el.classList.add('active');
+            cuadreFilter.estado = el.dataset.est;
+            renderCuadre();
+        }
+
+        function cuadreRow(id) { selectUnit(id); } // abre la píldora para editar
+
+        function renderCuadre() {
+            const body = document.getElementById('cuadreBody');
+            if (!body) return;
+            const q = (document.getElementById('cuadreSearch')?.value || '').trim().toUpperCase();
+            const est = cuadreFilter.estado;
+            let list = Object.values(state.units);
+            if (est === 'TALLER') {
+                list = list.filter((u) => u.status === 'EN TALLER' || u.status === 'MANTENIMIENTO' || String(u.slot).startsWith('TLLRS') || u.place === 'Taller');
+            } else if (est !== 'TODOS') {
+                list = list.filter((u) => u.status === est);
+            }
+            if (q) list = list.filter((u) => `${u.id} ${u.plates} ${u.model} ${u.cat}`.toUpperCase().includes(q));
+            list.sort((a, b) => a.id.localeCompare(b.id));
+            body.innerHTML = list.length ? list.map((u) => {
+                const sc = STATUS_STYLE[u.status] || 'no-arrendable';
+                const ubic = u.slot === 'LIMBO' ? 'Sin asignar'
+                    : String(u.slot).startsWith('TLLRS') ? `Taller · ${u.slot}`
+                        : `${u.place || 'Patio'} · ${u.slot}`;
+                return `<tr class="${u.id === selectedUnitId ? 'is-sel' : ''}" onclick="cuadreRow('${u.id}')">
+                    <td class="c-mva">${u.id}</td>
+                    <td>${u.cat || '—'}</td>
+                    <td>${u.model || '—'}</td>
+                    <td class="c-pla">${u.plates || 'S/P'}</td>
+                    <td>${u.fuel || 'N/A'}</td>
+                    <td><span class="c-badge b-${sc}">${STATUS_LABEL[u.status] || u.status}</span></td>
+                    <td>${ubic}</td>
+                </tr>`;
+            }).join('') : `<tr><td colspan="7" class="c-empty">Sin resultados</td></tr>`;
+            const all = Object.values(state.units);
+            const t = document.getElementById('cuadreTotal'); if (t) t.textContent = all.length;
+            const l = document.getElementById('cuadreListos'); if (l) l.textContent = all.filter((u) => u.status === 'LISTO').length;
+        }
+
+        function toggleTheme() {
+            const light = document.body.classList.toggle('light');
+            const ti = document.getElementById('themeIcon');
+            if (ti) ti.textContent = light ? 'dark_mode' : 'light_mode';
+            try { localStorage.setItem('mex-sandbox-theme', light ? 'light' : 'dark'); } catch (_) { }
+        }
+
+        function exportCsv() {
+            const rows = [
+                ['MVA', 'Estado', 'Cajon', 'Ubicacion', 'Gasolina', 'Placas', 'Modelo', 'Notas'],
+                ...visibleUnits().map((unit) => [unit.id, unit.status, unit.slot, unit.place, unit.fuel, unit.plates, unit.model, unit.notes]),
+            ];
+            const csv = rows.map((row) => row.map((value) => `"${String(value || '').replace(/"/g, '""')}"`).join(',')).join('\n');
+            const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `inventario-bjx-${new Date().toISOString().slice(0, 10)}.csv`;
+            link.click();
+            URL.revokeObjectURL(url);
+            addHistory('Exportacion', `${visibleUnits().length} unidades exportadas a CSV`);
+            persistState();
+            showToast('CSV generado');
+        }
+
+        function toggleHistory() {
+            historyDrawer.classList.toggle('open');
+            renderHistory();
+        }
+
+        function updateSummary() {
+            const units = Object.values(state.units);
+            const total = units.length;
+            const listo = units.filter((unit) => unit.status === 'LISTO').length;
+            const taller = units.filter((unit) => unit.status === 'EN TALLER' || String(unit.slot).startsWith('TLLRS')).length;
+            const patio = total - taller;
+            const noRent = units.filter((unit) => unit.status === 'NO ARRENDABLE').length;
+            const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+            set('summaryTotal', total);
+            set('summaryPatio', patio);
+            set('summaryFuera', 0);
+            set('summaryNoRent', noRent);
+            set('summaryListo', listo);
+            set('summaryFooterTotal', patio);
+            set('summaryClock', new Date().toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+        }
+
+        // Zoom sin deformar: el canvas se escala con transform (uniforme, GPU) y el
+        // wrapper reserva el tamaño escalado para que el scroll sea correcto.
+        function applyZoom() {
+            canvas.style.transform = `scale(${currentScale})`;
+            stage.style.width = `${1840 * currentScale}px`;
+            stage.style.height = `${930 * currentScale}px`;
+        }
+
+        function zoomMap(factor) {
+            _searchZoomed = false;
+            currentScale = Math.max(.4, Math.min(1.45, currentScale * factor));
+            applyZoom();
+        }
+
+        // Ajusta el zoom inicial según el ancho de pantalla (iPhone / iPad / desktop)
+        function applyResponsiveZoom() {
+            const w = window.innerWidth;
+            currentScale = w < 560 ? 0.5 : w < 900 ? 0.62 : w < 1200 ? 0.82 : 1;
+            applyZoom();
+        }
+        let _zoomResizeT = 0;
+        window.addEventListener('resize', () => { clearTimeout(_zoomResizeT); _zoomResizeT = setTimeout(applyResponsiveZoom, 200); });
+
+        function randomFrom(items) {
+            return items[Math.floor(Math.random() * items.length)];
+        }
+
+        function emptySlots() {
+            const occupied = new Set(Object.values(state.units).map((unit) => unit.slot));
+            return slotIds.filter((slotId) => !occupied.has(slotId));
+        }
+
+        function toggleSimulation() {
+            state.simulationPaused = !state.simulationPaused;
+            addActivity(state.simulationPaused ? 'Simulación pausada' : 'Simulación reanudada', 'El flujo en vivo es completamente ficticio', 'Sistema');
+            persistState();
+            renderAll();
+            showToast(state.simulationPaused ? 'Tiempo real pausado' : 'Tiempo real simulado activo');
+        }
+
+        function simulateRealtimeMove() {
+            if (!state || state.simulationPaused || document.hidden) return;
+            const units = Object.values(state.units).filter((unit) => unit.id !== selectedUnitId);
+            if (!units.length) return;
+            const actor = randomFrom(SIM_USERS);
+            // No mover/cambiar unidades que están en carretera (slot=LIMBO por TRASLADO)
+            const eligible = units.filter((u) => !isInRoad(u));
+            if (!eligible.length) return;
+            const unit = randomFrom(eligible);
+            const actionType = Math.random();
+
+            if (actionType < .58) {
+                const targets = emptySlots().filter((slotId) => !slotId.startsWith('B-') && slotId !== unit.slot);
+                if (!targets.length) return;
+                const originSlot = unit.slot;
+                const targetSlot = randomFrom(targets);
+                unit.slot = targetSlot;
+                unit.place = placeForSlot(targetSlot);
+                if (targetSlot.startsWith('TLLRS')) {
+                    unit.status = 'EN TALLER';
+                    unit.color = STATUS_STYLE[unit.status];
+                }
+                unit.savedAt = nowLabel();
+                markChanged(unit.id);
+                addHistory('Movimiento remoto', `${unit.id} ${originSlot} -> ${targetSlot}`, actor);
+                showToast(`${actor} movió ${unit.id}`);
+            } else if (actionType < .84) {
+                const nextStatus = randomFrom(['LISTO', 'SUCIO', 'MANTENIMIENTO', 'RESGUARDO']);
+                const oldStatus = unit.status;
+                unit.status = nextStatus;
+                unit.color = STATUS_STYLE[nextStatus] || unit.color;
+                unit.savedAt = nowLabel();
+                markChanged(unit.id);
+                addHistory('Cambio remoto', `${unit.id} ${STATUS_LABEL[oldStatus] || oldStatus} -> ${STATUS_LABEL[nextStatus] || nextStatus}`, actor);
+                showToast(`${actor} actualizó ${unit.id}`);
+            } else {
+                const request = randomFrom(['acceso operador patio', 'permiso taller', 'alta usuario temporal', 'bloqueo preventivo']);
+                addHistory('Aprobación remota', `${request} revisado para BJX`, actor);
+                showToast(`${actor} revisó una solicitud`);
+            }
+
+            persistState();
+            renderAll();
+        }
+
+        function openSummary() {
+            document.getElementById('summaryModal').classList.add('open');
+        }
+
+        function closeSummary() {
+            document.getElementById('summaryModal').classList.remove('open');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeSummary();
+                closeUnit();
+                historyDrawer.classList.remove('open');
+                inventoryDrawer.classList.remove('open');
+            }
+            if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 's') {
+                event.preventDefault();
+                saveSandbox();
+            }
+            if (!event.ctrlKey && !event.metaKey && event.key.toLowerCase() === 'n') {
+                const target = event.target;
+                if (target?.tagName !== 'INPUT' && target?.tagName !== 'TEXTAREA' && target?.tagName !== 'SELECT') openAdd();
+            }
+        });
+
+        document.getElementById('summaryModal').addEventListener('click', (event) => {
+            if (event.target.id === 'summaryModal') closeSummary();
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!event.target.closest('.pill-acciones')) document.getElementById('accionesDropdown')?.classList.remove('show');
+        });
+
+        mapSearch.addEventListener('input', (event) => {
+            filterState.query = event.target.value;
+            renderAll();
+            handleSearchZoom();
+        });
+
+        // Búsqueda con zoom: 1 coincidencia → acerca y centra; varias → se mantiene;
+        // buscador vacío → vuelve al zoom normal. (El clic en una unidad también lo quita.)
+        function handleSearchZoom() {
+            const q = filterState.query.trim().toUpperCase();
+            if (!q) {
+                if (_searchZoomed) { _searchZoomed = false; applyResponsiveZoom(); }
+                return;
+            }
+            const matches = Object.values(state.units).filter((u) => slotNode(u.slot) && unitMatchesFilters(u));
+            if (matches.length === 1) zoomToUnit(matches[0]);
+        }
+        function zoomToUnit(u) {
+            _searchZoomed = true;
+            currentScale = 1.18;
+            applyZoom();
+            requestAnimationFrame(() => {
+                (document.getElementById('u-' + u.id) || slotNode(u.slot))
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+            });
+        }
+
+        state = loadState();
+        markChanged(...Object.keys(state.units));
+        bindSlotInteractions();
+        renderAll();
+        persistState();
+        viewport.scrollTo({ left: 0, top: 0 });
+        applyResponsiveZoom();
+        simulationTimer = setInterval(simulateRealtimeMove, 5200);
+        try {
+            if (localStorage.getItem('mex-sandbox-theme') === 'light') {
+                document.body.classList.add('light');
+                const ti = document.getElementById('themeIcon');
+                if (ti) ti.textContent = 'dark_mode';
+            }
+        } catch (_) { }
+    </script>
+</body>
+
+</html>
