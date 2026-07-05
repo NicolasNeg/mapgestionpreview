@@ -4,12 +4,78 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MapGestión — Experiencia inmersiva (experimental)</title>
-  <meta name="description" content="Prototipo inmersivo de la landing de MapGestión con GSAP y ScrollTrigger." />
+  <title>MapGestión — Control de patio para arrendadoras de autos</title>
+  <meta name="description" content="Implementación llave en mano del control digital de tu patio de arrendadora. Cada auto en el mapa de tu patio, cada daño con responsable. Sin GPS, sin Excel, sin WhatsApp." />
+  <link rel="canonical" href="https://mapgestion.com/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#020617" />
   <link rel="icon" href="../assets/brand/favicon.svg" />
+  <link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.svg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="MapGestión — Control de patio para arrendadoras de autos" />
+  <meta property="og:description" content="Cada auto de tu arrendadora, en el mapa de tu patio. Implementación llave en mano." />
+  <meta property="og:image" content="https://mapgestion.com/assets/brand/og-mapgestion.svg" />
+  <meta property="og:url" content="https://mapgestion.com/" />
+
+  <!-- ============ JSON-LD (SEO) ============ -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "MapGestion",
+  "url": "https://mapgestion.com",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any",
+  "description": "Implementación corporativa llave en mano del control de patio para arrendadoras de autos y grandes flotillas.",
+  "inLanguage": "es-MX",
+  "areaServed": "MX",
+  "featureList": [
+    "Mapa de patio en tiempo real",
+    "Bitácora de movimientos por operador",
+    "Incidencias con evidencia fotográfica",
+    "Control de accesos por rol corporativo",
+    "Implementación y mapeo del patio llave en mano"
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "MapGestion",
+    "url": "https://mapgestion.com",
+    "email": "contacto@mapgestion.com",
+    "logo": { "@type": "ImageObject", "url": "https://mapgestion.com/assets/brand/favicon.svg" }
+  },
+  "offers": {
+    "@type": "Offer",
+    "name": "Licencia Corporativa MapGestion",
+    "description": "Implementación llave en mano para arrendadoras de autos y grandes flotillas.",
+    "price": "Custom",
+    "priceCurrency": "MXN",
+    "availability": "https://schema.org/InStock"
+  }
+}
+</script>
+  <script type="application/ld+json">
+{ "@context": "https://schema.org", "@type": "WebSite", "name": "MapGestion", "url": "https://mapgestion.com", "description": "Control de patio para arrendadoras de autos y flotillas en México.", "inLanguage": "es-MX" }
+</script>
+  <script type="application/ld+json">
+{ "@context": "https://schema.org", "@type": "Organization", "name": "MapGestion", "url": "https://mapgestion.com", "logo": "https://mapgestion.com/assets/brand/favicon.svg", "contactPoint": { "@type": "ContactPoint", "email": "contacto@mapgestion.com", "contactType": "customer support", "availableLanguage": "es" }, "sameAs": [] }
+</script>
+  <!-- FAQPage: solo en <head> para SEO; no se renderiza. -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "¿MapGestion sirve para arrendadoras de autos?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. MapGestion está enfocado en arrendadoras y flotillas: controla ubicación, disponibilidad, estados de unidad, preparación, daños e incidencias por sucursal." } },
+    { "@type": "Question", "name": "¿Es un GPS?", "acceptedAnswer": { "@type": "Answer", "text": "No. Es un mapa virtual de tu patio: un plano digital donde ves cada unidad y su estado en tiempo real, no coordenadas GPS." } },
+    { "@type": "Question", "name": "¿Tengo que instalar algo yo?", "acceptedAnswer": { "@type": "Answer", "text": "No. La implementación es llave en mano: digitalizamos y mapeamos tu patio, cargamos las unidades y entregamos el sistema listo para operar." } }
+  ]
+}
+</script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <!-- Marca que hay JS: solo entonces ocultamos el contenido para animarlo.
        Si GSAP no carga, app.js quita esta clase y todo queda visible. -->
@@ -17,6 +83,22 @@
 </head>
 
 <body>
+
+  <!-- ===== Navbar flotante translúcido ===== -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="#hero" class="nav__brand" aria-label="MapGestión — inicio">
+        <img src="../assets/brand/mapgestion_logo.svg" alt="MapGestión" />
+      </a>
+      <div class="nav__links">
+        <a href="#modulos">Módulos</a>
+        <a href="#transformacion">Cómo funciona</a>
+        <a href="#sandbox-live">Simulador</a>
+        <a href="#implementacion">Implementación</a>
+      </div>
+      <a href="#contacto" class="btn btn--primary btn--sm">Agendar consultoría</a>
+    </div>
+  </nav>
 
   <!-- ============================================================= -->
   <!-- 1 · HERO — 100vh/100vw, imagen de fondo + overlay + parallax   -->
@@ -27,16 +109,16 @@
     <div class="hero__overlay"></div>
 
     <div class="hero__content">
-      <p class="hero__eyebrow gsap-fade">Operaciones y logística</p>
-      <h1 class="hero__title gsap-fade">Tu patio, bajo control total.</h1>
-      <p class="hero__desc gsap-fade">Cada unidad ubicada en el mapa de tu operación, en tiempo real. Sin Excel, sin llamadas.</p>
+      <p class="hero__eyebrow gsap-fade">Implementación llave en mano · Enterprise</p>
+      <h1 class="hero__title gsap-fade">Cada auto de tu arrendadora, en el <span class="grad">mapa de tu patio.</span></h1>
+      <p class="hero__desc gsap-fade">Replicamos tu estacionamiento en un plano digital donde ves cada unidad y su estado en tiempo real. No es GPS: es tu patio, digitalizado y bajo control. Sin Excel, sin WhatsApp, sin autos perdidos.</p>
       <div class="hero__actions gsap-fade">
-        <a class="btn btn--primary" href="#operaciones">Ver cómo funciona</a>
-        <a class="btn btn--ghost" href="#contacto">Agendar demo</a>
+        <a class="btn btn--primary" href="#transformacion">Ver cómo funciona</a>
+        <a class="btn btn--ghost" href="#contacto">Agendar consultoría</a>
       </div>
     </div>
 
-    <a href="#operaciones" class="hero__scroll" aria-label="Desplazar">
+    <a href="#transformacion" class="hero__scroll" aria-label="Desplazar">
       <span></span>
     </a>
   </header>
@@ -215,18 +297,145 @@
   </section>
 
   <!-- ============================================================= -->
+  <!-- 5 · MÓDULOS DEL SISTEMA (Bento)                                -->
+  <!-- ============================================================= -->
+  <section class="modules" id="modulos">
+    <div class="container">
+      <h2 class="section-title">Todo el músculo del sistema</h2>
+      <p class="section-sub">No es solo un mapa bonito. Es la operación completa de tu arrendadora en una sola plataforma, con una base de datos dedicada para ti.</p>
+      <div class="bento">
+        <article class="bento__card bento__card--lg reveal">
+          <img class="bento__img" src="../assets/screenshots/editor-mapa.png" alt="Editor del mapa de patio" loading="lazy" />
+          <div class="bento__body">
+            <span class="bento__ico material-symbols-outlined">map</span>
+            <h3>Mapa de Patio</h3>
+            <p>Zonas, cajones y cada unidad ubicada, tal cual es tu estacionamiento. Tu patio real, replicado.</p>
+          </div>
+        </article>
+        <article class="bento__card reveal">
+          <span class="bento__ico material-symbols-outlined">receipt_long</span>
+          <h3>Bitácora de Movimientos</h3>
+          <p>Registro exacto por operador: quién movió qué unidad, cuándo y a dónde.</p>
+        </article>
+        <article class="bento__card reveal">
+          <span class="bento__ico material-symbols-outlined">report</span>
+          <h3>Incidencias</h3>
+          <p>Reportes con evidencia fotográfica y responsable. Ningún daño queda sin dueño.</p>
+        </article>
+        <article class="bento__card bento__card--wide reveal">
+          <img class="bento__img bento__img--side" src="../assets/screenshots/roles-permisos.png" alt="Roles y permisos" loading="lazy" />
+          <div class="bento__body">
+            <span class="bento__ico material-symbols-outlined">admin_panel_settings</span>
+            <h3>Control de Accesos</h3>
+            <p>Permisos por rol corporativo. Cada quien ve y hace exactamente lo que le toca, por plaza y por área.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- 6 · POR QUÉ NOS CONTRATAN                                      -->
+  <!-- ============================================================= -->
+  <section class="why" id="por-que">
+    <div class="container">
+      <h2 class="section-title">Por qué nos contratan</h2>
+      <p class="section-sub">Tres razones por las que las arrendadoras dejan el Excel y no vuelven.</p>
+      <div class="why__grid">
+        <article class="why__card reveal">
+          <span class="why__ico material-symbols-outlined">location_on</span>
+          <h3>Ubicación visual exacta</h3>
+          <p>Cada unidad en el plano de tu patio, sin llamadas ni búsquedas. Sabes dónde está cada auto y en qué estado, de un vistazo.</p>
+        </article>
+        <article class="why__card reveal">
+          <span class="why__ico material-symbols-outlined">gpp_good</span>
+          <h3>Daños con responsable</h3>
+          <p>Trazabilidad total de incidencias: quién, cuándo y con evidencia fotográfica. Se acaban los daños “de nadie”.</p>
+        </article>
+        <article class="why__card reveal">
+          <span class="why__ico material-symbols-outlined">bolt</span>
+          <h3>Cola de preparación</h3>
+          <p>Autos listos más rápido: preparas, lavas y liberas unidades en orden. Rentas más y dejas menos parado en el patio.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- 7 · CÓMO LO IMPLEMENTAMOS                                      -->
+  <!-- ============================================================= -->
+  <section class="steps-sec" id="implementacion">
+    <div class="container">
+      <h2 class="section-title">Nosotros hacemos el trabajo pesado</h2>
+      <p class="section-sub">Llave en mano: tú no instalas nada. Te entregamos el sistema listo para operar.</p>
+      <div class="steps">
+        <article class="step reveal">
+          <div class="step__top"><span class="step__num">1</span><span class="material-symbols-outlined">travel_explore</span></div>
+          <h3>Diagnóstico</h3>
+          <p>Analizamos tu patio, tu flota y tus procesos actuales. Sin que muevas un dedo.</p>
+        </article>
+        <article class="step reveal">
+          <div class="step__top"><span class="step__num">2</span><span class="material-symbols-outlined">map</span></div>
+          <h3>Mapeo del patio</h3>
+          <p>Digitalizamos tu patio completo y cargamos cada unidad en tu base de datos dedicada.</p>
+        </article>
+        <article class="step reveal">
+          <div class="step__top"><span class="step__num">3</span><span class="material-symbols-outlined">rocket_launch</span></div>
+          <h3>Operación</h3>
+          <p>Te entregamos el sistema listo y capacitamos a tu equipo. Empiezas a operar en menos de una semana.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- 8 · PRUEBA SOCIAL                                              -->
+  <!-- ============================================================= -->
+  <section class="proof">
+    <div class="container">
+      <div class="proof__stats">
+        <div class="reveal"><span class="proof__num" data-counter="5" data-prefix="&lt; ">0</span><span class="grad"> días</span><p>Implementación llave en mano</p></div>
+        <div class="reveal"><span class="proof__num" data-counter="99" data-suffix=".9">0</span><span class="grad">%</span><p>Disponibilidad del sistema</p></div>
+        <div class="reveal"><span class="proof__num" data-counter="100">0</span><span class="grad">%</span><p>Movimientos trazados</p></div>
+      </div>
+      <!-- TODO: sustituir por logos reales de clientes -->
+      <p class="proof__kicker">Operaciones que ya confían en MapGestión</p>
+      <div class="proof__logos">
+        <span>Arrendadora</span><span>FlotaCorp</span><span>RentaMX</span><span>Patio Norte</span><span>AutoFleet</span>
+      </div>
+      <!-- TODO: reemplazar por una cita real de cliente -->
+      <figure class="proof__quote reveal">
+        <blockquote>“Dejamos de perder autos en el patio. Ahora <span class="grad">todo está en el mapa.</span>”</blockquote>
+        <figcaption>— [Nombre], [Cargo] · [Arrendadora]</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
   <!-- 4 · CTA final                                                  -->
   <!-- ============================================================= -->
   <section class="cta" id="contacto">
     <div class="container cta__inner">
-      <h2>Sube de nivel tu operación.</h2>
-      <p>Agenda una consultoría y vemos tu patio en el mapa.</p>
-      <a class="btn btn--primary btn--lg" href="https://wa.me/524778024682" target="_blank" rel="noopener">Agendar consultoría</a>
+      <h2>Sube de nivel tu arrendadora.</h2>
+      <p>Deja de perder dinero por autos no localizados o daños sin responsable. Agenda una consultoría y vemos tu patio en el mapa.</p>
+      <div class="cta__actions">
+        <a class="btn btn--primary btn--lg" href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20consultor%C3%ADa%20para%20mi%20arrendadora" target="_blank" rel="noopener">Agendar Reunión Comercial</a>
+        <a class="btn btn--ghost btn--lg" href="mailto:contacto@mapgestion.com">Escribir por correo</a>
+      </div>
     </div>
   </section>
 
   <footer class="foot">
-    <div class="container">© <span id="year"></span> MapGestión — prototipo experimental.</div>
+    <div class="container foot__inner">
+      <img class="foot__logo" src="../assets/brand/mapgestion_logo.svg" alt="MapGestión" />
+      <nav class="foot__links">
+        <a href="../terminos.html">Términos y Condiciones</a>
+        <a href="../terminos.html#privacidad">Política de Privacidad</a>
+        <a href="mailto:contacto@mapgestion.com">contacto@mapgestion.com</a>
+        <a href="https://wa.me/524778024682" target="_blank" rel="noopener">WhatsApp</a>
+      </nav>
+    </div>
+    <p class="foot__copy">© <span id="year"></span> MapGestión. Todos los derechos reservados.</p>
   </footer>
 
   <!-- ===== Dependencias (CDN) ===== -->

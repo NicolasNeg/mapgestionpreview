@@ -162,6 +162,31 @@ function xformMobile() {
    - PC (≥768px): parallax + ruta con MotionPath.
    - Móvil (<768px): fade-ins ligeros.
    ============================================================ */
+/* ---- Reveal genérico (.reveal) para las secciones de contenido ---- */
+function revealAll() {
+  gsap.utils.toArray('.reveal').forEach((el) => {
+    gsap.fromTo(el, { opacity: 0, y: 22 }, {
+      opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 88%' },
+    });
+  });
+}
+
+/* ---- Contadores animados (0 -> target) al entrar ---- */
+function counters() {
+  gsap.utils.toArray('[data-counter]').forEach((el) => {
+    const target = +el.dataset.counter, pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+    const o = { v: 0 };
+    ScrollTrigger.create({
+      trigger: el, start: 'top 85%', once: true,
+      onEnter: () => gsap.to(o, {
+        v: target, duration: 1.2, ease: 'power1.out',
+        onUpdate: () => { el.textContent = pre + Math.round(o.v) + suf; },
+      }),
+    });
+  });
+}
+
 if (HAS_GSAP) {
 const mm = gsap.matchMedia();
 
@@ -170,6 +195,8 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
   heroIntro();
   cardsStagger();
   mapSimAnimation();
+  revealAll();
+  counters();
 });
 
 // Escritorio: efectos pesados
@@ -191,4 +218,12 @@ mm.add('(max-width: 899px) and (prefers-reduced-motion: no-preference)', () => {
   xformMobile();
 });
 } // fin if (HAS_GSAP)
+
+/* Fallback de contadores: si hay reduce-motion o GSAP no cargó, muestra el
+   valor final (evita que se queden en "0"). */
+if (!HAS_GSAP || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('[data-counter]').forEach((el) => {
+    el.textContent = (el.dataset.prefix || '') + el.dataset.counter + (el.dataset.suffix || '');
+  });
+}
 
