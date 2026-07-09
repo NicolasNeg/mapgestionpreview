@@ -37,14 +37,17 @@ function heroIntro() {
 
 /* ---- Cards escalonadas (stagger) al entrar en viewport ---- */
 function cardsStagger() {
-  gsap.fromTo('.gsap-card',
-    { opacity: 0, y: 24 },
+  // Reveal ligado al scroll: las tarjetas se descubren una a una al avanzar.
+  gsap.fromTo('#cards .gsap-card',
+    { opacity: 0, y: 30 },
     {
-      opacity: 1, y: 0, duration: 0.55, ease: 'power3.out',
-      stagger: 0.06,      // ← cascada entre tarjetas (30–60ms, más fluida)
+      opacity: 1, y: 0, ease: 'power2.out',
+      stagger: 1,         // ← en modo scrub se reparten a lo largo del recorrido
       scrollTrigger: {
         trigger: '#cards',
-        start: 'top 80%', // ← gatillo: dispara al 80% del viewport
+        start: 'top 85%',
+        end: 'bottom 60%',
+        scrub: 1,         // ← ligado al scroll (sube el número = más lento)
       },
     });
 }
@@ -177,13 +180,12 @@ function counters() {
   gsap.utils.toArray('[data-counter]').forEach((el) => {
     const target = +el.dataset.counter, pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
     const o = { v: 0 };
-    ScrollTrigger.create({
-      trigger: el, start: 'top 85%', once: true,
-      onEnter: () => gsap.to(o, {
-        v: target, duration: 1.2, ease: 'power1.out',
-        onUpdate: () => { el.textContent = pre + Math.round(o.v) + suf; },
-      }),
-    });
+    // Re-cuenta cada vez que entra en pantalla (desde arriba o abajo) => "siempre animado"
+    const run = () => { o.v = 0; gsap.to(o, {
+      v: target, duration: 1.4, ease: 'power1.out',
+      onUpdate: () => { el.textContent = pre + Math.round(o.v) + suf; },
+    }); };
+    ScrollTrigger.create({ trigger: el, start: 'top 85%', onEnter: run, onEnterBack: run });
   });
 }
 
