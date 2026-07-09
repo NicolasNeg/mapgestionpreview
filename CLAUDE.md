@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Static landing site for **MapGestion** (fleet management / parking-map SaaS). Deployed to `https://mapgestion.com` via GitHub Pages from the `main` branch root. No build step, no package manager, no CI pipeline.
+Static landing site for **MapGestion** — yard/fleet control for rent-a-car companies ("arrendadoras"), sold as a llave-en-mano dedicated-instance product (software + a per-client database), not a shared SaaS. Deployed to `https://mapgestion.com` via GitHub Pages from the `main` branch root. No build step, no package manager, no CI pipeline.
 
 ## Development
 
@@ -19,52 +19,48 @@ Deployment is automatic: push to `main` and GitHub Pages publishes within second
 
 ## Architecture
 
-All pages are self-contained single-file HTML with inline `<style>` and `<script>` tags. External dependencies are loaded via CDN only:
+Two styling worlds coexist — do not assume Tailwind everywhere:
 
-- **Tailwind CSS** (`cdn.tailwindcss.com`) — utility classes plus a custom `tailwind.config` block at `index.html:186`
-- **Inter** (Google Fonts) — sole typeface across all pages
-- **Material Symbols Outlined** (Google Fonts CDN) — icon font used in `index.html`
+- **`index.html`** is an **immersive, animation-heavy landing** split across three sibling files at repo root: `index.html` + `styles.css` (custom CSS, mobile-first, CSS variables) + `app.js` (vanilla JS). It uses **GSAP + ScrollTrigger + MotionPathPlugin** (cdnjs) for scroll-driven animation — **no Tailwind**. Focus: rent-a-car yards ("arrendadoras"), pitched as a llave-en-mano dedicated-instance product (not a cheap SaaS, no pricing).
+- **`terminos.html`** is a single-file page that **does** use Tailwind CDN.
+- The sandbox pages use their own CSS-variable palettes and no Tailwind.
+
+Shared: **Inter** + **Material Symbols Outlined** (Google Fonts). All dark (`--ink: #020617`), indigo/violet accents (`#818cf8`/`#c4b5fd`) plus functional map-status colors (green `#34d399` listo, amber `#fbbf24` preparación, red `#f87171` taller) and brand teal `#89f5e7`.
 
 ### Pages
 
 | File | Purpose | Indexed |
 |---|---|---|
-| `index.html` | Main marketing landing page | yes |
-| `estacionamientos-mapa.html` | Segment landing for parking systems | no |
-| `sandbox-mapa.html` | Interactive map demo (internal/demo use) | no |
-| `terminos.html` | Terms of service | — |
-| `404.html` | GitHub Pages 404 | — |
+| `index.html` (+ `styles.css`, `app.js`) | Main immersive landing | yes |
+| `sandbox-demoOriginal.html` | Interactive yard simulator; **embedded in `index.html` via `<iframe>`** (supports `?embed=1` to hide its chrome) | no |
+| `sandbox-mapa.html` | Older interactive map demo (legacy) | no |
+| `terminos.html` | Terms + privacy (Tailwind) | — |
+| `404.html` | GitHub Pages 404 (own blue theme) | — |
 
-### Dark theme
+### `index.html` structure & animations (app.js)
 
-`index.html` is **always dark** — `body` has `background: #070d1b` and `color: #dce5f5` hardcoded in `<style>`. A large CSS block (~line 1800+) unconditionally overrides all Tailwind surface/text color classes with dark values using `!important`. The `<html class="light">` and `tailwind.config darkMode: "class"` exist but there is no runtime toggle — they are vestigial from an earlier light-mode design. Do not rely on Tailwind `dark:` prefixes for new dark-mode styling; use the override block pattern instead.
+Section IDs in order: `#hero` → `#operaciones` → `#plataforma` → `#transformacion` → `#sandbox-live` → `#modulos` → `#por-que` → `#implementacion` → `#contacto`.
 
-The dark map pages (`sandbox-mapa.html`, `estacionamientos-mapa.html`) use a separate CSS-variable palette (`--bg: #111329`, `--panel`, `--slot`, etc.) in their own `<style>` blocks — they do **not** use Tailwind at all.
+Key GSAP behaviors (all params commented in `app.js`; tune `scrub`/`start`/`end`/`duration`):
+- **Hero**: fade-up entrance on load; background `data-parallax` layer.
+- **`#operaciones`**: a vehicle (`#car`) follows an SVG path (`#route`) via MotionPath on scroll; cards stagger; `#mapSim` markers drop into map spots (`.spot` at `left/top` %).
+- **`#transformacion`**: pinned, scrubbed timeline — an Excel table empties → clean MapGestión cards → the map; caption swaps by progress. Mobile un-pins to stacked fade-ins.
+- **`#plataforma`**: DOM parallax on `[data-parallax]` (× `BASE_PARALLAX`).
+- Generic `.reveal` on-scroll + `[data-counter]` counters.
 
-### Design tokens
+**Responsive/motion:** `gsap.matchMedia()` gates heavy effects to desktop and simplifies on mobile; everything is disabled under `prefers-reduced-motion`. **Progressive enhancement:** `<head>` adds a `js` class; `styles.css` only hides `.gsap-fade/.gsap-card/.reveal` when `.js` is present, and `app.js` (guarded by `HAS_GSAP`) removes `js` if GSAP fails to load — so content is never trapped behind JS. A `[data-counter]` fallback writes final values when animation is off.
 
-Tailwind theme extension (colors, spacing, type scale) is defined at `index.html:186`. Notable aliases: `primary-container` = `#131b2e` (dark navy), `tertiary-fixed` = `#89f5e7` (teal accent). Border radii are overridden to be tighter than Tailwind defaults (`lg` = 0.25rem, `full` = 0.75rem).
+### Interactivity (no backend)
 
-### `index.html` section IDs
-
-Nav links and `data-plan` CTAs use anchor scrolling. Sections in order:
-`#servicios` → `#metricas` → `#antes-despues` → `#producto` → `#beneficios` → `#como-funciona` → `#demo` → `#pantallas` → `#clientes` → `#reviews` → `#faq` → `#precios` → `#contacto`
-
-### Interactivity patterns
-
-**Contact form** (`#contacto`): submits via `window.location.href = mailto:…` — no backend, no server. The `handleForm` function at the bottom `<script>` builds the mailto URL from `FormData`.
-
-**Pricing → form wiring**: anchor tags in pricing cards carry `data-plan="Lite|Local|Regional|Corporativo"`. A `querySelectorAll('[data-plan]')` listener pre-fills the hidden `<input id="plan">` in the contact form when a pricing CTA is clicked.
-
-**Animated counters**: elements with `[data-counter]` in the metrics strip (`#metricas`) animate from 0 to the target value on first scroll-into-view via `IntersectionObserver`. Attributes: `data-counter` (number), `data-prefix`, `data-suffix`.
-
-**Screenshot lightbox**: `.gallery-frame[data-src]` buttons open a fullscreen overlay. Required attributes: `data-src`, `data-title`, `data-kicker`, `data-desc`. Keyboard: Arrow keys navigate, Escape closes.
-
-**Sandbox modal**: `openSandbox()` lazy-loads `sandbox-mapa.html` via `fetch()` into `iframe.srcdoc`. The iframe approach is used to avoid a full-page navigation; if CSP blocks `srcdoc` in a given context, it falls back to a message with an "open in new tab" button.
+No contact form and no pricing. CTAs go to WhatsApp (`wa.me/524778024682`) or `mailto:contacto@mapgestion.com`. The simulator is embedded, not opened in a new tab.
 
 ### SEO / structured data
 
-`index.html` embeds four JSON-LD blocks in `<head>`: `SoftwareApplication`, `WebSite`, `Organization`, `FAQPage`. The four plan prices in `SoftwareApplication.offers` must stay in sync with what's displayed in `#precios`. Current plans: Lite $990, Local $1,990, Regional $4,490, Corporativo $9,990 (all MXN).
+`index.html` embeds four JSON-LD blocks in `<head>`: `SoftwareApplication`, `WebSite`, `Organization`, `FAQPage`. Pricing was removed — `SoftwareApplication.offers` is a single "Licencia Corporativa" with `price: "Custom"` (non-numeric on purpose; a validator may flag it). `FAQPage` is kept in `<head>` for SEO but **not** rendered on the page.
+
+### Known placeholders
+
+The social-proof strip uses placeholder wordmark "logos" and a `[Nombre]/[Cargo]/[Arrendadora]` testimonial — both marked `TODO` in `index.html`, awaiting real client assets.
 
 ### Assets
 
