@@ -25,23 +25,23 @@ const BASE_PARALLAX = 260;
 function heroIntro() {
   // fromTo = estado inicial explícito -> final (evita conflictos con el CSS opacity:0)
   gsap.fromTo('.gsap-fade',
-    { opacity: 0, y: 24 },
+    { opacity: 0, y: 20 },
     {
       opacity: 1, y: 0,
-      duration: 0.9,      // ← velocidad de cada elemento
+      duration: 0.7,      // ← velocidad de cada elemento
       ease: 'power3.out',
-      stagger: 0.12,      // ← separación entre líneas
-      delay: 0.15,
+      stagger: 0.07,      // ← separación entre líneas (más ágil)
+      delay: 0.1,
     });
 }
 
 /* ---- Cards escalonadas (stagger) al entrar en viewport ---- */
 function cardsStagger() {
   gsap.fromTo('.gsap-card',
-    { opacity: 0, y: 30 },
+    { opacity: 0, y: 24 },
     {
-      opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
-      stagger: 0.12,      // ← cascada entre tarjetas
+      opacity: 1, y: 0, duration: 0.55, ease: 'power3.out',
+      stagger: 0.06,      // ← cascada entre tarjetas (30–60ms, más fluida)
       scrollTrigger: {
         trigger: '#cards',
         start: 'top 80%', // ← gatillo: dispara al 80% del viewport
@@ -52,10 +52,10 @@ function cardsStagger() {
 /* ---- Marcadores que se ACOMODAN en los spots del mapa (entrada con rebote) ---- */
 function mapSimAnimation() {
   gsap.from('#mapSim .spot', {
-    opacity: 0, scale: 0.3, y: -30,
-    duration: 0.6,
-    ease: 'back.out(1.7)',            // ← el rebote da el efecto de "encajar" en el spot
-    stagger: { each: 0.08, from: 'random' }, // ← se colocan uno a uno, en orden aleatorio
+    opacity: 0, scale: 0.3, y: -26,
+    duration: 0.5,
+    ease: 'back.out(1.5)',            // ← el rebote da el efecto de "encajar" en el spot
+    stagger: { each: 0.05, from: 'random' }, // ← se colocan uno a uno, en orden aleatorio
     scrollTrigger: {
       trigger: '#mapSim',
       start: 'top 75%',               // ← gatillo: dispara al entrar el mapa
@@ -138,7 +138,7 @@ function xformDesktop() {
     .to('#xExcel', { opacity: 0, scale: 0.92, duration: 1 }, '>-0.3')
     // 2) Aparece el formato claro (tarjetas en cascada)
     .to('#xApp', { opacity: 1, duration: 1 }, '<')
-    .from('#xApp .xcard', { opacity: 0, y: 24, stagger: 0.15, duration: 1.2, ease: 'power2.out' }, '<')
+    .from('#xApp .xcard', { opacity: 0, y: 24, stagger: 0.08, duration: 1.2, ease: 'power3.out' }, '<')
     .to('#xApp', { opacity: 0, scale: 0.96, duration: 1 }, '+=1')
     // 3) Aparece el mapa y las unidades se acomodan en sus spots
     .to('#xMap', { opacity: 1, duration: 1 }, '<')
@@ -165,8 +165,8 @@ function xformMobile() {
 /* ---- Reveal genérico (.reveal) para las secciones de contenido ---- */
 function revealAll() {
   gsap.utils.toArray('.reveal').forEach((el) => {
-    gsap.fromTo(el, { opacity: 0, y: 22 }, {
-      opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
+    gsap.fromTo(el, { opacity: 0, y: 16 }, {
+      opacity: 1, y: 0, duration: 0.5, ease: 'power3.out',
       scrollTrigger: { trigger: el, start: 'top 88%' },
     });
   });

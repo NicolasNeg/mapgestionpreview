@@ -129,7 +129,7 @@
   <section class="ops" id="operaciones">
     <div class="container">
       <h2 class="section-title">Cómo se mueve tu operación</h2>
-      <p class="section-sub">Desplázate: el vehículo recorre la ruta a medida que avanzas.</p>
+      <p class="section-sub">Sigue una unidad por tu patio: cada movimiento, en vivo, a medida que avanzas.</p>
     </div>
 
     <!-- Rutas y Autos: el .car se anima sobre el trazado #route con ScrollTrigger -->
@@ -141,30 +141,30 @@
         <path id="route-fill" d="M20 340 C 220 340, 260 80, 460 80 S 760 340, 980 300 S 1180 120, 1180 120"
           stroke="#89f5e7" stroke-width="4" pathLength="1" />
       </svg>
-      <!-- El vehículo (puedes reemplazar por un <img> o SVG de auto) -->
-      <div class="car" id="car">🚚</div>
+      <!-- El vehículo que recorre la ruta -->
+      <div class="car" id="car"><span class="material-symbols-outlined">directions_car</span></div>
     </div>
 
     <!-- Cargas e Inventario: cards con stagger al entrar -->
     <div class="container">
       <div class="cards" id="cards">
         <article class="card gsap-card">
-          <span class="card__ico">📍</span>
+          <span class="card__ico material-symbols-outlined">location_on</span>
           <h3>Ubicación en vivo</h3>
           <p>Cada unidad en el plano de tu patio.</p>
         </article>
         <article class="card gsap-card">
-          <span class="card__ico">🧾</span>
+          <span class="card__ico material-symbols-outlined">receipt_long</span>
           <h3>Cuadre de cargas</h3>
           <p>Movimientos y estados sin huecos.</p>
         </article>
         <article class="card gsap-card">
-          <span class="card__ico">🛡️</span>
+          <span class="card__ico material-symbols-outlined">shield</span>
           <h3>Incidencias</h3>
           <p>Reportes con evidencia y responsable.</p>
         </article>
         <article class="card gsap-card">
-          <span class="card__ico">📊</span>
+          <span class="card__ico material-symbols-outlined">insights</span>
           <h3>Datos de operación</h3>
           <p>Indicadores claros para decidir.</p>
         </article>
@@ -206,7 +206,7 @@
   <section class="ui-float" id="plataforma">
     <div class="container">
       <h2 class="section-title">La plataforma en acción</h2>
-      <p class="section-sub">Paneles y gráficas que flotan a distintas velocidades para dar profundidad.</p>
+      <p class="section-sub">Mapa, flota y reportes — tu operación completa, viva y en capas.</p>
     </div>
 
     <div class="stage">

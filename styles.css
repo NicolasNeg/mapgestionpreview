@@ -75,14 +75,19 @@ a { color: inherit; text-decoration: none; }
 .ops { padding: 6rem 0; }
 .route { position: relative; width: 100%; margin: 2rem 0 4rem; }
 .route__svg { width: 100%; height: auto; }
-.car { position: absolute; top: 0; left: 0; font-size: 2rem; will-change: transform; filter: drop-shadow(0 6px 12px rgba(0,0,0,.5)); }
+.car { position: absolute; top: 0; left: 0; font-size: 2.2rem; color: var(--teal); will-change: transform; filter: drop-shadow(0 6px 12px rgba(0,0,0,.5)); }
 
 .cards { display: grid; grid-template-columns: 1fr; gap: 1rem; }
 .card {
   background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
   border-radius: var(--radius); padding: 1.6rem;
 }
-.card__ico { font-size: 1.8rem; display: block; margin-bottom: .6rem; }
+.card__ico { font-size: 1.9rem; color: #a5b4fc; display: block; margin-bottom: .6rem; }
+/* Hover-lift en tarjetas: micro-interacción sutil, solo en PC */
+.card, .bento__card, .why__card, .step { transition: transform .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease); }
+@media (hover: hover) {
+  .card:hover, .bento__card:hover, .why__card:hover, .step:hover { transform: translateY(-4px); border-color: rgba(129,140,248,.35); }
+}
 .card h3 { font-size: 1.15rem; margin-bottom: .3rem; }
 .card p { color: var(--muted); font-size: .95rem; }
 
@@ -233,7 +238,7 @@ a { color: inherit; text-decoration: none; }
 .material-symbols-outlined { font-family: 'Material Symbols Outlined'; vertical-align: middle; }
 .grad { background: linear-gradient(100deg, #a5b4fc, #818cf8 40%, #c4b5fd); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .js .reveal { opacity: 0; }
-.reveal { transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal { transition: opacity .55s var(--ease), transform .55s var(--ease); }
 
 /* Navbar flotante */
 .nav { position: fixed; top: 16px; left: 0; right: 0; z-index: 50; padding: 0 16px; }
