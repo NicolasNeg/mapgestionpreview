@@ -162,8 +162,28 @@ a { color: inherit; text-decoration: none; }
    4 · CTA + Footer
    ============================================================ */
 .cta { padding: 7rem 0; text-align: center; }
+.cta__inner { max-width: 640px; margin-inline: auto; }
 .cta__inner h2 { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 900; letter-spacing: -.02em; }
 .cta__inner p { color: var(--muted); margin: .8rem 0 2rem; }
+
+/* Formulario de contacto */
+.cform { display: flex; flex-direction: column; gap: 1rem; text-align: left; }
+.cform__row { display: grid; gap: 1rem; }
+@media (min-width: 620px) { .cform__row { grid-template-columns: 1fr 1fr; } }
+.cform__field { display: flex; flex-direction: column; gap: .35rem; }
+.cform__field span { font-size: .82rem; color: var(--muted); }
+.cform__field input, .cform__field textarea {
+  width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 10px; padding: .8rem 1rem; color: #fff; font: inherit; min-height: 48px; resize: vertical;
+}
+.cform__field input::placeholder, .cform__field textarea::placeholder { color: #64748b; }
+.cform__field input:focus, .cform__field textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(129,140,248,.2); }
+.cform button { margin-top: .5rem; }
+.cform__status { text-align: center; font-size: .9rem; min-height: 1.2em; margin: 0; }
+.cform__status.ok { color: #34d399; }
+.cform__status.err { color: #f87171; }
+.cform__alt { color: var(--muted); font-size: .9rem; margin-top: 1.2rem; }
+.cform__alt a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
 .foot { padding: 2.5rem 0; color: var(--muted); text-align: center; font-size: .85rem; border-top: 1px solid rgba(255,255,255,.08); }
 
 /* ===== Estado inicial de las animaciones GSAP (evita flash) =====
@@ -181,17 +201,13 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ============================================================
-   3.5 · TRANSFORMACIÓN (Excel -> formato -> mapa)
-   Móvil (por defecto): las 3 etapas se apilan y aparecen con fade.
+   3.5 · DEL CAOS DEL EXCEL AL MAPA — tabla MapGestión funcional
    ============================================================ */
 .xform { padding: 6rem 0; }
-.xform__head { text-align: center; width: min(100% - 2.5rem, var(--maxw)); margin-inline: auto; }
-.xform__cap { color: var(--muted); margin-top: .6rem; min-height: 1.5em; }
-.xform__stage { position: relative; width: min(100% - 2.5rem, var(--maxw)); margin: 2.5rem auto 0; }
-.xpanel { margin-bottom: 2rem; }
+.xstack { display: flex; flex-direction: column; align-items: stretch; gap: 1.5rem; margin-top: 3rem; }
 
-/* Excel (aspecto claro para contrastar con el "después" oscuro) */
-.xls { width: min(100%, 720px); margin: 0 auto; background: #fff; color: #1f2937; border-radius: 10px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.55); font-size: .82rem; }
+/* Excel (claro, contrasta con el "después" oscuro) */
+.xls { width: min(100%, 780px); margin: 0 auto; background: #fff; color: #1f2937; border-radius: 10px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.55); font-size: .82rem; }
 .xls__bar { background: #e5e7eb; padding: .55rem .8rem; display: flex; align-items: center; gap: .4rem; color: #6b7280; font-size: .75rem; }
 .xls__bar span { width: 10px; height: 10px; border-radius: 50%; background: #cbd5e1; }
 .xls__grid { width: 100%; border-collapse: collapse; }
@@ -199,25 +215,29 @@ a { color: inherit; text-decoration: none; }
 .xls__grid thead th { background: #f3f4f6; color: #9ca3af; font-weight: 600; }
 .xls__grid td:first-child { background: #f3f4f6; color: #9ca3af; text-align: center; width: 2rem; }
 
-/* Formato MapGestión */
-.xcards { display: grid; gap: .8rem; width: min(100%, 560px); margin: 0 auto; }
-.xcard { display: flex; align-items: center; gap: .8rem; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 1rem 1.2rem; }
-.xcard b { font-size: 1.05rem; }
-.xcard small { color: var(--muted); margin-left: auto; }
-.s { width: 12px; height: 12px; border-radius: 50%; flex: none; }
-.s--avail { background: #34d399; } .s--prep { background: #fbbf24; } .s--patio { background: #818cf8; } .s--taller { background: #f87171; }
+.xarrow { text-align: center; color: var(--muted); font-size: .9rem; display: flex; align-items: center; justify-content: center; gap: .4rem; }
+.xarrow .material-symbols-outlined { color: var(--accent); }
 
-/* Mapa sandbox */
-.xmap { position: relative; width: min(100%, 860px); margin: 0 auto; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,.1); box-shadow: 0 24px 60px rgba(0,0,0,.55); }
-.xmap img { width: 100%; display: block; }
-.xmap__try { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); }
-
-/* Desktop: etapas superpuestas y centradas para la timeline pineada */
-@media (min-width: 900px) {
-  .xform__sticky { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
-  .xform__stage { height: 62vh; max-width: 900px; }
-  .xpanel { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; }
-}
+/* Tabla MapGestión funcional (buscador + filtros) */
+.mgtable { width: 100%; max-width: 980px; margin: 0 auto; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.5); }
+.mgtable__toolbar { display: flex; flex-wrap: wrap; gap: .8rem; padding: 1rem; border-bottom: 1px solid rgba(255,255,255,.08); }
+.mgtable__search { display: flex; align-items: center; gap: .5rem; flex: 1 1 240px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: 10px; padding: .5rem .8rem; color: var(--muted); }
+.mgtable__search input { flex: 1; min-width: 0; background: none; border: 0; outline: none; color: #fff; font: inherit; }
+.mgtable__filters { display: flex; flex-wrap: wrap; gap: .4rem; }
+.mgchip { display: inline-flex; align-items: center; gap: .35rem; padding: .45rem .8rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); background: transparent; color: var(--muted); font: 600 .82rem/1 'Inter', sans-serif; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+.mgchip:hover { color: #fff; }
+.mgchip.is-active { background: rgba(129,140,248,.18); border-color: rgba(129,140,248,.5); color: #fff; }
+.mgdot { width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+.mgtable__scroll { max-height: 360px; overflow-y: auto; }
+.mgtable__grid { width: 100%; border-collapse: collapse; font-size: .88rem; }
+.mgtable__grid th { position: sticky; top: 0; background: #0d1526; text-align: left; padding: .7rem 1rem; color: var(--muted); font-weight: 600; font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; }
+.mgtable__grid td { padding: .7rem 1rem; border-top: 1px solid rgba(255,255,255,.06); white-space: nowrap; }
+.mgtable__grid tbody tr:hover { background: rgba(255,255,255,.03); }
+.mg-mva { color: #a5b4fc; font-weight: 700; }
+.mg-badge { display: inline-flex; align-items: center; gap: .35rem; padding: .2rem .55rem; border-radius: 999px; font-size: .72rem; font-weight: 700; background: rgba(255,255,255,.06); }
+.mg-badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--c); }
+.mgtable__foot { padding: .7rem 1rem; color: var(--muted); font-size: .8rem; border-top: 1px solid rgba(255,255,255,.08); }
+.mgtable__empty td { text-align: center; color: var(--muted); padding: 2rem; }
 
 /* ============================================================
    3.6 · Sandbox embebido

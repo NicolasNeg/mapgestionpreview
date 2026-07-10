@@ -113,52 +113,6 @@ function mobileSimplified() {
   });
 }
 
-/* ---- TRANSFORMACIÓN (desktop): timeline pineada ligada al scroll ----
-   Sube 'end' (+=2600) para hacer TODA la secuencia más lenta/larga. */
-function xformDesktop() {
-  const cap = document.getElementById('xcap');
-  gsap.set(['#xApp', '#xMap'], { opacity: 0 });
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: '#transformacion',
-      start: 'top top',
-      end: '+=2600',          // ← longitud total de la secuencia en px de scroll
-      scrub: 1,               // ← ligado al scroll (1s de suavizado)
-      pin: '.xform__sticky',  // ← fija la escena mientras dura la timeline
-      anticipatePin: 1,
-      onUpdate: (self) => {   // subtítulo según el avance
-        const p = self.progress;
-        cap.textContent = p < 0.34 ? 'Hoy: hojas de Excel y mensajes sueltos.'
-          : p < 0.68 ? 'Con MapGestión: cada unidad, clara y a la vista.'
-            : 'Y es un mapa real: pruébalo tú mismo.';
-      },
-    },
-  });
-
-  // 1) El Excel se VACÍA (celdas de datos) y se retira
-  tl.to('#xExcel .xc', { opacity: 0, stagger: { each: 0.03, from: 'random' }, duration: 2 }, 0)
-    .to('#xExcel', { opacity: 0, scale: 0.92, duration: 1 }, '>-0.3')
-    // 2) Aparece el formato claro (tarjetas en cascada)
-    .to('#xApp', { opacity: 1, duration: 1 }, '<')
-    .from('#xApp .xcard', { opacity: 0, y: 24, stagger: 0.08, duration: 1.2, ease: 'power3.out' }, '<')
-    .to('#xApp', { opacity: 0, scale: 0.96, duration: 1 }, '+=1')
-    // 3) Aparece el mapa y las unidades se acomodan en sus spots
-    .to('#xMap', { opacity: 1, duration: 1 }, '<')
-    .from('#xMap .spot', { opacity: 0, scale: 0.3, y: -20, stagger: 0.12, ease: 'back.out(1.7)', duration: 1 }, '<0.2')
-    .from('#xMap .xmap__try', { opacity: 0, y: 16, duration: 0.6 }, '>-0.2');
-}
-
-/* ---- TRANSFORMACIÓN (móvil): sin pin, 3 bloques con fade-in ---- */
-function xformMobile() {
-  gsap.utils.toArray('#transformacion .xpanel').forEach((el) => {
-    gsap.from(el, {
-      opacity: 0, y: 30, duration: 0.7, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 85%' },
-    });
-  });
-}
-
 /* ---- "La plataforma en acción": scroll horizontal pineado (desktop) ---- */
 function horizontalShowcase() {
   const track = document.getElementById('showcaseTrack');
@@ -231,13 +185,9 @@ mm.add('(max-width: 767px) and (prefers-reduced-motion: no-preference)', () => {
   mobileSimplified();
 });
 
-// Transformación Excel→mapa: pineada en desktop, apilada en móvil
+// Showcase horizontal: pineado en desktop
 mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
-  xformDesktop();
   horizontalShowcase();
-});
-mm.add('(max-width: 899px) and (prefers-reduced-motion: no-preference)', () => {
-  xformMobile();
 });
 } // fin if (HAS_GSAP)
 
@@ -248,4 +198,103 @@ if (!HAS_GSAP || window.matchMedia('(prefers-reduced-motion: reduce)').matches) 
     el.textContent = (el.dataset.prefix || '') + el.dataset.counter + (el.dataset.suffix || '');
   });
 }
+
+/* ============================================================
+   Tabla MapGestión FUNCIONAL — buscador + filtros (sin depender de GSAP)
+   Para usar tus datos reales: reemplaza el array `data` (MVA, Categoría,
+   Modelo, Placas, Estado, Ubicación). Estados válidos: LISTO, PREPARACION,
+   TALLER, PATIO.
+   ============================================================ */
+(function mgTable() {
+  const body = document.getElementById('mgBody');
+  if (!body) return;
+  const search = document.getElementById('mgSearch');
+  const filters = document.getElementById('mgFilters');
+  const countEl = document.getElementById('mgCount');
+
+  const COLORS = { LISTO: '#34d399', PREPARACION: '#fbbf24', TALLER: '#f87171', PATIO: '#818cf8' };
+  const LABEL = { LISTO: 'Listo', PREPARACION: 'Preparación', TALLER: 'Taller', PATIO: 'En patio' };
+  const data = [
+    ['D5129', 'ECAR', 'Aveo Sedan LT', 'GHB972G', 'LISTO', 'Patio'],
+    ['D5256', 'ECAR', 'Aveo Sedan LT', 'GHD748G', 'LISTO', 'Patio'],
+    ['F1161', 'FCAR', 'Jetta Comfortline', 'DNF918J', 'PREPARACION', 'Lavado'],
+    ['I166', 'FFBH', 'Tank 300 HEV', '77L136', 'TALLER', 'Taller'],
+    ['I174', 'FFBH', 'Tank 300 HEV', '76L936', 'LISTO', 'Patio'],
+    ['M159', 'PFAR', 'Suburban LT', 'DSR767E', 'PATIO', 'Fila 3'],
+    ['M164', 'PFAR', 'Suburban LT', 'DPW207G', 'LISTO', 'Patio'],
+    ['Q234', 'MVAR', 'GN8 GT', 'GYR575F', 'PREPARACION', 'Detalle'],
+    ['S034', 'IVAH', 'Sienna LE 8P', '76L482', 'LISTO', 'Patio'],
+    ['N372', 'GVBB', 'Transporter 6.1', 'GUB032F', 'TALLER', 'Taller'],
+    ['C2926', 'FCAR', 'Ford Edge', 'TTC486A', 'PATIO', 'Externo'],
+    ['B2380', 'ECAR', 'Onix LT', 'GRB110F', 'LISTO', 'Patio'],
+    ['Z018', 'SMCAT', 'Versa Sense', 'CWP533J', 'PREPARACION', 'Lavado'],
+    ['A1842', 'ECAR', 'Kicks Advance', 'GNK802E', 'PATIO', 'Fila 1'],
+    ['C5209', 'FFBH', 'CX-5 Signature', '76P210', 'TALLER', 'Taller'],
+  ];
+
+  let q = '', f = 'all';
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  function render() {
+    const rows = data.filter((r) => {
+      const okF = f === 'all' || r[4] === f;
+      const okQ = !q || (r[0] + ' ' + r[2] + ' ' + r[3]).toLowerCase().includes(q);
+      return okF && okQ;
+    });
+    body.innerHTML = rows.length
+      ? rows.map((r) => `<tr>
+          <td class="mg-mva">${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td>
+          <td><span class="mg-badge" style="--c:${COLORS[r[4]]}">${LABEL[r[4]]}</span></td>
+          <td>${esc(r[5])}</td></tr>`).join('')
+      : '<tr class="mgtable__empty"><td colspan="6">Sin resultados para tu búsqueda.</td></tr>';
+    countEl.textContent = `Mostrando ${rows.length} de ${data.length} unidades`;
+  }
+
+  search.addEventListener('input', () => { q = search.value.trim().toLowerCase(); render(); });
+  filters.addEventListener('click', (e) => {
+    const btn = e.target.closest('.mgchip'); if (!btn) return;
+    filters.querySelectorAll('.mgchip').forEach((b) => b.classList.toggle('is-active', b === btn));
+    f = btn.dataset.f; render();
+  });
+  render();
+})();
+
+/* ============================================================
+   Formulario de contacto — envío AJAX a Formspree (sin backend).
+   Pega tu ID en el action del <form>. Si sigue en YOUR_FORM_ID,
+   avisa y sugiere WhatsApp.
+   ============================================================ */
+(function contactForm() {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+  const btn = document.getElementById('cformBtn');
+  const status = document.getElementById('cformStatus');
+  const configured = !form.action.includes('YOUR_FORM_ID');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!configured) {
+      status.className = 'cform__status err';
+      status.textContent = 'Formulario aún sin configurar — escríbenos por WhatsApp mientras tanto.';
+      return;
+    }
+    const label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Enviando…';
+    status.className = 'cform__status'; status.textContent = '';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' },
+      });
+      if (!res.ok) throw new Error('bad response');
+      form.reset();
+      status.className = 'cform__status ok';
+      status.textContent = '¡Gracias! Te contactamos muy pronto.';
+    } catch (_) {
+      status.className = 'cform__status err';
+      status.textContent = 'No se pudo enviar. Intenta de nuevo o escríbenos por WhatsApp.';
+    } finally {
+      btn.disabled = false; btn.textContent = label;
+    }
+  });
+})();
 

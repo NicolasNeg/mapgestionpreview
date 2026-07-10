@@ -256,59 +256,62 @@
   </section>
 
   <!-- ============================================================= -->
-  <!-- 3.5 · TRANSFORMACIÓN — Excel se vacía → formato claro → mapa   -->
-  <!-- Sección "pineada": una timeline GSAP ligada al scroll cruza 3  -->
-  <!-- etapas. En móvil se apila en 3 bloques con fade-in.            -->
+  <!-- 3.5 · DEL CAOS DEL EXCEL AL MAPA — tabla MapGestión funcional  -->
   <!-- ============================================================= -->
   <section class="xform" id="transformacion">
-    <div class="xform__sticky">
-      <div class="xform__head">
-        <h2 class="section-title">Del caos del Excel al mapa</h2>
-        <p class="xform__cap" id="xcap">Hoy: hojas de Excel y mensajes sueltos.</p>
+    <div class="container" style="text-align:center;">
+      <h2 class="section-title">Del caos del Excel al mapa</h2>
+      <p class="section-sub">Así rastreas tu flota hoy… y así con MapGestión: buscable, filtrable y clara.</p>
+    </div>
+
+    <div class="container xstack">
+      <!-- Excel (desordenado, un poco más extenso) -->
+      <div class="xls reveal">
+        <div class="xls__bar"><span></span><span></span><span></span>&nbsp; unidades_patio.xlsx</div>
+        <table class="xls__grid">
+          <thead><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>D5129</td><td>Aveo</td><td>listo?</td><td>patio 2</td><td>ok x</td></tr>
+            <tr><td>2</td><td>F1161</td><td>Jetta</td><td>lavando</td><td>-</td><td>pregunta Jose</td></tr>
+            <tr><td>3</td><td>I166</td><td>Tank 300</td><td>taller??</td><td>?</td><td>rayón</td></tr>
+            <tr><td>4</td><td>M159</td><td>Suburban</td><td>en patio</td><td>fila 3</td><td></td></tr>
+            <tr><td>5</td><td>Q234</td><td>GN8</td><td>no sé</td><td>-</td><td>revisar</td></tr>
+            <tr><td>6</td><td>S034</td><td>Sienna</td><td>ok</td><td>?</td><td>falta gas</td></tr>
+            <tr><td>7</td><td>N372</td><td>Transporter</td><td>apartado?</td><td>-</td><td>cliente??</td></tr>
+            <tr><td>8</td><td>C2926</td><td>Ford Edge</td><td>externo</td><td>-</td><td>dónde está</td></tr>
+          </tbody>
+        </table>
       </div>
 
-      <div class="xform__stage">
-        <!-- Etapa 0 · Excel (se vacía) -->
-        <div class="xpanel xpanel--excel" id="xExcel">
-          <div class="xls">
-            <div class="xls__bar"><span></span><span></span><span></span>&nbsp; unidades_patio.xlsx</div>
-            <table class="xls__grid">
-              <thead><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
-              <tbody>
-                <tr><td>1</td><td class="xc">ABC-123</td><td class="xc">taller?</td><td class="xc">patio 2</td><td class="xc">rayón</td></tr>
-                <tr><td>2</td><td class="xc">XY-88</td><td class="xc">ok</td><td class="xc">-</td><td class="xc">listo x</td></tr>
-                <tr><td>3</td><td class="xc">LMN-44</td><td class="xc">lavando</td><td class="xc">?</td><td class="xc">pregunta a Jose</td></tr>
-                <tr><td>4</td><td class="xc">PQ-77</td><td class="xc">en patio</td><td class="xc">fila 3</td><td class="xc"></td></tr>
-                <tr><td>5</td><td class="xc">RS-09</td><td class="xc">no sé</td><td class="xc">-</td><td class="xc">revisar</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+      <div class="xarrow reveal"><span class="material-symbols-outlined">arrow_downward</span> Lo mismo, pero buscable y filtrable</div>
 
-        <!-- Etapa 1 · Formato MapGestión (claro) -->
-        <div class="xpanel xpanel--app" id="xApp">
-          <div class="xcards">
-            <div class="xcard"><span class="s s--taller"></span><b>ABC-123</b><small>En taller · rayón</small></div>
-            <div class="xcard"><span class="s s--avail"></span><b>XY-88</b><small>Listo para rentar</small></div>
-            <div class="xcard"><span class="s s--prep"></span><b>LMN-44</b><small>En preparación · lavado</small></div>
-            <div class="xcard"><span class="s s--patio"></span><b>PQ-77</b><small>En patio · fila 3</small></div>
-            <div class="xcard"><span class="s s--prep"></span><b>RS-09</b><small>En revisión</small></div>
+      <!-- Tabla MapGestión FUNCIONAL: buscador + filtros operan sobre los datos -->
+      <div class="mgtable reveal" id="mgtable">
+        <div class="mgtable__toolbar">
+          <label class="mgtable__search">
+            <span class="material-symbols-outlined">search</span>
+            <input id="mgSearch" type="search" placeholder="Buscar MVA, placas o modelo…" aria-label="Buscar unidad" />
+          </label>
+          <div class="mgtable__filters" id="mgFilters">
+            <button class="mgchip is-active" data-f="all">Todos</button>
+            <button class="mgchip" data-f="LISTO"><i class="mgdot" style="--c:#34d399"></i>Listo</button>
+            <button class="mgchip" data-f="PREPARACION"><i class="mgdot" style="--c:#fbbf24"></i>Preparación</button>
+            <button class="mgchip" data-f="TALLER"><i class="mgdot" style="--c:#f87171"></i>Taller</button>
+            <button class="mgchip" data-f="PATIO"><i class="mgdot" style="--c:#818cf8"></i>En patio</button>
           </div>
         </div>
-
-        <!-- Etapa 2 · Mapa (sandbox real) -->
-        <div class="xpanel xpanel--map" id="xMap">
-          <div class="xmap">
-            <img src="assets/screenshots/mapa-vivo.png" alt="Mapa del patio con las unidades ubicadas" />
-            <span class="spot spot--taller" style="left:30%; top:40%;">ABC</span>
-            <span class="spot spot--avail"  style="left:46%; top:27%;">XY</span>
-            <span class="spot spot--prep"   style="left:22%; top:66%;">LMN</span>
-            <span class="spot spot--patio"  style="left:44%; top:45%;">PQ</span>
-            <span class="spot spot--prep"   style="left:54%; top:66%;">RS</span>
-            <a class="btn btn--primary xmap__try" href="#sandbox-live">Pruébalo tú mismo →</a>
-          </div>
+        <div class="mgtable__scroll">
+          <table class="mgtable__grid">
+            <thead><tr><th>MVA</th><th>Categoría</th><th>Modelo</th><th>Placas</th><th>Estado</th><th>Ubicación</th></tr></thead>
+            <tbody id="mgBody"></tbody>
+          </table>
         </div>
+        <div class="mgtable__foot"><span id="mgCount"></span></div>
       </div>
+
+      <a class="btn btn--primary reveal" href="#sandbox-live" style="align-self:center;">
+        Y es un mapa real — pruébalo <span class="material-symbols-outlined">arrow_forward</span>
+      </a>
     </div>
   </section>
 
@@ -431,11 +434,27 @@
   <section class="cta" id="contacto">
     <div class="container cta__inner">
       <h2>Sube de nivel tu arrendadora.</h2>
-      <p>Deja de perder dinero por autos no localizados o daños sin responsable. Agenda una consultoría y vemos tu patio en el mapa.</p>
-      <div class="cta__actions">
-        <a class="btn btn--primary btn--lg" href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20consultor%C3%ADa%20para%20mi%20arrendadora" target="_blank" rel="noopener">Agendar Reunión Comercial</a>
-        <a class="btn btn--ghost btn--lg" href="mailto:contacto@mapgestion.com">Escribir por correo</a>
-      </div>
+      <p>Déjanos tus datos y un especialista te contacta para agendar la consultoría. Sin compromiso.</p>
+
+      <!-- Formulario: Formspree. Reemplaza YOUR_FORM_ID por tu ID de formspree.io -->
+      <form class="cform" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="cform__row">
+          <label class="cform__field"><span>Nombre *</span><input name="nombre" required autocomplete="name" placeholder="Tu nombre" /></label>
+          <label class="cform__field"><span>Empresa</span><input name="empresa" autocomplete="organization" placeholder="Tu arrendadora" /></label>
+        </div>
+        <div class="cform__row">
+          <label class="cform__field"><span>WhatsApp *</span><input name="whatsapp" required inputmode="tel" autocomplete="tel" placeholder="55 1234 5678" /></label>
+          <label class="cform__field"><span>Correo *</span><input name="email" type="email" required autocomplete="email" placeholder="tu@correo.com" /></label>
+        </div>
+        <label class="cform__field"><span>Mensaje</span><textarea name="mensaje" rows="3" placeholder="¿Cuántas unidades y plazas manejas?"></textarea></label>
+        <input type="hidden" name="_subject" value="Nuevo lead — MapGestión" />
+        <button type="submit" class="btn btn--primary btn--lg" id="cformBtn">Agendar consultoría</button>
+        <p class="cform__status" id="cformStatus" role="status" aria-live="polite"></p>
+      </form>
+
+      <p class="cform__alt">¿Prefieres WhatsApp?
+        <a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20consultor%C3%ADa%20para%20mi%20arrendadora" target="_blank" rel="noopener">Escríbenos aquí</a>.
+      </p>
     </div>
   </section>
 
