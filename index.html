@@ -205,21 +205,53 @@
   </section>
 
   <!-- ============================================================= -->
-  <!-- 3 · UI FLOTANTE — mockup con parallax de profundidad           -->
+  <!-- 3 · LA PLATAFORMA EN ACCIÓN — scroll horizontal a pantalla completa -->
+  <!-- Desktop: sección pineada, el track se traslada con el scroll.  -->
+  <!-- Móvil: scroll horizontal nativo con snap (swipe).              -->
   <!-- ============================================================= -->
-  <section class="ui-float" id="plataforma">
-    <div class="container">
-      <h2 class="section-title">La plataforma en acción</h2>
-      <p class="section-sub">Mapa, flota y reportes — tu operación completa, viva y en capas.</p>
-    </div>
-
-    <div class="stage">
-      <!-- Cada capa flota a distinta velocidad: data-parallax = intensidad (px por scroll). -->
-      <img class="panel panel--main" src="assets/screenshots/mapa-vivo.png" alt="Panel principal — mapa" data-parallax="0.05" />
-      <img class="panel panel--a" src="assets/screenshots/resumen-flota.png" alt="Gráfica de flota" data-parallax="0.18" />
-      <img class="panel panel--b" src="assets/screenshots/gestion-flota.png" alt="Gestión de flota" data-parallax="-0.12" />
-      <div class="glow glow--1" data-parallax="0.3"></div>
-      <div class="glow glow--2" data-parallax="-0.22"></div>
+  <section class="showcase" id="plataforma">
+    <div class="showcase__pin">
+      <div class="showcase__head container">
+        <h2 class="section-title">La plataforma en acción</h2>
+        <p class="section-sub">Desliza y recorre el sistema, pantalla por pantalla.</p>
+      </div>
+      <div class="showcase__track" id="showcaseTrack">
+        <article class="showcase__panel">
+          <div class="showcase__frame">
+            <div class="showcase__bar"><span></span><span></span><span></span></div>
+            <img src="assets/screenshots/mapa-vivo.png" alt="Mapa del patio en vivo" loading="lazy" />
+          </div>
+          <p class="showcase__cap">Mapa del patio en vivo</p>
+        </article>
+        <article class="showcase__panel">
+          <div class="showcase__frame">
+            <div class="showcase__bar"><span></span><span></span><span></span></div>
+            <img src="assets/screenshots/resumen-flota.png" alt="Resumen de flota" loading="lazy" />
+          </div>
+          <p class="showcase__cap">Resumen de tu flota, de un vistazo</p>
+        </article>
+        <article class="showcase__panel">
+          <div class="showcase__frame">
+            <div class="showcase__bar"><span></span><span></span><span></span></div>
+            <img src="assets/screenshots/gestion-flota.png" alt="Gestión de flota" loading="lazy" />
+          </div>
+          <p class="showcase__cap">Gestión de flota: placa, estado y ficha</p>
+        </article>
+        <article class="showcase__panel">
+          <div class="showcase__frame">
+            <div class="showcase__bar"><span></span><span></span><span></span></div>
+            <img src="assets/screenshots/editor-mapa.png" alt="Editor del mapa" loading="lazy" />
+          </div>
+          <p class="showcase__cap">Editor: dibuja tu patio tal cual es</p>
+        </article>
+        <article class="showcase__panel">
+          <div class="showcase__frame">
+            <div class="showcase__bar"><span></span><span></span><span></span></div>
+            <img src="assets/screenshots/roles-permisos.png" alt="Roles y permisos" loading="lazy" />
+          </div>
+          <p class="showcase__cap">Roles y permisos por área</p>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -305,23 +337,34 @@
   <!-- ============================================================= -->
   <section class="why" id="por-que">
     <div class="container">
-      <h2 class="section-title">Por qué nos contratan</h2>
-      <p class="section-sub">Tres razones por las que las arrendadoras dejan el Excel y no vuelven.</p>
-      <div class="why__grid">
-        <article class="why__card reveal">
-          <span class="why__ico material-symbols-outlined">location_on</span>
-          <h3>Ubicación visual exacta</h3>
-          <p>Cada unidad en el plano de tu patio, sin llamadas ni búsquedas. Sabes dónde está cada auto y en qué estado, de un vistazo.</p>
+      <div style="text-align:center;">
+        <h2 class="section-title">Por qué nos contratan</h2>
+        <p class="section-sub">Tres razones por las que las arrendadoras dejan el Excel y no vuelven.</p>
+      </div>
+      <div class="why__rows">
+        <article class="why__row reveal">
+          <div class="why__media"><div class="why__frame"><img src="assets/screenshots/mapa-vivo.png" alt="Ubicación de cada unidad en el mapa" loading="lazy" /></div></div>
+          <div class="why__text">
+            <span class="why__ico material-symbols-outlined">location_on</span>
+            <h3>Ubicación visual exacta</h3>
+            <p>Cada unidad en el plano de tu patio, sin llamadas ni búsquedas. Sabes dónde está cada auto y en qué estado, de un vistazo.</p>
+          </div>
         </article>
-        <article class="why__card reveal">
-          <span class="why__ico material-symbols-outlined">gpp_good</span>
-          <h3>Daños con responsable</h3>
-          <p>Trazabilidad total de incidencias: quién, cuándo y con evidencia fotográfica. Se acaban los daños “de nadie”.</p>
+        <article class="why__row why__row--rev reveal">
+          <div class="why__media"><div class="why__frame"><img src="assets/screenshots/bitacora-incidencias.png" alt="Incidencia con evidencia y responsable" loading="lazy" /></div></div>
+          <div class="why__text">
+            <span class="why__ico material-symbols-outlined">gpp_good</span>
+            <h3>Daños con responsable</h3>
+            <p>Trazabilidad total de incidencias: quién, cuándo y con evidencia fotográfica. Se acaban los daños “de nadie”.</p>
+          </div>
         </article>
-        <article class="why__card reveal">
-          <span class="why__ico material-symbols-outlined">bolt</span>
-          <h3>Cola de preparación</h3>
-          <p>Autos listos más rápido: preparas, lavas y liberas unidades en orden. Rentas más y dejas menos parado en el patio.</p>
+        <article class="why__row reveal">
+          <div class="why__media"><div class="why__frame"><img src="assets/screenshots/gestion-flota.png" alt="Cola de preparación de unidades" loading="lazy" /></div></div>
+          <div class="why__text">
+            <span class="why__ico material-symbols-outlined">bolt</span>
+            <h3>Cola de preparación</h3>
+            <p>Autos listos más rápido: preparas, lavas y liberas unidades en orden. Rentas más y dejas menos parado en el patio.</p>
+          </div>
         </article>
       </div>
     </div>
@@ -331,26 +374,31 @@
   <!-- 7 · CÓMO LO IMPLEMENTAMOS                                      -->
   <!-- ============================================================= -->
   <section class="steps-sec" id="implementacion">
-    <div class="container">
+    <div class="container" style="text-align:center;">
       <h2 class="section-title">Nosotros hacemos el trabajo pesado</h2>
-      <p class="section-sub">Llave en mano: tú no instalas nada. Te entregamos el sistema listo para operar.</p>
-      <div class="steps">
-        <article class="step reveal">
-          <div class="step__top"><span class="step__num">1</span><span class="material-symbols-outlined">travel_explore</span></div>
-          <h3>Diagnóstico</h3>
-          <p>Analizamos tu patio, tu flota y tus procesos actuales. Sin que muevas un dedo.</p>
-        </article>
-        <article class="step reveal">
-          <div class="step__top"><span class="step__num">2</span><span class="material-symbols-outlined">map</span></div>
-          <h3>Mapeo del patio</h3>
-          <p>Digitalizamos tu patio completo y cargamos cada unidad en tu base de datos dedicada.</p>
-        </article>
-        <article class="step reveal">
-          <div class="step__top"><span class="step__num">3</span><span class="material-symbols-outlined">rocket_launch</span></div>
-          <h3>Operación</h3>
-          <p>Te entregamos el sistema listo y capacitamos a tu equipo. Empiezas a operar en menos de una semana.</p>
-        </article>
-      </div>
+      <p class="section-sub">Llave en mano: tú no instalas nada. Desliza el roadmap de tu implementación →</p>
+    </div>
+    <div class="roadmap" id="roadmap">
+      <article class="milestone reveal">
+        <span class="milestone__dot">1</span><span class="milestone__ico material-symbols-outlined">travel_explore</span>
+        <h3>Diagnóstico</h3>
+        <p>Analizamos tu patio, tu flota y tus procesos actuales. Sin que muevas un dedo.</p>
+      </article>
+      <article class="milestone reveal">
+        <span class="milestone__dot">2</span><span class="milestone__ico material-symbols-outlined">map</span>
+        <h3>Mapeo del patio</h3>
+        <p>Digitalizamos tu patio completo y cargamos cada unidad en tu base de datos dedicada.</p>
+      </article>
+      <article class="milestone reveal">
+        <span class="milestone__dot">3</span><span class="milestone__ico material-symbols-outlined">rocket_launch</span>
+        <h3>Operación</h3>
+        <p>Te entregamos el sistema listo y capacitamos a tu equipo. Operas en menos de una semana.</p>
+      </article>
+      <article class="milestone reveal">
+        <span class="milestone__dot">4</span><span class="milestone__ico material-symbols-outlined">support_agent</span>
+        <h3>Soporte y evolución</h3>
+        <p>Seguimos contigo: soporte continuo y mejoras del sistema según crece tu operación.</p>
+      </article>
     </div>
   </section>
 

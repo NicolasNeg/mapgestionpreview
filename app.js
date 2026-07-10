@@ -159,6 +159,25 @@ function xformMobile() {
   });
 }
 
+/* ---- "La plataforma en acción": scroll horizontal pineado (desktop) ---- */
+function horizontalShowcase() {
+  const track = document.getElementById('showcaseTrack');
+  if (!track) return;
+  gsap.to(track, {
+    x: () => -(track.scrollWidth - window.innerWidth), // traslada hasta ver el último panel
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#plataforma',
+      start: 'top top',
+      end: () => '+=' + track.scrollWidth, // longitud de scroll = ancho del track
+      scrub: 1,
+      pin: '.showcase__pin',
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+    },
+  });
+}
+
 /* ============================================================
    Responsive con gsap.matchMedia:
    - Animaciones solo si el usuario NO pidió reduce-motion.
@@ -215,6 +234,7 @@ mm.add('(max-width: 767px) and (prefers-reduced-motion: no-preference)', () => {
 // Transformación Excel→mapa: pineada en desktop, apilada en móvil
 mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
   xformDesktop();
+  horizontalShowcase();
 });
 mm.add('(max-width: 899px) and (prefers-reduced-motion: no-preference)', () => {
   xformMobile();
