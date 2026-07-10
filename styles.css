@@ -84,9 +84,9 @@ a { color: inherit; text-decoration: none; }
 }
 .card__ico { font-size: 1.9rem; color: #a5b4fc; display: block; margin-bottom: .6rem; }
 /* Hover-lift en tarjetas: micro-interacción sutil, solo en PC */
-.card, .bento__card, .why__card, .step { transition: transform .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease); }
+.card, .milestone { transition: transform .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease); }
 @media (hover: hover) {
-  .card:hover, .why__card:hover, .step:hover { transform: translateY(-4px); border-color: rgba(129,140,248,.35); }
+  .card:hover, .milestone:hover { transform: translateY(-4px); border-color: rgba(129,140,248,.35); }
 }
 /* Detalle extra de la tarjeta de operación: oculto, se abre en hover (PC) */
 .card__more { max-height: 0; opacity: 0; overflow: hidden; color: var(--muted); font-size: .85rem; transition: max-height .3s var(--ease), opacity .3s var(--ease), margin-top .3s var(--ease); }
@@ -261,9 +261,6 @@ a { color: inherit; text-decoration: none; }
   .gsap-fade, .gsap-card { opacity: 1 !important; transform: none !important; }
   .hero__scroll span, .spot::before, .proof__num { animation: none; }
   /* Sin timeline: desapila las etapas para que se lean todas */
-  .xpanel { position: relative !important; inset: auto !important; opacity: 1 !important; margin-bottom: 2rem; }
-  .xform__sticky { min-height: 0 !important; }
-  .xform__stage { height: auto !important; }
   .reveal { opacity: 1 !important; transform: none !important; }
   /* Sin JS de pin: el showcase vuelve a scroll horizontal nativo */
   .showcase__pin { min-height: 0 !important; display: block !important; }
