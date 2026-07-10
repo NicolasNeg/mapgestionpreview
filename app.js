@@ -42,16 +42,10 @@ function journey() {
   const j = document.getElementById('journey'); if (!j) return;
   const fill = document.getElementById('jFill');
   const car = document.getElementById('car');
-  ScrollTrigger.create({
-    trigger: j,
-    start: 'top 60%',    // ← empieza cuando el recorrido entra
-    end: 'bottom 75%',   // ← el auto llega al final
-    onUpdate: (self) => {
-      const p = self.progress * 100;
-      fill.style.height = p + '%';
-      car.style.top = p + '%';
-    },
-  });
+  // Transform + scrub con suavizado => baja fluido (sin saltos por setear top/height)
+  const st = { trigger: j, start: 'top 60%', end: 'bottom 75%', scrub: 1, invalidateOnRefresh: true };
+  gsap.fromTo(fill, { scaleY: 0 }, { scaleY: 1, transformOrigin: 'top', ease: 'none', scrollTrigger: st });
+  gsap.fromTo(car, { y: 0 }, { y: () => j.offsetHeight, ease: 'none', scrollTrigger: st });
 }
 
 /* ---- Marcadores que se ACOMODAN en los spots del mapa (entrada con rebote) ---- */
@@ -82,6 +76,26 @@ function parallaxLayers() {
         scrub: true,      // ← movimiento ligado al scroll
       },
     });
+  });
+}
+
+/* ---- Roadmap: scrollytelling pineado; cada paso sube y se desvanece ---- */
+function roadSteps() {
+  const steps = gsap.utils.toArray('#implementacion .road__step');
+  if (steps.length < 2) return;
+  gsap.set(steps, { opacity: (i) => (i === 0 ? 1 : 0), yPercent: (i) => (i === 0 ? 0 : 8) });
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#implementacion', start: 'top top',
+      end: '+=' + steps.length * 100 + '%', // longitud de scroll de la secuencia
+      scrub: 1, pin: '.road__pin', anticipatePin: 1, invalidateOnRefresh: true,
+    },
+  });
+  steps.forEach((s, i) => {
+    if (i === steps.length - 1) return;
+    // el paso actual sube y desaparece; el siguiente ocupa su lugar (crossfade + slide)
+    tl.to(s, { yPercent: -14, opacity: 0, ease: 'power1.inOut' }, i)
+      .to(steps[i + 1], { yPercent: 0, opacity: 1, ease: 'power1.inOut' }, i);
   });
 }
 
@@ -153,24 +167,19 @@ function counters() {
    tabla entra desde abajo al hacer scroll ---- */
 function xTransition() {
   const xls = document.querySelector('#transformacion .xls');
-  const arrow = document.querySelector('#transformacion .xarrow');
   const table = document.getElementById('mgtable');
   if (!xls || !table) return;
-  const EASE = 'power3.out';
-  ScrollTrigger.create({
-    trigger: arrow || table,
-    start: 'top 78%',
-    once: true,
-    onEnter: () => {
-      // El Excel "se vacía": recede, se desenfoca y se atenúa
-      gsap.to(xls, { opacity: 0.15, scale: 0.9, y: -18, filter: 'blur(5px)', duration: 0.8, ease: 'power2.inOut' });
-      if (arrow) gsap.fromTo(arrow, { opacity: 0 }, { opacity: 1, duration: 0.4 });
-      // La tabla MapGestión "materializa": pop de escala + glow de acento
-      gsap.fromTo(table,
-        { scale: 0.96, y: 30, boxShadow: '0 0 0 rgba(129,140,248,0)' },
-        { scale: 1, y: 0, boxShadow: '0 30px 80px rgba(129,140,248,.28)', duration: 0.9, ease: EASE, delay: 0.15 });
-    },
+  // Scrub => reversible: al bajar el Excel se desvanece y la tabla materializa;
+  // al subir, ambos vuelven a su estado. Pronunciado (blur + escala).
+  const tl = gsap.timeline({
+    scrollTrigger: { trigger: '#transformacion', start: 'top 62%', end: 'center 42%', scrub: 0.8 },
   });
+  tl.fromTo(xls,
+    { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' },
+    { opacity: 0.12, y: -26, scale: 0.88, filter: 'blur(6px)', ease: 'none' }, 0)
+    .fromTo(table,
+    { opacity: 0.15, y: 46, scale: 0.95 },
+    { opacity: 1, y: 0, scale: 1, ease: 'none' }, 0);
 }
 
 /* ---- Entrada animada del formulario de contacto (stagger de campos) ---- */
@@ -198,9 +207,10 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
   xTransition();
 });
 
-// Escritorio: parallax del fondo del hero
+// Escritorio: parallax del fondo del hero + roadmap pineado
 mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
   parallaxLayers();
+  roadSteps();
 });
 
 // Showcase horizontal: pineado en desktop
@@ -236,29 +246,33 @@ if (!HAS_GSAP || window.matchMedia('(prefers-reduced-motion: reduce)').matches) 
 
   const COLORS = { LISTO: '#34d399', PREPARACION: '#fbbf24', TALLER: '#f87171', PATIO: '#818cf8' };
   const LABEL = { LISTO: 'Listo', PREPARACION: 'Preparación', TALLER: 'Taller', PATIO: 'En patio' };
+  // Nivel de gasolina: E < 1/4 < 3/8 < H < 15/16 < F (orden + % del tanque)
+  const FUEL_ORDER = { 'E': 0, '1/4': 1, '3/8': 2, 'H': 3, '15/16': 4, 'F': 5 };
+  const FUEL_PCT = { 'E': 6, '1/4': 25, '3/8': 37.5, 'H': 50, '15/16': 94, 'F': 100 };
+  // Fila: [MVA, Categoría, Modelo, Placas, Estado, Ubicación, Gasolina]
   const data = [
-    ['D5129', 'ECAR', 'Aveo Sedan LT', 'GHB972G', 'LISTO', 'Patio'],
-    ['D5256', 'ECAR', 'Aveo Sedan LT', 'GHD748G', 'LISTO', 'Patio'],
-    ['F1161', 'FCAR', 'Jetta Comfortline', 'DNF918J', 'PREPARACION', 'Lavado'],
-    ['I166', 'FFBH', 'Tank 300 HEV', '77L136', 'TALLER', 'Taller'],
-    ['I174', 'FFBH', 'Tank 300 HEV', '76L936', 'LISTO', 'Patio'],
-    ['M159', 'PFAR', 'Suburban LT', 'DSR767E', 'PATIO', 'Fila 3'],
-    ['M164', 'PFAR', 'Suburban LT', 'DPW207G', 'LISTO', 'Patio'],
-    ['Q234', 'MVAR', 'GN8 GT', 'GYR575F', 'PREPARACION', 'Detalle'],
-    ['S034', 'IVAH', 'Sienna LE 8P', '76L482', 'LISTO', 'Patio'],
-    ['N372', 'GVBB', 'Transporter 6.1', 'GUB032F', 'TALLER', 'Taller'],
-    ['C2926', 'FCAR', 'Ford Edge', 'TTC486A', 'PATIO', 'Externo'],
-    ['B2380', 'ECAR', 'Onix LT', 'GRB110F', 'LISTO', 'Patio'],
-    ['Z018', 'SMCAT', 'Versa Sense', 'CWP533J', 'PREPARACION', 'Lavado'],
-    ['A1842', 'ECAR', 'Kicks Advance', 'GNK802E', 'PATIO', 'Fila 1'],
-    ['C5209', 'FFBH', 'CX-5 Signature', '76P210', 'TALLER', 'Taller'],
+    ['D5129', 'ECAR', 'Aveo Sedan LT', 'GHB972G', 'LISTO', 'Patio', 'F'],
+    ['D5256', 'ECAR', 'Aveo Sedan LT', 'GHD748G', 'LISTO', 'Patio', '3/8'],
+    ['F1161', 'FCAR', 'Jetta Comfortline', 'DNF918J', 'PREPARACION', 'Lavado', '1/4'],
+    ['I166', 'FFBH', 'Tank 300 HEV', '77L136', 'TALLER', 'Taller', 'E'],
+    ['I174', 'FFBH', 'Tank 300 HEV', '76L936', 'LISTO', 'Patio', 'H'],
+    ['M159', 'PFAR', 'Suburban LT', 'DSR767E', 'PATIO', 'Fila 3', '15/16'],
+    ['M164', 'PFAR', 'Suburban LT', 'DPW207G', 'LISTO', 'Patio', 'F'],
+    ['Q234', 'MVAR', 'GN8 GT', 'GYR575F', 'PREPARACION', 'Detalle', '1/4'],
+    ['S034', 'IVAH', 'Sienna LE 8P', '76L482', 'LISTO', 'Patio', 'H'],
+    ['N372', 'GVBB', 'Transporter 6.1', 'GUB032F', 'TALLER', 'Taller', 'E'],
+    ['C2926', 'FCAR', 'Ford Edge', 'TTC486A', 'PATIO', 'Externo', '3/8'],
+    ['B2380', 'ECAR', 'Onix LT', 'GRB110F', 'LISTO', 'Patio', 'F'],
+    ['Z018', 'SMCAT', 'Versa Sense', 'CWP533J', 'PREPARACION', 'Lavado', '1/4'],
+    ['A1842', 'ECAR', 'Kicks Advance', 'GNK802E', 'PATIO', 'Fila 1', '15/16'],
+    ['C5209', 'FFBH', 'CX-5 Signature', '76P210', 'TALLER', 'Taller', 'H'],
   ];
 
-  let q = '', f = 'all';
-  const cols = {}; // por-columna: índice -> valor seleccionado ('' = todas)
+  let q = '', f = 'all', sortDir = 0; // 0 sin orden, -1 menor→mayor (E→F), 1 mayor→menor (F→E)
+  const cols = {};
   const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const fuelColor = (p) => (p < 25 ? '#f87171' : p < 55 ? '#fbbf24' : '#34d399');
 
-  // Poblar cada <select> con los valores únicos de su columna (filtro por columna)
   document.querySelectorAll('#mgtable .mgsel').forEach((sel) => {
     const col = +sel.dataset.col;
     cols[col] = '';
@@ -269,20 +283,35 @@ if (!HAS_GSAP || window.matchMedia('(prefers-reduced-motion: reduce)').matches) 
   });
 
   function render() {
-    const rows = data.filter((r) => {
+    let rows = data.filter((r) => {
       const okF = f === 'all' || r[4] === f;
       const okQ = !q || (r[0] + ' ' + r[2] + ' ' + r[3]).toLowerCase().includes(q);
       const okCols = Object.keys(cols).every((c) => !cols[c] || r[c] === cols[c]);
       return okF && okQ && okCols;
     });
+    if (sortDir !== 0) rows = rows.slice().sort((a, b) => (FUEL_ORDER[a[6]] - FUEL_ORDER[b[6]]) * sortDir);
     body.innerHTML = rows.length
-      ? rows.map((r) => `<tr>
-          <td class="mg-mva">${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td>
-          <td><span class="mg-badge" style="--c:${COLORS[r[4]]}">${LABEL[r[4]]}</span></td>
-          <td>${esc(r[5])}</td></tr>`).join('')
-      : '<tr class="mgtable__empty"><td colspan="6">Sin resultados para tu búsqueda.</td></tr>';
+      ? rows.map((r) => {
+          const p = FUEL_PCT[r[6]];
+          return `<tr>
+            <td class="mg-mva">${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td>
+            <td><span class="mg-fuel"><span class="mg-fuel__bar" style="width:${p}%;background:${fuelColor(p)}"></span></span><b class="mg-fuel__lbl">${esc(r[6])}</b></td>
+            <td><span class="mg-badge" style="--c:${COLORS[r[4]]}">${LABEL[r[4]]}</span></td>
+            <td>${esc(r[5])}</td></tr>`;
+        }).join('')
+      : '<tr class="mgtable__empty"><td colspan="7">Sin resultados para tu búsqueda.</td></tr>';
     countEl.textContent = `Mostrando ${rows.length} de ${data.length} unidades`;
   }
+
+  // Orden por nivel de gasolina al clicar el encabezado (ciclo: F→E, E→F, sin orden)
+  const sortBtn = document.getElementById('mgSortFuel');
+  if (sortBtn) sortBtn.addEventListener('click', () => {
+    sortDir = sortDir === 0 ? 1 : sortDir === 1 ? -1 : 0;
+    sortBtn.dataset.dir = sortDir;
+    const ic = sortBtn.querySelector('.mg-sort__ic');
+    if (ic) ic.textContent = sortDir === 1 ? 'arrow_downward' : sortDir === -1 ? 'arrow_upward' : 'unfold_more';
+    render();
+  });
 
   search.addEventListener('input', () => { q = search.value.trim().toLowerCase(); render(); });
   filters.addEventListener('click', (e) => {

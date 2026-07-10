@@ -309,6 +309,7 @@
               <th>Categoría <select class="mgsel" data-col="1" aria-label="Filtrar por categoría"><option value="">Todas</option></select></th>
               <th>Modelo <select class="mgsel" data-col="2" aria-label="Filtrar por modelo"><option value="">Todos</option></select></th>
               <th>Placas</th>
+              <th><button type="button" class="mg-sort" id="mgSortFuel" aria-label="Ordenar por nivel de gasolina">Gasolina <span class="material-symbols-outlined mg-sort__ic">unfold_more</span></button></th>
               <th>Estado</th>
               <th>Ubicación <select class="mgsel" data-col="5" aria-label="Filtrar por ubicación"><option value="">Todas</option></select></th>
             </tr></thead>
@@ -385,31 +386,45 @@
   <!-- ============================================================= -->
   <!-- 7 · CÓMO LO IMPLEMENTAMOS                                      -->
   <!-- ============================================================= -->
-  <section class="steps-sec" id="implementacion">
-    <div class="container" style="text-align:center;">
-      <h2 class="section-title">Nosotros hacemos el trabajo pesado</h2>
-      <p class="section-sub">Llave en mano: tú no instalas nada. Desliza el roadmap de tu implementación →</p>
-    </div>
-    <div class="roadmap" id="roadmap">
-      <article class="milestone reveal">
-        <span class="milestone__dot">1</span><span class="milestone__ico material-symbols-outlined">travel_explore</span>
-        <h3>Diagnóstico</h3>
-        <p>Analizamos tu patio, tu flota y tus procesos actuales. Sin que muevas un dedo.</p>
+  <!-- Roadmap: scrollytelling a pantalla completa; cada paso (bg imagen +
+       subtítulo) sube y se desvanece dando paso al siguiente. -->
+  <section class="road" id="implementacion">
+    <div class="road__pin">
+      <article class="road__step" data-i="0">
+        <img class="road__bg" src="assets/screenshots/editor-mapa.png" alt="" loading="lazy" />
+        <div class="road__scrim"></div>
+        <div class="road__inner">
+          <span class="road__num"><span class="material-symbols-outlined">travel_explore</span> Paso 01 · Diagnóstico</span>
+          <h3 class="road__title">Nosotros hacemos el trabajo pesado</h3>
+          <p class="road__sub">Analizamos tu patio, tu flota y tus procesos. Tú no mueves un dedo.</p>
+        </div>
       </article>
-      <article class="milestone reveal">
-        <span class="milestone__dot">2</span><span class="milestone__ico material-symbols-outlined">map</span>
-        <h3>Mapeo del patio</h3>
-        <p>Digitalizamos tu patio completo y cargamos cada unidad en tu base de datos dedicada.</p>
+      <article class="road__step" data-i="1">
+        <img class="road__bg" src="assets/screenshots/mapa-vivo.png" alt="" loading="lazy" />
+        <div class="road__scrim"></div>
+        <div class="road__inner">
+          <span class="road__num"><span class="material-symbols-outlined">map</span> Paso 02 · Mapeo del patio</span>
+          <h3 class="road__title">Digitalizamos tu patio completo</h3>
+          <p class="road__sub">Cargamos cada unidad en tu base de datos dedicada, tal cual es tu estacionamiento.</p>
+        </div>
       </article>
-      <article class="milestone reveal">
-        <span class="milestone__dot">3</span><span class="milestone__ico material-symbols-outlined">rocket_launch</span>
-        <h3>Operación</h3>
-        <p>Te entregamos el sistema listo y capacitamos a tu equipo. Operas en menos de una semana.</p>
+      <article class="road__step" data-i="2">
+        <img class="road__bg" src="assets/screenshots/resumen-flota.png" alt="" loading="lazy" />
+        <div class="road__scrim"></div>
+        <div class="road__inner">
+          <span class="road__num"><span class="material-symbols-outlined">rocket_launch</span> Paso 03 · Operación</span>
+          <h3 class="road__title">Listo para operar en menos de una semana</h3>
+          <p class="road__sub">Te entregamos el sistema funcionando y capacitamos a tu equipo.</p>
+        </div>
       </article>
-      <article class="milestone reveal">
-        <span class="milestone__dot">4</span><span class="milestone__ico material-symbols-outlined">support_agent</span>
-        <h3>Soporte y evolución</h3>
-        <p>Seguimos contigo: soporte continuo y mejoras del sistema según crece tu operación.</p>
+      <article class="road__step" data-i="3">
+        <img class="road__bg" src="assets/screenshots/auditoria-sistema.png" alt="" loading="lazy" />
+        <div class="road__scrim"></div>
+        <div class="road__inner">
+          <span class="road__num"><span class="material-symbols-outlined">support_agent</span> Paso 04 · Soporte y evolución</span>
+          <h3 class="road__title">Seguimos contigo</h3>
+          <p class="road__sub">Soporte continuo y mejoras del sistema según crece tu operación.</p>
+        </div>
       </article>
     </div>
   </section>
