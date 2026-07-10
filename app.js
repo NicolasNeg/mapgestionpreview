@@ -100,6 +100,7 @@ function horizontalShowcase() {
       pin: '.showcase__pin',
       anticipatePin: 1,
       invalidateOnRefresh: true,
+      refreshPriority: 1, // ← se calcula ANTES que los triggers de abajo (fix animaciones tras el pin)
     },
   });
 }
@@ -206,6 +207,10 @@ mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
 mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
   horizontalShowcase();
 });
+
+// Recalcula posiciones de todos los triggers cuando cargan imágenes/fuentes
+// (evita que las animaciones tras el showcase pineado queden mal ubicadas).
+window.addEventListener('load', () => ScrollTrigger.refresh());
 } // fin if (HAS_GSAP)
 
 /* Fallback de contadores: si hay reduce-motion o GSAP no cargó, muestra el
