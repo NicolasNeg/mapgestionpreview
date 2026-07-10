@@ -110,6 +110,16 @@ function horizontalShowcase() {
    - PC (≥768px): parallax + ruta con MotionPath.
    - Móvil (<768px): fade-ins ligeros.
    ============================================================ */
+/* ---- Entrada de los títulos/subtítulos de sección ---- */
+function headings() {
+  gsap.utils.toArray('.section-title, .section-sub').forEach((el) => {
+    gsap.from(el, {
+      opacity: 0, y: 26, duration: 0.7, ease: 'expo.out',
+      scrollTrigger: { trigger: el, start: 'top 90%' },
+    });
+  });
+}
+
 /* ---- Reveal genérico (.reveal) para las secciones de contenido ---- */
 function revealAll() {
   gsap.utils.toArray('.reveal').forEach((el) => {
@@ -142,15 +152,23 @@ function counters() {
    tabla entra desde abajo al hacer scroll ---- */
 function xTransition() {
   const xls = document.querySelector('#transformacion .xls');
+  const arrow = document.querySelector('#transformacion .xarrow');
   const table = document.getElementById('mgtable');
   if (!xls || !table) return;
-  gsap.to(xls, {
-    opacity: 0.3, scale: 0.96, ease: 'none',
-    scrollTrigger: { trigger: '#transformacion', start: 'top 25%', end: 'center 45%', scrub: 1 },
-  });
-  gsap.from(table, {
-    opacity: 0, y: 60, ease: 'power2.out',
-    scrollTrigger: { trigger: table, start: 'top 92%', end: 'top 55%', scrub: 1 },
+  const EASE = 'power3.out';
+  ScrollTrigger.create({
+    trigger: arrow || table,
+    start: 'top 78%',
+    once: true,
+    onEnter: () => {
+      // El Excel "se vacía": recede, se desenfoca y se atenúa
+      gsap.to(xls, { opacity: 0.15, scale: 0.9, y: -18, filter: 'blur(5px)', duration: 0.8, ease: 'power2.inOut' });
+      if (arrow) gsap.fromTo(arrow, { opacity: 0 }, { opacity: 1, duration: 0.4 });
+      // La tabla MapGestión "materializa": pop de escala + glow de acento
+      gsap.fromTo(table,
+        { scale: 0.96, y: 30, boxShadow: '0 0 0 rgba(129,140,248,0)' },
+        { scale: 1, y: 0, boxShadow: '0 30px 80px rgba(129,140,248,.28)', duration: 0.9, ease: EASE, delay: 0.15 });
+    },
   });
 }
 
@@ -170,6 +188,7 @@ const mm = gsap.matchMedia();
 // Entradas ligeras: en cualquier tamaño (siempre que no haya reduce-motion)
 mm.add('(prefers-reduced-motion: no-preference)', () => {
   heroIntro();
+  headings();
   journey();
   mapSimAnimation();
   revealAll();
