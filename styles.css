@@ -73,27 +73,34 @@ a { color: inherit; text-decoration: none; }
    2 · OPERACIONES
    ============================================================ */
 .ops { padding: 6rem 0; }
-.route { position: relative; width: 100%; margin: 2rem 0 4rem; }
-.route__svg { width: 100%; height: auto; }
-.car { position: absolute; top: 0; left: 0; font-size: 2.2rem; color: var(--teal); will-change: transform; filter: drop-shadow(0 6px 12px rgba(0,0,0,.5)); }
 
-.cards { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-.card {
-  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
-  border-radius: var(--radius); padding: 1.6rem;
-}
+/* Recorrido vertical: línea + auto que baja + tarjetas que lo acompañan */
+.journey { position: relative; max-width: 900px; margin: 3rem auto 0; padding: 2rem 0; }
+.journey::before { content: ""; position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: rgba(137,245,231,.15); }
+.journey__fill { position: absolute; left: 20px; top: 0; width: 2px; height: 0; background: var(--teal); box-shadow: 0 0 12px var(--teal); }
+.journey__car { position: absolute; left: 20px; top: 0; transform: translate(-50%, -50%); font-size: 2.1rem; color: var(--teal); filter: drop-shadow(0 6px 12px rgba(0,0,0,.5)); z-index: 2; will-change: top; }
+.jrow { display: flex; padding-left: 56px; margin: 2.5rem 0; }
+.rcard { position: relative; width: 100%; max-width: 440px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding: 1.6rem; }
+.rcard::before { content: ""; position: absolute; left: -42px; top: 1.7rem; width: 12px; height: 12px; border-radius: 50%; background: var(--panel); border: 2px solid var(--teal); }
 .card__ico { font-size: 1.9rem; color: #a5b4fc; display: block; margin-bottom: .6rem; }
-/* Hover-lift en tarjetas: micro-interacción sutil, solo en PC */
-.card, .milestone { transition: transform .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease); }
-@media (hover: hover) {
-  .card:hover, .milestone:hover { transform: translateY(-4px); border-color: rgba(129,140,248,.35); }
-}
-/* Detalle extra de la tarjeta de operación: oculto, se abre en hover (PC) */
-.card__more { max-height: 0; opacity: 0; overflow: hidden; color: var(--muted); font-size: .85rem; transition: max-height .3s var(--ease), opacity .3s var(--ease), margin-top .3s var(--ease); }
-@media (hover: hover) { .card:hover .card__more { max-height: 6rem; opacity: 1; margin-top: .5rem; } }
+.rcard h3 { font-size: 1.3rem; margin-bottom: .3rem; }
+.rcard p { color: var(--muted); font-size: .98rem; }
+.card__more { max-height: 0; opacity: 0; overflow: hidden; color: var(--muted); font-size: .88rem; transition: max-height .3s var(--ease), opacity .3s var(--ease), margin-top .3s var(--ease); }
+@media (hover: hover) { .rcard:hover .card__more { max-height: 6rem; opacity: 1; margin-top: .5rem; } }
 @media (hover: none) { .card__more { max-height: none; opacity: 1; margin-top: .5rem; } }
-.card h3 { font-size: 1.15rem; margin-bottom: .3rem; }
-.card p { color: var(--muted); font-size: .95rem; }
+.rcard, .milestone { transition: transform .25s var(--ease), border-color .25s var(--ease); }
+@media (hover: hover) { .rcard:hover, .milestone:hover { transform: translateY(-4px); border-color: rgba(129,140,248,.35); } }
+
+/* Desktop: línea al centro, tarjetas alternando lados y tocando la línea */
+@media (min-width: 760px) {
+  .journey::before, .journey__fill { left: 50%; transform: translateX(-50%); }
+  .journey__car { left: 50%; }
+  .jrow { padding-left: 0; }
+  .jrow--r { justify-content: flex-end; }
+  .jrow--l { justify-content: flex-start; }
+  .jrow .rcard { width: calc(50% - 42px); max-width: none; }
+  .jrow--l .rcard::before { left: auto; right: -42px; }
+}
 
 /* ----- Simulador sobre el mapa real ----- */
 .map-sim { position: relative; margin: 3rem auto 0; max-width: 960px; border-radius: var(--radius); overflow: hidden; border: 1px solid rgba(255,255,255,.1); box-shadow: 0 30px 70px rgba(0,0,0,.55); }
@@ -191,16 +198,6 @@ a { color: inherit; text-decoration: none; }
 .js .gsap-fade, .js .gsap-card { opacity: 0; }
 
 /* ============================================================
-   Desktop: paneles flotantes más grandes, cards en cuadrícula
-   ============================================================ */
-@media (min-width: 768px) {
-  .cards { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-}
-@media (min-width: 1024px) {
-  .cards { grid-template-columns: repeat(4, 1fr); }
-}
-
-/* ============================================================
    3.5 · DEL CAOS DEL EXCEL AL MAPA — tabla MapGestión funcional
    ============================================================ */
 .xform { padding: 6rem 0; }
@@ -238,6 +235,9 @@ a { color: inherit; text-decoration: none; }
 .mg-badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--c); }
 .mgtable__foot { padding: .7rem 1rem; color: var(--muted); font-size: .8rem; border-top: 1px solid rgba(255,255,255,.08); }
 .mgtable__empty td { text-align: center; color: var(--muted); padding: 2rem; }
+/* Dropdown de filtro por columna */
+.mgsel { display: block; margin-top: .35rem; max-width: 150px; background: #0d1526; color: #cbd5e1; border: 1px solid rgba(255,255,255,.14); border-radius: 6px; padding: .28rem .4rem; font: 600 .72rem 'Inter', sans-serif; text-transform: none; letter-spacing: 0; cursor: pointer; }
+.mgsel:focus { outline: none; border-color: var(--accent); }
 
 /* ============================================================
    3.6 · Sandbox embebido
@@ -292,10 +292,11 @@ a { color: inherit; text-decoration: none; }
 .why__frame { border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,.1); box-shadow: 0 30px 70px rgba(0,0,0,.5); }
 .why__frame img { width: 100%; display: block; }
 .why__ico { display: inline-flex; width: 48px; height: 48px; align-items: center; justify-content: center; border-radius: 14px; background: rgba(129,140,248,.15); color: #a5b4fc; font-size: 1.6rem; margin-bottom: 1rem; }
-.why__text h3 { font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 800; letter-spacing: -.02em; margin-bottom: .6rem; }
-.why__text p { color: var(--muted); font-size: 1.05rem; max-width: 46ch; }
+.why__text h3 { font-size: clamp(1.9rem, 4.5vw, 2.9rem); font-weight: 800; letter-spacing: -.025em; line-height: 1.05; margin-bottom: .8rem; }
+.why__text p { color: var(--muted); font-size: 1.15rem; line-height: 1.5; max-width: 42ch; }
 @media (min-width: 860px) {
-  .why__row { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .why__row { grid-template-columns: 1.35fr .85fr; gap: 4.5rem; }
+  .why__row--rev { grid-template-columns: .85fr 1.35fr; }
   .why__row--rev .why__media { order: 2; }
 }
 
@@ -303,11 +304,13 @@ a { color: inherit; text-decoration: none; }
 .steps-sec { padding: 6rem 0; }
 .roadmap { display: flex; gap: 1.5rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 3rem 5vw 2rem; scrollbar-width: none; }
 .roadmap::-webkit-scrollbar { display: none; }
-.milestone { position: relative; flex: 0 0 auto; width: min(80vw, 320px); scroll-snap-align: center; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 2rem; }
+.milestone { position: relative; flex: 0 0 auto; width: min(86vw, 420px); scroll-snap-align: center; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 2.5rem; }
 .milestone__dot { display: inline-flex; width: 44px; height: 44px; align-items: center; justify-content: center; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; font-weight: 800; box-shadow: 0 10px 24px rgba(99,102,241,.35); }
 .milestone__ico { color: #a5b4fc; margin-left: .6rem; vertical-align: middle; }
-.milestone h3 { font-size: 1.3rem; margin: 1rem 0 .4rem; }
-.milestone p { color: var(--muted); }
+.milestone h3 { font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 800; letter-spacing: -.02em; margin: 1.2rem 0 .5rem; }
+.milestone p { color: var(--muted); font-size: 1.1rem; line-height: 1.5; }
+.milestone__dot { width: 52px; height: 52px; font-size: 1.2rem; }
+.milestone__ico { font-size: 1.6rem; }
 /* Conector entre hitos */
 .milestone::after { content: ""; position: absolute; top: calc(2rem + 22px); left: 100%; width: 1.5rem; height: 2px; background: linear-gradient(90deg, rgba(129,140,248,.6), transparent); }
 .milestone:last-child::after { display: none; }

@@ -36,20 +36,22 @@ function heroIntro() {
 }
 
 /* ---- Cards escalonadas (stagger) al entrar en viewport ---- */
-function cardsStagger() {
-  // Reveal ligado al scroll: las tarjetas se descubren una a una al avanzar.
-  gsap.fromTo('#cards .gsap-card',
-    { opacity: 0, y: 30 },
-    {
-      opacity: 1, y: 0, ease: 'power2.out',
-      stagger: 1,         // ← en modo scrub se reparten a lo largo del recorrido
-      scrollTrigger: {
-        trigger: '#cards',
-        start: 'top 85%',
-        end: 'bottom 60%',
-        scrub: 1,         // ← ligado al scroll (sube el número = más lento)
-      },
-    });
+/* ---- Recorrido vertical: el auto baja y la línea se llena según el scroll.
+   Las tarjetas (.reveal) aparecen a los lados al pasar. Ajusta start/end. ---- */
+function journey() {
+  const j = document.getElementById('journey'); if (!j) return;
+  const fill = document.getElementById('jFill');
+  const car = document.getElementById('car');
+  ScrollTrigger.create({
+    trigger: j,
+    start: 'top 60%',    // ← empieza cuando el recorrido entra
+    end: 'bottom 75%',   // ← el auto llega al final
+    onUpdate: (self) => {
+      const p = self.progress * 100;
+      fill.style.height = p + '%';
+      car.style.top = p + '%';
+    },
+  });
 }
 
 /* ---- Marcadores que se ACOMODAN en los spots del mapa (entrada con rebote) ---- */
@@ -66,26 +68,7 @@ function mapSimAnimation() {
   });
 }
 
-/* ---- Vehículo recorriendo la ruta SVG + trazo que se dibuja (scrub) ---- */
-function routeAnimation() {
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.route',
-      start: 'top 75%',   // ← empieza cuando la ruta entra
-      end: 'bottom 40%',  // ← termina cuando casi sale
-      scrub: 1,           // ← ligado al scroll con 1s de suavizado
-    },
-  });
-  // Dibuja la línea (pathLength=1 en el SVG => dashoffset 1→0)
-  tl.fromTo('#route-fill', { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, ease: 'none' }, 0);
-  // Mueve el auto sobre #route, orientándolo con la curva
-  tl.to('#car', {
-    motionPath: { path: '#route', align: '#route', alignOrigin: [0.5, 0.5], autoRotate: true },
-    ease: 'none',
-  }, 0);
-}
-
-/* ---- Parallax de profundidad en elementos [data-parallax] ---- */
+/* ---- Parallax de profundidad en elementos [data-parallax] (hero bg) ---- */
 function parallaxLayers() {
   gsap.utils.toArray('[data-parallax]').forEach((el) => {
     const speed = parseFloat(el.dataset.parallax) || 0; // + baja, − sube
@@ -98,17 +81,6 @@ function parallaxLayers() {
         end: 'bottom top',
         scrub: true,      // ← movimiento ligado al scroll
       },
-    });
-  });
-}
-
-/* ---- Versión MÓVIL simplificada: solo fade-ins (mejor rendimiento táctil) ---- */
-function mobileSimplified() {
-  gsap.to('.car', { opacity: 1, duration: 0.6 });
-  gsap.utils.toArray('.panel').forEach((el) => {
-    gsap.from(el, {
-      opacity: 0, y: 30, duration: 0.7, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 85%' },
     });
   });
 }
@@ -153,12 +125,42 @@ function counters() {
   gsap.utils.toArray('[data-counter]').forEach((el) => {
     const target = +el.dataset.counter, pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
     const o = { v: 0 };
-    // Re-cuenta cada vez que entra en pantalla (desde arriba o abajo) => "siempre animado"
-    const run = () => { o.v = 0; gsap.to(o, {
-      v: target, duration: 1.4, ease: 'power1.out',
+    // Loop continuo: cuenta 0→target, espera y repite MIENTRAS esté en pantalla.
+    const tween = gsap.fromTo(o, { v: 0 }, {
+      v: target, duration: 1.6, ease: 'power1.out',
+      repeat: -1, repeatDelay: 2.4, paused: true,   // ← sube repeatDelay para pausas más largas
       onUpdate: () => { el.textContent = pre + Math.round(o.v) + suf; },
-    }); };
-    ScrollTrigger.create({ trigger: el, start: 'top 85%', onEnter: run, onEnterBack: run });
+    });
+    ScrollTrigger.create({
+      trigger: el, start: 'top 90%', end: 'bottom 10%',
+      onToggle: (self) => (self.isActive ? tween.play() : tween.pause()),
+    });
+  });
+}
+
+/* ---- Transición "Del caos del Excel al mapa": el Excel se desvanece y la
+   tabla entra desde abajo al hacer scroll ---- */
+function xTransition() {
+  const xls = document.querySelector('#transformacion .xls');
+  const table = document.getElementById('mgtable');
+  if (!xls || !table) return;
+  gsap.to(xls, {
+    opacity: 0.3, scale: 0.96, ease: 'none',
+    scrollTrigger: { trigger: '#transformacion', start: 'top 25%', end: 'center 45%', scrub: 1 },
+  });
+  gsap.from(table, {
+    opacity: 0, y: 60, ease: 'power2.out',
+    scrollTrigger: { trigger: table, start: 'top 92%', end: 'top 55%', scrub: 1 },
+  });
+}
+
+/* ---- Entrada animada del formulario de contacto (stagger de campos) ---- */
+function formReveal() {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+  gsap.from(form.querySelectorAll('.cform__field, button'), {
+    opacity: 0, y: 22, duration: 0.5, ease: 'power2.out', stagger: 0.08,
+    scrollTrigger: { trigger: form, start: 'top 85%' },
   });
 }
 
@@ -168,21 +170,17 @@ const mm = gsap.matchMedia();
 // Entradas ligeras: en cualquier tamaño (siempre que no haya reduce-motion)
 mm.add('(prefers-reduced-motion: no-preference)', () => {
   heroIntro();
-  cardsStagger();
+  journey();
   mapSimAnimation();
   revealAll();
   counters();
+  formReveal();
+  xTransition();
 });
 
-// Escritorio: efectos pesados
+// Escritorio: parallax del fondo del hero
 mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
-  routeAnimation();
   parallaxLayers();
-});
-
-// Móvil: simplificado
-mm.add('(max-width: 767px) and (prefers-reduced-motion: no-preference)', () => {
-  mobileSimplified();
 });
 
 // Showcase horizontal: pineado en desktop
@@ -233,13 +231,25 @@ if (!HAS_GSAP || window.matchMedia('(prefers-reduced-motion: reduce)').matches) 
   ];
 
   let q = '', f = 'all';
+  const cols = {}; // por-columna: índice -> valor seleccionado ('' = todas)
   const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  // Poblar cada <select> con los valores únicos de su columna (filtro por columna)
+  document.querySelectorAll('#mgtable .mgsel').forEach((sel) => {
+    const col = +sel.dataset.col;
+    cols[col] = '';
+    [...new Set(data.map((r) => r[col]))].sort().forEach((v) => {
+      const o = document.createElement('option'); o.value = v; o.textContent = v; sel.appendChild(o);
+    });
+    sel.addEventListener('change', () => { cols[col] = sel.value; render(); });
+  });
 
   function render() {
     const rows = data.filter((r) => {
       const okF = f === 'all' || r[4] === f;
       const okQ = !q || (r[0] + ' ' + r[2] + ' ' + r[3]).toLowerCase().includes(q);
-      return okF && okQ;
+      const okCols = Object.keys(cols).every((c) => !cols[c] || r[c] === cols[c]);
+      return okF && okQ && okCols;
     });
     body.innerHTML = rows.length
       ? rows.map((r) => `<tr>
