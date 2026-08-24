@@ -4,20 +4,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MapGestión — Control de patio para arrendadoras de autos</title>
-  <meta name="description" content="Implementación llave en mano del control digital de tu patio de arrendadora. Cada auto en el mapa de tu patio, cada daño con responsable. Sin GPS, sin Excel, sin WhatsApp." />
+  <title>MapGestión — Tu patio en la nube, desde el celular</title>
+  <meta name="description" content="Tu patio (o todos tus patios) en la nube. Desde el celular. Sin WhatsApp. Sin radio. Cajón, estado, gasolina, km y ficha de un vistazo." />
   <link rel="canonical" href="https://mapgestion.com/" />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#020617" />
+  <meta name="theme-color" content="#041016" />
   <link rel="icon" href="assets/brand/favicon.svg" />
   <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.svg" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="MapGestión — Control de patio para arrendadoras de autos" />
-  <meta property="og:description" content="Cada auto de tu arrendadora, en el mapa de tu patio. Implementación llave en mano." />
+  <meta property="og:title" content="MapGestión — Tu patio en la nube, desde el celular" />
+  <meta property="og:description" content="Control de patio para arrendadoras: mapa, cajón, estado y ficha desde el celular. Sin WhatsApp. Sin radio." />
   <meta property="og:image" content="https://mapgestion.com/assets/brand/og-mapgestion.svg" />
   <meta property="og:url" content="https://mapgestion.com/" />
 
-  <!-- ============ JSON-LD (SEO) ============ -->
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -26,15 +25,15 @@
   "url": "https://mapgestion.com",
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "Any",
-  "description": "Implementación corporativa llave en mano del control de patio para arrendadoras de autos y grandes flotillas.",
+  "description": "Control de patio en la nube para arrendadoras: mapa, cajón, estado, gasolina, km y ficha desde el celular. Implementación llave en mano.",
   "inLanguage": "es-MX",
   "areaServed": "MX",
   "featureList": [
-    "Mapa de patio en tiempo real",
-    "Bitácora de movimientos por operador",
-    "Incidencias con evidencia fotográfica",
-    "Control de accesos por rol corporativo",
-    "Implementación y mapeo del patio llave en mano"
+    "Mapa de patio o varios patios en la nube",
+    "Acceso desde celular sin VPN de oficina",
+    "Ficha de unidad: cajón, estado, gasolina, km, modelo, económico, placas, VIN",
+    "Cuadre, notas, QR, papeletas, traslados y alertas",
+    "Implementación llave en mano"
   ],
   "publisher": {
     "@type": "Organization",
@@ -54,20 +53,20 @@
 }
 </script>
   <script type="application/ld+json">
-{ "@context": "https://schema.org", "@type": "WebSite", "name": "MapGestion", "url": "https://mapgestion.com", "description": "Control de patio para arrendadoras de autos y flotillas en México.", "inLanguage": "es-MX" }
+{ "@context": "https://schema.org", "@type": "WebSite", "name": "MapGestion", "url": "https://mapgestion.com", "description": "Tu patio en la nube. Desde el celular. Sin WhatsApp. Sin radio.", "inLanguage": "es-MX" }
 </script>
   <script type="application/ld+json">
 { "@context": "https://schema.org", "@type": "Organization", "name": "MapGestion", "url": "https://mapgestion.com", "logo": "https://mapgestion.com/assets/brand/favicon.svg", "contactPoint": { "@type": "ContactPoint", "email": "contacto@mapgestion.com", "contactType": "customer support", "availableLanguage": "es" }, "sameAs": [] }
 </script>
-  <!-- FAQPage: solo en <head> para SEO; no se renderiza. -->
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "¿MapGestion sirve para arrendadoras de autos?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. MapGestion está enfocado en arrendadoras y flotillas: controla ubicación, disponibilidad, estados de unidad, preparación, daños e incidencias por sucursal." } },
-    { "@type": "Question", "name": "¿Es un GPS?", "acceptedAnswer": { "@type": "Answer", "text": "No. Es un mapa virtual de tu patio: un plano digital donde ves cada unidad y su estado en tiempo real, no coordenadas GPS." } },
-    { "@type": "Question", "name": "¿Tengo que instalar algo yo?", "acceptedAnswer": { "@type": "Answer", "text": "No. La implementación es llave en mano: digitalizamos y mapeamos tu patio, cargamos las unidades y entregamos el sistema listo para operar." } }
+    { "@type": "Question", "name": "¿MapGestión se usa desde el celular?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Vive en la nube: entras desde el celular en el patio, en casa o de viaje, sin depender de una PC de oficina." } },
+    { "@type": "Question", "name": "¿Reemplaza WhatsApp y radio para ubicar unidades?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Abres el mapa y ves cajón, estado, gasolina, km, modelo, económico, placas y VIN sin preguntar por chat ni caminar a buscarlo." } },
+    { "@type": "Question", "name": "¿Sirve para varios patios o sub-plazas?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Una cuenta puede cubrir varios patios o sub-plazas: cambias de plaza y ves la estructura completa." } },
+    { "@type": "Question", "name": "¿Es un GPS?", "acceptedAnswer": { "@type": "Answer", "text": "No. Es un mapa virtual de tu patio: un plano digital donde ves cada unidad y su estado, no coordenadas GPS en ruta." } }
   ]
 }
 </script>
@@ -77,390 +76,482 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-  <!-- Marca que hay JS: solo entonces ocultamos el contenido para animarlo.
-       Si GSAP no carga, app.js quita esta clase y todo queda visible. -->
   <script>document.documentElement.classList.add('js');</script>
 </head>
 
 <body>
 
-  <!-- Blobs ambientales animados (profundidad + base para el glassmorphism) -->
   <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
 
-  <!-- ===== Navbar flotante translúcido ===== -->
-  <nav class="nav">
-    <div class="nav__inner">
+  <!-- §0 Nav — glass flotante -->
+  <nav class="nav" aria-label="Principal">
+    <div class="nav__pill">
+        <button id="menuBtn" class="nav__menuBtn" aria-label="Open navigation"><span class="material-symbols-outlined">menu</span></button>
       <a href="#hero" class="nav__brand" aria-label="MapGestión — inicio">
         <img src="assets/brand/mapgestion_logo.svg" alt="MapGestión" />
       </a>
-      <div class="nav__links">
-        <a href="#operaciones">Operación</a>
-        <a href="#transformacion">Cómo funciona</a>
-        <a href="#sandbox-live">Simulador</a>
+      <div class="nav__drawer nav__links">
+        <a href="#producto">Producto</a>
+        <a href="#video-tour">Cómo funciona</a>
+        <a href="#plataforma">Pantallas</a>
         <a href="#implementacion">Implementación</a>
       </div>
-      <a href="#contacto" class="btn btn--primary btn--sm">Agendar consultoría</a>
+      <a href="#contacto" class="btn btn--primary btn--sm">Solicitar demo</a>
     </div>
   </nav>
+  <div id="navOverlay" class="nav__overlay" aria-hidden="true"></div>
 
-  <!-- ============================================================= -->
-  <!-- 1 · HERO — 100vh/100vw, imagen de fondo + overlay + parallax   -->
-  <!-- ============================================================= -->
+  <!-- §1 Hero — full-bleed; texto sobre la imagen -->
   <header class="hero" id="hero">
-    <!-- .hero__bg es la capa que recibe el parallax en PC. Sustituye la imagen. -->
-    <div class="hero__bg" data-parallax="0.25"></div>
-    <div class="hero__overlay"></div>
+    <div class="hero__media" data-parallax="0.18" aria-hidden="true">
+      <img
+        id="heroImg"
+        class="hero__img--index"
+        src="assets/scenes/hero-index-phone.png"
+        alt=""
+        width="1920"
+        height="1080"
+        fetchpriority="high" />
+    </div>
+    <div class="hero__scrim" aria-hidden="true"></div>
 
     <div class="hero__content">
-      <p class="hero__eyebrow gsap-fade">Implementación llave en mano · Enterprise</p>
-      <h1 class="hero__title gsap-fade">Cada auto de tu arrendadora, en el <span class="grad">mapa de tu patio.</span></h1>
-      <p class="hero__desc gsap-fade">Replicamos tu estacionamiento en un plano digital donde ves cada unidad y su estado en tiempo real. No es GPS: es tu patio, digitalizado y bajo control. Sin Excel, sin WhatsApp, sin autos perdidos.</p>
+      <p class="hero__brand gsap-fade">MapGestión</p>
+      <h1 class="hero__title gsap-fade">Tu patio en la nube.<br />Desde el celular.<br /><span class="grad">Sin WhatsApp. Sin radio.</span></h1>
+      <p class="hero__desc gsap-fade">Un vistazo al mapa: cajón, estado, gasolina, km, modelo, económico, placas y VIN — en el patio, en casa o de viaje.</p>
       <div class="hero__actions gsap-fade">
-        <a class="btn btn--primary" href="#transformacion">Ver cómo funciona</a>
-        <a class="btn btn--ghost" href="#contacto">Agendar consultoría</a>
+        <a class="btn btn--primary" href="#contacto">Solicitar demo</a>
+        <a class="btn btn--ghost" href="#video-tour">Ver el recorrido</a>
       </div>
     </div>
 
-    <a href="#transformacion" class="hero__scroll" aria-label="Desplazar">
+    <a href="#producto" class="hero__scroll" aria-label="Desplazar">
       <span></span>
     </a>
   </header>
 
-  <!-- ============================================================= -->
-  <!-- 2 · OPERACIONES Y LOGÍSTICA                                    -->
-  <!-- ============================================================= -->
-  <section class="ops" id="operaciones">
+  <!-- §2 Historia: Hoy preguntas → Excel → MapGestión → Desde donde sea -->
+  <section class="story" id="producto">
+    <!-- Escenas 1–3: chat → Excel → tabla -->
+    <div class="chaos" id="transformacion">
+      <div class="chaos__pin">
+        <div class="chaos__head">
+          <h2 class="chaos__cap" id="chaosCap">Hoy preguntas</h2>
+          <p class="chaos__sub" id="chaosSub">Radio o WhatsApp: “¿El D5256 está lleno?”</p>
+        </div>
+        <div class="chaos__stage">
+          <div class="chaos__layer chaos__chat" id="chaosChat">
+            <div class="wa">
+              <div class="wa__head">
+                <span class="material-symbols-outlined" aria-hidden="true">forum</span>
+                <div>
+                  <strong>Radio / WhatsApp · Patio</strong>
+                  <em>Grupo operativo</em>
+                </div>
+              </div>
+              <div class="wa__thread">
+                <div class="wa__bubble wa__bubble--in">¿El D5256 está lleno?</div>
+                <div class="wa__bubble wa__bubble--in">¿Patio A o B?</div>
+                <div class="wa__bubble wa__bubble--out">Ahorita checo…</div>
+                <div class="wa__bubble wa__bubble--in">¿Alguien sabe el km?</div>
+                <div class="wa__typing"><span></span><span></span><span></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chaos__layer chaos__xls" id="chaosXls">
+            <div class="xls">
+              <div class="xls__bar"><span></span><span></span><span></span>&nbsp; unidades_patio.xlsx</div>
+              <table class="xls__grid">
+                <thead><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>D5256</td><td>Aveo</td><td>lleno??</td><td>patio?</td><td>pregunta Jose</td></tr>
+                  <tr><td>2</td><td>D5129</td><td>Aveo</td><td>listo?</td><td>patio B</td><td>ok x</td></tr>
+                  <tr><td>3</td><td>F1161</td><td>Jetta</td><td>lavando</td><td>lavado?</td><td>?</td></tr>
+                  <tr><td>4</td><td>I166</td><td>Tank 300</td><td>taller??</td><td>?</td><td>rayón</td></tr>
+                  <tr><td>5</td><td>M159</td><td>Suburban</td><td>en patio</td><td>check in?</td><td></td></tr>
+                  <tr><td>6</td><td>Q234</td><td>GN8</td><td>no sé</td><td>-</td><td>revisar</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="chaos__layer chaos__table" id="chaosTable">
+            <div class="mgtable" id="mgtable">
+              <div class="mgtable__toolbar">
+                <label class="mgtable__search">
+                  <span class="material-symbols-outlined">search</span>
+                  <input id="mgSearch" type="search" placeholder="Buscar MVA, placas o modelo…" aria-label="Buscar unidad" value="D5256" />
+                </label>
+                <div class="mgtable__filters" id="mgFilters">
+                  <button type="button" class="mgchip is-active" data-f="all">Todos</button>
+                  <button type="button" class="mgchip" data-f="LISTO"><i class="mgdot" style="--c:#34d399"></i>Listo</button>
+                  <button type="button" class="mgchip" data-f="PREPARACION"><i class="mgdot" style="--c:#fbbf24"></i>Preparación</button>
+                  <button type="button" class="mgchip" data-f="TALLER"><i class="mgdot" style="--c:#f87171"></i>Taller</button>
+                  <button type="button" class="mgchip" data-f="PATIO"><i class="mgdot" style="--c:#38bdf8"></i>En patio</button>
+                </div>
+              </div>
+              <div class="mgtable__body">
+                <table class="mgtable__grid">
+                  <thead><tr>
+                    <th>MVA</th>
+                    <th>Categoría <select class="mgsel" data-col="1" aria-label="Filtrar por categoría"><option value="">Todas</option></select></th>
+                    <th>Modelo <select class="mgsel" data-col="2" aria-label="Filtrar por modelo"><option value="">Todos</option></select></th>
+                    <th>Placas</th>
+                    <th><button type="button" class="mg-sort" id="mgSortFuel" aria-label="Ordenar por gasolina">Gasolina <span class="material-symbols-outlined mg-sort__ic">unfold_more</span></button></th>
+                    <th><button type="button" class="mg-sort" id="mgSortKm" aria-label="Ordenar por kilometraje">Km <span class="material-symbols-outlined mg-sort__ic">unfold_more</span></button></th>
+                    <th>Estado <select class="mgsel" data-col="6" aria-label="Filtrar por estado"><option value="">Todos</option></select></th>
+                    <th>Ubicación <select class="mgsel" data-col="7" aria-label="Filtrar por ubicación"><option value="">Todas</option></select></th>
+                    <th>Notas</th>
+                  </tr></thead>
+                  <tbody id="mgBody"></tbody>
+                </table>
+              </div>
+              <div class="mgtable__foot"><span id="mgCount"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Escena 4: Desde donde sea (mockups estáticos) -->
+    <div class="story-scenes" id="anywhere">
+      <div class="container">
+        <h2 class="story-scenes__title">Desde donde sea</h2>
+        <p class="story-scenes__sub">El sistema está en la nube. Entras desde el patio, casa o viaje.</p>
+      </div>
+      <div class="story-scenes__rail">
+        <article class="story-scenes__card" data-scene="patio">
+          <div class="story-scenes__media">
+            <img src="assets/scenes/patio-phone.png" alt="En el patio con el celular" loading="lazy" />
+          </div>
+          <div class="story-scenes__copy">
+            <span class="material-symbols-outlined" aria-hidden="true">local_parking</span>
+            <h3>En el patio</h3>
+            <p>Con el teléfono. Sin radio. Cajón y estado a un toque.</p>
+          </div>
+        </article>
+        <article class="story-scenes__card" data-scene="casa">
+          <div class="story-scenes__media">
+            <img src="assets/scenes/hero-phone.png" alt="Desde casa" loading="lazy" />
+          </div>
+          <div class="story-scenes__copy">
+            <span class="material-symbols-outlined" aria-hidden="true">home</span>
+            <h3>En casa</h3>
+            <p>Revisas la flota sin VPN de oficina. Misma cuenta, mismo mapa.</p>
+          </div>
+        </article>
+        <article class="story-scenes__card" data-scene="viaje">
+          <div class="story-scenes__media">
+            <img src="assets/scenes/viaje-phone.png" alt="De viaje" loading="lazy" />
+          </div>
+          <div class="story-scenes__copy">
+            <span class="material-symbols-outlined" aria-hidden="true">flight</span>
+            <h3>De viaje</h3>
+            <p>Varios patios o sub-plazas en la misma cuenta, donde estés.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- §4 Video tour -->
+  <section class="video-tour" id="video-tour">
     <div class="container">
-      <h2 class="section-title">Cómo se mueve tu operación</h2>
-      <p class="section-sub">Sigue una unidad por tu patio: cada movimiento, en vivo, a medida que avanzas.</p>
+      <h2 class="section-title">La plataforma en acción</h2>
+      <p class="section-sub">Recorre el sistema real: mapa, plazas, ficha, cuadre, notas, QR, papeletas, traslados y alertas.</p>
+
+      <div class="video-stage reveal" id="mgPlayer">
+        <div class="video-stage__glow" aria-hidden="true"></div>
+        <div class="video-stage__frame">
+          <div class="video-stage__bar" aria-hidden="true">
+            <span></span><span></span><span></span>
+            <em>mapgestion · recorrido</em>
+          </div>
+          <div class="vplayer">
+            <video
+              class="vplayer__video"
+              playsinline
+              preload="metadata"
+              poster="assets/screenshots/mapa-vivo.png"
+              title="Recorrido de MapGestión">
+              <source src="assets/videos/video_preview.mp4" type="video/mp4" />
+              Tu navegador no reproduce video HTML5.
+            </video>
+
+            <button type="button" class="vplayer__bigplay" aria-label="Reproducir video">
+              <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>
+            </button>
+
+            <div class="vplayer__controls">
+              <button type="button" class="vplayer__btn" data-vp="play" aria-label="Reproducir">
+                <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>
+              </button>
+
+              <div class="vplayer__time" aria-hidden="true">
+                <span data-vp="cur">0:00</span>
+                <span>/</span>
+                <span data-vp="dur">0:00</span>
+              </div>
+
+              <div class="vplayer__scrub" data-vp="scrub">
+                <div class="vplayer__track">
+                  <div class="vplayer__buffer" data-vp="buffer"></div>
+                  <div class="vplayer__fill" data-vp="fill"></div>
+                </div>
+                <input class="vplayer__range" data-vp="seek" type="range" min="0" max="100" value="0" step="0.1" aria-label="Progreso del video" />
+              </div>
+
+              <button type="button" class="vplayer__btn" data-vp="mute" aria-label="Silenciar">
+                <span class="material-symbols-outlined" aria-hidden="true">volume_up</span>
+              </button>
+
+              <button type="button" class="vplayer__btn" data-vp="fs" aria-label="Pantalla completa">
+                <span class="material-symbols-outlined" aria-hidden="true">fullscreen</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="video-tour__demo">
+        ¿Quieres probarlo tú? Pronto habrá un <strong>dominio demo</strong> con datos de prueba.
+        <span class="soon" aria-disabled="true">Próximamente</span>
+      </p>
     </div>
+  </section>
 
-    <!-- Recorrido vertical: el auto baja por la línea y los diálogos lo acompañan -->
-    <div class="journey" id="journey">
-      <span class="journey__fill" id="jFill"></span>
-      <span class="journey__car" id="car"><span class="material-symbols-outlined">directions_car</span></span>
-
-      <div class="jrow jrow--r">
-        <article class="rcard reveal">
-          <span class="card__ico material-symbols-outlined">location_on</span>
-          <h3>Ubicación en vivo</h3>
-          <p>Cada unidad en el plano de tu patio, sin llamadas ni búsquedas.</p>
-          <p class="card__more">Filtra por estado, categoría o placa y encuentra cualquier auto en segundos.</p>
-        </article>
-      </div>
-      <div class="jrow jrow--l">
-        <article class="rcard reveal">
-          <span class="card__ico material-symbols-outlined">receipt_long</span>
-          <h3>Cuadre de cargas</h3>
-          <p>Movimientos y estados sin huecos.</p>
-          <p class="card__more">Cierra turno sin diferencias: entradas, salidas y estados, todo cuadrado.</p>
-        </article>
-      </div>
-      <div class="jrow jrow--r">
-        <article class="rcard reveal">
-          <span class="card__ico material-symbols-outlined">shield</span>
-          <h3>Incidencias</h3>
-          <p>Reportes con evidencia y responsable.</p>
-          <p class="card__more">Foto, responsable y seguimiento hasta la resolución del daño.</p>
-        </article>
-      </div>
-      <div class="jrow jrow--l">
-        <article class="rcard reveal">
-          <span class="card__ico material-symbols-outlined">insights</span>
-          <h3>Datos de operación</h3>
-          <p>Indicadores claros para decidir.</p>
-          <p class="card__more">Disponibles, en preparación y en taller — en tiempo real.</p>
-        </article>
-      </div>
+  <!-- Pantallas — grid estático (galería scroll se redefine después) -->
+  <section class="screens" id="plataforma">
+    <div class="container screens__intro">
+      <h2 class="section-title">Pantallas del sistema</h2>
+      <p class="section-sub">Mapa, flota, editor, cuadre y más — lo que ves al operar el patio.</p>
     </div>
+    <div class="screens__grid">
+      <figure class="screens__card">
+        <img src="assets/screenshots/mapa-vivo.png" alt="Mapa del patio en vivo" loading="lazy" />
+        <figcaption>
+          <strong>Mapa</strong>
+          <span>Cajón, estado y unidad a un vistazo</span>
+        </figcaption>
+      </figure>
+      <figure class="screens__card">
+        <img src="assets/screenshots/resumen-flota.png" alt="Resumen de flota" loading="lazy" />
+        <figcaption>
+          <strong>Resumen</strong>
+          <span>Indicadores para decidir sin chat</span>
+        </figcaption>
+      </figure>
+      <figure class="screens__card">
+        <img src="assets/screenshots/gestion-flota.png" alt="Gestión de flota" loading="lazy" />
+        <figcaption>
+          <strong>Flota</strong>
+          <span>Placa, estado y ficha completa</span>
+        </figcaption>
+      </figure>
+      <figure class="screens__card">
+        <img src="assets/screenshots/editor-mapa.png" alt="Editor de mapa" loading="lazy" />
+        <figcaption>
+          <strong>Editor</strong>
+          <span>Tu patio dibujado como es</span>
+        </figcaption>
+      </figure>
+      <figure class="screens__card">
+        <img src="assets/screenshots/cuadre.png" alt="Cuadre de patio" loading="lazy" />
+        <figcaption>
+          <strong>Cuadre</strong>
+          <span>Cierre de día sin huecos</span>
+        </figcaption>
+      </figure>
+      <figure class="screens__card">
+        <img src="assets/screenshots/roles-permisos.png" alt="Roles y permisos" loading="lazy" />
+        <figcaption>
+          <strong>Roles</strong>
+          <span>Permisos por área</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
 
+  <!-- §5 Módulos — un job por bloque -->
+  <section class="modules" id="modulos" aria-label="Módulos de MapGestión">
+
+    <article class="mod mod--mapa" id="mod-mapa">
+      <div class="container">
+        <div class="mod__text mod__text--center">
+          <p class="mod__label">Mapa</p>
+          <h2>Toda la estructura del patio (o patios) a un vistazo</h2>
+          <p>Cajones, estados y unidades en el plano — una plaza o varias sub-plazas.</p>
+        </div>
+        <div class="map-sim" id="mapSim">
+          <img class="map-sim__img" src="assets/screenshots/mapa-vivo.png" alt="Mapa del patio con unidades ubicadas" loading="lazy" />
+          <div class="map-sim__layer" aria-hidden="true">
+            <!-- Cajones B-1…B-10 (vacíos en el screenshot). --x/--y = centro del cajón. -->
+            <span class="spot spot--avail"  style="--x:15.6%; --y:34.2%;">D5129</span>
+            <span class="spot spot--prep"   style="--x:21.5%; --y:34.2%;">F1161</span>
+            <span class="spot spot--avail"  style="--x:27.4%; --y:34.2%;">M159</span>
+            <span class="spot spot--patio"  style="--x:33.3%; --y:34.2%;">I174</span>
+            <span class="spot spot--avail"  style="--x:39.2%; --y:34.2%;">Q234</span>
+            <span class="spot spot--taller" style="--x:45.1%; --y:34.2%;">I166</span>
+            <span class="spot spot--avail"  style="--x:51.0%; --y:34.2%;">S034</span>
+            <span class="spot spot--prep"   style="--x:56.9%; --y:34.2%;">A1842</span>
+            <span class="spot spot--avail"  style="--x:62.8%; --y:34.2%;">B2380</span>
+            <span class="spot spot--patio"  style="--x:68.7%; --y:34.2%;">Z018</span>
+          </div>
+          <div class="map-sim__legend">
+            <span><i class="dot dot--avail"></i>Listo</span>
+            <span><i class="dot dot--prep"></i>Preparación</span>
+            <span><i class="dot dot--patio"></i>En patio</span>
+            <span><i class="dot dot--taller"></i>Taller</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="mod mod--rev" id="mod-cuadre">
+      <div class="container mod__inner">
+        <div class="mod__text">
+          <p class="mod__label">Cuadre</p>
+          <h2>Cargas y estados sin huecos al cierre</h2>
+          <p>Entradas, salidas y estados cuadrados — sin diferencias al cerrar turno.</p>
+        </div>
+        <div class="mod__media">
+          <div class="mod__shot"><img src="assets/screenshots/cuadre.png" alt="Pantalla de cuadre" loading="lazy" /></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="mod" id="mod-notas">
+      <div class="container mod__inner">
+        <div class="mod__text">
+          <p class="mod__label">Notas / incidencias</p>
+          <h2>Evidencia + responsable, sin “daño de nadie”</h2>
+          <p>Foto, quién reportó y seguimiento hasta resolver.</p>
+        </div>
+        <div class="mod__media">
+          <div class="mod__shot"><img src="assets/screenshots/bitacora-incidencias.png" alt="Bitácora de incidencias" loading="lazy" /></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="mod mod--rev" id="mod-qr">
+      <div class="container mod__inner">
+        <div class="mod__text">
+          <p class="mod__label">QR por unidad</p>
+          <h2>Escaneas la unidad y ves ficha / acciones</h2>
+          <p>Público o con sesión: del adhesivo a la ficha en un toque.</p>
+        </div>
+        <div class="mod__media">
+          <div class="mod__shot">
+            <img src="assets/screenshots/qr-unidad.png" alt="Escaneo QR de una unidad" loading="lazy"
+              onerror="this.onerror=null;this.src='assets/screenshots/mapa-vivo.png'" />
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="mod" id="mod-papeletas">
+      <div class="container mod__inner">
+        <div class="mod__text">
+          <p class="mod__label">Papeletas</p>
+          <h2>Salida y entrada digital, menos papel</h2>
+          <p>Registro claro de cada movimiento de unidad.</p>
+        </div>
+        <div class="mod__media">
+          <div class="mod__shot">
+            <img src="assets/screenshots/papeletas.png" alt="Papeletas digitales" loading="lazy"
+              onerror="this.onerror=null;this.src='assets/screenshots/editor-mapa.png'" />
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="mod mod--rev" id="mod-traslados">
+      <div class="container mod__inner">
+        <div class="mod__text">
+          <p class="mod__label">Traslados</p>
+          <h2>Movimiento entre plazas con rastro</h2>
+          <p>Quién movió qué, de dónde a dónde, y cuándo.</p>
+        </div>
+        <div class="mod__media">
+          <div class="mod__shot">
+            <img src="assets/screenshots/traslados.png" alt="Traslados entre plazas" loading="lazy"
+              onerror="this.onerror=null;this.src='assets/screenshots/editor-mapa.png'" />
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="mod" id="mod-alertas">
+      <div class="container mod__inner">
+        <div class="mod__text">
+          <p class="mod__label">Alertas</p>
+          <h2>Avisos operativos a quien corresponde</h2>
+          <p>Lo urgente llega a la persona correcta, no al grupo de WhatsApp.</p>
+        </div>
+        <div class="mod__media">
+          <div class="mod__shot">
+            <img src="assets/screenshots/alertas.png" alt="Alertas operativas" loading="lazy"
+              onerror="this.onerror=null;this.src='assets/screenshots/bitacora-incidencias.png'" />
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- §6 Cómo trabajamos -->
+  <section class="how" id="implementacion">
     <div class="container">
+      <h2 class="section-title">Cómo trabajamos con ustedes</h2>
+      <p class="section-sub">Llave en mano. Tu equipo opera desde el celular desde el día 1.</p>
 
-      <!-- Simulador: marcadores que se acomodan en los spots SOBRE el mapa real.
-           Cada .spot lleva left/top en % (posición del cajón) y una clase de estado.
-           Ajusta left/top para calzar con los cajones de TU imagen de mapa. -->
-      <div class="map-sim" id="mapSim">
-        <img class="map-sim__img" src="assets/screenshots/mapa-vivo.png" alt="Mapa del patio con unidades ubicadas" />
-        <div class="map-sim__layer" aria-hidden="true">
-          <span class="spot spot--avail"  style="left:22%; top:26%;">PL-01</span>
-          <span class="spot spot--prep"   style="left:30%; top:26%;">PL-02</span>
-          <span class="spot spot--patio"  style="left:38%; top:24%;">A-14</span>
-          <span class="spot spot--avail"  style="left:46%; top:27%;">A-15</span>
-          <span class="spot spot--avail"  style="left:54%; top:25%;">A-18</span>
-          <span class="spot spot--prep"   style="left:16%; top:44%;">B-03</span>
-          <span class="spot spot--avail"  style="left:30%; top:46%;">B-07</span>
-          <span class="spot spot--patio"  style="left:44%; top:45%;">B-09</span>
-          <span class="spot spot--avail"  style="left:56%; top:44%;">C-02</span>
-          <span class="spot spot--avail"  style="left:22%; top:66%;">C-11</span>
-          <span class="spot spot--prep"   style="left:40%; top:64%;">C-14</span>
-          <span class="spot spot--avail"  style="left:54%; top:66%;">D-05</span>
-          <span class="spot spot--taller" style="left:78%; top:52%;">TLL</span>
-        </div>
-        <div class="map-sim__legend">
-          <span><i class="dot dot--avail"></i>Listo</span>
-          <span><i class="dot dot--prep"></i>Preparación</span>
-          <span><i class="dot dot--patio"></i>En patio</span>
-          <span><i class="dot dot--taller"></i>Taller</span>
-        </div>
-      </div>
+      <ol class="how__steps">
+        <li class="reveal">
+          <span class="how__n">01</span>
+          <h3>Diagnóstico</h3>
+          <p>Patio, flota y procesos — nosotros hacemos el trabajo pesado.</p>
+        </li>
+        <li class="reveal">
+          <span class="how__n">02</span>
+          <h3>Mapeo</h3>
+          <p>Digitalizamos tu patio (o patios) y cargamos las unidades.</p>
+        </li>
+        <li class="reveal">
+          <span class="how__n">03</span>
+          <h3>Operación</h3>
+          <p>Sistema listo y equipo capacitado para usar el celular en vivo.</p>
+        </li>
+        <li class="reveal">
+          <span class="how__n">04</span>
+          <h3>Soporte</h3>
+          <p>Seguimos contigo mientras crece la operación.</p>
+        </li>
+      </ol>
     </div>
   </section>
 
-  <!-- ============================================================= -->
-  <!-- 3 · LA PLATAFORMA EN ACCIÓN — scroll horizontal a pantalla completa -->
-  <!-- Desktop: sección pineada, el track se traslada con el scroll.  -->
-  <!-- Móvil: scroll horizontal nativo con snap (swipe).              -->
-  <!-- ============================================================= -->
-  <section class="showcase" id="plataforma">
-    <div class="showcase__pin">
-      <div class="showcase__head container">
-        <h2 class="section-title">La plataforma en acción</h2>
-        <p class="section-sub">Desliza y recorre el sistema, pantalla por pantalla.</p>
-      </div>
-      <div class="showcase__track" id="showcaseTrack">
-        <article class="showcase__panel">
-          <div class="showcase__frame">
-            <div class="showcase__bar"><span></span><span></span><span></span></div>
-            <img src="assets/screenshots/mapa-vivo.png" alt="Mapa del patio en vivo" loading="lazy" />
-          </div>
-          <p class="showcase__cap">Mapa del patio en vivo</p>
-        </article>
-        <article class="showcase__panel">
-          <div class="showcase__frame">
-            <div class="showcase__bar"><span></span><span></span><span></span></div>
-            <img src="assets/screenshots/resumen-flota.png" alt="Resumen de flota" loading="lazy" />
-          </div>
-          <p class="showcase__cap">Resumen de tu flota, de un vistazo</p>
-        </article>
-        <article class="showcase__panel">
-          <div class="showcase__frame">
-            <div class="showcase__bar"><span></span><span></span><span></span></div>
-            <img src="assets/screenshots/gestion-flota.png" alt="Gestión de flota" loading="lazy" />
-          </div>
-          <p class="showcase__cap">Gestión de flota: placa, estado y ficha</p>
-        </article>
-        <article class="showcase__panel">
-          <div class="showcase__frame">
-            <div class="showcase__bar"><span></span><span></span><span></span></div>
-            <img src="assets/screenshots/editor-mapa.png" alt="Editor del mapa" loading="lazy" />
-          </div>
-          <p class="showcase__cap">Editor: dibuja tu patio tal cual es</p>
-        </article>
-        <article class="showcase__panel">
-          <div class="showcase__frame">
-            <div class="showcase__bar"><span></span><span></span><span></span></div>
-            <img src="assets/screenshots/roles-permisos.png" alt="Roles y permisos" loading="lazy" />
-          </div>
-          <p class="showcase__cap">Roles y permisos por área</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================= -->
-  <!-- 3.5 · DEL CAOS DEL EXCEL AL MAPA — tabla MapGestión funcional  -->
-  <!-- ============================================================= -->
-  <section class="xform" id="transformacion">
-    <div class="container" style="text-align:center;">
-      <h2 class="section-title">Del caos del Excel al mapa</h2>
-      <p class="section-sub">Así rastreas tu flota hoy… y así con MapGestión: buscable, filtrable y clara.</p>
-    </div>
-
-    <div class="container xstack">
-      <!-- Excel (desordenado, un poco más extenso) -->
-      <div class="xls">
-        <div class="xls__bar"><span></span><span></span><span></span>&nbsp; unidades_patio.xlsx</div>
-        <table class="xls__grid">
-          <thead><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
-          <tbody>
-            <tr><td>1</td><td>D5129</td><td>Aveo</td><td>listo?</td><td>patio 2</td><td>ok x</td></tr>
-            <tr><td>2</td><td>F1161</td><td>Jetta</td><td>lavando</td><td>-</td><td>pregunta Jose</td></tr>
-            <tr><td>3</td><td>I166</td><td>Tank 300</td><td>taller??</td><td>?</td><td>rayón</td></tr>
-            <tr><td>4</td><td>M159</td><td>Suburban</td><td>en patio</td><td>fila 3</td><td></td></tr>
-            <tr><td>5</td><td>Q234</td><td>GN8</td><td>no sé</td><td>-</td><td>revisar</td></tr>
-            <tr><td>6</td><td>S034</td><td>Sienna</td><td>ok</td><td>?</td><td>falta gas</td></tr>
-            <tr><td>7</td><td>N372</td><td>Transporter</td><td>apartado?</td><td>-</td><td>cliente??</td></tr>
-            <tr><td>8</td><td>C2926</td><td>Ford Edge</td><td>externo</td><td>-</td><td>dónde está</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="xarrow reveal"><span class="material-symbols-outlined">arrow_downward</span> Lo mismo, pero buscable y filtrable</div>
-
-      <!-- Tabla MapGestión FUNCIONAL: buscador + filtros operan sobre los datos -->
-      <div class="mgtable" id="mgtable">
-        <div class="mgtable__toolbar">
-          <label class="mgtable__search">
-            <span class="material-symbols-outlined">search</span>
-            <input id="mgSearch" type="search" placeholder="Buscar MVA, placas o modelo…" aria-label="Buscar unidad" />
-          </label>
-          <div class="mgtable__filters" id="mgFilters">
-            <button class="mgchip is-active" data-f="all">Todos</button>
-            <button class="mgchip" data-f="LISTO"><i class="mgdot" style="--c:#34d399"></i>Listo</button>
-            <button class="mgchip" data-f="PREPARACION"><i class="mgdot" style="--c:#fbbf24"></i>Preparación</button>
-            <button class="mgchip" data-f="TALLER"><i class="mgdot" style="--c:#f87171"></i>Taller</button>
-            <button class="mgchip" data-f="PATIO"><i class="mgdot" style="--c:#818cf8"></i>En patio</button>
-          </div>
-        </div>
-        <div class="mgtable__scroll">
-          <table class="mgtable__grid">
-            <thead><tr>
-              <th>MVA</th>
-              <th>Categoría <select class="mgsel" data-col="1" aria-label="Filtrar por categoría"><option value="">Todas</option></select></th>
-              <th>Modelo <select class="mgsel" data-col="2" aria-label="Filtrar por modelo"><option value="">Todos</option></select></th>
-              <th>Placas</th>
-              <th><button type="button" class="mg-sort" id="mgSortFuel" aria-label="Ordenar por nivel de gasolina">Gasolina <span class="material-symbols-outlined mg-sort__ic">unfold_more</span></button></th>
-              <th>Estado</th>
-              <th>Ubicación <select class="mgsel" data-col="5" aria-label="Filtrar por ubicación"><option value="">Todas</option></select></th>
-            </tr></thead>
-            <tbody id="mgBody"></tbody>
-          </table>
-        </div>
-        <div class="mgtable__foot"><span id="mgCount"></span></div>
-      </div>
-
-      <a class="btn btn--primary reveal" href="#sandbox-live" style="align-self:center;">
-        Y es un mapa real — pruébalo <span class="material-symbols-outlined">arrow_forward</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- ============================================================= -->
-  <!-- 3.6 · SANDBOX real embebido (iframe, no abre otra página)      -->
-  <!-- ============================================================= -->
-  <section class="sandbox-live" id="sandbox-live">
-    <div class="container">
-      <h2 class="section-title">Y es un sandbox real</h2>
-      <p class="section-sub">Mueve unidades, cambia estados, arma tu patio — aquí mismo, sin salir de la página.</p>
-      <div class="sandbox-frame">
-        <iframe
-          src="/sandbox-demoOriginal.html?embed=1"
-          width="100%"
-          height="680"
-          style="border: none; border-radius: 16px; overflow: hidden; display: block;"
-          loading="lazy"
-          title="MapGestión — Simulador de patio"
-          allow="storage-access"></iframe>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================= -->
-  <!-- 6 · POR QUÉ NOS CONTRATAN                                      -->
-  <!-- ============================================================= -->
-  <section class="why" id="por-que">
-    <div class="container">
-      <div style="text-align:center;">
-        <h2 class="section-title">Por qué nos contratan</h2>
-        <p class="section-sub">Tres razones por las que las arrendadoras dejan el Excel y no vuelven.</p>
-      </div>
-      <div class="why__rows">
-        <article class="why__row reveal">
-          <div class="why__media"><div class="why__frame"><img src="assets/screenshots/mapa-vivo.png" alt="Ubicación de cada unidad en el mapa" loading="lazy" /></div></div>
-          <div class="why__text">
-            <span class="why__ico material-symbols-outlined">location_on</span>
-            <h3>Ubicación visual exacta</h3>
-            <p>Cada auto en el plano de tu patio. Dónde está y en qué estado, de un vistazo.</p>
-          </div>
-        </article>
-        <article class="why__row why__row--rev reveal">
-          <div class="why__media"><div class="why__frame"><img src="assets/screenshots/bitacora-incidencias.png" alt="Incidencia con evidencia y responsable" loading="lazy" /></div></div>
-          <div class="why__text">
-            <span class="why__ico material-symbols-outlined">gpp_good</span>
-            <h3>Daños con responsable</h3>
-            <p>Quién, cuándo y con foto. Se acaban los daños “de nadie”.</p>
-          </div>
-        </article>
-        <article class="why__row reveal">
-          <div class="why__media"><div class="why__frame"><img src="assets/screenshots/gestion-flota.png" alt="Cola de preparación de unidades" loading="lazy" /></div></div>
-          <div class="why__text">
-            <span class="why__ico material-symbols-outlined">bolt</span>
-            <h3>Cola de preparación</h3>
-            <p>Preparas, lavas y liberas en orden. Rentas más, dejas menos parado.</p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================= -->
-  <!-- 7 · CÓMO LO IMPLEMENTAMOS                                      -->
-  <!-- ============================================================= -->
-  <!-- Roadmap: scrollytelling a pantalla completa; cada paso (bg imagen +
-       subtítulo) sube y se desvanece dando paso al siguiente. -->
-  <section class="road" id="implementacion">
-    <div class="road__pin">
-      <article class="road__step" data-i="0">
-        <img class="road__bg" src="assets/screenshots/editor-mapa.png" alt="" loading="lazy" />
-        <div class="road__scrim"></div>
-        <div class="road__inner">
-          <span class="road__num"><span class="material-symbols-outlined">travel_explore</span> Paso 01 · Diagnóstico</span>
-          <h3 class="road__title">Nosotros hacemos el trabajo pesado</h3>
-          <p class="road__sub">Analizamos tu patio, tu flota y tus procesos. Tú no mueves un dedo.</p>
-        </div>
-      </article>
-      <article class="road__step" data-i="1">
-        <img class="road__bg" src="assets/screenshots/mapa-vivo.png" alt="" loading="lazy" />
-        <div class="road__scrim"></div>
-        <div class="road__inner">
-          <span class="road__num"><span class="material-symbols-outlined">map</span> Paso 02 · Mapeo del patio</span>
-          <h3 class="road__title">Digitalizamos tu patio completo</h3>
-          <p class="road__sub">Cargamos cada unidad en tu base de datos dedicada, tal cual es tu estacionamiento.</p>
-        </div>
-      </article>
-      <article class="road__step" data-i="2">
-        <img class="road__bg" src="assets/screenshots/resumen-flota.png" alt="" loading="lazy" />
-        <div class="road__scrim"></div>
-        <div class="road__inner">
-          <span class="road__num"><span class="material-symbols-outlined">rocket_launch</span> Paso 03 · Operación</span>
-          <h3 class="road__title">Listo para operar en menos de una semana</h3>
-          <p class="road__sub">Te entregamos el sistema funcionando y capacitamos a tu equipo.</p>
-        </div>
-      </article>
-      <article class="road__step" data-i="3">
-        <img class="road__bg" src="assets/screenshots/auditoria-sistema.png" alt="" loading="lazy" />
-        <div class="road__scrim"></div>
-        <div class="road__inner">
-          <span class="road__num"><span class="material-symbols-outlined">support_agent</span> Paso 04 · Soporte y evolución</span>
-          <h3 class="road__title">Seguimos contigo</h3>
-          <p class="road__sub">Soporte continuo y mejoras del sistema según crece tu operación.</p>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- ============================================================= -->
-  <!-- 8 · PRUEBA SOCIAL                                              -->
-  <!-- ============================================================= -->
-  <section class="proof">
+  <!-- §7 Confianza + métricas -->
+  <section class="trust" id="confianza">
     <div class="container">
       <div class="proof__stats">
         <div class="reveal"><span class="proof__num" data-counter="5" data-prefix="&lt; ">0</span><span class="grad"> días</span><p>Implementación llave en mano</p></div>
         <div class="reveal"><span class="proof__num" data-counter="99" data-suffix=".9">0</span><span class="grad">%</span><p>Disponibilidad del sistema</p></div>
         <div class="reveal"><span class="proof__num" data-counter="100">0</span><span class="grad">%</span><p>Movimientos trazados</p></div>
       </div>
-      <!-- TODO: sustituir por logos reales de clientes -->
-      <p class="proof__kicker">Operaciones que ya confían en MapGestión</p>
-      <div class="proof__logos">
-        <span>Arrendadora</span><span>FlotaCorp</span><span>RentaMX</span><span>Patio Norte</span><span>AutoFleet</span>
+      <div class="trust__inner reveal">
+        <p class="trust__line">Instancia dedicada por cliente · Base de datos propia · Soporte continuo</p>
+        <p class="trust__note">Cuando tengamos logos y citas reales de arrendadoras, van aquí.</p>
       </div>
-      <!-- TODO: reemplazar por una cita real de cliente -->
-      <figure class="proof__quote reveal">
-        <blockquote>“Dejamos de perder autos en el patio. Ahora <span class="grad">todo está en el mapa.</span>”</blockquote>
-        <figcaption>— [Nombre], [Cargo] · [Arrendadora]</figcaption>
-      </figure>
     </div>
   </section>
 
-  <!-- ============================================================= -->
-  <!-- 4 · CTA final                                                  -->
-  <!-- ============================================================= -->
+  <!-- §8 CTA final -->
   <section class="cta" id="contacto">
     <div class="container cta__inner">
-      <h2>Sube de nivel tu arrendadora.</h2>
-      <p>Déjanos tus datos y un especialista te contacta para agendar la consultoría. Sin compromiso.</p>
+      <h2>Tu patio en la nube. Desde el celular.</h2>
+      <p>Cuéntanos cuántas unidades y plazas manejas. Te contactamos para una demo.</p>
+      <p class="cta__soon">Demo interactiva en dominio propio — <em>próximamente</em>.</p>
 
-      <!-- Formulario: Formspree. Reemplaza YOUR_FORM_ID por tu ID de formspree.io -->
       <form class="cform" id="contactForm" action="https://formspree.io/f/xgojgakq" method="POST">
         <div class="cform__row">
           <label class="cform__field"><span>Nombre *</span><input name="nombre" required autocomplete="name" placeholder="Tu nombre" /></label>
@@ -472,22 +563,25 @@
         </div>
         <label class="cform__field"><span>Mensaje</span><textarea name="mensaje" rows="3" placeholder="¿Cuántas unidades y plazas manejas?"></textarea></label>
         <input type="hidden" name="_subject" value="Nuevo lead — MapGestión" />
-        <button type="submit" class="btn btn--primary btn--lg" id="cformBtn">Agendar consultoría</button>
+        <button type="submit" class="btn btn--primary btn--lg" id="cformBtn">Solicitar demo</button>
         <p class="cform__status" id="cformStatus" role="status" aria-live="polite"></p>
       </form>
 
       <p class="cform__alt">¿Prefieres WhatsApp?
-        <a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20agendar%20una%20consultor%C3%ADa%20para%20mi%20arrendadora" target="_blank" rel="noopener">Escríbenos aquí</a>.
+        <a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20solicitar%20una%20demo%20de%20MapGesti%C3%B3n" target="_blank" rel="noopener">Escríbenos aquí</a>.
       </p>
     </div>
   </section>
 
+  <!-- §9 Footer -->
   <footer class="foot">
     <div class="container foot__inner">
       <img class="foot__logo" src="assets/brand/mapgestion_logo.svg" alt="MapGestión" />
       <nav class="foot__links">
-        <a href="terminos.html">Términos y Condiciones</a>
-        <a href="terminos.html#privacidad">Política de Privacidad</a>
+        <a href="#producto">Producto</a>
+        <a href="#modulos">Módulos</a>
+        <a href="terminos.html">Términos</a>
+        <a href="terminos.html#privacidad">Privacidad</a>
         <a href="mailto:contacto@mapgestion.com">contacto@mapgestion.com</a>
         <a href="https://wa.me/524778024682" target="_blank" rel="noopener">WhatsApp</a>
       </nav>
@@ -495,12 +589,40 @@
     <p class="foot__copy">© <span id="year"></span> MapGestión. Todos los derechos reservados.</p>
   </footer>
 
-  <!-- ===== Dependencias (CDN) ===== -->
-  <!-- GSAP + ScrollTrigger + MotionPathPlugin (mueve el auto sobre el SVG) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
   <script src="app.js"></script>
+  <!-- Shepherd.js for guided tour -->
+  <link rel="stylesheet" href="https://unpkg.com/shepherd.js@9.4.1/dist/css/shepherd.css" />
+  <script src="https://unpkg.com/shepherd.js@9.4.1/dist/js/shepherd.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('tourCompleted')) return;
+      const tour = new Shepherd.Tour({
+        defaultStepOptions: { scrollTo: true, cancelIcon: { enabled: true } },
+        useModalOverlay: true
+      });
+      tour.addStep({
+        id: 'nav',
+        text: 'Esta es la navegación. En móviles toca el menú para ver las secciones.',
+        attachTo: { element: '.nav__menuBtn', on: 'bottom' },
+        buttons: [{ text: 'Siguiente', action: tour.next }]
+      });
+      tour.addStep({
+        id: 'hero',
+        text: 'Este es el hero con la propuesta principal.',
+        attachTo: { element: '.hero', on: 'bottom' },
+        buttons: [{ text: 'Siguiente', action: tour.next }]
+      });
+      tour.addStep({
+        id: 'demo',
+        text: 'Puedes solicitar una demo aquí.',
+        attachTo: { element: '.cta__inner .btn--primary', on: 'top' },
+        buttons: [{ text: 'Listo', action: () => { localStorage.setItem('tourCompleted', '1'); tour.complete(); } }]
+      });
+      tour.start();
+    });
+  </script>
 </body>
 
 </html>

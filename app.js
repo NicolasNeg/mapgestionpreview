@@ -1,71 +1,31 @@
 /* ============================================================
-   MapGestión — prototipo inmersivo · app.js
-   GSAP + ScrollTrigger + MotionPathPlugin
-
-   CÓMO AJUSTAR (lee estos comentarios):
-   • scrub:  true = la animación sigue el scroll 1:1. Un número (p.ej. 1)
-             añade "inercia" (segundos de suavizado). Súbelo para más lag.
-   • start / end:  gatillos del scroll. Formato "posDelElemento posDelViewport".
-             Ej. "top 80%" = cuando el top del elemento llega al 80% del viewport.
-   • duration / stagger / ease:  velocidad y cascada de las entradas.
-   • BASE_PARALLAX (abajo):  intensidad global del parallax en px.
+   MapGestión landing — app.js
+   Scroll suave + Excel→tabla + map spots + contadores
    ============================================================ */
 
-/* Progressive enhancement: si GSAP no cargó (CDN caído), revela el contenido. */
 const HAS_GSAP = typeof gsap !== 'undefined';
 if (!HAS_GSAP) document.documentElement.classList.remove('js');
-if (HAS_GSAP) gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+if (HAS_GSAP) gsap.registerPlugin(ScrollTrigger);
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
-/* Intensidad base del parallax: cada data-parallax se multiplica por esto (px). */
-const BASE_PARALLAX = 260;
+const BASE_PARALLAX = 160;
 
-/* ---- Entrada del Hero al cargar (fade-up). Ajusta duration/stagger/ease. ---- */
 function heroIntro() {
-  // fromTo = estado inicial explícito -> final (evita conflictos con el CSS opacity:0)
   gsap.fromTo('.gsap-fade',
-    { opacity: 0, y: 20 },
+    { opacity: 0, y: 22 },
     {
       opacity: 1, y: 0,
-      duration: 0.7,      // ← velocidad de cada elemento
+      duration: 0.7,
       ease: 'power3.out',
-      stagger: 0.07,      // ← separación entre líneas (más ágil)
-      delay: 0.1,
+      stagger: 0.09,
+      delay: 0.12,
     });
 }
 
-/* ---- Cards escalonadas (stagger) al entrar en viewport ---- */
-/* ---- Recorrido vertical: el auto baja y la línea se llena según el scroll.
-   Las tarjetas (.reveal) aparecen a los lados al pasar. Ajusta start/end. ---- */
-function journey() {
-  const j = document.getElementById('journey'); if (!j) return;
-  const fill = document.getElementById('jFill');
-  const car = document.getElementById('car');
-  // Transform + scrub con suavizado => baja fluido (sin saltos por setear top/height)
-  const st = { trigger: j, start: 'top 60%', end: 'bottom 75%', scrub: 1, invalidateOnRefresh: true };
-  gsap.fromTo(fill, { scaleY: 0 }, { scaleY: 1, transformOrigin: 'top', ease: 'none', scrollTrigger: st });
-  gsap.fromTo(car, { y: 0 }, { y: () => j.offsetHeight, ease: 'none', scrollTrigger: st });
-}
-
-/* ---- Marcadores que se ACOMODAN en los spots del mapa (entrada con rebote) ---- */
-function mapSimAnimation() {
-  gsap.from('#mapSim .spot', {
-    opacity: 0, scale: 0.3, y: -26,
-    duration: 0.5,
-    ease: 'back.out(1.5)',            // ← el rebote da el efecto de "encajar" en el spot
-    stagger: { each: 0.05, from: 'random' }, // ← se colocan uno a uno, en orden aleatorio
-    scrollTrigger: {
-      trigger: '#mapSim',
-      start: 'top 75%',               // ← gatillo: dispara al entrar el mapa
-    },
-  });
-}
-
-/* ---- Parallax de profundidad en elementos [data-parallax] (hero bg) ---- */
 function parallaxLayers() {
   gsap.utils.toArray('[data-parallax]').forEach((el) => {
-    const speed = parseFloat(el.dataset.parallax) || 0; // + baja, − sube
+    const speed = parseFloat(el.dataset.parallax) || 0;
     gsap.fromTo(el, { y: -speed * BASE_PARALLAX }, {
       y: speed * BASE_PARALLAX,
       ease: 'none',
@@ -73,87 +33,167 @@ function parallaxLayers() {
         trigger: el.closest('section, header') || el,
         start: 'top bottom',
         end: 'bottom top',
-        scrub: true,      // ← movimiento ligado al scroll
+        scrub: true,
       },
     });
   });
 }
 
-/* ---- Roadmap: scrollytelling pineado; cada paso sube y se desvanece ---- */
-function roadSteps() {
-  const steps = gsap.utils.toArray('#implementacion .road__step');
-  if (steps.length < 2) return;
-  gsap.set(steps, { opacity: (i) => (i === 0 ? 1 : 0), yPercent: (i) => (i === 0 ? 0 : 8) });
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: '#implementacion', start: 'top top',
-      end: '+=' + steps.length * 100 + '%', // longitud de scroll de la secuencia
-      scrub: 1, pin: '.road__pin', anticipatePin: 1, invalidateOnRefresh: true,
-    },
-  });
-  steps.forEach((s, i) => {
-    if (i === steps.length - 1) return;
-    // el paso actual sube y desaparece; el siguiente ocupa su lugar (crossfade + slide)
-    tl.to(s, { yPercent: -14, opacity: 0, ease: 'power1.inOut' }, i)
-      .to(steps[i + 1], { yPercent: 0, opacity: 1, ease: 'power1.inOut' }, i);
-  });
-}
-
-/* ---- "La plataforma en acción": scroll horizontal pineado (desktop) ---- */
-function horizontalShowcase() {
-  const track = document.getElementById('showcaseTrack');
-  if (!track) return;
-  gsap.to(track, {
-    x: () => -(track.scrollWidth - window.innerWidth), // traslada hasta ver el último panel
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '#plataforma',
-      start: 'top top',
-      end: () => '+=' + track.scrollWidth, // longitud de scroll = ancho del track
-      scrub: 1,
-      pin: '.showcase__pin',
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-      refreshPriority: 1, // ← se calcula ANTES que los triggers de abajo (fix animaciones tras el pin)
-    },
-  });
-}
-
-/* ============================================================
-   Responsive con gsap.matchMedia:
-   - Animaciones solo si el usuario NO pidió reduce-motion.
-   - PC (≥768px): parallax + ruta con MotionPath.
-   - Móvil (<768px): fade-ins ligeros.
-   ============================================================ */
-/* ---- Entrada de los títulos/subtítulos de sección ---- */
 function headings() {
   gsap.utils.toArray('.section-title, .section-sub').forEach((el) => {
     gsap.from(el, {
-      opacity: 0, y: 26, duration: 0.7, ease: 'expo.out',
+      opacity: 0, y: 20, duration: 0.6, ease: 'expo.out',
       scrollTrigger: { trigger: el, start: 'top 90%' },
     });
   });
 }
 
-/* ---- Reveal genérico (.reveal) para las secciones de contenido ---- */
 function revealAll() {
   gsap.utils.toArray('.reveal').forEach((el) => {
-    gsap.fromTo(el, { opacity: 0, y: 16 }, {
-      opacity: 1, y: 0, duration: 0.5, ease: 'power3.out',
+    gsap.fromTo(el, { opacity: 0, y: 18 }, {
+      opacity: 1, y: 0, duration: 0.55, ease: 'power3.out',
       scrollTrigger: { trigger: el, start: 'top 88%' },
     });
   });
 }
 
-/* ---- Contadores animados (0 -> target) al entrar ---- */
+function imageJourney() {
+  gsap.utils.toArray('.mod__shot img, .story-scenes__media img').forEach((img) => {
+    gsap.fromTo(img,
+      { yPercent: -6, scale: 1.1 },
+      {
+        yPercent: 6,
+        scale: 1.02,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: img.closest('.mod__media, .story-scenes__media') || img,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 0.8,
+        },
+      });
+  });
+
+  // Cards de mockups (reveal suave)
+  gsap.utils.toArray('.story-scenes__card').forEach((card, i) => {
+    gsap.fromTo(card,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
+        scrollTrigger: { trigger: card, start: 'top 85%' },
+        delay: i * 0.05,
+      });
+  });
+
+  gsap.utils.toArray('.mod').forEach((mod) => {
+    const text = mod.querySelector('.mod__text');
+    const media = mod.querySelector('.mod__media, .map-sim');
+    if (!text) return;
+    const fromX = mod.classList.contains('mod--rev') ? 28 : -28;
+    gsap.fromTo(text,
+      { opacity: 0, x: fromX },
+      {
+        opacity: 1, x: 0, duration: 0.65, ease: 'power3.out',
+        scrollTrigger: { trigger: mod, start: 'top 78%' },
+      });
+    if (media && !media.id) {
+      gsap.fromTo(media,
+        { opacity: 0, y: 36, rotate: mod.classList.contains('mod--rev') ? -1.2 : 1.2 },
+        {
+          opacity: 1, y: 0, rotate: 0, duration: 0.75, ease: 'power3.out',
+          scrollTrigger: { trigger: mod, start: 'top 78%' },
+        });
+    }
+  });
+}
+
+function mapSimAnimation() {
+  const map = document.getElementById('mapSim');
+  const spots = gsap.utils.toArray('#mapSim .spot');
+  if (!map || spots.length < 2) return;
+
+  // Centrado con xPercent/yPercent (no pelear con CSS translate)
+  gsap.set(spots, { xPercent: -50, yPercent: -50, y: -56, scale: 0.82, opacity: 0 });
+
+  gsap.to(spots, {
+    y: 0,
+    scale: 1,
+    opacity: 1,
+    duration: 0.45,
+    ease: 'back.out(1.5)',
+    stagger: 0.07,
+    scrollTrigger: {
+      trigger: map,
+      start: 'top 70%',
+      once: true,
+      invalidateOnRefresh: true,
+    },
+  });
+}
+
+function xTransition(isMobile) {
+  const pin = document.querySelector('#transformacion .chaos__pin');
+  const chat = document.getElementById('chaosChat');
+  const xls = document.getElementById('chaosXls');
+  const table = document.getElementById('chaosTable');
+  const cap = document.getElementById('chaosCap');
+  const sub = document.getElementById('chaosSub');
+  if (!pin || !chat || !xls || !table) return;
+
+  const scenes = [
+    { title: 'Hoy preguntas', sub: 'Radio o WhatsApp: “¿El D5256 está lleno?”' },
+    { title: 'Revisas registros desactualizados', sub: 'El Excel eterno… lleno de dudas y celdas a medias' },
+    { title: 'Con MapGestión solo miras', sub: 'D5256: gasolina, km, estado y ubicación — al instante' },
+  ];
+
+  const setScene = (i) => {
+    if (cap) cap.textContent = scenes[i].title;
+    if (sub) sub.textContent = scenes[i].sub;
+  };
+
+  gsap.set([chat, xls, table], { opacity: 0, y: isMobile ? 20 : 28, scale: 0.96 });
+  gsap.set(chat, { opacity: 1, y: 0, scale: 1 });
+  setScene(0);
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#transformacion',
+      start: 'top top',
+      end: isMobile ? '+=260%' : '+=280%',
+      scrub: isMobile ? 0.55 : 0.85,
+      pin: pin,
+      pinType: isMobile ? 'transform' : 'fixed',
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        const p = self.progress;
+        setScene(p < 0.34 ? 0 : p < 0.67 ? 1 : 2);
+      },
+    },
+  });
+
+  tl.to(chat, { opacity: 1, y: 0, scale: 1, duration: 0.28, ease: 'none' }, 0)
+    .to(chat, { opacity: 0, y: isMobile ? -16 : -28, scale: 0.94, duration: 0.12, ease: 'none' }, 0.28)
+    .fromTo(xls,
+      { opacity: 0, y: isMobile ? 24 : 40, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: 'none' }, 0.30)
+    .to(xls, { opacity: 1, duration: 0.18, ease: 'none' }, 0.42)
+    .to(xls, { opacity: 0, y: isMobile ? -16 : -28, scale: 0.93, duration: 0.12, ease: 'none' }, 0.60)
+    .fromTo(table,
+      { opacity: 0, y: isMobile ? 24 : 40, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: 'none' }, 0.62)
+    .to({}, { duration: 0.24 });
+}
+
 function counters() {
   gsap.utils.toArray('[data-counter]').forEach((el) => {
-    const target = +el.dataset.counter, pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+    const target = +el.dataset.counter;
+    const pre = el.dataset.prefix || '';
+    const suf = el.dataset.suffix || '';
     const o = { v: 0 };
-    // Loop continuo: cuenta 0→target, espera y repite MIENTRAS esté en pantalla.
     const tween = gsap.fromTo(o, { v: 0 }, {
       v: target, duration: 1.6, ease: 'power1.out',
-      repeat: -1, repeatDelay: 2.4, paused: true,   // ← sube repeatDelay para pausas más largas
+      repeat: -1, repeatDelay: 2.4, paused: true,
       onUpdate: () => { el.textContent = pre + Math.round(o.v) + suf; },
     });
     ScrollTrigger.create({
@@ -163,80 +203,83 @@ function counters() {
   });
 }
 
-/* ---- Transición "Del caos del Excel al mapa": el Excel se desvanece y la
-   tabla entra desde abajo al hacer scroll ---- */
-function xTransition() {
-  const xls = document.querySelector('#transformacion .xls');
-  const table = document.getElementById('mgtable');
-  if (!xls || !table) return;
-  // Scrub => reversible: al bajar el Excel se desvanece y la tabla materializa;
-  // al subir, ambos vuelven a su estado. Pronunciado (blur + escala).
-  const tl = gsap.timeline({
-    scrollTrigger: { trigger: '#transformacion', start: 'top 62%', end: 'center 42%', scrub: 0.8 },
-  });
-  tl.fromTo(xls,
-    { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' },
-    { opacity: 0.12, y: -26, scale: 0.88, filter: 'blur(6px)', ease: 'none' }, 0)
-    .fromTo(table,
-    { opacity: 0.15, y: 46, scale: 0.95 },
-    { opacity: 1, y: 0, scale: 1, ease: 'none' }, 0);
-}
-
-/* ---- Entrada animada del formulario de contacto (stagger de campos) ---- */
 function formReveal() {
   const form = document.getElementById('contactForm');
   if (!form) return;
   gsap.from(form.querySelectorAll('.cform__field, button'), {
-    opacity: 0, y: 22, duration: 0.5, ease: 'power2.out', stagger: 0.08,
+    opacity: 0, y: 18, duration: 0.45, ease: 'power2.out', stagger: 0.07,
     scrollTrigger: { trigger: form, start: 'top 85%' },
   });
 }
 
 if (HAS_GSAP) {
-const mm = gsap.matchMedia();
+  const mm = gsap.matchMedia();
 
-// Entradas ligeras: en cualquier tamaño (siempre que no haya reduce-motion)
-mm.add('(prefers-reduced-motion: no-preference)', () => {
-  heroIntro();
-  headings();
-  journey();
-  mapSimAnimation();
-  revealAll();
-  counters();
-  formReveal();
-  xTransition();
-});
+  mm.add('(prefers-reduced-motion: no-preference)', () => {
+    heroIntro();
+    headings();
+    revealAll();
+    formReveal();
+    imageJourney();
+    counters();
+  });
 
-// Escritorio: parallax del fondo del hero + roadmap pineado
-mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
-  parallaxLayers();
-  roadSteps();
-});
+  mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+    parallaxLayers();
+    xTransition(false);
+    mapSimAnimation();
+  });
 
-// Showcase horizontal: pineado en desktop
-mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
-  horizontalShowcase();
-});
+  mm.add('(max-width: 767px) and (prefers-reduced-motion: no-preference)', () => {
+    xTransition(true);
+    // Móvil: unidades del mapa caen 1×1 (sin pin)
+    const spots = gsap.utils.toArray('#mapSim .spot');
+    if (spots.length) {
+      gsap.set(spots, { xPercent: -50, yPercent: -50, opacity: 0, y: -36, scale: 0.85 });
+      gsap.to(spots, {
+        opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'back.out(1.4)',
+        stagger: 0.06,
+        scrollTrigger: { trigger: '#mapSim', start: 'top 75%', once: true },
+      });
+    }
+  });
 
-// Recalcula posiciones de todos los triggers cuando cargan imágenes/fuentes
-// (evita que las animaciones tras el showcase pineado queden mal ubicadas).
-window.addEventListener('load', () => ScrollTrigger.refresh());
-} // fin if (HAS_GSAP)
+  // Mobile navigation toggle
+const menuBtn = document.getElementById('menuBtn');
+const navDrawer = document.querySelector('.nav__drawer');
+const navOverlay = document.getElementById('navOverlay');
 
-/* Fallback de contadores: si hay reduce-motion o GSAP no cargó, muestra el
-   valor final (evita que se queden en "0"). */
+function toggleMenu(open) {
+  const isOpen = typeof open === 'boolean' ? open : !navDrawer.classList.contains('is-open');
+  navDrawer.classList.toggle('is-open', isOpen);
+  navOverlay.classList.toggle('is-open', isOpen);
+  navDrawer.setAttribute('aria-hidden', !isOpen);
+  navOverlay.setAttribute('aria-hidden', !isOpen);
+  if (isOpen) {
+    menuBtn.setAttribute('aria-label', 'Close navigation');
+    // focus first link for accessibility
+    const firstLink = navDrawer.querySelector('a');
+    firstLink && firstLink.focus();
+  } else {
+    menuBtn.setAttribute('aria-label', 'Open navigation');
+    menuBtn.focus();
+  }
+}
+
+menuBtn?.addEventListener('click', () => toggleMenu());
+navOverlay?.addEventListener('click', () => toggleMenu(false));
+
+
+}
+
 if (!HAS_GSAP || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.documentElement.classList.remove('js');
   document.querySelectorAll('[data-counter]').forEach((el) => {
     el.textContent = (el.dataset.prefix || '') + el.dataset.counter + (el.dataset.suffix || '');
   });
 }
 
-/* ============================================================
-   Tabla MapGestión FUNCIONAL — buscador + filtros (sin depender de GSAP)
-   Para usar tus datos reales: reemplaza el array `data` (MVA, Categoría,
-   Modelo, Placas, Estado, Ubicación). Estados válidos: LISTO, PREPARACION,
-   TALLER, PATIO.
-   ============================================================ */
+/* Tabla MapGestión — buscador + filtros */
 (function mgTable() {
   const body = document.getElementById('mgBody');
   if (!body) return;
@@ -244,89 +287,111 @@ if (!HAS_GSAP || window.matchMedia('(prefers-reduced-motion: reduce)').matches) 
   const filters = document.getElementById('mgFilters');
   const countEl = document.getElementById('mgCount');
 
-  const COLORS = { LISTO: '#34d399', PREPARACION: '#fbbf24', TALLER: '#f87171', PATIO: '#818cf8' };
+  const COLORS = { LISTO: '#34d399', PREPARACION: '#fbbf24', TALLER: '#f87171', PATIO: '#38bdf8' };
   const LABEL = { LISTO: 'Listo', PREPARACION: 'Preparación', TALLER: 'Taller', PATIO: 'En patio' };
-  // Nivel de gasolina: E < 1/4 < 3/8 < H < 15/16 < F (orden + % del tanque)
   const FUEL_ORDER = { 'E': 0, '1/4': 1, '3/8': 2, 'H': 3, '15/16': 4, 'F': 5 };
-  const FUEL_PCT = { 'E': 6, '1/4': 25, '3/8': 37.5, 'H': 50, '15/16': 94, 'F': 100 };
-  // Fila: [MVA, Categoría, Modelo, Placas, Estado, Ubicación, Gasolina]
+  // [MVA, Cat, Modelo, Placas, Gasolina, Km, Estado, Ubicación, Notas]
   const data = [
-    ['D5129', 'ECAR', 'Aveo Sedan LT', 'GHB972G', 'LISTO', 'Patio', 'F'],
-    ['D5256', 'ECAR', 'Aveo Sedan LT', 'GHD748G', 'LISTO', 'Patio', '3/8'],
-    ['F1161', 'FCAR', 'Jetta Comfortline', 'DNF918J', 'PREPARACION', 'Lavado', '1/4'],
-    ['I166', 'FFBH', 'Tank 300 HEV', '77L136', 'TALLER', 'Taller', 'E'],
-    ['I174', 'FFBH', 'Tank 300 HEV', '76L936', 'LISTO', 'Patio', 'H'],
-    ['M159', 'PFAR', 'Suburban LT', 'DSR767E', 'PATIO', 'Fila 3', '15/16'],
-    ['M164', 'PFAR', 'Suburban LT', 'DPW207G', 'LISTO', 'Patio', 'F'],
-    ['Q234', 'MVAR', 'GN8 GT', 'GYR575F', 'PREPARACION', 'Detalle', '1/4'],
-    ['S034', 'IVAH', 'Sienna LE 8P', '76L482', 'LISTO', 'Patio', 'H'],
-    ['N372', 'GVBB', 'Transporter 6.1', 'GUB032F', 'TALLER', 'Taller', 'E'],
-    ['C2926', 'FCAR', 'Ford Edge', 'TTC486A', 'PATIO', 'Externo', '3/8'],
-    ['B2380', 'ECAR', 'Onix LT', 'GRB110F', 'LISTO', 'Patio', 'F'],
-    ['Z018', 'SMCAT', 'Versa Sense', 'CWP533J', 'PREPARACION', 'Lavado', '1/4'],
-    ['A1842', 'ECAR', 'Kicks Advance', 'GNK802E', 'PATIO', 'Fila 1', '15/16'],
-    ['C5209', 'FFBH', 'CX-5 Signature', '76P210', 'TALLER', 'Taller', 'H'],
+    ['D5129', 'ECAR', 'Aveo Sedan LT', 'GHB972G', 'F', 42810, 'LISTO', 'Patio', 'Listo para renta'],
+    ['D5256', 'ECAR', 'Aveo Sedan LT', 'GHD748G', 'F', 39120, 'LISTO', 'Patio', 'Tanque lleno'],
+    ['F1161', 'FCAR', 'Jetta Comfortline', 'DNF918J', '1/4', 61240, 'PREPARACION', 'Área de lavado', 'En cola de lavado'],
+    ['I166', 'FFBH', 'Tank 300 HEV', '77L136', 'E', 88450, 'TALLER', 'Taller', 'Rayón puerta der.'],
+    ['I174', 'FFBH', 'Tank 300 HEV', '76L936', 'H', 75200, 'LISTO', 'Patio B', ''],
+    ['M159', 'PFAR', 'Suburban LT', 'DSR767E', '15/16', 112380, 'PATIO', 'Check in', 'Esperando cliente'],
+    ['M164', 'PFAR', 'Suburban LT', 'DPW207G', 'F', 99810, 'LISTO', 'Patio', ''],
+    ['Q234', 'MVAR', 'GN8 GT', 'GYR575F', '1/4', 54300, 'PREPARACION', 'Detalle', 'Falta gasolina'],
+    ['S034', 'IVAH', 'Sienna LE 8P', '76L482', 'H', 67890, 'LISTO', 'Patio B', ''],
+    ['N372', 'GVBB', 'Transporter 6.1', 'GUB032F', 'E', 145220, 'TALLER', 'Taller', 'Falla eléctrica'],
+    ['C2926', 'FCAR', 'Ford Edge', 'TTC486A', '3/8', 82110, 'PATIO', 'Check in', 'Retorno externo'],
+    ['B2380', 'ECAR', 'Onix LT', 'GRB110F', 'F', 21450, 'LISTO', 'Patio', ''],
+    ['Z018', 'SMCAT', 'Versa Sense', 'CWP533J', '1/4', 35670, 'PREPARACION', 'Área de lavado', 'Pendiente revisión'],
+    ['A1842', 'ECAR', 'Kicks Advance', 'GNK802E', '15/16', 48900, 'PATIO', 'Patio B', ''],
+    ['C5209', 'FFBH', 'CX-5 Signature', '76P210', 'H', 91040, 'TALLER', 'Taller', 'Cambio de frenos'],
   ];
 
-  let q = '', f = 'all', sortDir = 0; // 0 sin orden, -1 menor→mayor (E→F), 1 mayor→menor (F→E)
+  let q = (search.value || '').trim().toLowerCase(), f = 'all';
+  let sortFuel = 0; // 0 off, 1 desc, -1 asc
+  let sortKm = 0;
   const cols = {};
-  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const fuelColor = (p) => (p < 25 ? '#f87171' : p < 55 ? '#fbbf24' : '#34d399');
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const fmtKm = (n) => Number(n).toLocaleString('es-MX');
 
   document.querySelectorAll('#mgtable .mgsel').forEach((sel) => {
     const col = +sel.dataset.col;
     cols[col] = '';
     [...new Set(data.map((r) => r[col]))].sort().forEach((v) => {
-      const o = document.createElement('option'); o.value = v; o.textContent = v; sel.appendChild(o);
+      const o = document.createElement('option');
+      o.value = v;
+      o.textContent = (col === 6 && LABEL[v]) ? LABEL[v] : v;
+      sel.appendChild(o);
     });
     sel.addEventListener('change', () => { cols[col] = sel.value; render(); });
   });
 
   function render() {
     let rows = data.filter((r) => {
-      const okF = f === 'all' || r[4] === f;
-      const okQ = !q || (r[0] + ' ' + r[2] + ' ' + r[3]).toLowerCase().includes(q);
+      const okF = f === 'all' || r[6] === f;
+      const okQ = !q || (r[0] + ' ' + r[2] + ' ' + r[3] + ' ' + r[8]).toLowerCase().includes(q);
       const okCols = Object.keys(cols).every((c) => !cols[c] || r[c] === cols[c]);
       return okF && okQ && okCols;
     });
-    if (sortDir !== 0) rows = rows.slice().sort((a, b) => (FUEL_ORDER[a[6]] - FUEL_ORDER[b[6]]) * sortDir);
+    if (sortFuel !== 0) rows = rows.slice().sort((a, b) => (FUEL_ORDER[a[4]] - FUEL_ORDER[b[4]]) * sortFuel);
+    if (sortKm !== 0) rows = rows.slice().sort((a, b) => (a[5] - b[5]) * sortKm);
+
     body.innerHTML = rows.length
       ? rows.map((r) => {
-          const p = FUEL_PCT[r[6]];
+          const note = r[8] ? esc(r[8]) : '<span class="mg-note-empty">—</span>';
           return `<tr>
-            <td class="mg-mva">${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td>
-            <td><span class="mg-fuel"><span class="mg-fuel__bar" style="width:${p}%;background:${fuelColor(p)}"></span></span><b class="mg-fuel__lbl">${esc(r[6])}</b></td>
-            <td><span class="mg-badge" style="--c:${COLORS[r[4]]}">${LABEL[r[4]]}</span></td>
-            <td>${esc(r[5])}</td></tr>`;
+            <td class="mg-mva">${esc(r[0])}</td>
+            <td>${esc(r[1])}</td>
+            <td>${esc(r[2])}</td>
+            <td>${esc(r[3])}</td>
+            <td><b class="mg-fuel-lbl">${esc(r[4])}</b></td>
+            <td class="mg-km">${fmtKm(r[5])}</td>
+            <td><span class="mg-badge" style="--c:${COLORS[r[6]]}">${LABEL[r[6]]}</span></td>
+            <td>${esc(r[7])}</td>
+            <td class="mg-note">${note}</td>
+          </tr>`;
         }).join('')
-      : '<tr class="mgtable__empty"><td colspan="7">Sin resultados para tu búsqueda.</td></tr>';
+      : '<tr class="mgtable__empty"><td colspan="9">Sin resultados para tu búsqueda.</td></tr>';
     countEl.textContent = `Mostrando ${rows.length} de ${data.length} unidades`;
   }
 
-  // Orden por nivel de gasolina al clicar el encabezado (ciclo: F→E, E→F, sin orden)
-  const sortBtn = document.getElementById('mgSortFuel');
-  if (sortBtn) sortBtn.addEventListener('click', () => {
-    sortDir = sortDir === 0 ? 1 : sortDir === 1 ? -1 : 0;
-    sortBtn.dataset.dir = sortDir;
-    const ic = sortBtn.querySelector('.mg-sort__ic');
-    if (ic) ic.textContent = sortDir === 1 ? 'arrow_downward' : sortDir === -1 ? 'arrow_upward' : 'unfold_more';
+  const cycleSort = (btn, which) => {
+    if (which === 'fuel') {
+      sortFuel = sortFuel === 0 ? 1 : sortFuel === 1 ? -1 : 0;
+      sortKm = 0;
+    } else {
+      sortKm = sortKm === 0 ? 1 : sortKm === 1 ? -1 : 0;
+      sortFuel = 0;
+    }
+    const fuelBtn = document.getElementById('mgSortFuel');
+    const kmBtn = document.getElementById('mgSortKm');
+    [[fuelBtn, sortFuel], [kmBtn, sortKm]].forEach(([b, dir]) => {
+      if (!b) return;
+      b.dataset.dir = dir;
+      const ic = b.querySelector('.mg-sort__ic');
+      if (ic) ic.textContent = dir === 1 ? 'arrow_downward' : dir === -1 ? 'arrow_upward' : 'unfold_more';
+    });
     render();
-  });
+  };
+
+  const sortFuelBtn = document.getElementById('mgSortFuel');
+  if (sortFuelBtn) sortFuelBtn.addEventListener('click', () => cycleSort(sortFuelBtn, 'fuel'));
+  const sortKmBtn = document.getElementById('mgSortKm');
+  if (sortKmBtn) sortKmBtn.addEventListener('click', () => cycleSort(sortKmBtn, 'km'));
 
   search.addEventListener('input', () => { q = search.value.trim().toLowerCase(); render(); });
   filters.addEventListener('click', (e) => {
-    const btn = e.target.closest('.mgchip'); if (!btn) return;
+    const btn = e.target.closest('.mgchip');
+    if (!btn) return;
     filters.querySelectorAll('.mgchip').forEach((b) => b.classList.toggle('is-active', b === btn));
-    f = btn.dataset.f; render();
+    f = btn.dataset.f;
+    render();
   });
   render();
 })();
 
-/* ============================================================
-   Formulario de contacto — envío AJAX a Formspree (sin backend).
-   Pega tu ID en el action del <form>. Si sigue en YOUR_FORM_ID,
-   avisa y sugiere WhatsApp.
-   ============================================================ */
 (function contactForm() {
   const form = document.getElementById('contactForm');
   if (!form) return;
@@ -342,11 +407,15 @@ if (!HAS_GSAP || window.matchMedia('(prefers-reduced-motion: reduce)').matches) 
       return;
     }
     const label = btn.textContent;
-    btn.disabled = true; btn.textContent = 'Enviando…';
-    status.className = 'cform__status'; status.textContent = '';
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+    status.className = 'cform__status';
+    status.textContent = '';
     try {
       const res = await fetch(form.action, {
-        method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' },
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
       });
       if (!res.ok) throw new Error('bad response');
       form.reset();
@@ -356,8 +425,145 @@ if (!HAS_GSAP || window.matchMedia('(prefers-reduced-motion: reduce)').matches) 
       status.className = 'cform__status err';
       status.textContent = 'No se pudo enviar. Intenta de nuevo o escríbenos por WhatsApp.';
     } finally {
-      btn.disabled = false; btn.textContent = label;
+      btn.disabled = false;
+      btn.textContent = label;
     }
   });
 })();
 
+/* Player de video custom (sin controles nativos) */
+(function mgVideoPlayer() {
+  const root = document.getElementById('mgPlayer');
+  if (!root) return;
+  const shell = root.querySelector('.vplayer');
+  const video = root.querySelector('.vplayer__video');
+  if (!shell || !video) return;
+
+  const big = root.querySelector('.vplayer__bigplay');
+  const playBtn = root.querySelector('[data-vp="play"]');
+  const muteBtn = root.querySelector('[data-vp="mute"]');
+  const fsBtn = root.querySelector('[data-vp="fs"]');
+  const seek = root.querySelector('[data-vp="seek"]');
+  const fill = root.querySelector('[data-vp="fill"]');
+  const buffer = root.querySelector('[data-vp="buffer"]');
+  const curEl = root.querySelector('[data-vp="cur"]');
+  const durEl = root.querySelector('[data-vp="dur"]');
+  const playIcon = playBtn.querySelector('.material-symbols-outlined');
+  const muteIcon = muteBtn.querySelector('.material-symbols-outlined');
+  const fsIcon = fsBtn.querySelector('.material-symbols-outlined');
+
+  let idleTimer = null;
+  const fmt = (s) => {
+    if (!isFinite(s)) return '0:00';
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return m + ':' + String(sec).padStart(2, '0');
+  };
+
+  const setPlayingUI = (playing) => {
+    shell.classList.toggle('is-playing', playing);
+    playIcon.textContent = playing ? 'pause' : 'play_arrow';
+    playBtn.setAttribute('aria-label', playing ? 'Pausar' : 'Reproducir');
+    big.setAttribute('aria-label', playing ? 'Pausar' : 'Reproducir');
+  };
+
+  const togglePlay = async () => {
+    try {
+      if (video.paused) await video.play();
+      else video.pause();
+    } catch (_) { /* autoplay / gesture */ }
+  };
+
+  const bumpIdle = () => {
+    shell.classList.remove('is-idle');
+    clearTimeout(idleTimer);
+    if (!video.paused) {
+      idleTimer = setTimeout(() => shell.classList.add('is-idle'), 2200);
+    }
+  };
+
+  const syncProgress = () => {
+    const d = video.duration || 0;
+    const t = video.currentTime || 0;
+    const pct = d ? (t / d) * 100 : 0;
+    fill.style.width = pct + '%';
+    seek.value = String(pct);
+    curEl.textContent = fmt(t);
+  };
+
+  const syncBuffer = () => {
+    try {
+      if (!video.buffered.length || !video.duration) return;
+      const end = video.buffered.end(video.buffered.length - 1);
+      buffer.style.width = ((end / video.duration) * 100) + '%';
+    } catch (_) { /* ignore */ }
+  };
+
+  playBtn.addEventListener('click', (e) => { e.stopPropagation(); togglePlay(); });
+  big.addEventListener('click', (e) => { e.stopPropagation(); togglePlay(); });
+  shell.addEventListener('click', (e) => {
+    if (e.target.closest('.vplayer__controls')) return;
+    togglePlay();
+  });
+
+  muteBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    video.muted = !video.muted;
+    muteIcon.textContent = video.muted ? 'volume_off' : 'volume_up';
+    muteBtn.setAttribute('aria-label', video.muted ? 'Activar sonido' : 'Silenciar');
+  });
+
+  fsBtn.addEventListener('click', async (e) => {
+    e.stopPropagation();
+    try {
+      if (!document.fullscreenElement) {
+        await (shell.requestFullscreen?.() || shell.webkitRequestFullscreen?.());
+      } else {
+        await (document.exitFullscreen?.() || document.webkitExitFullscreen?.());
+      }
+    } catch (_) { /* ignore */ }
+  });
+
+  const onFsChange = () => {
+    const on = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    shell.classList.toggle('is-fs', on);
+    fsIcon.textContent = on ? 'fullscreen_exit' : 'fullscreen';
+    fsBtn.setAttribute('aria-label', on ? 'Salir de pantalla completa' : 'Pantalla completa');
+  };
+  document.addEventListener('fullscreenchange', onFsChange);
+  document.addEventListener('webkitfullscreenchange', onFsChange);
+
+  seek.addEventListener('input', () => {
+    if (!video.duration) return;
+    video.currentTime = (Number(seek.value) / 100) * video.duration;
+    syncProgress();
+    bumpIdle();
+  });
+  seek.addEventListener('click', (e) => e.stopPropagation());
+
+  video.addEventListener('play', () => { setPlayingUI(true); bumpIdle(); });
+  video.addEventListener('pause', () => { setPlayingUI(false); shell.classList.remove('is-idle'); });
+  video.addEventListener('timeupdate', syncProgress);
+  video.addEventListener('progress', syncBuffer);
+  video.addEventListener('loadedmetadata', () => {
+    durEl.textContent = fmt(video.duration);
+    syncProgress();
+    syncBuffer();
+  });
+  video.addEventListener('ended', () => {
+    setPlayingUI(false);
+    shell.classList.remove('is-idle');
+  });
+
+  shell.addEventListener('mousemove', bumpIdle);
+  shell.addEventListener('touchstart', bumpIdle, { passive: true });
+
+  shell.addEventListener('keydown', (e) => {
+    if (e.key === ' ' || e.key === 'k') { e.preventDefault(); togglePlay(); }
+    if (e.key === 'm') muteBtn.click();
+    if (e.key === 'f') fsBtn.click();
+    if (e.key === 'ArrowRight') video.currentTime = Math.min(video.duration || 0, video.currentTime + 5);
+    if (e.key === 'ArrowLeft') video.currentTime = Math.max(0, video.currentTime - 5);
+  });
+  shell.tabIndex = 0;
+})();
