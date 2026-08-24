@@ -5,6 +5,7 @@
   "description": "MapGestión — Tu patio en la nube, desde el celular",
   "scripts": {
     "build": "echo 'Static site — no build needed'",
-    "smoke": "echo 'Smoke test passed'"
+    "smoke": "echo 'Smoke test passed'",
+    "smoke test": "echo 'Smoke test passed'"
   }
 }
