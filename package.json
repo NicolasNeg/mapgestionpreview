@@ -1,0 +1,9 @@
+{
+  "name": "mapgestionpreview",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MapGestión — Tu patio en la nube, desde el celular",
+  "scripts": {
+    "build": "echo 'Static site — no build needed'"
+  }
+}
