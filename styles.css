@@ -67,6 +67,7 @@ ul, ol { list-style: none; }
 
 .container { width: min(100% - 2rem, var(--maxw)); margin-inline: auto; }
 .section-title {
+  font-family: 'Outfit', 'Inter', system-ui, sans-serif;
   font-size: clamp(1.55rem, 4.5vw, 2.5rem);
   font-weight: 800;
   letter-spacing: -.02em;
@@ -113,8 +114,8 @@ ul, ol { list-style: none; }
 }
 .btn:active { transform: scale(.97); }
 @media (hover: hover) {
-  .btn--primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(46,196,182,.5); }
-  .btn--ghost:hover { background: rgba(255,255,255,.14); }
+  .btn--primary:hover { transform: translateY(-4px); box-shadow: 0 16px 45px rgba(46,196,182,.6); }
+  .btn--ghost:hover { background: rgba(255,255,255,.14); transform: translateY(-2px); }
 }
 .btn:focus-visible,
 a:focus-visible,
@@ -283,6 +284,7 @@ button:focus-visible {
   text-shadow: 0 2px 24px rgba(0,0,0,.45);
 }
 .hero__title {
+  font-family: 'Outfit', 'Inter', system-ui, sans-serif;
   font-size: clamp(1.9rem, 5.8vw, 3.4rem);
   font-weight: 900;
   letter-spacing: -.035em;
@@ -517,6 +519,7 @@ button:focus-visible {
   background: var(--ink, #041016);
 }
 .story-scenes__title {
+  font-family: 'Outfit', 'Inter', system-ui, sans-serif;
   text-align: center;
   font-size: clamp(1.75rem, 4.5vw, 3rem);
   font-weight: 800;
@@ -547,6 +550,14 @@ button:focus-visible {
   background: rgba(255,255,255,.03);
   -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+}
+@media (hover: hover) {
+  .story-scenes__card:hover {
+    transform: translateY(-5px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 12px 30px rgba(0,0,0,.15);
+    border-color: rgba(255,255,255,.2);
+  }
 }
 .story-scenes__media {
   border-radius: 14px;
@@ -963,6 +974,13 @@ html:not(.js) .spot {
   border: 1px solid rgba(255,255,255,.1);
   background: rgba(255,255,255,.03);
   box-shadow: 0 16px 40px rgba(0,0,0,.3);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+@media (hover: hover) {
+  .screens__card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.2), 0 20px 50px rgba(0,0,0,.35);
+  }
 }
 .screens__card img {
   display: block;
