@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /sandbox-mapa.html
 Disallow: /404.html
 
 Sitemap: https://mapgestion.com/sitemap.xml
