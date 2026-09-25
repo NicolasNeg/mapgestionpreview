@@ -94,7 +94,8 @@
     imagesrcset="assets/scenes/hero-index-desktop-800.webp 800w, assets/scenes/hero-index-desktop-1086.webp 1086w" imagesizes="100vw" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Outfit:wght@800;900&display=swap" rel="stylesheet" />
   <!-- Iconos: solo los glifos usados (icon_names en orden alfabético); display=block evita ver el nombre del ícono como texto -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=arrow_downward,arrow_upward,close,flight,forum,fullscreen,fullscreen_exit,home,local_parking,menu,pause,play_arrow,search,unfold_more,volume_off,volume_up&display=block" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=arrow_downward,arrow_upward,close,flight,forum,fullscreen,fullscreen_exit,home,local_parking,menu,pause,play_arrow,search,unfold_more,volume_off,volume_up&display=block" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=arrow_downward,arrow_upward,close,flight,forum,fullscreen,fullscreen_exit,home,local_parking,menu,pause,play_arrow,search,unfold_more,volume_off,volume_up&display=block" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="styles.css?v=20260925" />
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -654,7 +655,7 @@
   <!-- §9 Footer -->
   <footer class="foot">
     <div class="container foot__inner">
-      <img class="foot__logo" src="assets/brand/mapgestion_logo.svg" alt="MapGestión" />
+      <img class="foot__logo" src="assets/brand/mapgestion_logo.svg" alt="MapGestión" width="111" height="26" loading="lazy" decoding="async" />
       <nav class="foot__links">
         <a href="#producto">Producto</a>
         <a href="#modulos">Módulos</a>
