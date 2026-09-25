@@ -180,14 +180,11 @@ function counters() {
     const pre = el.dataset.prefix || '';
     const suf = el.dataset.suffix || '';
     const o = { v: 0 };
-    const tween = gsap.fromTo(o, { v: 0 }, {
+    // Cuenta una sola vez al entrar en pantalla (sin bucle infinito)
+    gsap.fromTo(o, { v: 0 }, {
       v: target, duration: 1.6, ease: 'power1.out',
-      repeat: -1, repeatDelay: 2.4, paused: true,
       onUpdate: () => { el.textContent = pre + Math.round(o.v) + suf; },
-    });
-    ScrollTrigger.create({
-      trigger: el, start: 'top 90%', end: 'bottom 10%',
-      onToggle: (self) => (self.isActive ? tween.play() : tween.pause()),
+      scrollTrigger: { trigger: el, start: 'top 90%', once: true },
     });
   });
 }

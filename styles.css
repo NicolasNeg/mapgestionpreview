@@ -303,7 +303,6 @@ html.menu-open { overflow: hidden; }
    §2 Historia unificada (chat → excel → tabla + mockups)
    ============================================================ */
 .story { position: relative; z-index: 1; padding: 0 0 2rem; }
-.story__intro { margin-bottom: 2rem; }
 
 .chaos { position: relative; z-index: 1; overflow: visible; }
 .chaos__pin {
@@ -584,8 +583,8 @@ html.menu-open { overflow: hidden; }
 .xls__bar span { width: 10px; height: 10px; border-radius: 50%; background: #cbd5e1; }
 .xls__grid { width: 100%; border-collapse: collapse; }
 .xls__grid th, .xls__grid td { border: 1px solid #e5e7eb; padding: .4rem .6rem; text-align: left; }
-.xls__grid thead th { background: #f3f4f6; color: #9ca3af; font-weight: 600; }
-.xls__grid td:first-child { background: #f3f4f6; color: #9ca3af; text-align: center; width: 2rem; }
+.xls__grid thead th { background: #f3f4f6; color: #6b7280; font-weight: 600; }
+.xls__grid tbody th { background: #f3f4f6; color: #6b7280; font-weight: 600; text-align: center; width: 2rem; }
 
 .mgtable {
   width: 100%; max-width: none; margin: 0;
@@ -650,7 +649,7 @@ html.menu-open { overflow: hidden; }
 .mg-fuel-lbl { font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
 .mg-km { font-variant-numeric: tabular-nums; font-weight: 600; color: #cbd5e1; }
 .mg-note { max-width: 16rem; color: var(--muted); font-size: .9rem; white-space: normal; }
-.mg-note-empty { color: #475569; }
+.mg-note-empty { color: #64748b; }
 .mg-sort {
   display: inline-flex; align-items: center; gap: .2rem;
   background: none; border: 0; color: inherit; font: inherit;
@@ -778,9 +777,8 @@ html:not(.js) .spot {
   font-weight: 700;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: rgba(232,241,244,.35);
+  color: rgba(232,241,244,.62);
 }
-.video-stage__player,
 .vplayer__video {
   display: block;
   width: 100%;
@@ -1188,7 +1186,7 @@ html:not(.js) .spot {
 .foot__copy {
   width: min(100% - 2rem, var(--maxw));
   margin: 1.5rem auto 0;
-  color: #5b7380;
+  color: #7f98a4;
   font-size: .8rem;
 }
 @media (min-width: 720px) {
@@ -1206,7 +1204,6 @@ html:not(.js) .spot {
   .js .reveal,
   .js .mod__text,
   .js .mod__media { opacity: 1; }
-  .anywhere__media img,
   .mod__shot img,
   .story-scenes__media img { transform: none; }
   .wa__typing span { animation: none; }

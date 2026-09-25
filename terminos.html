@@ -18,10 +18,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } } };
-  </script>
+  <!-- Tailwind v3 precompilado (tailwindcss CLI, content = terminos.html). Regenerar si cambian las clases. -->
+  <link rel="stylesheet" href="assets/css/terminos.css?v=20260925" />
+  <script>document.documentElement.classList.add('js');</script>
 
   <style>
     html { scroll-behavior: smooth; }
@@ -34,14 +33,15 @@
         radial-gradient(50rem 40rem at 90% 20%, rgba(56,189,248,.10), transparent 60%);
     }
     .text-gradient { background: linear-gradient(100deg,#89f5e7,#2ec4b6 45%,#38bdf8); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
+    /* Solo se oculta si hay JS; sin JS el contenido legal queda visible */
+    .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .js .reveal.visible { opacity: 1; transform: none; }
     /* Ancla bajo el navbar flotante */
     [id] { scroll-margin-top: 96px; }
     .prose p { margin-bottom: 1rem; }
     .prose ul { list-style: disc; padding-left: 1.25rem; }
     .prose li { margin-bottom: .5rem; }
-    @media (prefers-reduced-motion: reduce) { .reveal { transition: none; opacity: 1; transform: none; } html { scroll-behavior: auto; } }
+    @media (prefers-reduced-motion: reduce) { .js .reveal { transition: none; opacity: 1; transform: none; } html { scroll-behavior: auto; } }
   </style>
 </head>
 
@@ -75,7 +75,7 @@
       <p class="text-slate-400 max-w-2xl mx-auto mb-8">Estos términos regulan el uso de MapGestión — el sitio informativo, demos, sandbox y el software con base de datos dedicada que se contrata por cliente. Aquí explicamos qué hacemos, cómo tratamos los datos y qué obligaciones aplican.</p>
       <div class="flex flex-wrap justify-center gap-3 text-sm">
         <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-slate-300"><span class="material-symbols-outlined text-[18px]">calendar_today</span> Última actualización: 1 de julio de 2026</span>
-        <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-slate-300"><span class="material-symbols-outlined text-[18px]">mail</span> contacto@mapgestion.com</span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-slate-300"><span class="material-symbols-outlined text-[18px]">mail</span> <!--email_off-->contacto@mapgestion.com<!--/email_off--></span>
         <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-slate-300"><span class="material-symbols-outlined text-[18px]">phone</span> 477 802 4682</span>
       </div>
     </header>
@@ -161,7 +161,7 @@
             <li>El cliente conserva responsabilidad sobre la legalidad, exactitud y autorización de los datos que sube o entrega.</li>
             <li>MapGestión no vende bases de datos operativas del cliente.</li>
             <li>MapGestión podrá usar datos agregados, anonimizados o estadísticos para mejorar el producto, siempre que no identifiquen directamente al cliente, usuarios o terceros.</li>
-            <li>Las solicitudes sobre datos personales pueden enviarse a contacto@mapgestion.com</li>
+            <li>Las solicitudes sobre datos personales pueden enviarse a <!--email_off-->contacto@mapgestion.com<!--/email_off--></li>
           </ul>
         </section>
 
@@ -256,7 +256,7 @@
           </div>
           <p>Para dudas sobre estos términos, solicitudes relacionadas con datos personales (derechos ARCO), demos o soporte comercial:</p>
           <div class="grid sm:grid-cols-2 gap-4 not-prose mt-4">
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4"><strong class="text-white block mb-1">Correo electrónico</strong><a href="mailto:contacto@mapgestion.com" class="text-teal-300 hover:text-white transition text-sm">contacto@mapgestion.com</a></div>
+            <div class="rounded-xl border border-white/10 bg-white/5 p-4"><strong class="text-white block mb-1">Correo electrónico</strong><!--email_off--><a href="mailto:contacto@mapgestion.com" class="text-teal-300 hover:text-white transition text-sm">contacto@mapgestion.com</a><!--/email_off--></div>
             <div class="rounded-xl border border-white/10 bg-white/5 p-4"><strong class="text-white block mb-1">WhatsApp</strong><a href="https://wa.me/524778024682" target="_blank" rel="noopener" class="text-teal-300 hover:text-white transition text-sm">+52 477 802 4682</a></div>
             <div class="rounded-xl border border-white/10 bg-white/5 p-4"><strong class="text-white block mb-1">Solicitar demo</strong><a href="index.html#contacto" class="text-teal-300 hover:text-white transition text-sm">Formulario en el sitio</a></div>
             <div class="rounded-xl border border-white/10 bg-white/5 p-4"><strong class="text-white block mb-1">Simulador</strong><a href="index.html#video-tour" class="text-teal-300 hover:text-white transition text-sm">Ver cómo funciona</a></div>

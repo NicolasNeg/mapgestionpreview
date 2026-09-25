@@ -204,14 +204,14 @@
             <div class="xls">
               <div class="xls__bar"><span></span><span></span><span></span>&nbsp; unidades_patio.xlsx</div>
               <table class="xls__grid">
-                <thead><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+                <thead><tr><th scope="col"><span class="sr-only">Fila</span></th><th scope="col">A</th><th scope="col">B</th><th scope="col">C</th><th scope="col">D</th><th scope="col">E</th></tr></thead>
                 <tbody>
-                  <tr><td>1</td><td>D5256</td><td>Aveo</td><td>lleno??</td><td>patio?</td><td>pregunta Jose</td></tr>
-                  <tr><td>2</td><td>D5129</td><td>Aveo</td><td>listo?</td><td>patio B</td><td>ok x</td></tr>
-                  <tr><td>3</td><td>F1161</td><td>Jetta</td><td>lavando</td><td>lavado?</td><td>?</td></tr>
-                  <tr><td>4</td><td>I166</td><td>Tank 300</td><td>taller??</td><td>?</td><td>rayón</td></tr>
-                  <tr><td>5</td><td>M159</td><td>Suburban</td><td>en patio</td><td>check in?</td><td></td></tr>
-                  <tr><td>6</td><td>Q234</td><td>GN8</td><td>no sé</td><td>-</td><td>revisar</td></tr>
+                  <tr><th scope="row">1</th><td>D5256</td><td>Aveo</td><td>lleno??</td><td>patio?</td><td>pregunta Jose</td></tr>
+                  <tr><th scope="row">2</th><td>D5129</td><td>Aveo</td><td>listo?</td><td>patio B</td><td>ok x</td></tr>
+                  <tr><th scope="row">3</th><td>F1161</td><td>Jetta</td><td>lavando</td><td>lavado?</td><td>?</td></tr>
+                  <tr><th scope="row">4</th><td>I166</td><td>Tank 300</td><td>taller??</td><td>?</td><td>rayón</td></tr>
+                  <tr><th scope="row">5</th><td>M159</td><td>Suburban</td><td>en patio</td><td>check in?</td><td></td></tr>
+                  <tr><th scope="row">6</th><td>Q234</td><td>GN8</td><td>no sé</td><td>-</td><td>revisar</td></tr>
                 </tbody>
               </table>
             </div>
@@ -221,7 +221,7 @@
             <div class="mgtable" id="mgtable">
               <div class="mgtable__toolbar">
                 <label class="mgtable__search">
-                  <span class="material-symbols-outlined">search</span>
+                  <span class="material-symbols-outlined" aria-hidden="true">search</span>
                   <input id="mgSearch" type="search" placeholder="Buscar MVA, placas o modelo…" aria-label="Buscar unidad" value="D5256" />
                 </label>
                 <div class="mgtable__filters" id="mgFilters">
@@ -239,8 +239,8 @@
                     <th>Categoría <select class="mgsel" data-col="1" aria-label="Filtrar por categoría"><option value="">Todas</option></select></th>
                     <th>Modelo <select class="mgsel" data-col="2" aria-label="Filtrar por modelo"><option value="">Todos</option></select></th>
                     <th>Placas</th>
-                    <th><button type="button" class="mg-sort" id="mgSortFuel" aria-label="Ordenar por gasolina">Gasolina <span class="material-symbols-outlined mg-sort__ic">unfold_more</span></button></th>
-                    <th><button type="button" class="mg-sort" id="mgSortKm" aria-label="Ordenar por kilometraje">Km <span class="material-symbols-outlined mg-sort__ic">unfold_more</span></button></th>
+                    <th><button type="button" class="mg-sort" id="mgSortFuel" aria-label="Ordenar por gasolina">Gasolina <span class="material-symbols-outlined mg-sort__ic" aria-hidden="true">unfold_more</span></button></th>
+                    <th><button type="button" class="mg-sort" id="mgSortKm" aria-label="Ordenar por kilometraje">Km <span class="material-symbols-outlined mg-sort__ic" aria-hidden="true">unfold_more</span></button></th>
                     <th>Estado <select class="mgsel" data-col="6" aria-label="Filtrar por estado"><option value="">Todos</option></select></th>
                     <th>Ubicación <select class="mgsel" data-col="7" aria-label="Filtrar por ubicación"><option value="">Todas</option></select></th>
                     <th>Notas</th>
@@ -660,7 +660,7 @@
         <a href="#modulos">Módulos</a>
         <a href="terminos.html">Términos</a>
         <a href="terminos.html#privacidad">Privacidad</a>
-        <a href="mailto:contacto@mapgestion.com">contacto@mapgestion.com</a>
+        <!--email_off--><a href="mailto:contacto@mapgestion.com">contacto@mapgestion.com</a><!--/email_off-->
         <a href="https://wa.me/524778024682" target="_blank" rel="noopener">WhatsApp</a>
         <a href="https://app.mapgestion.com" class="btn btn--ghost btn--sm foot__login">Iniciar sesión</a>
       </nav>
