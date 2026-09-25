@@ -593,37 +593,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="app.js"></script>
-  <!-- Shepherd.js for guided tour -->
-  <link rel="stylesheet" href="https://unpkg.com/shepherd.js@9.4.1/dist/css/shepherd.css" />
-  <script src="https://unpkg.com/shepherd.js@9.4.1/dist/js/shepherd.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      if (localStorage.getItem('tourCompleted')) return;
-      const tour = new Shepherd.Tour({
-        defaultStepOptions: { scrollTo: true, cancelIcon: { enabled: true } },
-        useModalOverlay: true
-      });
-      tour.addStep({
-        id: 'nav',
-        text: 'Esta es la navegación. En móviles toca el menú para ver las secciones.',
-        attachTo: { element: '.nav__menuBtn', on: 'bottom' },
-        buttons: [{ text: 'Siguiente', action: tour.next }]
-      });
-      tour.addStep({
-        id: 'hero',
-        text: 'Este es el hero con la propuesta principal.',
-        attachTo: { element: '.hero', on: 'bottom' },
-        buttons: [{ text: 'Siguiente', action: tour.next }]
-      });
-      tour.addStep({
-        id: 'demo',
-        text: 'Puedes solicitar una demo aquí.',
-        attachTo: { element: '.cta__inner .btn--primary', on: 'top' },
-        buttons: [{ text: 'Listo', action: () => { localStorage.setItem('tourCompleted', '1'); tour.complete(); } }]
-      });
-      tour.start();
-    });
-  </script>
 </body>
 
 </html>
