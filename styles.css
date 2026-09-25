@@ -676,8 +676,8 @@ html.menu-open { overflow: hidden; }
 .spot {
   position: absolute;
   left: var(--x); top: var(--y);
-  width: 5.35%;
-  height: 12%;
+  width: 6%;      /* cajón B: 95×134 px de 1516×811 → 6.27% × 16.5% */
+  height: 15.6%;
   border-radius: 6px;
   display: flex; align-items: center; justify-content: center;
   padding: 2px 1px;
@@ -722,7 +722,7 @@ html:not(.js) .spot {
 .dot--avail { background: #22c55e; } .dot--prep { background: #f59e0b; }
 .dot--patio { background: #3b82f6; } .dot--taller { background: #ef4444; }
 @media (max-width: 600px) {
-  .spot { font-size: 6.5px; border-radius: 4px; height: 11.2%; width: 5.2%; }
+  .spot { font-size: 6.5px; border-radius: 4px; }
   .spot::after { height: 2px; }
   .map-sim__legend { font-size: .65rem; }
 }
@@ -1106,7 +1106,6 @@ html:not(.js) .spot {
 .trust { padding: 2rem 0 4rem; }
 .trust__inner { text-align: center; margin-top: 2.5rem; }
 .trust__line { color: #cbd5e1; font-weight: 600; font-size: 1rem; }
-.trust__note { color: var(--muted); font-size: .85rem; margin-top: .6rem; }
 .proof__stats {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center;
 }
@@ -1139,8 +1138,6 @@ html:not(.js) .spot {
   margin: .8rem auto 0;
   max-width: 42ch;
 }
-.cta__soon { font-size: .88rem !important; margin-bottom: 1.75rem !important; }
-.cta__soon em { color: var(--teal); font-style: normal; font-weight: 700; }
 
 .cform { text-align: left; margin-top: 1.5rem; display: grid; gap: 1rem; }
 .cform__row { display: grid; gap: 1rem; }

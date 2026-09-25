@@ -454,17 +454,17 @@
             <img class="map-sim__img" src="assets/screenshots/mapa-vivo.png" alt="Mapa del patio con unidades ubicadas" width="1516" height="811" loading="lazy" decoding="async" />
           </picture>
           <div class="map-sim__layer" aria-hidden="true">
-            <!-- Cajones B-1…B-10 (vacíos en el screenshot). --x/--y = centro del cajón. -->
-            <span class="spot spot--avail"  style="--x:15.6%; --y:34.2%;">D5129</span>
-            <span class="spot spot--prep"   style="--x:21.5%; --y:34.2%;">F1161</span>
-            <span class="spot spot--avail"  style="--x:27.4%; --y:34.2%;">M159</span>
-            <span class="spot spot--patio"  style="--x:33.3%; --y:34.2%;">I174</span>
-            <span class="spot spot--avail"  style="--x:39.2%; --y:34.2%;">Q234</span>
-            <span class="spot spot--taller" style="--x:45.1%; --y:34.2%;">I166</span>
-            <span class="spot spot--avail"  style="--x:51.0%; --y:34.2%;">S034</span>
-            <span class="spot spot--prep"   style="--x:56.9%; --y:34.2%;">A1842</span>
-            <span class="spot spot--avail"  style="--x:62.8%; --y:34.2%;">B2380</span>
-            <span class="spot spot--patio"  style="--x:68.7%; --y:34.2%;">Z018</span>
+            <!-- Cajones B-1…B-10 (vacíos en la captura). Centros medidos en píxeles sobre mapa-vivo.png (1516×811). -->
+            <span class="spot spot--avail" style="--x:4.01%; --y:34.77%;">D5129</span>
+            <span class="spot spot--prep" style="--x:12.81%; --y:34.77%;">F1161</span>
+            <span class="spot spot--avail" style="--x:21.64%; --y:34.77%;">M159</span>
+            <span class="spot spot--patio" style="--x:30.76%; --y:34.77%;">I174</span>
+            <span class="spot spot--avail" style="--x:39.58%; --y:34.77%;">Q234</span>
+            <span class="spot spot--taller" style="--x:48.38%; --y:34.77%;">I166</span>
+            <span class="spot spot--avail" style="--x:57.52%; --y:34.77%;">S034</span>
+            <span class="spot spot--prep" style="--x:66.33%; --y:34.77%;">A1842</span>
+            <span class="spot spot--avail" style="--x:75.13%; --y:34.77%;">B2380</span>
+            <span class="spot spot--patio" style="--x:84.27%; --y:34.77%;">Z018</span>
           </div>
           <div class="map-sim__legend">
             <span><i class="dot dot--avail"></i>Listo</span>
@@ -502,6 +502,7 @@
       </div>
     </article>
 
+    <!-- TODO: reactivar con captura real
     <article class="mod mod--rev" id="mod-qr">
       <div class="container mod__inner">
         <div class="mod__text">
@@ -511,13 +512,14 @@
         </div>
         <div class="mod__media">
           <div class="mod__shot">
-            <img src="assets/screenshots/qr-unidad.png" alt="Escaneo QR de una unidad" loading="lazy"
-              onerror="this.onerror=null;this.src='assets/screenshots/mapa-vivo.png'" />
+            <img src="assets/screenshots/qr-unidad.png" alt="Escaneo QR de una unidad" loading="lazy" />
           </div>
         </div>
       </div>
     </article>
+    -->
 
+    <!-- TODO: reactivar con captura real
     <article class="mod" id="mod-papeletas">
       <div class="container mod__inner">
         <div class="mod__text">
@@ -527,12 +529,12 @@
         </div>
         <div class="mod__media">
           <div class="mod__shot">
-            <img src="assets/screenshots/papeletas.png" alt="Papeletas digitales" loading="lazy"
-              onerror="this.onerror=null;this.src='assets/screenshots/editor-mapa.png'" />
+            <img src="assets/screenshots/papeletas.png" alt="Papeletas digitales" loading="lazy" />
           </div>
         </div>
       </div>
     </article>
+    -->
 
     <article class="mod mod--rev" id="mod-traslados">
       <div class="container mod__inner">
@@ -542,14 +544,12 @@
           <p>Quién movió qué, de dónde a dónde, y cuándo.</p>
         </div>
         <div class="mod__media">
-          <div class="mod__shot">
-            <img src="assets/screenshots/traslados.png" alt="Traslados entre plazas" loading="lazy"
-              onerror="this.onerror=null;this.src='assets/screenshots/editor-mapa.png'" />
-          </div>
+          <div class="mod__shot"><picture><source type="image/webp" srcset="assets/screenshots/historial-mapa-traslados-640.webp 640w, assets/screenshots/historial-mapa-traslados-1200.webp 1200w" sizes="(min-width: 860px) 560px, 100vw" /><img src="assets/screenshots/historial-mapa-traslados.png" alt="Historial de movimientos de unidades entre ubicaciones" width="1390" height="966" loading="lazy" decoding="async" /></picture></div>
         </div>
       </div>
     </article>
 
+    <!-- TODO: reactivar con captura real
     <article class="mod" id="mod-alertas">
       <div class="container mod__inner">
         <div class="mod__text">
@@ -559,12 +559,12 @@
         </div>
         <div class="mod__media">
           <div class="mod__shot">
-            <img src="assets/screenshots/alertas.png" alt="Alertas operativas" loading="lazy"
-              onerror="this.onerror=null;this.src='assets/screenshots/bitacora-incidencias.png'" />
+            <img src="assets/screenshots/alertas.png" alt="Alertas operativas" loading="lazy" />
           </div>
         </div>
       </div>
     </article>
+    -->
   </section>
 
   <!-- §6 Cómo trabajamos -->
@@ -608,7 +608,6 @@
       </div>
       <div class="trust__inner reveal">
         <p class="trust__line">Instancia dedicada por cliente · Base de datos propia · Soporte continuo</p>
-        <p class="trust__note">Cuando tengamos logos y citas reales de arrendadoras, van aquí.</p>
       </div>
     </div>
   </section>
@@ -618,7 +617,6 @@
     <div class="container cta__inner">
       <h2>Tu patio en la nube. Desde el celular.</h2>
       <p>Cuéntanos cuántas unidades y plazas manejas. Te contactamos para una demo.</p>
-      <p class="cta__soon">Demo interactiva en dominio propio — <em>próximamente</em>.</p>
 
       <form class="cform" id="contactForm" action="https://formspree.io/f/xgojgakq" method="POST">
         <div class="cform__row">
