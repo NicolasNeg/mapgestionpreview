@@ -244,32 +244,6 @@ if (HAS_GSAP) {
     }
   });
 
-  // Mobile navigation toggle
-const menuBtn = document.getElementById('menuBtn');
-const navDrawer = document.querySelector('.nav__drawer');
-const navOverlay = document.getElementById('navOverlay');
-
-function toggleMenu(open) {
-  const isOpen = typeof open === 'boolean' ? open : !navDrawer.classList.contains('is-open');
-  navDrawer.classList.toggle('is-open', isOpen);
-  navOverlay.classList.toggle('is-open', isOpen);
-  navDrawer.setAttribute('aria-hidden', !isOpen);
-  navOverlay.setAttribute('aria-hidden', !isOpen);
-  if (isOpen) {
-    menuBtn.setAttribute('aria-label', 'Close navigation');
-    // focus first link for accessibility
-    const firstLink = navDrawer.querySelector('a');
-    firstLink && firstLink.focus();
-  } else {
-    menuBtn.setAttribute('aria-label', 'Open navigation');
-    menuBtn.focus();
-  }
-}
-
-menuBtn?.addEventListener('click', () => toggleMenu());
-navOverlay?.addEventListener('click', () => toggleMenu(false));
-
-
 }
 
 if (!HAS_GSAP || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -278,6 +252,45 @@ if (!HAS_GSAP || window.matchMedia('(prefers-reduced-motion: reduce)').matches) 
     el.textContent = (el.dataset.prefix || '') + el.dataset.counter + (el.dataset.suffix || '');
   });
 }
+
+/* Menú móvil — independiente de GSAP */
+(function mobileMenu() {
+  const btn = document.getElementById('menuBtn');
+  const drawer = document.getElementById('navDrawer');
+  const overlay = document.getElementById('navOverlay');
+  const closeBtn = document.getElementById('menuClose');
+  if (!btn || !drawer || !overlay) return;
+
+  const isOpen = () => drawer.classList.contains('is-open');
+  function setOpen(open, { restoreFocus = true } = {}) {
+    drawer.classList.toggle('is-open', open);
+    overlay.classList.toggle('is-open', open);
+    document.documentElement.classList.toggle('menu-open', open);
+    drawer.setAttribute('aria-hidden', String(!open));
+    if (open) drawer.removeAttribute('inert'); else drawer.setAttribute('inert', '');
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    if (open) {
+      const first = drawer.querySelector('.nav__drawer > a');
+      if (first) setTimeout(() => first.focus(), 50);
+    } else if (restoreFocus) {
+      btn.focus();
+    }
+  }
+
+  btn.addEventListener('click', () => setOpen(!isOpen()));
+  overlay.addEventListener('click', () => setOpen(false));
+  if (closeBtn) closeBtn.addEventListener('click', () => setOpen(false));
+  drawer.addEventListener('click', (e) => {
+    if (e.target.closest('a')) setOpen(false, { restoreFocus: false });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen()) setOpen(false);
+  });
+  window.matchMedia('(min-width: 820px)').addEventListener('change', (mq) => {
+    if (mq.matches && isOpen()) setOpen(false, { restoreFocus: false });
+  });
+})();
 
 /* Tabla MapGestión — buscador + filtros */
 (function mgTable() {

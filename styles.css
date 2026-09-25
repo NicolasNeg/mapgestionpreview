@@ -26,6 +26,8 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+/* Anclas debajo del nav flotante */
+section[id], article[id], header[id], div[id="anywhere"] { scroll-margin-top: 84px; }
 body {
   font-family: 'Inter', system-ui, sans-serif;
   background: var(--ink);
@@ -135,69 +137,59 @@ button:focus-visible {
 }
 .nav__brand img { height: 26px; width: auto; }
 .nav__links { display: none; gap: 1.35rem; color: var(--muted); font-size: .9rem; font-weight: 600; }
+.nav__links a:hover { color: #fff; }
+.nav__actions { display: flex; align-items: center; gap: .5rem; }
 
-/* Mobile navigation button */
+/* Botón hamburguesa (solo móvil) */
 .nav__menuBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
-  color: var(--text);
-  font-size: 1.6rem;
-  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px; flex: 0 0 auto;
+  background: transparent; border: 0; border-radius: 10px;
+  color: var(--text); cursor: pointer;
 }
+.nav__menuBtn .material-symbols-outlined { font-size: 1.6rem; }
 
-/* Drawer navigation */
-.nav__drawer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 260px;
-  max-width: 80%;
-  background: var(--glass);
-  backdrop-filter: blur(12px) saturate(1.2);
-  transform: translateX(-100%);
-  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-  padding-top: calc(var(--nav-height, 4rem) + 1rem);
-  z-index: 60;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-}
-
-.nav__drawer.is-open {
-  transform: translateX(0);
-}
-
-/* Overlay */
+/* Drawer móvil (hermano de .nav, a nivel body) */
 .nav__overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  opacity: 0;
+  position: fixed; inset: 0; z-index: 65;
+  background: rgba(2, 8, 12, .6);
+  opacity: 0; visibility: hidden;
+  transition: opacity .25s ease, visibility 0s linear .25s;
+}
+.nav__overlay.is-open { opacity: 1; visibility: visible; transition: opacity .25s ease; }
+.nav__drawer {
+  position: fixed; top: 0; left: 0; bottom: 0; z-index: 70;
+  width: min(300px, 84vw);
+  display: flex; flex-direction: column; gap: .25rem;
+  padding: 1rem 1.1rem 1.5rem;
+  background: rgba(6, 20, 27, .96);
+  border-right: 1px solid var(--glass-border);
+  box-shadow: 20px 0 60px rgba(0,0,0,.45);
+  transform: translateX(-100%);
   visibility: hidden;
-  transition: opacity 0.25s ease;
-  z-index: 55;
+  transition: transform .35s cubic-bezier(.4,0,.2,1), visibility 0s linear .35s;
+  overflow-y: auto;
 }
-
-.nav__overlay.is-open {
-  opacity: 1;
-  visibility: visible;
+.nav__drawer.is-open { transform: translateX(0); visibility: visible; transition: transform .35s cubic-bezier(.4,0,.2,1); }
+.nav__drawerHead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.nav__drawerHead img { height: 26px; width: auto; }
+.nav__drawer > a {
+  display: block; padding: .85rem .5rem;
+  font-size: 1.05rem; font-weight: 600; color: var(--text);
+  border-bottom: 1px solid rgba(255,255,255,.06);
 }
+.nav__drawer > a:hover { color: var(--teal); }
+.nav__drawerActions { display: grid; gap: .6rem; margin-top: 1.25rem; }
+html.menu-open { overflow: hidden; }
 
-/* Hide menu button on larger screens */
 @media (min-width: 820px) {
   .nav__menuBtn { display: none; }
-  .nav__drawer { position: static; transform: none; height: auto; width: auto; background: none; backdrop-filter: none; padding: 0; display: flex; flex-direction: row; }
-  .nav__overlay { display: none; }
-}
-
-.nav__links a:hover { color: #fff; }
-@media (min-width: 820px) {
   .nav__links { display: flex; }
+  .nav__drawer, .nav__overlay { display: none; }
+}
+@media (max-width: 380px) {
+  .nav__pill { gap: .5rem; padding-left: .5rem; }
+  .nav__actions .btn--sm { padding: 0 .8rem; font-size: .85rem; }
 }
 
 /* ============================================================

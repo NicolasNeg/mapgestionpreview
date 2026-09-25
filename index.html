@@ -87,20 +87,37 @@
   <!-- §0 Nav — glass flotante -->
   <nav class="nav" aria-label="Principal">
     <div class="nav__pill">
-        <button id="menuBtn" class="nav__menuBtn" aria-label="Open navigation"><span class="material-symbols-outlined">menu</span></button>
+      <button id="menuBtn" class="nav__menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navDrawer"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button>
       <a href="#hero" class="nav__brand" aria-label="MapGestión — inicio">
-        <img src="assets/brand/mapgestion_logo.svg" alt="MapGestión" />
+        <img src="assets/brand/mapgestion_logo.svg" alt="MapGestión" width="111" height="26" />
       </a>
-      <div class="nav__drawer nav__links">
+      <div class="nav__links">
         <a href="#producto">Producto</a>
         <a href="#video-tour">Cómo funciona</a>
         <a href="#plataforma">Pantallas</a>
         <a href="#implementacion">Implementación</a>
       </div>
-      <a href="#contacto" class="btn btn--primary btn--sm">Solicitar demo</a>
+      <div class="nav__actions">
+        <a href="#contacto" class="btn btn--primary btn--sm">Solicitar demo</a>
+      </div>
     </div>
   </nav>
+
+  <!-- Menú móvil: fuera de .nav para que el backdrop-filter no lo encierre -->
   <div id="navOverlay" class="nav__overlay" aria-hidden="true"></div>
+  <div id="navDrawer" class="nav__drawer" role="dialog" aria-modal="true" aria-label="Menú de navegación" aria-hidden="true" inert>
+    <div class="nav__drawerHead">
+      <img src="assets/brand/mapgestion_logo.svg" alt="MapGestión" width="111" height="26" />
+      <button id="menuClose" class="nav__menuBtn nav__menuBtn--close" type="button" aria-label="Cerrar menú"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+    </div>
+    <a href="#producto">Producto</a>
+    <a href="#video-tour">Cómo funciona</a>
+    <a href="#plataforma">Pantallas</a>
+    <a href="#implementacion">Implementación</a>
+    <div class="nav__drawerActions">
+      <a href="#contacto" class="btn btn--primary">Solicitar demo</a>
+    </div>
+  </div>
 
   <!-- §1 Hero — full-bleed; texto sobre la imagen -->
   <header class="hero" id="hero">
