@@ -74,8 +74,17 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <!-- Hero LCP: precarga del recorte que corresponde a cada viewport -->
+  <link rel="preload" as="image" type="image/webp" fetchpriority="high" media="(max-width: 700px)"
+    imagesrcset="assets/scenes/hero-index-mobile-480.webp 480w, assets/scenes/hero-index-mobile-750.webp 750w" imagesizes="100vw" />
+  <link rel="preload" as="image" type="image/webp" fetchpriority="high" media="(min-width: 701px) and (max-aspect-ratio: 1/1)"
+    imagesrcset="assets/scenes/hero-index-full-1086.webp 1086w" imagesizes="100vw" />
+  <link rel="preload" as="image" type="image/webp" fetchpriority="high" media="(min-width: 701px) and (min-aspect-ratio: 1001/1000)"
+    imagesrcset="assets/scenes/hero-index-desktop-800.webp 800w, assets/scenes/hero-index-desktop-1086.webp 1086w" imagesizes="100vw" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Outfit:wght@800;900&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+  <!-- Iconos: solo los glifos usados (icon_names en orden alfabético); display=block evita ver el nombre del ícono como texto -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=arrow_downward,arrow_upward,close,flight,forum,fullscreen,fullscreen_exit,home,local_parking,menu,pause,play_arrow,search,unfold_more,volume_off,volume_up&display=block" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -122,14 +131,16 @@
   <!-- §1 Hero — full-bleed; texto sobre la imagen -->
   <header class="hero" id="hero">
     <div class="hero__media" data-parallax="0.18" aria-hidden="true">
-      <img
-        id="heroImg"
-        class="hero__img--index"
-        src="assets/scenes/hero-index-phone.png"
-        alt=""
-        width="1920"
-        height="1080"
-        fetchpriority="high" />
+      <picture>
+        <source media="(max-width: 700px)" type="image/webp" width="750" height="1448"
+          srcset="assets/scenes/hero-index-mobile-480.webp 480w, assets/scenes/hero-index-mobile-750.webp 750w" sizes="100vw" />
+        <source media="(max-aspect-ratio: 1/1)" type="image/webp" width="1086" height="1448"
+          srcset="assets/scenes/hero-index-full-1086.webp 1086w" sizes="100vw" />
+        <source type="image/webp" width="1086" height="750"
+          srcset="assets/scenes/hero-index-desktop-800.webp 800w, assets/scenes/hero-index-desktop-1086.webp 1086w" sizes="100vw" />
+        <img id="heroImg" class="hero__img--index" src="assets/scenes/hero-index-phone.png" alt=""
+          width="1086" height="1448" fetchpriority="high" decoding="async" />
+      </picture>
     </div>
     <div class="hero__scrim" aria-hidden="true"></div>
 
@@ -241,7 +252,10 @@
       <div class="story-scenes__rail">
         <article class="story-scenes__card" data-scene="patio">
           <div class="story-scenes__media">
-            <img src="assets/scenes/patio-phone.png" alt="En el patio con el celular" loading="lazy" />
+            <picture>
+              <source type="image/webp" srcset="assets/scenes/patio-phone-420.webp 420w, assets/scenes/patio-phone-720.webp 720w" sizes="(min-width: 800px) 340px, calc(100vw - 4rem)" />
+              <img src="assets/scenes/patio-phone.png" alt="En el patio con el celular" width="941" height="1672" loading="lazy" decoding="async" />
+            </picture>
           </div>
           <div class="story-scenes__copy">
             <span class="material-symbols-outlined" aria-hidden="true">local_parking</span>
@@ -251,7 +265,10 @@
         </article>
         <article class="story-scenes__card" data-scene="casa">
           <div class="story-scenes__media">
-            <img src="assets/scenes/hero-phone.png" alt="Desde casa" loading="lazy" />
+            <picture>
+              <source type="image/webp" srcset="assets/scenes/hero-phone-420.webp 420w, assets/scenes/hero-phone-720.webp 720w" sizes="(min-width: 800px) 340px, calc(100vw - 4rem)" />
+              <img src="assets/scenes/hero-phone.png" alt="Desde casa" width="941" height="1672" loading="lazy" decoding="async" />
+            </picture>
           </div>
           <div class="story-scenes__copy">
             <span class="material-symbols-outlined" aria-hidden="true">home</span>
@@ -261,7 +278,10 @@
         </article>
         <article class="story-scenes__card" data-scene="viaje">
           <div class="story-scenes__media">
-            <img src="assets/scenes/viaje-phone.png" alt="De viaje" loading="lazy" />
+            <picture>
+              <source type="image/webp" srcset="assets/scenes/viaje-phone-420.webp 420w, assets/scenes/viaje-phone-720.webp 720w" sizes="(min-width: 800px) 340px, calc(100vw - 4rem)" />
+              <img src="assets/scenes/viaje-phone.png" alt="De viaje" width="1086" height="1448" loading="lazy" decoding="async" />
+            </picture>
           </div>
           <div class="story-scenes__copy">
             <span class="material-symbols-outlined" aria-hidden="true">flight</span>
@@ -347,42 +367,60 @@
     </div>
     <div class="screens__grid">
       <figure class="screens__card">
-        <img src="assets/screenshots/mapa-vivo.png" alt="Mapa del patio en vivo" loading="lazy" />
+        <picture>
+          <source type="image/webp" srcset="assets/screenshots/mapa-vivo-640.webp 640w, assets/screenshots/mapa-vivo-1200.webp 1200w" sizes="(min-width: 1000px) 360px, (min-width: 700px) 50vw, 100vw" />
+          <img src="assets/screenshots/mapa-vivo.png" alt="Mapa del patio en vivo" width="1516" height="811" loading="lazy" decoding="async" />
+        </picture>
         <figcaption>
           <strong>Mapa</strong>
           <span>Cajón, estado y unidad a un vistazo</span>
         </figcaption>
       </figure>
       <figure class="screens__card">
-        <img src="assets/screenshots/resumen-flota.png" alt="Resumen de flota" loading="lazy" />
+        <picture>
+          <source type="image/webp" srcset="assets/screenshots/resumen-flota-640.webp 640w, assets/screenshots/resumen-flota-1200.webp 1200w" sizes="(min-width: 1000px) 360px, (min-width: 700px) 50vw, 100vw" />
+          <img src="assets/screenshots/resumen-flota.png" alt="Resumen de flota" width="1847" height="966" loading="lazy" decoding="async" />
+        </picture>
         <figcaption>
           <strong>Resumen</strong>
           <span>Indicadores para decidir sin chat</span>
         </figcaption>
       </figure>
       <figure class="screens__card">
-        <img src="assets/screenshots/gestion-flota.png" alt="Gestión de flota" loading="lazy" />
+        <picture>
+          <source type="image/webp" srcset="assets/screenshots/gestion-flota-640.webp 640w, assets/screenshots/gestion-flota-1200.webp 1200w" sizes="(min-width: 1000px) 360px, (min-width: 700px) 50vw, 100vw" />
+          <img src="assets/screenshots/gestion-flota.png" alt="Gestión de flota" width="1847" height="966" loading="lazy" decoding="async" />
+        </picture>
         <figcaption>
           <strong>Flota</strong>
           <span>Placa, estado y ficha completa</span>
         </figcaption>
       </figure>
       <figure class="screens__card">
-        <img src="assets/screenshots/editor-mapa.png" alt="Editor de mapa" loading="lazy" />
+        <picture>
+          <source type="image/webp" srcset="assets/screenshots/editor-mapa-640.webp 640w, assets/screenshots/editor-mapa-1200.webp 1200w" sizes="(min-width: 1000px) 360px, (min-width: 700px) 50vw, 100vw" />
+          <img src="assets/screenshots/editor-mapa.png" alt="Editor de mapa" width="1766" height="896" loading="lazy" decoding="async" />
+        </picture>
         <figcaption>
           <strong>Editor</strong>
           <span>Tu patio dibujado como es</span>
         </figcaption>
       </figure>
       <figure class="screens__card">
-        <img src="assets/screenshots/cuadre.png" alt="Cuadre de patio" loading="lazy" />
+        <picture>
+          <source type="image/webp" srcset="assets/screenshots/cuadre-640.webp 640w, assets/screenshots/cuadre-1200.webp 1200w" sizes="(min-width: 1000px) 360px, (min-width: 700px) 50vw, 100vw" />
+          <img src="assets/screenshots/cuadre.png" alt="Cuadre de patio" width="1791" height="786" loading="lazy" decoding="async" />
+        </picture>
         <figcaption>
           <strong>Cuadre</strong>
           <span>Cierre de día sin huecos</span>
         </figcaption>
       </figure>
       <figure class="screens__card">
-        <img src="assets/screenshots/roles-permisos.png" alt="Roles y permisos" loading="lazy" />
+        <picture>
+          <source type="image/webp" srcset="assets/screenshots/roles-permisos-640.webp 640w, assets/screenshots/roles-permisos-1200.webp 1200w" sizes="(min-width: 1000px) 360px, (min-width: 700px) 50vw, 100vw" />
+          <img src="assets/screenshots/roles-permisos.png" alt="Roles y permisos" width="1845" height="1023" loading="lazy" decoding="async" />
+        </picture>
         <figcaption>
           <strong>Roles</strong>
           <span>Permisos por área</span>
@@ -402,7 +440,10 @@
           <p>Cajones, estados y unidades en el plano — una plaza o varias sub-plazas.</p>
         </div>
         <div class="map-sim" id="mapSim">
-          <img class="map-sim__img" src="assets/screenshots/mapa-vivo.png" alt="Mapa del patio con unidades ubicadas" loading="lazy" />
+          <picture>
+            <source type="image/webp" srcset="assets/screenshots/mapa-vivo-640.webp 640w, assets/screenshots/mapa-vivo-1200.webp 1200w" sizes="(min-width: 1000px) 960px, 100vw" />
+            <img class="map-sim__img" src="assets/screenshots/mapa-vivo.png" alt="Mapa del patio con unidades ubicadas" width="1516" height="811" loading="lazy" decoding="async" />
+          </picture>
           <div class="map-sim__layer" aria-hidden="true">
             <!-- Cajones B-1…B-10 (vacíos en el screenshot). --x/--y = centro del cajón. -->
             <span class="spot spot--avail"  style="--x:15.6%; --y:34.2%;">D5129</span>
@@ -434,7 +475,7 @@
           <p>Entradas, salidas y estados cuadrados — sin diferencias al cerrar turno.</p>
         </div>
         <div class="mod__media">
-          <div class="mod__shot"><img src="assets/screenshots/cuadre.png" alt="Pantalla de cuadre" loading="lazy" /></div>
+          <div class="mod__shot"><picture><source type="image/webp" srcset="assets/screenshots/cuadre-640.webp 640w, assets/screenshots/cuadre-1200.webp 1200w" sizes="(min-width: 860px) 560px, 100vw" /><img src="assets/screenshots/cuadre.png" alt="Pantalla de cuadre" width="1791" height="786" loading="lazy" decoding="async" /></picture></div>
         </div>
       </div>
     </article>
@@ -447,7 +488,7 @@
           <p>Foto, quién reportó y seguimiento hasta resolver.</p>
         </div>
         <div class="mod__media">
-          <div class="mod__shot"><img src="assets/screenshots/bitacora-incidencias.png" alt="Bitácora de incidencias" loading="lazy" /></div>
+          <div class="mod__shot"><picture><source type="image/webp" srcset="assets/screenshots/bitacora-incidencias-640.webp 640w, assets/screenshots/bitacora-incidencias-1200.webp 1200w" sizes="(min-width: 860px) 560px, 100vw" /><img src="assets/screenshots/bitacora-incidencias.png" alt="Bitácora de incidencias" width="1766" height="896" loading="lazy" decoding="async" /></picture></div>
         </div>
       </div>
     </article>
@@ -607,9 +648,9 @@
     <p class="foot__copy">© <span id="year"></span> MapGestión. Todos los derechos reservados.</p>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="app.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script defer src="app.js"></script>
 </body>
 
 </html>

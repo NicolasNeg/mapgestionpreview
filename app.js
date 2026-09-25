@@ -11,18 +11,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 const BASE_PARALLAX = 160;
 
-function heroIntro() {
-  gsap.fromTo('.gsap-fade',
-    { opacity: 0, y: 22 },
-    {
-      opacity: 1, y: 0,
-      duration: 0.7,
-      ease: 'power3.out',
-      stagger: 0.09,
-      delay: 0.12,
-    });
-}
-
 function parallaxLayers() {
   gsap.utils.toArray('[data-parallax]').forEach((el) => {
     const speed = parseFloat(el.dataset.parallax) || 0;
@@ -82,6 +70,7 @@ function imageJourney() {
         opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
         scrollTrigger: { trigger: card, start: 'top 85%' },
         delay: i * 0.05,
+        clearProps: 'transform', // deja libre el hover (translateY) del CSS
       });
   });
 
@@ -216,7 +205,6 @@ if (HAS_GSAP) {
   const mm = gsap.matchMedia();
 
   mm.add('(prefers-reduced-motion: no-preference)', () => {
-    heroIntro();
     headings();
     revealAll();
     formReveal();
