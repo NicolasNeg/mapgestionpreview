@@ -306,48 +306,57 @@
             <span></span><span></span><span></span>
             <em>mapgestion · recorrido</em>
           </div>
-          <div class="vplayer">
-            <video
-              class="vplayer__video"
-              playsinline
-              preload="metadata"
-              poster="assets/screenshots/mapa-vivo.png"
-              title="Recorrido de MapGestión">
-              <source src="assets/videos/video_preview.mp4" type="video/mp4" />
-              Tu navegador no reproduce video HTML5.
-            </video>
+          <!-- TODO: reactivar el reproductor cuando exista el video real del producto.
+               assets/videos/video_preview.mp4 NO era el recorrido: era un clip de futbol de terceros (DAZN/FIFA), por eso se retiro.
+                    <div class="vplayer">
+                      <video
+                        class="vplayer__video"
+                        playsinline
+                        preload="metadata"
+                        poster="assets/screenshots/mapa-vivo.png"
+                        title="Recorrido de MapGestión">
+                        <source src="assets/videos/video_preview.mp4" type="video/mp4" />
+                        Tu navegador no reproduce video HTML5.
+                      </video>
 
-            <button type="button" class="vplayer__bigplay" aria-label="Reproducir video">
-              <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>
-            </button>
+                      <button type="button" class="vplayer__bigplay" aria-label="Reproducir video">
+                        <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>
+                      </button>
 
-            <div class="vplayer__controls">
-              <button type="button" class="vplayer__btn" data-vp="play" aria-label="Reproducir">
-                <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>
-              </button>
+                      <div class="vplayer__controls">
+                        <button type="button" class="vplayer__btn" data-vp="play" aria-label="Reproducir">
+                          <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>
+                        </button>
 
-              <div class="vplayer__time" aria-hidden="true">
-                <span data-vp="cur">0:00</span>
-                <span>/</span>
-                <span data-vp="dur">0:00</span>
-              </div>
+                        <div class="vplayer__time" aria-hidden="true">
+                          <span data-vp="cur">0:00</span>
+                          <span>/</span>
+                          <span data-vp="dur">0:00</span>
+                        </div>
 
-              <div class="vplayer__scrub" data-vp="scrub">
-                <div class="vplayer__track">
-                  <div class="vplayer__buffer" data-vp="buffer"></div>
-                  <div class="vplayer__fill" data-vp="fill"></div>
-                </div>
-                <input class="vplayer__range" data-vp="seek" type="range" min="0" max="100" value="0" step="0.1" aria-label="Progreso del video" />
-              </div>
+                        <div class="vplayer__scrub" data-vp="scrub">
+                          <div class="vplayer__track">
+                            <div class="vplayer__buffer" data-vp="buffer"></div>
+                            <div class="vplayer__fill" data-vp="fill"></div>
+                          </div>
+                          <input class="vplayer__range" data-vp="seek" type="range" min="0" max="100" value="0" step="0.1" aria-label="Progreso del video" />
+                        </div>
 
-              <button type="button" class="vplayer__btn" data-vp="mute" aria-label="Silenciar">
-                <span class="material-symbols-outlined" aria-hidden="true">volume_up</span>
-              </button>
+                        <button type="button" class="vplayer__btn" data-vp="mute" aria-label="Silenciar">
+                          <span class="material-symbols-outlined" aria-hidden="true">volume_up</span>
+                        </button>
 
-              <button type="button" class="vplayer__btn" data-vp="fs" aria-label="Pantalla completa">
-                <span class="material-symbols-outlined" aria-hidden="true">fullscreen</span>
-              </button>
-            </div>
+                        <button type="button" class="vplayer__btn" data-vp="fs" aria-label="Pantalla completa">
+                          <span class="material-symbols-outlined" aria-hidden="true">fullscreen</span>
+                        </button>
+                      </div>
+                    </div>
+          -->
+          <div class="video-stage__still">
+            <picture>
+              <source type="image/webp" srcset="assets/screenshots/mapa-vivo-640.webp 640w, assets/screenshots/mapa-vivo-1200.webp 1200w" sizes="(min-width: 1120px) 1120px, 100vw" />
+              <img src="assets/screenshots/mapa-vivo.png" alt="Mapa operativo de MapGestión con unidades por cajón" width="1516" height="811" loading="lazy" decoding="async" />
+            </picture>
           </div>
         </div>
       </div>

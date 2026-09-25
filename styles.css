@@ -788,6 +788,9 @@ html:not(.js) .spot {
   object-fit: contain;
 }
 
+/* Imagen fija mientras no haya video real */
+.video-stage__still img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: center top; background: var(--panel); }
+
 /* Custom video player */
 .vplayer {
   position: relative;
