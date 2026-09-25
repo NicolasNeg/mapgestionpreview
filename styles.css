@@ -143,9 +143,11 @@ button:focus-visible {
   backdrop-filter: blur(18px) saturate(1.4);
 }
 .nav__brand img { height: 26px; width: auto; }
-.nav__links { display: none; gap: 1.35rem; color: var(--muted); font-size: .9rem; font-weight: 600; }
+.nav__links { display: none; white-space: nowrap; gap: 1.35rem; color: var(--muted); font-size: .9rem; font-weight: 600; }
 .nav__links a:hover { color: #fff; }
-.nav__actions { display: flex; align-items: center; gap: .5rem; }
+.nav__actions { display: flex; align-items: center; gap: .5rem; white-space: nowrap; }
+.nav__login { display: none; }
+@media (min-width: 1000px) { .nav__login { display: inline-flex; } }
 
 /* Botón hamburguesa (solo móvil) */
 .nav__menuBtn {
@@ -189,7 +191,7 @@ button:focus-visible {
 .nav__drawerActions { display: grid; gap: .6rem; margin-top: 1.25rem; }
 html.menu-open { overflow: hidden; }
 
-@media (min-width: 820px) {
+@media (min-width: 1000px) {
   .nav__menuBtn { display: none; }
   .nav__links { display: flex; }
   .nav__drawer, .nav__overlay { display: none; }
@@ -1181,6 +1183,8 @@ html:not(.js) .spot {
   color: var(--muted); font-size: .9rem;
 }
 .foot__links a:hover { color: #fff; }
+.foot__links { align-items: center; }
+.foot__links .foot__login { color: #fff; min-height: 38px; }
 .foot__copy {
   width: min(100% - 2rem, var(--maxw));
   margin: 1.5rem auto 0;

@@ -275,7 +275,7 @@ if (!HAS_GSAP || window.matchMedia('(prefers-reduced-motion: reduce)').matches) 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && isOpen()) setOpen(false);
   });
-  window.matchMedia('(min-width: 820px)').addEventListener('change', (mq) => {
+  window.matchMedia('(min-width: 1000px)').addEventListener('change', (mq) => {
     if (mq.matches && isOpen()) setOpen(false, { restoreFocus: false });
   });
 })();
