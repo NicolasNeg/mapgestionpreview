@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Static landing site for **MapGestión** — yard/fleet control for rent-a-car companies ("arrendadoras"), sold as a llave-en-mano dedicated-instance product (software + a per-client database), not a shared SaaS. The real app lives at `https://app.mapgestion.com` (linked from the nav, mobile drawer and footer as "Iniciar sesión"). No build step, no package manager needed.
+Static landing site for **MapGestión** — yard/fleet control for rent-a-car companies ("arrendadoras"), sold llave en mano (implementation + software in the cloud). **Do not claim a dedicated instance / own database per client, "< 5 días" or "100 % movimientos trazados"** (removed 2026-09-26: not verifiable). The `#confianza` stats are words, not numbers: "En la nube", "Desde el celular", "Por rol" + a line of live features. The real app lives at `https://app.mapgestion.com` (linked from the nav, mobile drawer and footer as "Iniciar sesión"). No build step, no package manager needed.
 
 **Core message:** cloud + phone + anti-WhatsApp/radio. Interactive demo domain = futuro (copy "próximamente" only, once, in `#video-tour`).
 
