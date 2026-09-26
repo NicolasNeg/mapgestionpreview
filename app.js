@@ -285,7 +285,7 @@ if (!HAS_GSAP || window.matchMedia('(prefers-reduced-motion: reduce)').matches) 
   const filters = document.getElementById('mgFilters');
   const countEl = document.getElementById('mgCount');
 
-  const COLORS = { LISTO: '#34d399', PREPARACION: '#fbbf24', TALLER: '#f87171', PATIO: '#38bdf8' };
+  const COLORS = { LISTO: '#10b981', PREPARACION: '#f59e0b', TALLER: '#ef4444', PATIO: '#3b82f6' }; // estados de la app (ESTILO.md)
   const LABEL = { LISTO: 'Listo', PREPARACION: 'Preparación', TALLER: 'Taller', PATIO: 'En patio' };
   const FUEL_ORDER = { 'E': 0, '1/4': 1, '3/8': 2, 'H': 3, '15/16': 4, 'F': 5 };
   // [MVA, Cat, Modelo, Placas, Gasolina, Km, Estado, Ubicación, Notas]

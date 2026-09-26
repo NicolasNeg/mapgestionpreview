@@ -8,31 +8,29 @@
   <meta name="description" content="Términos, condiciones y aviso de privacidad de MapGestión: software con base de datos dedicada por cliente para control de patios de arrendadoras." />
   <link rel="canonical" href="https://mapgestion.com/terminos.html" />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#041016" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="color-scheme" content="light" />
   <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" sizes="180x180" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
 
   <!-- Tailwind v3 precompilado (tailwindcss CLI, content = terminos.html). Regenerar si cambian las clases. -->
-  <link rel="stylesheet" href="assets/css/terminos.css?v=20260925" />
+  <link rel="stylesheet" href="assets/css/terminos.css?v=20260926b" />
   <script>document.documentElement.classList.add('js');</script>
 
   <style>
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: #020617; color: #e2e8f0; -webkit-font-smoothing: antialiased; }
+    body { font-family: 'Inter', sans-serif; background: #eef3f9; color: #1e293b; -webkit-font-smoothing: antialiased; }
+    /* Logo blanco → oscuro sobre fondo claro (misma técnica que la landing) */
+    .logo-on-light { filter: invert(1) hue-rotate(180deg) brightness(.3) saturate(1.6); }
+    a:focus-visible { outline: 2px solid #3b82f6; outline-offset: 2px; }
     .material-symbols-outlined { font-family: 'Material Symbols Outlined'; vertical-align: middle; }
-    body::before {
-      content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
-      background:
-        radial-gradient(60rem 40rem at 50% -10%, rgba(46,196,182,.14), transparent 60%),
-        radial-gradient(50rem 40rem at 90% 20%, rgba(56,189,248,.10), transparent 60%);
-    }
-    .text-gradient { background: linear-gradient(100deg,#89f5e7,#2ec4b6 45%,#38bdf8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .text-gradient { color: #2563eb; }
     /* Solo se oculta si hay JS; sin JS el contenido legal queda visible */
     .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
     .js .reveal.visible { opacity: 1; transform: none; }
@@ -49,16 +47,16 @@
 
   <!-- Navbar flotante -->
   <nav class="sticky top-4 z-50 px-4">
-    <div class="mx-auto max-w-5xl flex items-center justify-between gap-4 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl px-4 py-2.5 shadow-lg shadow-teal-500/5">
+    <div class="mx-auto max-w-5xl flex items-center justify-between gap-4 rounded-2xl border border-slate-400/20 bg-[#f2f6fb]/90 backdrop-blur-xl px-4 py-2.5 shadow-lg shadow-slate-900/10">
       <a href="index.html" aria-label="MapGestión — inicio" class="pl-2">
-        <img src="assets/brand/mapgestion_logo.svg" alt="MapGestión" class="h-7 w-auto" />
+        <img src="assets/brand/mapgestion_logo.svg" alt="MapGestión" class="h-7 w-auto logo-on-light" />
       </a>
       <div class="flex items-center gap-2">
-        <a href="index.html" class="hidden sm:inline-flex items-center gap-1 text-sm font-medium text-slate-300 hover:text-white px-3 py-2">
+        <a href="index.html" class="hidden sm:inline-flex items-center gap-1 text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2">
           <span class="material-symbols-outlined text-[18px]">arrow_back</span> Volver al sitio
         </a>
         <a href="index.html#contacto"
-          class="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-teal-500 to-cyan-400 px-4 py-2 text-sm font-semibold text-slate-900 shadow-lg shadow-teal-500/30 hover:shadow-teal-500/50 transition">
+          class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 hover:bg-blue-700 transition">
           <span class="material-symbols-outlined text-[18px]">event</span> Solicitar demo
         </a>
       </div>
@@ -68,15 +66,15 @@
   <main class="px-6">
     <!-- Hero -->
     <header class="mx-auto max-w-4xl text-center pt-16 pb-12 sm:pt-20">
-      <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm font-medium text-teal-300 mb-6">
+      <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-sm font-medium text-blue-700 mb-6">
         <span class="material-symbols-outlined text-[18px]">description</span> Documento legal
       </span>
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-white leading-tight mb-5">Términos, condiciones <span class="text-gradient">y privacidad</span></h1>
-      <p class="text-slate-400 max-w-2xl mx-auto mb-8">Estos términos regulan el uso de MapGestión — el sitio informativo, demos, sandbox y el software con base de datos dedicada que se contrata por cliente. Aquí explicamos qué hacemos, cómo tratamos los datos y qué obligaciones aplican.</p>
+      <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 leading-tight mb-5">Términos, condiciones <span class="text-gradient">y privacidad</span></h1>
+      <p class="text-slate-600 max-w-2xl mx-auto mb-8">Estos términos regulan el uso de MapGestión — el sitio informativo, demos, sandbox y el software con base de datos dedicada que se contrata por cliente. Aquí explicamos qué hacemos, cómo tratamos los datos y qué obligaciones aplican.</p>
       <div class="flex flex-wrap justify-center gap-3 text-sm">
-        <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-slate-300"><span class="material-symbols-outlined text-[18px]">calendar_today</span> Última actualización: 1 de julio de 2026</span>
-        <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-slate-300"><span class="material-symbols-outlined text-[18px]">mail</span> <!--email_off-->contacto@mapgestion.com<!--/email_off--></span>
-        <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-slate-300"><span class="material-symbols-outlined text-[18px]">phone</span> 477 802 4682</span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-slate-600"><span class="material-symbols-outlined text-[18px]">calendar_today</span> Última actualización: 1 de julio de 2026</span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-slate-600"><span class="material-symbols-outlined text-[18px]">mail</span> <!--email_off-->contacto@mapgestion.com<!--/email_off--></span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-slate-600"><span class="material-symbols-outlined text-[18px]">phone</span> 477 802 4682</span>
       </div>
     </header>
 
@@ -84,21 +82,21 @@
     <div class="mx-auto max-w-6xl grid lg:grid-cols-[240px_1fr] gap-10 pb-24">
       <!-- TOC -->
       <aside class="hidden lg:block" aria-label="Contenido del documento">
-        <nav class="sticky top-24 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-5 text-sm">
-          <p class="text-xs uppercase tracking-widest text-slate-500 mb-3">Contenido</p>
+        <nav class="sticky top-24 rounded-2xl border border-slate-200 bg-white shadow-sm p-5 text-sm">
+          <p class="text-xs uppercase tracking-widest text-slate-600 mb-3">Contenido</p>
           <ul class="space-y-1">
-            <li><a href="#aceptacion" class="flex gap-2 text-slate-400 hover:text-white transition"><span class="text-teal-400">1</span> Aceptación</a></li>
-            <li><a href="#servicio" class="flex gap-2 text-slate-400 hover:text-white transition"><span class="text-teal-400">2</span> Servicio</a></li>
-            <li><a href="#datos-cliente" class="flex gap-2 text-slate-400 hover:text-white transition"><span class="text-teal-400">3</span> Datos del cliente</a></li>
-            <li><a href="#privacidad" class="flex gap-2 text-slate-400 hover:text-white transition"><span class="text-teal-400">4</span> Privacidad y seguridad</a></li>
-            <li><a href="#permisos" class="flex gap-2 text-slate-400 hover:text-white transition"><span class="text-teal-400">5</span> Roles y permisos</a></li>
-            <li><a href="#obligaciones" class="flex gap-2 text-slate-400 hover:text-white transition"><span class="text-teal-400">6</span> Obligaciones</a></li>
-            <li><a href="#deslinde" class="flex gap-2 text-slate-400 hover:text-white transition"><span class="text-teal-400">7</span> Deslinde</a></li>
-            <li><a href="#disponibilidad" class="flex gap-2 text-slate-400 hover:text-white transition"><span class="text-teal-400">8</span> Disponibilidad</a></li>
-            <li><a href="#propiedad" class="flex gap-2 text-slate-400 hover:text-white transition"><span class="text-teal-400">9</span> Propiedad intelectual</a></li>
-            <li><a href="#pagos" class="flex gap-2 text-slate-400 hover:text-white transition"><span class="text-teal-400">10</span> Contratación</a></li>
-            <li><a href="#cambios" class="flex gap-2 text-slate-400 hover:text-white transition"><span class="text-teal-400">11</span> Cambios</a></li>
-            <li><a href="#contacto-legal" class="flex gap-2 text-slate-400 hover:text-white transition"><span class="text-teal-400">12</span> Contacto</a></li>
+            <li><a href="#aceptacion" class="flex gap-2 text-slate-600 hover:text-slate-900 transition"><span class="text-blue-600">1</span> Aceptación</a></li>
+            <li><a href="#servicio" class="flex gap-2 text-slate-600 hover:text-slate-900 transition"><span class="text-blue-600">2</span> Servicio</a></li>
+            <li><a href="#datos-cliente" class="flex gap-2 text-slate-600 hover:text-slate-900 transition"><span class="text-blue-600">3</span> Datos del cliente</a></li>
+            <li><a href="#privacidad" class="flex gap-2 text-slate-600 hover:text-slate-900 transition"><span class="text-blue-600">4</span> Privacidad y seguridad</a></li>
+            <li><a href="#permisos" class="flex gap-2 text-slate-600 hover:text-slate-900 transition"><span class="text-blue-600">5</span> Roles y permisos</a></li>
+            <li><a href="#obligaciones" class="flex gap-2 text-slate-600 hover:text-slate-900 transition"><span class="text-blue-600">6</span> Obligaciones</a></li>
+            <li><a href="#deslinde" class="flex gap-2 text-slate-600 hover:text-slate-900 transition"><span class="text-blue-600">7</span> Deslinde</a></li>
+            <li><a href="#disponibilidad" class="flex gap-2 text-slate-600 hover:text-slate-900 transition"><span class="text-blue-600">8</span> Disponibilidad</a></li>
+            <li><a href="#propiedad" class="flex gap-2 text-slate-600 hover:text-slate-900 transition"><span class="text-blue-600">9</span> Propiedad intelectual</a></li>
+            <li><a href="#pagos" class="flex gap-2 text-slate-600 hover:text-slate-900 transition"><span class="text-blue-600">10</span> Contratación</a></li>
+            <li><a href="#cambios" class="flex gap-2 text-slate-600 hover:text-slate-900 transition"><span class="text-blue-600">11</span> Cambios</a></li>
+            <li><a href="#contacto-legal" class="flex gap-2 text-slate-600 hover:text-slate-900 transition"><span class="text-blue-600">12</span> Contacto</a></li>
           </ul>
         </nav>
       </aside>
@@ -106,53 +104,53 @@
       <!-- Documento -->
       <div class="space-y-5">
         <!-- Aviso -->
-        <div class="reveal flex gap-3 rounded-2xl border border-amber-400/20 bg-amber-500/10 p-5 text-amber-100/90">
-          <span class="material-symbols-outlined text-amber-300">info</span>
+        <div class="reveal flex gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-amber-900">
+          <span class="material-symbols-outlined text-amber-700">info</span>
           <span><strong>Nota importante.</strong> Este documento es una base operativa y comercial para MapGestión. Debe revisarse por asesoría legal antes de usarse como contrato definitivo, aviso de privacidad formal o documento vinculante con un cliente específico.</span>
         </div>
 
-        <section id="aceptacion" class="reveal prose rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-7 text-slate-300">
+        <section id="aceptacion" class="reveal prose rounded-2xl border border-slate-200 bg-white shadow-sm p-7 text-slate-600">
           <div class="flex items-center gap-3 mb-4">
-            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-teal-500/15 text-teal-300"><span class="material-symbols-outlined">verified</span></span>
-            <h2 class="text-2xl font-bold text-white">1. Aceptación de los términos</h2>
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/10 text-blue-700"><span class="material-symbols-outlined">verified</span></span>
+            <h2 class="text-2xl font-bold text-slate-900">1. Aceptación de los términos</h2>
           </div>
           <p>Al acceder al sitio, solicitar una demo, usar el sandbox, abrir el mapa real o contratar MapGestión, la persona usuaria o cliente acepta estos términos. Si actúa en nombre de una empresa, declara contar con autorización suficiente para solicitar información, compartir datos operativos y contratar o evaluar el servicio.</p>
           <p>Cuando exista un contrato, propuesta, orden de servicio o anexo firmado entre MapGestión y el cliente, ese documento prevalecerá sobre estos términos en lo que resulte expresamente distinto.</p>
         </section>
 
-        <section id="servicio" class="reveal prose rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-7 text-slate-300">
+        <section id="servicio" class="reveal prose rounded-2xl border border-slate-200 bg-white shadow-sm p-7 text-slate-600">
           <div class="flex items-center gap-3 mb-4">
-            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-500/15 text-cyan-300"><span class="material-symbols-outlined">map</span></span>
-            <h2 class="text-2xl font-bold text-white">2. Alcance del servicio</h2>
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/10 text-blue-700"><span class="material-symbols-outlined">map</span></span>
+            <h2 class="text-2xl font-bold text-slate-900">2. Alcance del servicio</h2>
           </div>
           <p>MapGestión es un software para visualizar, organizar y gestionar mapas, registros, unidades, plazas, estados, usuarios, permisos, bitácoras, incidencias y flujos operativos de un patio o arrendadora.</p>
           <p>El servicio se entrega bajo un modelo de <strong>instancia dedicada por cliente</strong>: cada cliente recibe su propia configuración de software y su <strong>propia base de datos independiente</strong>. No es un servicio multicliente compartido; los datos de un cliente no se mezclan ni comparten con los de otros clientes.</p>
           <div class="grid sm:grid-cols-2 gap-4 not-prose my-5">
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4"><strong class="text-white block mb-1">Incluye</strong><span class="text-sm text-slate-400">Implementación y mapeo del patio, base de datos dedicada, acceso al software, vistas operativas, roles, registros, historial y soporte según el acuerdo contratado.</span></div>
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4"><strong class="text-white block mb-1">No incluye por defecto</strong><span class="text-sm text-slate-400">Consultoría legal, fiscal, laboral, logística, seguros, auditorías regulatorias, hardware, conectividad o captura física de datos en campo.</span></div>
+            <div class="rounded-xl border border-slate-200 bg-white p-4"><strong class="text-slate-900 block mb-1">Incluye</strong><span class="text-sm text-slate-600">Implementación y mapeo del patio, base de datos dedicada, acceso al software, vistas operativas, roles, registros, historial y soporte según el acuerdo contratado.</span></div>
+            <div class="rounded-xl border border-slate-200 bg-white p-4"><strong class="text-slate-900 block mb-1">No incluye por defecto</strong><span class="text-sm text-slate-600">Consultoría legal, fiscal, laboral, logística, seguros, auditorías regulatorias, hardware, conectividad o captura física de datos en campo.</span></div>
           </div>
           <p>Las demos, capturas y sandbox pueden usar datos simulados, parciales o de ejemplo. Su finalidad es mostrar el funcionamiento general, no sustituir la validación operativa final de cada cliente.</p>
         </section>
 
-        <section id="datos-cliente" class="reveal prose rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-7 text-slate-300">
+        <section id="datos-cliente" class="reveal prose rounded-2xl border border-slate-200 bg-white shadow-sm p-7 text-slate-600">
           <div class="flex items-center gap-3 mb-4">
-            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-teal-500/15 text-teal-300"><span class="material-symbols-outlined">database</span></span>
-            <h2 class="text-2xl font-bold text-white">3. Datos que puede compartir el cliente</h2>
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/10 text-blue-700"><span class="material-symbols-outlined">database</span></span>
+            <h2 class="text-2xl font-bold text-slate-900">3. Datos que puede compartir el cliente</h2>
           </div>
           <p>Para operar el servicio, solicitar una demo o configurar su instancia, el cliente puede compartir datos de contacto, datos de usuarios, datos operativos y documentación relacionada con su operación.</p>
           <div class="grid sm:grid-cols-2 gap-4 not-prose my-5">
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4"><strong class="text-white block mb-1">Datos de contacto</strong><span class="text-sm text-slate-400">Nombre, empresa, correo, teléfono, WhatsApp, puesto, plaza o responsable de seguimiento.</span></div>
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4"><strong class="text-white block mb-1">Datos de usuarios</strong><span class="text-sm text-slate-400">Nombres, correos, roles, permisos, plazas asignadas, historial de acceso y acciones realizadas.</span></div>
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4"><strong class="text-white block mb-1">Datos operativos</strong><span class="text-sm text-slate-400">Unidades, placas, identificadores internos, categorías, estados, ubicaciones, mapas, cajones, movimientos, incidencias y bitácoras.</span></div>
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4"><strong class="text-white block mb-1">Adjuntos y comentarios</strong><span class="text-sm text-slate-400">Notas, fotografías, archivos, evidencias, audios o documentos que el cliente decida cargar al sistema.</span></div>
+            <div class="rounded-xl border border-slate-200 bg-white p-4"><strong class="text-slate-900 block mb-1">Datos de contacto</strong><span class="text-sm text-slate-600">Nombre, empresa, correo, teléfono, WhatsApp, puesto, plaza o responsable de seguimiento.</span></div>
+            <div class="rounded-xl border border-slate-200 bg-white p-4"><strong class="text-slate-900 block mb-1">Datos de usuarios</strong><span class="text-sm text-slate-600">Nombres, correos, roles, permisos, plazas asignadas, historial de acceso y acciones realizadas.</span></div>
+            <div class="rounded-xl border border-slate-200 bg-white p-4"><strong class="text-slate-900 block mb-1">Datos operativos</strong><span class="text-sm text-slate-600">Unidades, placas, identificadores internos, categorías, estados, ubicaciones, mapas, cajones, movimientos, incidencias y bitácoras.</span></div>
+            <div class="rounded-xl border border-slate-200 bg-white p-4"><strong class="text-slate-900 block mb-1">Adjuntos y comentarios</strong><span class="text-sm text-slate-600">Notas, fotografías, archivos, evidencias, audios o documentos que el cliente decida cargar al sistema.</span></div>
           </div>
-          <div class="not-prose rounded-xl border border-rose-400/20 bg-rose-500/10 p-4 text-sm text-rose-100/90">El cliente debe evitar cargar datos personales sensibles, datos financieros, información médica, documentos oficiales o información de terceros que no sea necesaria para el uso operativo de MapGestión, salvo que cuente con autorización y base legal para hacerlo.</div>
+          <div class="not-prose rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900">El cliente debe evitar cargar datos personales sensibles, datos financieros, información médica, documentos oficiales o información de terceros que no sea necesaria para el uso operativo de MapGestión, salvo que cuente con autorización y base legal para hacerlo.</div>
         </section>
 
-        <section id="privacidad" class="reveal prose rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-7 text-slate-300">
+        <section id="privacidad" class="reveal prose rounded-2xl border border-slate-200 bg-white shadow-sm p-7 text-slate-600">
           <div class="flex items-center gap-3 mb-4">
-            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-teal-500/15 text-teal-300"><span class="material-symbols-outlined">lock</span></span>
-            <h2 class="text-2xl font-bold text-white">4. Privacidad, tratamiento y seguridad de datos</h2>
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/10 text-blue-700"><span class="material-symbols-outlined">lock</span></span>
+            <h2 class="text-2xl font-bold text-slate-900">4. Privacidad, tratamiento y seguridad de datos</h2>
           </div>
           <p>MapGestión tratará los datos compartidos para atender solicitudes, preparar demos, configurar el servicio, operar el software, dar soporte, mantener seguridad, generar historial, cumplir acuerdos comerciales y mejorar el producto.</p>
           <p>Cada cliente opera sobre su <strong>propia base de datos independiente</strong>. Se aplicarán medidas razonables de seguridad administrativa, técnica y organizacional: aislamiento de datos por cliente, control de accesos, permisos por rol, autenticación, bitácoras y prácticas de resguardo acordes al servicio contratado.</p>
@@ -165,10 +163,10 @@
           </ul>
         </section>
 
-        <section id="permisos" class="reveal prose rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-7 text-slate-300">
+        <section id="permisos" class="reveal prose rounded-2xl border border-slate-200 bg-white shadow-sm p-7 text-slate-600">
           <div class="flex items-center gap-3 mb-4">
-            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-500/15 text-cyan-300"><span class="material-symbols-outlined">admin_panel_settings</span></span>
-            <h2 class="text-2xl font-bold text-white">5. Roles, permisos y administración de la instancia</h2>
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/10 text-blue-700"><span class="material-symbols-outlined">admin_panel_settings</span></span>
+            <h2 class="text-2xl font-bold text-slate-900">5. Roles, permisos y administración de la instancia</h2>
           </div>
           <p>Dentro de su instancia, el cliente administra roles y permisos por usuario, plaza y área. Cada rol define qué puede consultar, editar, aprobar o administrar cada usuario.</p>
           <ul>
@@ -179,10 +177,10 @@
           </ul>
         </section>
 
-        <section id="obligaciones" class="reveal prose rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-7 text-slate-300">
+        <section id="obligaciones" class="reveal prose rounded-2xl border border-slate-200 bg-white shadow-sm p-7 text-slate-600">
           <div class="flex items-center gap-3 mb-4">
-            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-teal-500/15 text-teal-300"><span class="material-symbols-outlined">checklist</span></span>
-            <h2 class="text-2xl font-bold text-white">6. Obligaciones del cliente y usuarios</h2>
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/10 text-blue-700"><span class="material-symbols-outlined">checklist</span></span>
+            <h2 class="text-2xl font-bold text-slate-900">6. Obligaciones del cliente y usuarios</h2>
           </div>
           <ul>
             <li>Proporcionar información verdadera, actualizada y necesaria para la operación del servicio.</li>
@@ -195,10 +193,10 @@
           </ul>
         </section>
 
-        <section id="deslinde" class="reveal prose rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-7 text-slate-300">
+        <section id="deslinde" class="reveal prose rounded-2xl border border-slate-200 bg-white shadow-sm p-7 text-slate-600">
           <div class="flex items-center gap-3 mb-4">
-            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-amber-500/15 text-amber-300"><span class="material-symbols-outlined">gavel</span></span>
-            <h2 class="text-2xl font-bold text-white">7. Deslinde de obligaciones y límites de responsabilidad</h2>
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-amber-100 text-amber-700"><span class="material-symbols-outlined">gavel</span></span>
+            <h2 class="text-2xl font-bold text-slate-900">7. Deslinde de obligaciones y límites de responsabilidad</h2>
           </div>
           <p>MapGestión facilita herramientas tecnológicas para organizar información y mejorar trazabilidad, pero no opera físicamente la flota, no administra personal del cliente y no toma decisiones de negocio por el cliente.</p>
           <p>En la máxima medida permitida por la ley aplicable, MapGestión no será responsable por:</p>
@@ -211,55 +209,55 @@
             <li>Daños indirectos, lucro cesante, pérdida de negocio, pérdida de oportunidad, sanciones regulatorias atribuibles al cliente o incumplimientos internos del cliente.</li>
             <li>Contenido, archivos, fotos, audios, comentarios o evidencia cargada por usuarios del cliente.</li>
           </ul>
-          <div class="not-prose rounded-xl border border-white/10 bg-white/5 p-4 text-sm text-slate-400">MapGestión no sustituye controles internos, auditoría, revisión legal, procesos de seguridad física, verificación humana ni políticas de cumplimiento propias del cliente.</div>
+          <div class="not-prose rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600">MapGestión no sustituye controles internos, auditoría, revisión legal, procesos de seguridad física, verificación humana ni políticas de cumplimiento propias del cliente.</div>
         </section>
 
-        <section id="disponibilidad" class="reveal prose rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-7 text-slate-300">
+        <section id="disponibilidad" class="reveal prose rounded-2xl border border-slate-200 bg-white shadow-sm p-7 text-slate-600">
           <div class="flex items-center gap-3 mb-4">
-            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-500/15 text-cyan-300"><span class="material-symbols-outlined">cloud_done</span></span>
-            <h2 class="text-2xl font-bold text-white">8. Disponibilidad, soporte y cambios técnicos</h2>
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/10 text-blue-700"><span class="material-symbols-outlined">cloud_done</span></span>
+            <h2 class="text-2xl font-bold text-slate-900">8. Disponibilidad, soporte y cambios técnicos</h2>
           </div>
           <p>MapGestión buscará mantener el servicio disponible y funcional, pero no garantiza operación ininterrumpida, libre de errores o libre de fallas externas. Pueden existir ventanas de mantenimiento, actualizaciones, ajustes, mejoras de seguridad o interrupciones por causas fuera de control razonable.</p>
           <p>El soporte, tiempos de respuesta, capacitación, respaldos, personalizaciones, integraciones y niveles de servicio dependerán del acuerdo firmado con cada cliente.</p>
         </section>
 
-        <section id="propiedad" class="reveal prose rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-7 text-slate-300">
+        <section id="propiedad" class="reveal prose rounded-2xl border border-slate-200 bg-white shadow-sm p-7 text-slate-600">
           <div class="flex items-center gap-3 mb-4">
-            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-teal-500/15 text-teal-300"><span class="material-symbols-outlined">copyright</span></span>
-            <h2 class="text-2xl font-bold text-white">9. Propiedad intelectual y uso permitido</h2>
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/10 text-blue-700"><span class="material-symbols-outlined">copyright</span></span>
+            <h2 class="text-2xl font-bold text-slate-900">9. Propiedad intelectual y uso permitido</h2>
           </div>
           <p>El software, interfaz, diseño, código, marca, textos, estructura visual, documentación y materiales de MapGestión pertenecen a sus titulares o licenciantes. El cliente recibe un derecho limitado de uso conforme al servicio contratado, no una cesión de propiedad.</p>
           <p>El cliente conserva derechos sobre sus datos operativos, archivos y contenido propio, sin perjuicio de los permisos necesarios para que MapGestión pueda alojarlos, procesarlos, mostrarlos y respaldarlos dentro del servicio.</p>
         </section>
 
-        <section id="pagos" class="reveal prose rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-7 text-slate-300">
+        <section id="pagos" class="reveal prose rounded-2xl border border-slate-200 bg-white shadow-sm p-7 text-slate-600">
           <div class="flex items-center gap-3 mb-4">
-            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-amber-500/15 text-amber-300"><span class="material-symbols-outlined">payments</span></span>
-            <h2 class="text-2xl font-bold text-white">10. Contratación, licencia y cancelación</h2>
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-amber-100 text-amber-700"><span class="material-symbols-outlined">payments</span></span>
+            <h2 class="text-2xl font-bold text-slate-900">10. Contratación, licencia y cancelación</h2>
           </div>
           <p>Al tratarse de una implementación con instancia y base de datos dedicadas, las condiciones económicas, vigencia, alcance, usuarios incluidos, soporte, implementación, cancelación y renovaciones se definirán en la propuesta comercial, contrato o acuerdo específico con cada cliente (licencia corporativa a la medida).</p>
           <p>La falta de pago o incumplimiento material puede causar suspensión del servicio, limitación de accesos o terminación conforme al acuerdo aplicable.</p>
         </section>
 
-        <section id="cambios" class="reveal prose rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-7 text-slate-300">
+        <section id="cambios" class="reveal prose rounded-2xl border border-slate-200 bg-white shadow-sm p-7 text-slate-600">
           <div class="flex items-center gap-3 mb-4">
-            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-teal-500/15 text-teal-300"><span class="material-symbols-outlined">update</span></span>
-            <h2 class="text-2xl font-bold text-white">11. Cambios a estos términos</h2>
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/10 text-blue-700"><span class="material-symbols-outlined">update</span></span>
+            <h2 class="text-2xl font-bold text-slate-900">11. Cambios a estos términos</h2>
           </div>
           <p>MapGestión puede actualizar estos términos para reflejar cambios del producto, operación, seguridad, requisitos legales o condiciones comerciales. La versión vigente se publicará en esta página con su fecha de actualización.</p>
         </section>
 
-        <section id="contacto-legal" class="reveal prose rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-7 text-slate-300">
+        <section id="contacto-legal" class="reveal prose rounded-2xl border border-slate-200 bg-white shadow-sm p-7 text-slate-600">
           <div class="flex items-center gap-3 mb-4">
-            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-500/15 text-cyan-300"><span class="material-symbols-outlined">contact_support</span></span>
-            <h2 class="text-2xl font-bold text-white">12. Contacto</h2>
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/10 text-blue-700"><span class="material-symbols-outlined">contact_support</span></span>
+            <h2 class="text-2xl font-bold text-slate-900">12. Contacto</h2>
           </div>
           <p>Para dudas sobre estos términos, solicitudes relacionadas con datos personales (derechos ARCO), demos o soporte comercial:</p>
           <div class="grid sm:grid-cols-2 gap-4 not-prose mt-4">
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4"><strong class="text-white block mb-1">Correo electrónico</strong><!--email_off--><a href="mailto:contacto@mapgestion.com" class="text-teal-300 hover:text-white transition text-sm">contacto@mapgestion.com</a><!--/email_off--></div>
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4"><strong class="text-white block mb-1">WhatsApp</strong><a href="https://wa.me/524778024682" target="_blank" rel="noopener" class="text-teal-300 hover:text-white transition text-sm">+52 477 802 4682</a></div>
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4"><strong class="text-white block mb-1">Solicitar demo</strong><a href="index.html#contacto" class="text-teal-300 hover:text-white transition text-sm">Formulario en el sitio</a></div>
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4"><strong class="text-white block mb-1">Simulador</strong><a href="index.html#video-tour" class="text-teal-300 hover:text-white transition text-sm">Ver cómo funciona</a></div>
+            <div class="rounded-xl border border-slate-200 bg-white p-4"><strong class="text-slate-900 block mb-1">Correo electrónico</strong><!--email_off--><a href="mailto:contacto@mapgestion.com" class="text-blue-700 hover:text-slate-900 transition text-sm">contacto@mapgestion.com</a><!--/email_off--></div>
+            <div class="rounded-xl border border-slate-200 bg-white p-4"><strong class="text-slate-900 block mb-1">WhatsApp</strong><a href="https://wa.me/524778024682" target="_blank" rel="noopener" class="text-blue-700 hover:text-slate-900 transition text-sm">+52 477 802 4682</a></div>
+            <div class="rounded-xl border border-slate-200 bg-white p-4"><strong class="text-slate-900 block mb-1">Solicitar demo</strong><a href="index.html#contacto" class="text-blue-700 hover:text-slate-900 transition text-sm">Formulario en el sitio</a></div>
+            <div class="rounded-xl border border-slate-200 bg-white p-4"><strong class="text-slate-900 block mb-1">Simulador</strong><a href="index.html#video-tour" class="text-blue-700 hover:text-slate-900 transition text-sm">Ver cómo funciona</a></div>
           </div>
         </section>
       </div>
@@ -267,13 +265,13 @@
   </main>
 
   <!-- Footer -->
-  <footer class="border-t border-white/10 py-12 px-6">
+  <footer class="bg-[#07111f] border-t border-white/10 py-12 px-6">
     <div class="mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-6 text-sm">
       <div class="flex items-center gap-3">
         <img src="assets/brand/mapgestion_logo.svg" alt="MapGestión" class="h-7 w-auto" />
-        <span class="text-xs text-slate-600">© <span id="year"></span> MapGestión. Todos los derechos reservados.</span>
+        <span class="text-xs text-white/60">© <span id="year"></span> MapGestión. Todos los derechos reservados.</span>
       </div>
-      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-slate-400">
+      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-white/75">
         <a href="index.html" class="hover:text-white transition">Inicio</a>
         <a href="index.html#modulos" class="hover:text-white transition">El sistema</a>
         <a href="index.html#contacto" class="hover:text-white transition">Contacto</a>
