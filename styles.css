@@ -933,6 +933,149 @@ html:not(.js) .spot {
   font-size: .95rem;
 }
 
+.video-tour__cta {
+  display: flex; flex-direction: column; align-items: center; gap: .9rem;
+  margin-top: 2rem; text-align: center;
+}
+.video-tour__cta p { color: #cbd5e1; max-width: 46ch; }
+
+/* ============================================================
+   §3b Asistente IA
+   ============================================================ */
+.ia {
+  position: relative;
+  z-index: 2;
+  padding: 5rem 0 4.5rem;
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgba(46,196,182,.12), transparent 70%),
+    var(--ink, #041016);
+}
+.ia__eyebrow {
+  display: flex; align-items: center; justify-content: center; gap: .45rem; flex-wrap: wrap;
+  color: var(--teal);
+  font-size: .8rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  margin-bottom: .8rem;
+}
+.ia__eyebrow .material-symbols-outlined { font-size: 1.25rem; }
+.ia__eyebrow .soon { margin-left: .2rem; letter-spacing: .06em; }
+.ia__grid { display: grid; gap: 1.5rem; align-items: start; }
+.ia__chat {
+  margin: 0;
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  background: linear-gradient(180deg, rgba(10,26,34,.92), rgba(6,18,24,.92));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 24px 60px rgba(0,0,0,.4), 0 0 0 1px rgba(46,196,182,.05);
+  padding: 1rem;
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+}
+.ia__chatHead {
+  display: flex; align-items: center; gap: .5rem;
+  padding: .2rem .25rem .8rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  color: #e2e8f0; font-size: .92rem;
+}
+.ia__chatHead .material-symbols-outlined { color: var(--sky); font-size: 1.3rem; }
+.ia__chatHead .ia__voice { margin-left: auto; color: var(--muted); font-size: 1.15rem; }
+.ia__msgs { display: flex; flex-direction: column; gap: .55rem; padding: 1rem .15rem; }
+.ia__msg {
+  max-width: 85%;
+  padding: .6rem .85rem;
+  border-radius: 14px;
+  font-size: .95rem;
+  line-height: 1.4;
+}
+.ia__msg--me {
+  align-self: flex-end;
+  background: linear-gradient(100deg, var(--accent), var(--accent-2));
+  color: #041016;
+  font-weight: 600;
+  border-bottom-right-radius: 4px;
+}
+.ia__msg--bot {
+  align-self: flex-start;
+  background: rgba(56,189,248,.1);
+  border: 1px solid rgba(56,189,248,.22);
+  color: #e2e8f0;
+  border-bottom-left-radius: 4px;
+}
+.ia__input {
+  display: flex; align-items: center; justify-content: space-between; gap: .5rem;
+  padding: .7rem .9rem;
+  border-radius: 999px;
+  background: rgba(15,23,42,.95);
+  border: 1px solid rgba(255,255,255,.1);
+  color: var(--muted); font-size: .92rem;
+}
+.ia__input .material-symbols-outlined { color: var(--teal); font-size: 1.2rem; }
+.ia__chat figcaption { margin-top: .7rem; color: var(--muted); font-size: .78rem; text-align: center; }
+.ia__caps { display: grid; gap: .9rem; }
+.ia__caps li,
+.extras__grid li {
+  padding: 1.1rem 1.2rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.03);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+}
+.ia__caps .material-symbols-outlined,
+.extras__grid .material-symbols-outlined {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 10px;
+  background: rgba(46,196,182,.12); color: var(--teal);
+  font-size: 1.3rem; margin-bottom: .55rem;
+}
+.ia__caps h3,
+.extras__grid h3 { font-size: 1.05rem; margin-bottom: .25rem; }
+.ia__caps p,
+.extras__grid p { color: var(--muted); font-size: .93rem; }
+.ia__note { text-align: center; color: #cbd5e1; margin-top: 1.75rem; font-size: .95rem; }
+@media (min-width: 700px) {
+  .ia__caps { grid-template-columns: repeat(2, 1fr); }
+  .ia__caps li:last-child { grid-column: 1 / -1; }
+}
+@media (min-width: 1000px) {
+  .ia__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 2rem; }
+  .ia__chat { position: sticky; top: 96px; }
+}
+
+/* ============================================================
+   §5b Y además
+   ============================================================ */
+.modules__intro { padding-top: 3.5rem; text-align: center; }
+.modules__intro .section-sub { margin-bottom: .5rem; }
+.extras {
+  position: relative;
+  z-index: 2;
+  padding: 4.5rem 0 3rem;
+  background: var(--ink, #041016);
+}
+.extras__grid { display: grid; gap: .9rem; }
+@media (min-width: 640px) { .extras__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .extras__grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; } }
+
+/* ============================================================
+   §7b Preguntas frecuentes
+   ============================================================ */
+.faq { padding: 3.5rem 0 1rem; }
+.faq .section-title { margin-bottom: 2rem; }
+.faq__list { display: grid; gap: .7rem; max-width: 780px; margin-inline: auto; }
+.faq__item {
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.03);
+}
+.faq__item summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1rem 1.15rem;
+  font-weight: 700; cursor: pointer; list-style: none;
+}
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item summary .material-symbols-outlined { color: var(--teal); transition: transform .2s var(--ease); flex-shrink: 0; }
+.faq__item[open] summary .material-symbols-outlined { transform: rotate(180deg); }
+.faq__item p { padding: 0 1.15rem 1.1rem; color: #b8c7ce; }
+.faq__item summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 14px; }
+
 /* ============================================================
    Pantallas — grid estático (sin pin / sin overlays)
    ============================================================ */
@@ -1016,7 +1159,7 @@ html:not(.js) .spot {
   background: var(--ink, #041016);
 }
 .mod { padding: 3.5rem 0; }
-.mod:nth-child(even) { background: rgba(255,255,255,.02); }
+.mod:nth-of-type(even) { background: rgba(255,255,255,.02); }
 .mod__inner {
   display: grid;
   gap: 1.75rem;
@@ -1118,6 +1261,13 @@ html:not(.js) .spot {
   animation: statGlow 3s ease-in-out infinite;
 }
 .proof__stats p { color: var(--muted); font-size: .82rem; margin-top: .3rem; }
+.proof__num--word {
+  display: inline-block;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  line-height: 1.3;
+  padding-top: clamp(.2rem, 1vw, .5rem);
+  animation: none;
+}
 @media (max-width: 560px) {
   .proof__stats { grid-template-columns: 1fr; gap: 1.5rem; }
 }
