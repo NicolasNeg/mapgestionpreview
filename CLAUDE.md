@@ -35,12 +35,14 @@ Two styling worlds coexist — do not assume Tailwind everywhere:
 
 ### `index.html` structure (section order)
 
-`#hero` → `#producto` (pinned chat → Excel → tabla) + `#anywhere` → `#video-tour` → `#plataforma` (pantallas) → `#modulos` → `#implementacion` → `#confianza` → `#contacto` → footer.
+`#hero` → `#producto` (pinned chat → Excel → tabla) + `#anywhere` → `#ia` (asistente IA, **Próximamente**) → `#video-tour` (captura del mapa + CTA "Pide una demo guiada") → `#plataforma` (pantallas) → `#modulos` (intro + módulos) → `#ademas` ("Y además", 8 tarjetas) → `#implementacion` → `#confianza` → `#faq` (visible; debe coincidir con el JSON-LD `FAQPage`) → `#contacto` → footer.
 
 - **Nav:** glass pill (`.nav`). The mobile drawer (`#navDrawer`) and overlay (`#navOverlay`) are **siblings of `.nav` at body level** on purpose: `.nav__pill` has `backdrop-filter`, which would become the containing block of a fixed child. Menu JS (`mobileMenu()` in `app.js`) does not depend on GSAP: closes on link tap, overlay, close button and Escape; keeps `aria-expanded` / `inert` in sync.
 - **Hero:** `<picture>` with WebP crops (mobile 480/750, portrait-tablet full 1086, desktop 800/1086) + preloads per media query; PNG fallback. Text entrance is a CSS `transform`-only keyframe (never `opacity:0`, which delayed LCP). Parallax on `.hero__media` is GSAP (desktop).
 - **Modules:** Mapa (animated `.spot` units over the empty B-1…B-10 cajones; `--x/--y` were measured in pixels on `mapa-vivo.png` 1516×811, recalibrate if the screenshot changes), Cuadre, Notas/incidencias, Traslados (`historial-mapa-traslados.*`, recorte de `historial-mapa.png` sin la columna USUARIO con nombres reales). **QR, Papeletas y Alertas are commented out** with `<!-- TODO: reactivar con captura real -->` until real screenshots exist (`qr-unidad.png`, `papeletas.png`, `alertas.png` do not exist yet).
 - **Video tour:** the custom player markup is commented out (TODO). The old `assets/videos/video_preview.mp4` was not the product tour (it was a third-party football clip) and was removed; a static `mapa-vivo` screenshot is shown instead. When the real 60–120 s tour exists, add it (~1280 px, ~1–3 MB, `+faststart`, poster) and restore the player; `mgVideoPlayer()` in `app.js` still supports it.
+- **Asistente IA (`#ia`):** chat de ejemplo (CSS, sin imágenes) + 5 tarjetas. Está marcado **Próximamente** porque en producción la API aún no tiene `GEMINI_API_KEY` (el endpoint `POST /v1/assistant/mapa` ya está desplegado). Al activarse: quitar los badges `Próximamente` y `.ia__note`, y actualizar la respuesta de IA en `#faq` + JSON-LD. No mencionar IA en el hero mientras no esté activa.
+- **Y además (`#ademas`):** solo funciones que ya funcionan en producción (ver "Respaldo de funciones").
 - GSAP: `.reveal`, `.mod__text`, `.mod__media` start hidden only when `<html>` has the `js` class; `app.js` removes it if GSAP fails or reduced-motion is on. Counters run once.
 
 ### Interactivity (no backend)
@@ -57,3 +59,12 @@ Meta + OG (`assets/brand/og-mapgestion.png` 1200×630) + Twitter `summary_large_
 - `assets/scenes/` — lifestyle phone images: original PNGs (fallback only) + `*-420/720.webp` and hero crops `hero-index-{mobile-480,mobile-750,full-1086,desktop-800,desktop-1086}.webp`.
 - `assets/screenshots/` — product UI PNGs + `*-640/1200.webp` for the ones used on the page. Several screenshots contain **real names / test data**; anonymize before publishing new ones.
 - `assets/css/terminos.css` — precompiled Tailwind for `terminos.html`.
+
+## Respaldo de funciones (no inventar)
+
+Toda función o afirmación de la landing debe existir en el repo de la app (`NicolasNeg/MapGestion`, rama `main`) **y** funcionar en producción (la app corre sobre Supabase + API Nest desde el corte del 2026-09-18; varias colecciones legacy siguen en stub). Revisado el 2026-09-26:
+
+- **Activo:** mapa operativo + mapa de calor (días en patio), editor de mapa con copias de seguridad, cuadre / cuadre de flota, unidades (alta/baja con km, importar Excel/CSV, exportar PDF), varias plazas, roles y permisos, invitaciones (alta con Google solo con invitación), login con Google / SMS / passkey (Face ID, huella), seguridad de cuenta (teléfono verificado, sesiones).
+- **Código listo, falta activar en prod:** asistente IA del mapa (Gemini + voz es-MX; falta la key en la API).
+- **Pendiente de migración a Supabase (no anunciar como nuevo):** historial de cambios, mensajes internos, alertas, turnos/checado facial, papeletas, QR, reporte de actividad desde captura (Gemini, solo formato Optima). Notas y Traslados siguen en la landing como estaban, pero sus tablas aún están en migración.
+- **Solo planeado / abierto:** app nativa Android/iOS (PR #3), dominio demo.
