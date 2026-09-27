@@ -1,242 +1,395 @@
 /* ============================================================
    MapGestión landing — app.js
-   Scroll suave + Excel→tabla + map spots + contadores
+   Movimiento tipo Apple (GSAP + ScrollTrigger, responsive con gsap.matchMedia)
+   + carruseles (rail) + barra móvil + menú + tabla + formulario
    ============================================================ */
 
-const HAS_GSAP = typeof gsap !== 'undefined';
-if (!HAS_GSAP) document.documentElement.classList.remove('js');
-if (HAS_GSAP) gsap.registerPlugin(ScrollTrigger);
+const HAS_GSAP = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Sin GSAP o con reduced-motion: todo visible en su estado final (el CSS solo oculta con html.js)
+if (!HAS_GSAP || REDUCED) document.documentElement.classList.remove('js');
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const BASE_PARALLAX = 160;
+/* ---------- utilidades ---------- */
+// Desplazamiento de entrada proporcional al alto de pantalla (sin px fijos): 16–44px
+const rise = () => gsap.utils.clamp(16, 44, window.innerHeight * 0.045);
+const EASE = 'expo.out';
+const EASE_SOFT = 'power3.out';
 
-function parallaxLayers() {
-  gsap.utils.toArray('[data-parallax]').forEach((el) => {
-    const speed = parseFloat(el.dataset.parallax) || 0;
-    gsap.fromTo(el, { y: -speed * BASE_PARALLAX }, {
-      y: speed * BASE_PARALLAX,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: el.closest('section, header') || el,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: true,
-      },
+// Parte un titular en palabras (<span class="w">), respetando elementos internos (.grad) y .sr-only.
+function splitWords(el) {
+  if (el.dataset.split) return el.querySelectorAll('.w');
+  el.dataset.split = '1';
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach((n) => {
+    if (n.parentElement.closest('.sr-only') || !n.textContent.trim()) return;
+    const frag = document.createDocumentFragment();
+    n.textContent.split(/(\s+)/).forEach((part) => {
+      if (!part) return;
+      if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+      const w = document.createElement('span');
+      w.className = 'w';
+      w.textContent = part;
+      frag.appendChild(w);
+    });
+    n.replaceWith(frag);
+  });
+  return el.querySelectorAll('.w');
+}
+
+/* ---------- 1. Hero: zoom suave de la foto y salida del texto al hacer scroll ---------- */
+function heroScroll() {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+  gsap.timeline({
+    defaults: { ease: 'none' },
+    scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.4, invalidateOnRefresh: true },
+  })
+    .fromTo('.hero__media', { scale: 1, yPercent: 0 }, { scale: 1.12, yPercent: 7, duration: 1 }, 0)
+    .to('.hero__content', { yPercent: -14, duration: 1 }, 0)
+    .to('.hero__content', { opacity: 0, duration: 0.45 }, 0.4)
+    .to('.hero__scroll', { opacity: 0, duration: 0.15 }, 0);
+}
+
+/* ---------- 2. Titulares: palabras que suben y aparecen ---------- */
+function headlines() {
+  gsap.utils.toArray('.section-title, .anywhere__title, .rail__title, .cta__inner h2').forEach((el) => {
+    const words = splitWords(el);
+    gsap.fromTo(words, { opacity: 0, yPercent: 55 }, {
+      opacity: 1, yPercent: 0, duration: 1, ease: EASE, stagger: 0.04,
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true },
     });
   });
-}
-
-function headings() {
-  gsap.utils.toArray('.section-title, .section-sub').forEach((el) => {
-    gsap.from(el, {
-      opacity: 0, y: 20, duration: 0.6, ease: 'expo.out',
-      scrollTrigger: { trigger: el, start: 'top 90%' },
-    });
-  });
-}
-
-function revealAll() {
-  gsap.utils.toArray('.reveal').forEach((el) => {
-    gsap.fromTo(el, { opacity: 0, y: 18 }, {
-      opacity: 1, y: 0, duration: 0.55, ease: 'power3.out',
-      scrollTrigger: { trigger: el, start: 'top 88%' },
-    });
-  });
-}
-
-function imageJourney() {
-  gsap.utils.toArray('.mod__shot img, .story-scenes__media img').forEach((img) => {
-    gsap.fromTo(img,
-      { yPercent: -6, scale: 1.1 },
-      {
-        yPercent: 6,
-        scale: 1.02,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: img.closest('.mod__media, .story-scenes__media') || img,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 0.8,
-        },
-      });
-  });
-
-  // Cards de mockups (reveal suave)
-  gsap.utils.toArray('.story-scenes__card').forEach((card, i) => {
-    gsap.fromTo(card,
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
-        scrollTrigger: { trigger: card, start: 'top 85%' },
-        delay: i * 0.05,
-        clearProps: 'transform', // deja libre el hover (translateY) del CSS
-      });
-  });
-
-  gsap.utils.toArray('.mod').forEach((mod) => {
-    const text = mod.querySelector('.mod__text');
-    const media = mod.querySelector('.mod__media, .map-sim');
-    if (!text) return;
-    const fromX = mod.classList.contains('mod--rev') ? 28 : -28;
-    gsap.fromTo(text,
-      { opacity: 0, x: fromX },
-      {
-        opacity: 1, x: 0, duration: 0.65, ease: 'power3.out',
-        scrollTrigger: { trigger: mod, start: 'top 78%' },
-      });
-    if (media && !media.id) {
-      gsap.fromTo(media,
-        { opacity: 0, y: 36, rotate: mod.classList.contains('mod--rev') ? -1.2 : 1.2 },
-        {
-          opacity: 1, y: 0, rotate: 0, duration: 0.75, ease: 'power3.out',
-          scrollTrigger: { trigger: mod, start: 'top 78%' },
-        });
-    }
-  });
-}
-
-function mapSimAnimation() {
-  const map = document.getElementById('mapSim');
-  const spots = gsap.utils.toArray('#mapSim .spot');
-  if (!map || spots.length < 2) return;
-
-  // Centrado con xPercent/yPercent (no pelear con CSS translate)
-  gsap.set(spots, { xPercent: -50, yPercent: -50, y: -56, scale: 0.82, opacity: 0 });
-
-  gsap.to(spots, {
-    y: 0,
-    scale: 1,
-    opacity: 1,
-    duration: 0.45,
-    ease: 'back.out(1.5)',
-    stagger: 0.07,
-    scrollTrigger: {
-      trigger: map,
-      start: 'top 70%',
-      once: true,
-      invalidateOnRefresh: true,
-    },
-  });
-}
-
-function xTransition(isMobile) {
-  const pin = document.querySelector('#transformacion .chaos__pin');
-  const chat = document.getElementById('chaosChat');
-  const xls = document.getElementById('chaosXls');
-  const table = document.getElementById('chaosTable');
-  const cap = document.getElementById('chaosCap');
-  const sub = document.getElementById('chaosSub');
-  if (!pin || !chat || !xls || !table) return;
-
-  const scenes = [
-    { title: 'Hoy preguntas', sub: 'Radio o WhatsApp: “¿El D5256 está lleno?”' },
-    { title: 'Revisas registros desactualizados', sub: 'El Excel eterno… lleno de dudas y celdas a medias' },
-    { title: 'Con MapGestión solo miras', sub: 'D5256: gasolina, km, estado y ubicación — al instante' },
-  ];
-
-  const setScene = (i) => {
-    if (cap) cap.textContent = scenes[i].title;
-    if (sub) sub.textContent = scenes[i].sub;
-  };
-
-  gsap.set([chat, xls, table], { opacity: 0, y: isMobile ? 20 : 28, scale: 0.96 });
-  gsap.set(chat, { opacity: 1, y: 0, scale: 1 });
-  setScene(0);
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: '#transformacion',
-      start: 'top top',
-      end: isMobile ? '+=260%' : '+=280%',
-      scrub: isMobile ? 0.55 : 0.85,
-      pin: pin,
-      pinType: isMobile ? 'transform' : 'fixed',
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-      onUpdate: (self) => {
-        const p = self.progress;
-        setScene(p < 0.34 ? 0 : p < 0.67 ? 1 : 2);
-      },
-    },
-  });
-
-  tl.to(chat, { opacity: 1, y: 0, scale: 1, duration: 0.28, ease: 'none' }, 0)
-    .to(chat, { opacity: 0, y: isMobile ? -16 : -28, scale: 0.94, duration: 0.12, ease: 'none' }, 0.28)
-    .fromTo(xls,
-      { opacity: 0, y: isMobile ? 24 : 40, scale: 0.95 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: 'none' }, 0.30)
-    .to(xls, { opacity: 1, duration: 0.18, ease: 'none' }, 0.42)
-    .to(xls, { opacity: 0, y: isMobile ? -16 : -28, scale: 0.93, duration: 0.12, ease: 'none' }, 0.60)
-    .fromTo(table,
-      { opacity: 0, y: isMobile ? 24 : 40, scale: 0.95 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: 'none' }, 0.62)
-    .to({}, { duration: 0.24 });
-}
-
-function counters() {
-  gsap.utils.toArray('[data-counter]').forEach((el) => {
-    const target = +el.dataset.counter;
-    const pre = el.dataset.prefix || '';
-    const suf = el.dataset.suffix || '';
-    const o = { v: 0 };
-    // Cuenta una sola vez al entrar en pantalla (sin bucle infinito)
-    gsap.fromTo(o, { v: 0 }, {
-      v: target, duration: 1.6, ease: 'power1.out',
-      onUpdate: () => { el.textContent = pre + Math.round(o.v) + suf; },
+  gsap.utils.toArray('.section-sub, .eyebrow, .cta__inner > p').forEach((el) => {
+    gsap.fromTo(el, { opacity: 0, y: rise }, {
+      opacity: 1, y: 0, duration: 1, ease: EASE_SOFT, delay: 0.12,
       scrollTrigger: { trigger: el, start: 'top 90%', once: true },
     });
   });
 }
 
+/* ---------- 3. Reveals por lotes (tarjetas y filas en cascada) ---------- */
+const REVEAL_SEL = [
+  '.specs li', '.scene', '.shot', '.rules li', '.flow li', '.vfcard', '.guard li', '.pipe',
+  '.sec__col', '.how__steps li', '.faq__item', '.net__note', '.netmap', '.code',
+].join(', ');
+function reveals(extra = []) {
+  const items = [...new Set([...gsap.utils.toArray(REVEAL_SEL), ...extra])];
+  gsap.set(items, { opacity: 0, y: rise });
+  ScrollTrigger.batch(items, {
+    start: 'top 90%',
+    once: true,
+    onEnter: (batch) => gsap.to(batch, {
+      opacity: 1, y: 0, duration: 1.05, ease: EASE_SOFT, stagger: 0.08, overwrite: true, clearProps: 'transform',
+    }),
+  });
+}
+
+/* ---------- 4. Imágenes: parallax interno (en %, fluido) ---------- */
+function imageParallax() {
+  gsap.utils.toArray('.scene__media img').forEach((img) => {
+    gsap.fromTo(img, { yPercent: -5, scale: 1.1 }, {
+      yPercent: 5, scale: 1.02, ease: 'none',
+      scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: 0.6 },
+    });
+  });
+}
+
+/* ---------- 5. Piezas de producto que se acercan con el scroll (mapa, mock 110, carrusel) ---------- */
+function productShots() {
+  gsap.utils.toArray('#mapSim, #vfApp, .rail--shots .rail__track').forEach((el) => {
+    gsap.fromTo(el, { scale: 0.92, yPercent: 5 }, {
+      scale: 1, yPercent: 0, ease: 'none',
+      scrollTrigger: { trigger: el, start: 'top bottom', end: 'top 40%', scrub: 0.6, invalidateOnRefresh: true },
+    });
+  });
+}
+
+/* ---------- 6. Mapa: unidades que llegan a su cajón (sin rebote) ---------- */
+function mapSpots() {
+  const map = document.getElementById('mapSim');
+  const spots = gsap.utils.toArray('#mapSim .spot');
+  if (!map || !spots.length) return;
+  gsap.set(spots, { xPercent: -50, yPercent: -50 });
+  gsap.fromTo(spots, { opacity: 0, y: () => -map.offsetHeight * 0.06, scale: 0.9 }, {
+    opacity: 1, y: 0, scale: 1, duration: 0.9, ease: EASE, stagger: 0.07,
+    scrollTrigger: { trigger: map, start: 'top 72%', once: true, invalidateOnRefresh: true },
+  });
+}
+
+/* ---------- 7. IA: usos rápidos. Escritorio alto = historia con scroll (panel fijo a la derecha) ---------- */
+function iaStory(sticky) {
+  const qu = document.getElementById('quRail');
+  if (!qu) return undefined;
+  const steps = gsap.utils.toArray('.qu__step', qu);
+  if (!sticky) {
+    reveals(steps);
+    return undefined;
+  }
+  const stage = qu.querySelector('.qu__stage');
+  qu.classList.add('is-story');
+  const bar = document.createElement('div');
+  bar.className = 'qu__bar';
+  bar.innerHTML = '<i></i><i></i><i></i><b>Asistente MapGestión</b><span></span>';
+  const where = bar.lastChild;
+  const cards = document.createElement('div');
+  cards.className = 'qu__cards';
+  steps.forEach((s) => {
+    const turn = document.createElement('div');
+    turn.className = 'qu__turn';
+    const q = document.createElement('p');
+    q.className = 'qu__bubble';
+    q.textContent = s.querySelector('.qu__prompt').textContent;
+    turn.append(q, s.querySelector('.aicard').cloneNode(true));
+    cards.appendChild(turn);
+  });
+  const input = document.createElement('div');
+  input.className = 'qu__input';
+  input.innerHTML = '<span>Pregunta o da una orden…</span><span class="material-symbols-outlined">send</span>';
+  stage.append(bar, cards, input);
+  let cur = -1;
+  const set = (i) => {
+    if (i === cur) return;
+    cur = i;
+    steps.forEach((s, j) => s.classList.toggle('is-active', j === i));
+    [...cards.children].forEach((c, j) => c.classList.toggle('is-active', j === i));
+    where.textContent = [...steps[i].querySelector('.qu__where').childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join('').trim();
+  };
+  set(0);
+  steps.forEach((s, i) => ScrollTrigger.create({
+    trigger: s, start: 'top 62%', end: 'bottom 62%',
+    onToggle: (self) => { if (self.isActive) set(i); },
+  }));
+  gsap.fromTo(stage, { opacity: 0, y: rise }, {
+    opacity: 1, y: 0, duration: 1, ease: EASE_SOFT,
+    scrollTrigger: { trigger: qu, start: 'top 80%', once: true },
+  });
+  return () => {
+    qu.classList.remove('is-story');
+    stage.innerHTML = '';
+    steps.forEach((s) => s.classList.remove('is-active'));
+  };
+}
+
+/* ---------- 8. Verificación 110: cada fuente se consulta en orden y aparece el resultado ---------- */
+function vfSequence() {
+  const list = document.getElementById('vfChecks');
+  if (!list) return undefined;
+  const items = [...list.querySelectorAll('li')];
+  const ticks = items.map((li) => li.querySelector('.tick'));
+  const finals = ticks.map((t) => [...t.classList].find((c) => c.startsWith('tick--')));
+  const ems = items.map((li) => li.querySelector('em'));
+  const texts = ems.map((e) => e.textContent);
+  const done = (i) => {
+    ticks[i].classList.remove('tick--wait');
+    ticks[i].classList.add(finals[i]);
+    ems[i].textContent = texts[i];
+  };
+  ticks.forEach((t, i) => { t.classList.remove(finals[i]); t.classList.add('tick--wait'); ems[i].textContent = 'Consultando…'; });
+  const tl = gsap.timeline({ scrollTrigger: { trigger: '#vfApp', start: 'top 65%', once: true } });
+  items.forEach((_, i) => tl.call(done, [i], 0.3 + i * 0.38));
+  // Al terminar muestra el resultado que corresponde a la identificación capturada
+  const result = document.querySelector('#vfApp .vfapp__result');
+  tl.call(() => { if (result && result.railGo) result.railGo(2); }, null, 0.3 + items.length * 0.38 + 0.2);
+  return () => { tl.kill(); items.forEach((_, i) => done(i)); };
+}
+
+/* ---------- 9. Historia: chat → Excel → tabla (escena fija con scroll) ---------- */
+const CHAOS_SCENES = [
+  { title: 'Hoy preguntas', sub: 'Radio o WhatsApp: “¿El D5256 está lleno?”' },
+  { title: 'Revisas registros desactualizados', sub: 'El Excel eterno… lleno de dudas y celdas a medias' },
+  { title: 'Con MapGestión solo miras', sub: 'D5256: gasolina, km, estado y ubicación — al instante' },
+];
+function setChaosScene(i) {
+  const cap = document.getElementById('chaosCap');
+  const sub = document.getElementById('chaosSub');
+  if (cap) cap.textContent = CHAOS_SCENES[i].title;
+  if (sub) sub.textContent = CHAOS_SCENES[i].sub;
+}
+
+function chaosPinned() {
+  const root = document.getElementById('transformacion');
+  const pin = root && root.querySelector('.chaos__pin');
+  const head = root && root.querySelector('.chaos__head');
+  const chat = document.getElementById('chaosChat');
+  const xls = document.getElementById('chaosXls');
+  const table = document.getElementById('chaosTable');
+  if (!pin || !chat || !xls || !table) return undefined;
+
+  root.classList.add('is-pinned');
+  setChaosScene(0);
+  let cur = 0;
+  const swap = (i) => {
+    if (i === cur) return;
+    cur = i;
+    gsap.to(head, {
+      opacity: 0, yPercent: -12, duration: 0.18, ease: 'power2.in', overwrite: true,
+      onComplete: () => {
+        setChaosScene(i);
+        gsap.fromTo(head, { opacity: 0, yPercent: 12 }, { opacity: 1, yPercent: 0, duration: 0.55, ease: EASE });
+      },
+    });
+  };
+
+  // Burbujas del chat: aparecen como conversación al llegar a la escena
+  gsap.fromTo(chat.querySelectorAll('.wa__bubble, .wa__typing'), { opacity: 0, y: rise }, {
+    opacity: 1, y: 0, duration: 0.6, ease: EASE_SOFT, stagger: 0.18,
+    scrollTrigger: { trigger: root, start: 'top 65%', once: true },
+  });
+
+  gsap.set([xls, table], { opacity: 0, yPercent: 8, scale: 0.96 });
+  gsap.timeline({
+    defaults: { ease: 'none' },
+    scrollTrigger: {
+      trigger: root,
+      start: 'top top',
+      end: () => '+=' + Math.round(window.innerHeight * 2.4),
+      scrub: 0.6,
+      pin: pin,
+      anticipatePin: 1,
+      refreshPriority: 1,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => swap(self.progress < 0.36 ? 0 : self.progress < 0.68 ? 1 : 2),
+    },
+  })
+    .to(chat, { opacity: 0, yPercent: -6, scale: 0.94, duration: 0.14 }, 0.24)
+    .to(xls, { opacity: 1, yPercent: 0, scale: 1, duration: 0.14 }, 0.3)
+    .fromTo(xls.querySelectorAll('.xls__grid tbody tr'), { opacity: 0.25 }, { opacity: 1, stagger: 0.02, duration: 0.06 }, 0.36)
+    .to(xls, { opacity: 0, yPercent: -6, scale: 0.94, duration: 0.14 }, 0.58)
+    .to(table, { opacity: 1, yPercent: 0, scale: 1, duration: 0.14 }, 0.64)
+    .to({}, { duration: 0.22 }, 0.78);
+
+  return () => { root.classList.remove('is-pinned'); setChaosScene(0); gsap.set(head, { clearProps: 'all' }); };
+}
+
+/* ---------- 10. Formulario ---------- */
 function formReveal() {
   const form = document.getElementById('contactForm');
   if (!form) return;
-  gsap.from(form.querySelectorAll('.cform__field, button'), {
-    opacity: 0, y: 18, duration: 0.45, ease: 'power2.out', stagger: 0.07,
-    scrollTrigger: { trigger: form, start: 'top 85%' },
+  gsap.fromTo(form.querySelectorAll('.cform__field, button'), { opacity: 0, y: rise }, {
+    opacity: 1, y: 0, duration: 0.9, ease: EASE_SOFT, stagger: 0.07,
+    scrollTrigger: { trigger: form, start: 'top 85%', once: true },
   });
 }
 
 if (HAS_GSAP) {
+  gsap.registerPlugin(ScrollTrigger);
+  // La barra de URL del móvil cambia el alto: no recalcular por eso (evita saltos)
+  ScrollTrigger.config({ ignoreMobileResize: true });
+
+  // Se arranca después del primer frame: así el primer layout completo de la página lo hace el
+  // navegador al pintar (antes del FCP) y no un getBoundingClientRect forzado (TBT).
+  const startMotion = () => {
   const mm = gsap.matchMedia();
-
-  mm.add('(prefers-reduced-motion: no-preference)', () => {
-    headings();
-    revealAll();
-    formReveal();
-    imageJourney();
-    counters();
+  mm.add({
+    motion: '(prefers-reduced-motion: no-preference)',
+    // La escena fija solo si cabe en alto (cabecera + capa más alta ≈ 560px)
+    pinnable: '(prefers-reduced-motion: no-preference) and (min-height: 600px)',
+    // Historia de la IA (panel fijo) solo en escritorio con alto suficiente
+    stickyChat: '(prefers-reduced-motion: no-preference) and (min-width: 1000px) and (min-height: 700px)',
+  }, (ctx) => {
+    const { motion, pinnable, stickyChat } = ctx.conditions;
+    if (!motion) return undefined;
+    // Orden = orden en la página: el pin va ANTES que los triggers de abajo para que estos
+    // cuenten el espacio que agrega. Se crea en tareas cortas (una por bloque) para no bloquear
+    // el hilo principal durante la carga (TBT). El h1 ya entra por CSS.
+    const cleanups = [];
+    const steps = [
+      heroScroll,
+      () => (pinnable ? chaosPinned() : undefined),
+      headlines,
+      productShots,
+      mapSpots,
+      imageParallax,
+      () => iaStory(stickyChat),
+      vfSequence,
+      formReveal,
+      // Pantallas bajas (p. ej. 844×390, 320×568): sin pin; cada escena entra con fade + subida
+      () => reveals(pinnable ? [] : gsap.utils.toArray('.chaos__layer')),
+    ];
+    let alive = true;
+    const next = () => {
+      if (!alive) return;
+      const step = steps.shift();
+      if (!step) { ScrollTrigger.sort(); return; }
+      ctx.add(() => { const c = step(); if (typeof c === 'function') cleanups.push(c); });
+      setTimeout(next, 0);
+    };
+    setTimeout(next, 0);
+    return () => { alive = false; cleanups.forEach((c) => c()); };
   });
+  };
+  requestAnimationFrame(() => setTimeout(startMotion, 0));
 
-  mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
-    parallaxLayers();
-    xTransition(false);
-    mapSimAnimation();
-  });
+  // ScrollTrigger ya recalcula solo en 'load'; si las fuentes llegan después, recalcular una vez más
+  if (document.fonts && document.fonts.status !== 'loaded') {
+    document.fonts.ready.then(() => { if (document.readyState === 'complete') ScrollTrigger.refresh(); });
+  }
+}
 
-  mm.add('(max-width: 767px) and (prefers-reduced-motion: no-preference)', () => {
-    xTransition(true);
-    // Móvil: unidades del mapa caen 1×1 (sin pin)
-    const spots = gsap.utils.toArray('#mapSim .spot');
-    if (spots.length) {
-      gsap.set(spots, { xPercent: -50, yPercent: -50, opacity: 0, y: -36, scale: 0.85 });
-      gsap.to(spots, {
-        opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'back.out(1.4)',
-        stagger: 0.06,
-        scrollTrigger: { trigger: '#mapSim', start: 'top 75%', once: true },
+/* Carruseles (rail): scroll-snap nativo + chips/flechas sincronizados. Independiente de GSAP. */
+(function rails() {
+  document.querySelectorAll('[data-rail]').forEach((rail) => {
+    const track = rail.querySelector('.rail__track');
+    if (!track) return;
+    const slides = [...track.children];
+    if (!slides.length) return;
+    const chips = [...rail.querySelectorAll('.rail__chip')];
+    const arrows = [...rail.querySelectorAll('.rail__arrow')];
+    rail.classList.add('rail--ready');
+    let idx = -1;
+    const pos = (i) => slides[i].offsetLeft - slides[0].offsetLeft;
+    const go = (i) => {
+      const n = Math.max(0, Math.min(slides.length - 1, i));
+      track.scrollTo({ left: pos(n), behavior: REDUCED ? 'auto' : 'smooth' });
+    };
+    const update = () => {
+      const x = track.scrollLeft;
+      let best = 0;
+      let bd = Infinity;
+      slides.forEach((_, i) => { const d = Math.abs(pos(i) - x); if (d < bd) { bd = d; best = i; } });
+      if (x > 0 && x + track.clientWidth >= track.scrollWidth - 2) best = slides.length - 1;
+      if (best === idx) return;
+      idx = best;
+      slides.forEach((s, i) => s.classList.toggle('is-active', i === idx));
+      chips.forEach((c, i) => c.setAttribute('aria-current', String(i === idx)));
+      arrows.forEach((a) => {
+        const d = +a.dataset.dir;
+        a.disabled = (d < 0 && idx === 0) || (d > 0 && idx === slides.length - 1);
       });
-    }
+    };
+    let raf = 0;
+    track.addEventListener('scroll', () => {
+      if (!raf) raf = requestAnimationFrame(() => { raf = 0; update(); });
+    }, { passive: true });
+    chips.forEach((c) => c.addEventListener('click', () => go(+c.dataset.go)));
+    arrows.forEach((a) => a.addEventListener('click', () => go(idx + +a.dataset.dir)));
+    window.addEventListener('resize', () => { idx = -1; update(); });
+    rail.railGo = go;
+    requestAnimationFrame(() => setTimeout(update, 0));
   });
+})();
 
-}
-
-if (!HAS_GSAP || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  document.documentElement.classList.remove('js');
-  document.querySelectorAll('[data-counter]').forEach((el) => {
-    el.textContent = (el.dataset.prefix || '') + el.dataset.counter + (el.dataset.suffix || '');
+/* Barra fija en móvil: aparece después del hero y se oculta al llegar al formulario / footer */
+(function mobileBar() {
+  const bar = document.getElementById('mbar');
+  const hero = document.getElementById('hero');
+  if (!bar || !hero || !('IntersectionObserver' in window)) return;
+  let heroOn = true;
+  const ends = new Set();
+  const sync = () => bar.classList.toggle('is-on', !heroOn && ends.size === 0);
+  new IntersectionObserver(([e]) => { heroOn = e.isIntersecting; sync(); }, { rootMargin: '-45% 0px 0px 0px' }).observe(hero);
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) ends.add(e.target); else ends.delete(e.target); });
+    sync();
   });
-}
+  ['contacto'].forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+  const foot = document.querySelector('.foot');
+  if (foot) io.observe(foot);
+})();
 
 /* Menú móvil — independiente de GSAP */
 (function mobileMenu() {
