@@ -46,7 +46,11 @@
   "Acceso desde celular sin VPN de oficina",
   "Ficha de unidad: cajón, estado, gasolina, km, modelo, económico, placas, VIN",
   "Mapa de calor por días en patio",
+  "Dashboard de la plaza: flota total, estados y unidades que requieren atención",
+  "Unidades sin cajón: se ubican arrastrándolas al mapa",
   "Cuadre de la plaza con filtros por categoría y modelo",
+  "Catálogo de modelos con su categoría",
+  "Administración de plazas",
   "Búsqueda global de unidades",
   "Estampas QR por unidad",
   "Unidades: alta y baja con kilometraje, importación desde Excel o CSV y exportación a PDF",
@@ -99,10 +103,26 @@
   },
   {
    "@type": "Question",
+   "name": "¿Qué veo al entrar?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "El dashboard de tu plaza: flota total, cuántas unidades están listas, sucias u otros estados, en qué ubicaciones están y cuáles requieren atención. De ahí pasas al mapa o al cuadre."
+   }
+  },
+  {
+   "@type": "Question",
    "name": "¿Sirve para varios patios o sub-plazas?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Sí. Una cuenta puede cubrir varios patios o sub-plazas: cambias de plaza y ves la estructura completa."
+    "text": "Sí. Una cuenta puede cubrir varias plazas y sub-plazas: cambias de plaza desde el encabezado y ves la estructura completa."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Puedo cargar las unidades que ya tengo?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sí. Importas tu flota desde Excel o CSV y la exportas cuando quieras. También das de alta unidades una por una y generas estampas QR."
    }
   },
   {
@@ -131,6 +151,14 @@
   },
   {
    "@type": "Question",
+   "name": "¿La IA decide si se le renta a alguien?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. La IA lee documentos, busca coincidencias, resume y prepara borradores. No puede activar ni borrar un expediente ni cambiar el estado de una persona: eso lo hace alguien con permiso, y queda registrado."
+   }
+  },
+  {
+   "@type": "Question",
    "name": "¿Qué es un expediente 110?",
    "acceptedAnswer": {
     "@type": "Answer",
@@ -143,14 +171,6 @@
    "acceptedAnswer": {
     "@type": "Answer",
     "text": "No. Nadie descarga ni recorre una lista: se verifica una identidad concreta, con un motivo declarado, y se recibe una respuesta limitada. Cada coincidencia explica qué dato coincidió, y la decisión de rentar es siempre de tu equipo."
-   }
-  },
-  {
-   "@type": "Question",
-   "name": "¿La IA decide si se le renta a alguien?",
-   "acceptedAnswer": {
-    "@type": "Answer",
-    "text": "No. La IA lee documentos, busca coincidencias, resume y prepara borradores. No puede activar ni borrar un expediente ni cambiar el estado de una persona: eso lo hace alguien con permiso, y queda registrado."
    }
   },
   {
@@ -193,11 +213,10 @@
     imagesrcset="assets/scenes/hero-index-desktop-800.webp 800w, assets/scenes/hero-index-desktop-1086.webp 1086w" imagesizes="100vw" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <!-- Iconos: solo los glifos usados (icon_names en orden alfabético); display=block evita ver el nombre del ícono como texto -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=arrow_downward,arrow_upward,badge,chat,chevron_left,chevron_right,close,directions_car,document_scanner,expand_more,fact_check,fingerprint,forum,gavel,history,hub,info,local_fire_department,location_city,lock,mail,map,menu,receipt_long,search,send,shield,smart_toy,unfold_more,verified_user,volume_up&display=block" rel="stylesheet" media="print" onload="this.media='all'" />
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=arrow_downward,arrow_upward,badge,chat,chevron_left,chevron_right,close,directions_car,document_scanner,expand_more,fact_check,fingerprint,forum,gavel,history,hub,info,local_fire_department,location_city,lock,mail,map,menu,receipt_long,search,send,shield,smart_toy,unfold_more,verified_user,volume_up&display=block" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=20260927b" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=arrow_downward,arrow_forward,arrow_upward,badge,chat,chevron_left,chevron_right,close,directions_car,document_scanner,fact_check,fingerprint,forum,gavel,history,hub,info,lightbulb,local_fire_department,location_city,lock,mail,map,menu,menu_book,receipt_long,search,send,shield,smart_toy,unfold_more,verified_user,volume_up&display=block" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=arrow_downward,arrow_forward,arrow_upward,badge,chat,chevron_left,chevron_right,close,directions_car,document_scanner,fact_check,fingerprint,forum,gavel,history,hub,info,lightbulb,local_fire_department,location_city,lock,mail,map,menu,menu_book,receipt_long,search,send,shield,smart_toy,unfold_more,verified_user,volume_up&display=block" rel="stylesheet" /></noscript>
+  <link rel="stylesheet" href="styles.css?v=20260929a" />
   <script>document.documentElement.classList.add('js');</script>
-</head>
 </head>
 
 <body>
@@ -214,11 +233,10 @@
         <a href="#operacion">Patio</a>
         <a href="#ia">IA</a>
         <a href="#verificacion">Verificación 110</a>
-        <a href="#red">Red y API</a>
         <a href="#seguridad">Seguridad</a>
+        <a href="resumen-extendido.html">Resumen extendido</a>
       </div>
       <div class="nav__actions">
-        <a href="https://app.mapgestion.com" class="btn btn--ghost btn--sm nav__login">Iniciar sesión</a>
         <a href="#contacto" class="btn btn--primary btn--sm">Solicitar demo</a>
       </div>
     </div>
@@ -234,12 +252,12 @@
     <a href="#operacion">Operación del patio</a>
     <a href="#ia">Asistente con IA</a>
     <a href="#verificacion">Clientes y verificación 110</a>
-    <a href="#red">Red entre arrendadoras y API</a>
+    <a href="#red">Red entre arrendadoras</a>
     <a href="#seguridad">Seguridad y privacidad</a>
+    <a href="resumen-extendido.html">Resumen extendido</a>
     <a href="#faq">Preguntas frecuentes</a>
     <div class="nav__drawerActions">
       <a href="#contacto" class="btn btn--primary">Solicitar demo</a>
-      <a href="https://app.mapgestion.com" class="btn btn--ghost">Iniciar sesión</a>
     </div>
   </div>
 
@@ -372,33 +390,12 @@
       <header class="shead">
         <p class="eyebrow">Operación del patio</p>
         <h2 class="section-title" id="opsTitle">Todo tu patio, <span class="grad">en un solo plano.</span></h2>
-        <p class="section-sub">Cada cajón con su unidad y su estado por color, en una plaza o en varias sub-plazas. Con el mapa de calor ves qué unidad lleva más días parada.</p>
+        <p class="section-sub">Ves cada unidad en su cajón, con su estado por color, en una plaza o en varias. Con el mapa de calor ves qué unidad lleva más días parada.</p>
       </header>
-        <div class="map-sim" id="mapSim">
-          <picture>
-            <source type="image/webp" srcset="assets/screenshots/mapa-vivo-640.webp 640w, assets/screenshots/mapa-vivo-1200.webp 1200w" sizes="(min-width: 1000px) 960px, 100vw" />
-            <img class="map-sim__img" src="assets/screenshots/mapa-vivo.png" alt="Mapa del patio con unidades ubicadas" width="1516" height="811" loading="lazy" decoding="async" />
-          </picture>
-          <div class="map-sim__layer" aria-hidden="true">
-            <!-- Cajones B-1…B-10 (vacíos en la captura). Centros medidos en píxeles sobre mapa-vivo.png (1516×811). -->
-            <span class="spot spot--avail" style="--x:4.01%; --y:34.77%;">D5129</span>
-            <span class="spot spot--prep" style="--x:12.81%; --y:34.77%;">F1161</span>
-            <span class="spot spot--avail" style="--x:21.64%; --y:34.77%;">M159</span>
-            <span class="spot spot--patio" style="--x:30.76%; --y:34.77%;">I174</span>
-            <span class="spot spot--avail" style="--x:39.58%; --y:34.77%;">Q234</span>
-            <span class="spot spot--taller" style="--x:48.38%; --y:34.77%;">I166</span>
-            <span class="spot spot--avail" style="--x:57.52%; --y:34.77%;">S034</span>
-            <span class="spot spot--prep" style="--x:66.33%; --y:34.77%;">A1842</span>
-            <span class="spot spot--avail" style="--x:75.13%; --y:34.77%;">B2380</span>
-            <span class="spot spot--patio" style="--x:84.27%; --y:34.77%;">Z018</span>
-          </div>
-          <div class="map-sim__legend">
-            <span><i class="dot dot--avail"></i>Listo</span>
-            <span><i class="dot dot--prep"></i>Preparación</span>
-            <span><i class="dot dot--patio"></i>En patio</span>
-            <span><i class="dot dot--taller"></i>Taller</span>
-          </div>
-        </div>
+      <div class="map-sim" id="mapSim">
+        <picture><source type="image/avif" srcset="assets/screenshots/mapa-512.avif 512w, assets/screenshots/mapa-768.avif 768w" sizes="(min-width: 900px) 860px, 100vw" /><source type="image/webp" srcset="assets/screenshots/mapa-512.webp 512w, assets/screenshots/mapa-768.webp 768w" sizes="(min-width: 900px) 860px, 100vw" /><img src="assets/screenshots/mapa-768.jpg" alt="Mapa operativo del patio con unidades ubicadas en sus cajones, por color de estado" width="768" height="525" loading="lazy" decoding="async" /></picture>
+        <div class="map-sim__legend"><span><i class="dot dot--avail"></i>Listo</span><span><i class="dot dot--prep"></i>Sucio</span><span class="map-sim__hint">Cada cajón, con su unidad y su estado por color.</span></div>
+      </div>
     </div>
 
     <div class="rail rail--shots" data-rail>
@@ -410,47 +407,57 @@
         </div>
       </div>
       <div class="container rail__nav" role="group" aria-label="Elegir pantalla">
-        <button type="button" class="rail__chip" data-go="0">Mapa</button>
-        <button type="button" class="rail__chip" data-go="1">Indicadores</button>
-        <button type="button" class="rail__chip" data-go="2">Sin cajón</button>
-        <button type="button" class="rail__chip" data-go="3">Cuadre</button>
-        <button type="button" class="rail__chip" data-go="4">Unidades</button>
-        <button type="button" class="rail__chip" data-go="5">Editor</button>
-        <button type="button" class="rail__chip" data-go="6">Roles</button>
-        <button type="button" class="rail__chip" data-go="7">Buscar</button>
+        <button type="button" class="rail__chip" data-go="0">Dashboard</button>
+        <button type="button" class="rail__chip" data-go="1">Mapa</button>
+        <button type="button" class="rail__chip" data-go="2">Filtros</button>
+        <button type="button" class="rail__chip" data-go="3">Sin cajón</button>
+        <button type="button" class="rail__chip" data-go="4">Cuadre</button>
+        <button type="button" class="rail__chip" data-go="5">Unidades</button>
+        <button type="button" class="rail__chip" data-go="6">Editor</button>
+        <button type="button" class="rail__chip" data-go="7">Roles</button>
+        <button type="button" class="rail__chip" data-go="8">Modelos</button>
+        <button type="button" class="rail__chip" data-go="9">Plazas</button>
       </div>
       <div class="rail__track" tabindex="0" role="region" aria-label="Pantallas del sistema (desliza para ver más)">
         <figure class="shot">
-          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/webp" srcset="assets/screenshots/app/mapa-unidad-640.webp 640w, assets/screenshots/app/mapa-unidad-full.webp 1000w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/app/mapa-unidad-full.webp" alt="Mapa operativo con la ficha de una unidad abierta" width="1000" height="655" loading="lazy" decoding="async" /></picture></div>
-          <figcaption><strong>Mapa y ficha de unidad</strong><span>Toca una unidad en el mapa: estado, gasolina, km, cajón y sus movimientos.</span></figcaption>
+          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/avif" srcset="assets/screenshots/dashboard-512.avif 512w, assets/screenshots/dashboard-768.avif 768w" sizes="(min-width: 1000px) 820px, 88vw" /><source type="image/webp" srcset="assets/screenshots/dashboard-512.webp 512w, assets/screenshots/dashboard-768.webp 768w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/dashboard-768.jpg" alt="Dashboard de la plaza con flota total, listas, sucias y unidades que requieren atención" width="768" height="525" loading="lazy" decoding="async" /></picture></div>
+          <figcaption><strong>Dashboard de la plaza</strong><span>Flota total, listas, sucias y unidades que requieren atención, de un vistazo.</span></figcaption>
         </figure>
         <figure class="shot">
-          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/webp" srcset="assets/screenshots/app/mapa-indicadores-640.webp 640w, assets/screenshots/app/mapa-indicadores-full.webp 1000w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/app/mapa-indicadores-full.webp" alt="Estadísticas de la plaza sobre el mapa" width="1000" height="655" loading="lazy" decoding="async" /></picture></div>
-          <figcaption><strong>Estadísticas de la plaza</strong><span>Totales, listas, sucias, en mantenimiento, en patio y en taller, al momento.</span></figcaption>
+          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/avif" srcset="assets/screenshots/mapa-unidad-512.avif 512w, assets/screenshots/mapa-unidad-768.avif 768w" sizes="(min-width: 1000px) 820px, 88vw" /><source type="image/webp" srcset="assets/screenshots/mapa-unidad-512.webp 512w, assets/screenshots/mapa-unidad-768.webp 768w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/mapa-unidad-768.jpg" alt="Mapa operativo con la ficha de una unidad abierta" width="768" height="525" loading="lazy" decoding="async" /></picture></div>
+          <figcaption><strong>Mapa y ficha de unidad</strong><span>Toca una unidad: estado, ubicación, cajón, modelo y gasolina. Y muévela desde ahí.</span></figcaption>
         </figure>
         <figure class="shot">
-          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/webp" srcset="assets/screenshots/app/mapa-sin-cajon-640.webp 640w, assets/screenshots/app/mapa-sin-cajon-full.webp 1000w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/app/mapa-sin-cajon-full.webp" alt="Lista de unidades sin cajón junto al mapa" width="1000" height="655" loading="lazy" decoding="async" /></picture></div>
-          <figcaption><strong>Unidades sin cajón</strong><span>Las que aún no tienen lugar: arrástralas al mapa y quedan ubicadas.</span></figcaption>
+          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/avif" srcset="assets/screenshots/mapa-filtros-512.avif 512w, assets/screenshots/mapa-filtros-768.avif 768w" sizes="(min-width: 1000px) 820px, 88vw" /><source type="image/webp" srcset="assets/screenshots/mapa-filtros-512.webp 512w, assets/screenshots/mapa-filtros-768.webp 768w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/mapa-filtros-768.jpg" alt="Mapa operativo con el menú Vista y filtros" width="768" height="525" loading="lazy" decoding="async" /></picture></div>
+          <figcaption><strong>Vista y filtros</strong><span>Busca una unidad, activa indicadores, mapa de calor o vista previa.</span></figcaption>
         </figure>
         <figure class="shot">
-          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/webp" srcset="assets/screenshots/app/cuadre-640.webp 640w, assets/screenshots/app/cuadre-full.webp 960w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/app/cuadre-full.webp" alt="Pantalla de cuadre con la lista de unidades" width="960" height="655" loading="lazy" decoding="async" /></picture></div>
-          <figcaption><strong>Cuadre</strong><span>La flota de la plaza con estado, gasolina y km, filtrable por categoría y modelo.</span></figcaption>
+          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/avif" srcset="assets/screenshots/sin-cajon-512.avif 512w, assets/screenshots/sin-cajon-768.avif 768w" sizes="(min-width: 1000px) 820px, 88vw" /><source type="image/webp" srcset="assets/screenshots/sin-cajon-512.webp 512w, assets/screenshots/sin-cajon-768.webp 768w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/sin-cajon-768.jpg" alt="Mapa con el panel de unidades sin cajón" width="768" height="525" loading="lazy" decoding="async" /></picture></div>
+          <figcaption><strong>Unidades sin cajón</strong><span>Las que aún no tienen lugar: arrástralas al mapa o elige un cajón.</span></figcaption>
         </figure>
         <figure class="shot">
-          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/webp" srcset="assets/screenshots/app/unidades-640.webp 640w, assets/screenshots/app/unidades-full.webp 960w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/app/unidades-full.webp" alt="Inventario de unidades" width="960" height="655" loading="lazy" decoding="async" /></picture></div>
-          <figcaption><strong>Unidades</strong><span>Inventario global: consulta, importa, exporta y genera estampas QR.</span></figcaption>
+          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/avif" srcset="assets/screenshots/cuadre-512.avif 512w, assets/screenshots/cuadre-768.avif 768w" sizes="(min-width: 1000px) 820px, 88vw" /><source type="image/webp" srcset="assets/screenshots/cuadre-512.webp 512w, assets/screenshots/cuadre-768.webp 768w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/cuadre-768.jpg" alt="Cuadre con la lista de unidades, su estado, gasolina y kilometraje" width="768" height="525" loading="lazy" decoding="async" /></picture></div>
+          <figcaption><strong>Cuadre</strong><span>La flota de la plaza con categoría, modelo, gasolina, km y estado.</span></figcaption>
         </figure>
         <figure class="shot">
-          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/webp" srcset="assets/screenshots/app/editor-640.webp 640w, assets/screenshots/app/editor-full.webp 930w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/app/editor-full.webp" alt="Editor de mapa con el plano completo del patio" width="930" height="655" loading="lazy" decoding="async" /></picture></div>
-          <figcaption><strong>Editor de mapa</strong><span>Dibuja tu patio como es: cajones, zonas, oficina, entradas y salidas.</span></figcaption>
+          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/avif" srcset="assets/screenshots/unidades-512.avif 512w, assets/screenshots/unidades-768.avif 768w" sizes="(min-width: 1000px) 820px, 88vw" /><source type="image/webp" srcset="assets/screenshots/unidades-512.webp 512w, assets/screenshots/unidades-768.webp 768w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/unidades-768.jpg" alt="Inventario global de unidades" width="768" height="525" loading="lazy" decoding="async" /></picture></div>
+          <figcaption><strong>Unidades</strong><span>Inventario global: busca por MVA, placas, VIN o modelo; importa y exporta.</span></figcaption>
+        </figure>
+        <figure class="shot shot--wide">
+          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/avif" srcset="assets/screenshots/editor-683.avif 683w, assets/screenshots/editor-1024.avif 1024w" sizes="(min-width: 1000px) 820px, 88vw" /><source type="image/webp" srcset="assets/screenshots/editor-683.webp 683w, assets/screenshots/editor-1024.webp 1024w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/editor-1024.jpg" alt="Editor de mapa con el plano del patio" width="1024" height="525" loading="lazy" decoding="async" /></picture></div>
+          <figcaption><strong>Editor de mapa</strong><span>Dibuja tu patio como es: zonas, cajones y piezas, con vista previa.</span></figcaption>
         </figure>
         <figure class="shot">
-          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/webp" srcset="assets/screenshots/app/roles-640.webp 640w, assets/screenshots/app/roles-full.webp 960w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/app/roles-full.webp" alt="Roles del sistema con sus permisos" width="960" height="655" loading="lazy" decoding="async" /></picture></div>
-          <figcaption><strong>Roles y permisos</strong><span>Auxiliar, ventas, jefe de patio, gerente: cada rol hace solo lo que le toca.</span></figcaption>
+          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/avif" srcset="assets/screenshots/roles-512.avif 512w, assets/screenshots/roles-768.avif 768w" sizes="(min-width: 1000px) 820px, 88vw" /><source type="image/webp" srcset="assets/screenshots/roles-512.webp 512w, assets/screenshots/roles-768.webp 768w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/roles-768.jpg" alt="Panel de roles y permisos" width="768" height="525" loading="lazy" decoding="async" /></picture></div>
+          <figcaption><strong>Roles y permisos</strong><span>Cada rol con su número de permisos: cada quien hace solo lo que le toca.</span></figcaption>
         </figure>
         <figure class="shot">
-          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/webp" srcset="assets/screenshots/app/busqueda-640.webp 640w, assets/screenshots/app/busqueda-full.webp 1000w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/app/busqueda-full.webp" alt="Búsqueda global de unidades" width="1000" height="655" loading="lazy" decoding="async" /></picture></div>
-          <figcaption><strong>Búsqueda global</strong><span>Encuentra una unidad por MVA, placa o modelo desde cualquier pantalla.</span></figcaption>
+          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/avif" srcset="assets/screenshots/modelos-512.avif 512w, assets/screenshots/modelos-768.avif 768w" sizes="(min-width: 1000px) 820px, 88vw" /><source type="image/webp" srcset="assets/screenshots/modelos-512.webp 512w, assets/screenshots/modelos-768.webp 768w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/modelos-768.jpg" alt="Catálogo de modelos con su categoría" width="768" height="525" loading="lazy" decoding="async" /></picture></div>
+          <figcaption><strong>Catálogo de modelos</strong><span>Los modelos de tu flota, cada uno con su categoría.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/avif" srcset="assets/screenshots/plazas-512.avif 512w, assets/screenshots/plazas-768.avif 768w" sizes="(min-width: 1000px) 820px, 88vw" /><source type="image/webp" srcset="assets/screenshots/plazas-512.webp 512w, assets/screenshots/plazas-768.webp 768w" sizes="(min-width: 1000px) 820px, 88vw" /><img src="assets/screenshots/plazas-768.jpg" alt="Lista de plazas de la cuenta" width="768" height="525" loading="lazy" decoding="async" /></picture></div>
+          <figcaption><strong>Plazas</strong><span>Varias plazas en una misma cuenta.</span></figcaption>
         </figure>
       </div>
     </div>
@@ -501,6 +508,30 @@
             <p>Varios patios o sub-plazas en la misma cuenta, donde estés.</p>
           </div>
         </article>
+        </div>
+      </div>
+      <div class="rail rail--phones" data-rail>
+        <div class="container rail__head rail__head--sm">
+          <h3 class="rail__title">También en el celular.</h3>
+          <a class="more" href="resumen-extendido.html#que-es">Ver todo en el Resumen extendido <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        </div>
+        <div class="rail__track rail__track--phones" tabindex="0" role="region" aria-label="La app en el celular (desliza)">
+          <figure class="phone">
+            <div class="phone__frame"><picture><source type="image/avif" srcset="assets/screenshots/m-dashboard-390.avif 390w" sizes="(min-width: 1000px) 240px, 56vw" /><source type="image/webp" srcset="assets/screenshots/m-dashboard-390.webp 390w" sizes="(min-width: 1000px) 240px, 56vw" /><img src="assets/screenshots/m-dashboard-390.jpg" alt="Dashboard en el celular" width="390" height="844" loading="lazy" decoding="async" /></picture></div>
+            <figcaption><strong>Inicio</strong><span>Flota total y estados.</span></figcaption>
+          </figure>
+          <figure class="phone">
+            <div class="phone__frame"><picture><source type="image/avif" srcset="assets/screenshots/m-mapa-390.avif 390w" sizes="(min-width: 1000px) 240px, 56vw" /><source type="image/webp" srcset="assets/screenshots/m-mapa-390.webp 390w" sizes="(min-width: 1000px) 240px, 56vw" /><img src="assets/screenshots/m-mapa-390.jpg" alt="Mapa operativo en el celular" width="390" height="844" loading="lazy" decoding="async" /></picture></div>
+            <figcaption><strong>Mapa</strong><span>El plano en tu mano.</span></figcaption>
+          </figure>
+          <figure class="phone">
+            <div class="phone__frame"><picture><source type="image/avif" srcset="assets/screenshots/m-cuadre-390.avif 390w" sizes="(min-width: 1000px) 240px, 56vw" /><source type="image/webp" srcset="assets/screenshots/m-cuadre-390.webp 390w" sizes="(min-width: 1000px) 240px, 56vw" /><img src="assets/screenshots/m-cuadre-390.jpg" alt="Cuadre en el celular" width="390" height="844" loading="lazy" decoding="async" /></picture></div>
+            <figcaption><strong>Cuadre</strong><span>Busca y filtra la flota.</span></figcaption>
+          </figure>
+          <figure class="phone">
+            <div class="phone__frame"><picture><source type="image/avif" srcset="assets/screenshots/m-unidades-390.avif 390w" sizes="(min-width: 1000px) 240px, 56vw" /><source type="image/webp" srcset="assets/screenshots/m-unidades-390.webp 390w" sizes="(min-width: 1000px) 240px, 56vw" /><img src="assets/screenshots/m-unidades-390.jpg" alt="Inventario de unidades en el celular" width="390" height="844" loading="lazy" decoding="async" /></picture></div>
+            <figcaption><strong>Unidades</strong><span>Inventario a un toque.</span></figcaption>
+          </figure>
         </div>
       </div>
       <div class="container">
@@ -620,13 +651,13 @@
       <header class="shead">
         <p class="eyebrow"><span class="material-symbols-outlined" aria-hidden="true">badge</span>Clientes y verificación 110 <span class="soon soon--dev">En desarrollo</span></p>
         <h2 class="section-title" id="vfTitle">Verifica en el mostrador. <span class="grad">Antes de entregar las llaves.</span></h2>
-        <p class="section-sub">Capturas la INE o la licencia y MapGestión busca en segundos en tus clientes, en tus restricciones internas y en los expedientes 110 de la red de arrendadoras. Te dice qué coincidió y por qué. La decisión es de tu equipo.</p>
+        <p class="section-sub">Capturas la identificación del cliente y MapGestión te dice, en segundos, si hay algo que revisar y por qué.</p>
       </header>
 
       <ol class="flow" aria-label="Cómo funciona">
-        <li><span class="flow__n">1</span><b>Captura</b><span>INE o licencia, escaneada o a mano</span></li>
-        <li><span class="flow__n">2</span><b>Búsqueda automática</b><span>Clientes, restricciones, 110 propios y de la red</span></li>
-        <li><span class="flow__n">3</span><b>Coincidencia explicada</b><span>Dato por dato, sin porcentajes misteriosos</span></li>
+        <li><span class="flow__n">1</span><b>Captura</b><span>INE o licencia</span></li>
+        <li><span class="flow__n">2</span><b>Búsqueda</b><span>Tus clientes, tus restricciones y los 110</span></li>
+        <li><span class="flow__n">3</span><b>Resultado claro</b><span>Qué coincidió y por qué</span></li>
         <li><span class="flow__n">4</span><b>Tu equipo decide</b><span>Y la consulta queda registrada</span></li>
       </ol>
 
@@ -692,39 +723,10 @@
         <p class="vfapp__foot">Pantalla ilustrativa: nombres, datos y folios ficticios.</p>
       </div>
 
-      <div class="vfcards rail" data-rail>
-        <div class="rail__track vfcards__track" tabindex="0" role="region" aria-label="Clientes, restricciones e historial (desliza)">
-          <article class="vfcard">
-            <h3>Clientes frecuentes, reconocidos al instante</h3>
-            <p>Tarifa, preferencias, rentas y quejas o sugerencias en un expediente comercial. Una persona, un solo registro.</p>
-            <div class="cust">
-              <div class="cust__head"><span class="cust__av" aria-hidden="true">SE</span><div><strong>Sofía Ejemplo Ruiz</strong><span><span class="tag tag--ok">Frecuente</span> <span class="tag tag--info">OPT1</span></span></div></div>
-              <p class="cust__stats">19 rentas · Cliente desde 2024 · Última: 04 sep 2026</p>
-              <ul class="cust__prefs" aria-label="Preferencias"><li>Automático</li><li>SUV</li><li>Cobertura amplia</li><li>Idioma: inglés</li></ul>
-            </div>
-          </article>
-          <article class="vfcard">
-            <h3>Restricciones internas, con motivo y vigencia</h3>
-            <p>Reglas de tu empresa, separadas de los 110: cada una con motivo, evidencia y fecha de revisión.</p>
-            <ul class="levels" aria-label="Niveles de restricción">
-              <li><span class="tag tag--rev">Requiere revisión</span></li>
-              <li><span class="tag tag--rev">Requiere autorización</span></li>
-              <li><span class="tag tag--info">Depósito especial</span></li>
-              <li><span class="tag tag--no">No rentar</span></li>
-            </ul>
-            <dl class="kv"><div><dt>Motivo</dt><dd>Falta de pago</dd></div><div><dt>Revisión</dt><dd>17 mar 2027</dd></div><div><dt>Evidencia</dt><dd>3 archivos</dd></div></dl>
-          </article>
-          <article class="vfcard">
-            <h3>Historial, correcciones y disputas</h3>
-            <p>Cada cambio con su motivo. Si un registro resulta incorrecto, deja de aparecer en las coincidencias al instante.</p>
-            <ol class="tl" aria-label="Historial de ejemplo">
-              <li><time>17 sep</time>Expediente creado (borrador)</li>
-              <li><time>18 sep</time>Supervisor confirmó con evidencia</li>
-              <li><time>04 oct</time>La persona pidió rectificación · En disputa</li>
-              <li><time>06 oct</time>Revisado y corregido</li>
-            </ol>
-          </article>
-        </div>
+
+      <div class="vf__decide">
+        <p class="vf__decideTxt"><span class="material-symbols-outlined" aria-hidden="true">gavel</span><span><b>La IA propone. La decisión es de tu empresa.</b> MapGestión nunca rechaza a nadie por su cuenta: si una fuente no responde, dice “no se pudo verificar”.</span></p>
+        <a class="btn btn--ghost" href="resumen-extendido.html#clientes-110">Conoce más en el Resumen extendido <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
       </div>
     </div>
   </section>
@@ -734,9 +736,9 @@
   <section class="net" id="red" aria-labelledby="netTitle">
     <div class="container">
       <header class="shead">
-        <p class="eyebrow eyebrow--dark"><span class="material-symbols-outlined" aria-hidden="true">hub</span>Red entre arrendadoras · API <span class="soon soon--dark">En desarrollo</span></p>
+        <p class="eyebrow eyebrow--dark"><span class="material-symbols-outlined" aria-hidden="true">hub</span>Red entre arrendadoras <span class="soon soon--dark">En desarrollo</span></p>
         <h2 class="section-title" id="netTitle">Una red entre arrendadoras. <span class="grad">No una lista negra.</span></h2>
-        <p class="section-sub">No solo la empresa afectada: cualquier arrendadora de la red puede consultar y reportar expedientes 110 con una API segura. Nadie descarga la base. Se presenta una identidad, se declara el motivo y se recibe una respuesta limitada.</p>
+        <p class="section-sub">Cada arrendadora conserva sus expedientes. Nadie descarga ni recorre una lista: solo se pregunta por una identidad, con un motivo, y se recibe una respuesta mínima.</p>
       </header>
 
       <div class="net__grid">
@@ -764,43 +766,15 @@
           <figcaption id="netmapCap">Cada arrendadora conserva sus expedientes. La red solo responde si una identidad coincide, y con lo mínimo.</figcaption>
         </figure>
 
-        <div class="code" role="group" aria-label="Ejemplo de consulta a la API">
-          <div class="code__bar"><span class="code__dots" aria-hidden="true"><i></i><i></i><i></i></span><span>POST /v1/verifications</span></div>
-<pre class="code__pre" tabindex="0"><code><span class="c-k">"purpose"</span>: <span class="c-s">"RENTAL_ONBOARDING"</span>,
-<span class="c-k">"externalReference"</span>: <span class="c-s">"RA-91882"</span>,
-<span class="c-k">"consentReference"</span>: <span class="c-s">"consent_982182"</span>,
-<span class="c-k">"subject"</span>: { <span class="c-k">"birthDate"</span>: <span class="c-s">"1991-04-12"</span>,
-  <span class="c-k">"identifiers"</span>: [{ <span class="c-k">"type"</span>: <span class="c-s">"DRIVER_LICENSE"</span>, … }] }
-
-<span class="c-c">// 200 · respuesta limitada</span>
-<span class="c-k">"result"</span>: <span class="c-s">"POSSIBLE_MATCH"</span>,
-<span class="c-k">"matches"</span>: [{ <span class="c-k">"identityMatch"</span>: <span class="c-s">"STRONG"</span>,
-  <span class="c-k">"recordType"</span>: <span class="c-s">"110"</span>, <span class="c-k">"recordStatus"</span>: <span class="c-s">"ACTIVE"</span>,
-  <span class="c-k">"matchedFields"</span>: [<span class="c-s">"DRIVER_LICENSE"</span>, <span class="c-s">"BIRTH_DATE"</span>],
-  <span class="c-k">"reference"</span>: <span class="c-s">"MG-110-2026-000182"</span> }],
-<span class="c-k">"decision"</span>: <span class="c-n">null</span>  <span class="c-c">// la decisión es tuya</span></code></pre>
-          <p class="code__foot">Ejemplo ilustrativo · OAuth 2.0 · permisos por organización</p>
+        <div class="net__side">
+          <ul class="net__points">
+            <li><b>Con evidencia.</b> Sin pruebas verificables no hay expediente.</li>
+            <li><b>Con dos revisores.</b> Quien lo crea no es quien lo comparte.</li>
+            <li><b>Con lo mínimo.</b> Nunca la INE completa, domicilio, teléfono ni fotos.</li>
+            <li><b>Con derecho a corregir.</b> Si hay un error, sale de la red al instante.</li>
+          </ul>
+          <a class="btn btn--light" href="resumen-extendido.html#red-api">Conoce más en el Resumen extendido <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
         </div>
-      </div>
-
-      <ol class="guard" aria-label="Reglas de la red" tabindex="0">
-        <li><b>Evidencia obligatoria</b><span>Contrato, papeleta, fotos o folio de autoridad. Sin evidencia verificable no hay expediente.</span></li>
-        <li><b>Doble revisión para compartir</b><span>Quien crea el expediente no puede ser quien lo publica en la red.</span></li>
-        <li><b>Datos mínimos</b><span>Referencia, tipo de incidente, fecha, estado y qué dato coincidió. Nunca INE completa, domicilio, teléfono, correo ni fotos.</span></li>
-        <li><b>Sin búsquedas masivas</b><span>No se pueden listar ni buscar “todos los Juan”: solo verificar una identidad presentada, con motivo y referencia de renta.</span></li>
-        <li><b>Rectificación y disputa</b><span>La persona puede impugnar. Un registro incorrecto sale de las coincidencias de inmediato.</span></li>
-        <li><b>Bitácora de consultas</b><span>Quién consultó, cuándo y para qué contrato. Cada organización ve solo lo que le corresponde.</span></li>
-      </ol>
-
-      <div class="pipe" aria-label="Ciclo de un expediente 110">
-        <p class="pipe__title">Reportar un 110</p>
-        <ol class="pipe__steps">
-          <li><span class="tag tag--neutral">Borrador</span></li>
-          <li><span class="tag tag--rev">En revisión</span></li>
-          <li><span class="tag tag--no">Activo</span></li>
-          <li><span class="tag tag--info">Compartido en la red</span></li>
-        </ol>
-        <p class="pipe__alt">¿Hubo un error? <span class="tag tag--neutral">En disputa</span> → <span class="tag tag--ok">Corregido</span> o <span class="tag tag--neutral">Retirado</span></p>
       </div>
 
       <p class="net__note">La red compartida se activará después de la revisión jurídica, los contratos entre arrendadoras y el aviso de privacidad correspondiente.</p>
@@ -828,12 +802,12 @@
         <div class="sec__col sec__col--dev">
           <h3>En clientes y verificación 110 <span class="soon soon--dev">En desarrollo</span></h3>
           <ul class="checklist">
-            <li>Aviso de privacidad y consentimiento del cliente antes de verificar</li>
-            <li>Derechos de acceso, rectificación, cancelación y oposición (ARCO)</li>
-            <li>Documentos sensibles con permiso aparte <span class="mask">Licencia ••••••4827</span></li>
+            <li>Aviso de privacidad y consentimiento antes de verificar</li>
+            <li>Derechos ARCO: acceso, rectificación, cancelación y oposición</li>
             <li>Cada organización ve solo lo suyo; cada consulta queda registrada</li>
             <li>Conservación limitada por tipo de dato, no “para siempre”</li>
           </ul>
+          <a class="more" href="resumen-extendido.html#seguridad-privacidad">Privacidad en detalle <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
         </div>
       </div>
     </div>
@@ -855,62 +829,115 @@
     </div>
   </section>
 
-  <!-- §9 Preguntas frecuentes — el JSON-LD FAQPage del <head> se genera de esta lista (mantener iguales) -->
+  <!-- §9 Preguntas frecuentes — el JSON-LD FAQPage del <head> se genera de la misma lista (tools de build v4); mantener iguales -->
   <section class="faq" id="faq" aria-labelledby="faqTitle">
     <div class="container">
       <header class="shead">
         <h2 class="section-title" id="faqTitle">Preguntas frecuentes</h2>
       </header>
+      <p class="sr-only faq__live" role="status" aria-live="polite"></p>
+      <div class="faq__filters" role="group" aria-label="Filtrar preguntas por tema">
+          <button type="button" class="faq__chip" data-cat="todas" aria-pressed="true">Todas</button>
+          <button type="button" class="faq__chip" data-cat="patio" aria-pressed="false">Patio y mapa</button>
+          <button type="button" class="faq__chip" data-cat="ia" aria-pressed="false">IA</button>
+          <button type="button" class="faq__chip" data-cat="110" aria-pressed="false">Verificación 110</button>
+      </div>
       <div class="faq__list">
-        <details class="faq__item">
-          <summary>¿MapGestión se usa desde el celular?<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
-          <p>Sí. Vive en la nube: entras desde el celular en el patio, en casa o de viaje, sin depender de una PC de oficina.</p>
+        <details class="faq__item" data-cat="patio">
+          <summary><span class="faq__q">¿MapGestión se usa desde el celular?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><div class="faq__aIn">
+              <p>Sí. Vive en la nube: entras desde el celular en el patio, en casa o de viaje, sin depender de una PC de oficina.</p>
+          </div></div>
         </details>
-        <details class="faq__item">
-          <summary>¿Reemplaza WhatsApp y radio para ubicar unidades?<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
-          <p>Sí. Abres el mapa y ves cajón, estado, gasolina, km, modelo, económico, placas y VIN sin preguntar por chat ni caminar a buscarlo.</p>
+        <details class="faq__item" data-cat="patio">
+          <summary><span class="faq__q">¿Reemplaza WhatsApp y radio para ubicar unidades?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><div class="faq__aIn">
+              <p>Sí. Abres el mapa y ves cajón, estado, gasolina, km, modelo, económico, placas y VIN sin preguntar por chat ni caminar a buscarlo.</p>
+          </div></div>
         </details>
-        <details class="faq__item">
-          <summary>¿Sirve para varios patios o sub-plazas?<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
-          <p>Sí. Una cuenta puede cubrir varios patios o sub-plazas: cambias de plaza y ves la estructura completa.</p>
+        <details class="faq__item" data-cat="patio">
+          <summary><span class="faq__q">¿Qué veo al entrar?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><div class="faq__aIn">
+              <p>El dashboard de tu plaza: flota total, cuántas unidades están listas, sucias u otros estados, en qué ubicaciones están y cuáles requieren atención. De ahí pasas al mapa o al cuadre.</p>
+              <a class="more" href="resumen-extendido.html#cuadre-flota">Ver el dashboard y el cuadre <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div></div>
         </details>
-        <details class="faq__item">
-          <summary>¿Es un GPS?<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
-          <p>No. Es un mapa virtual de tu patio: un plano digital donde ves cada unidad y su estado, no coordenadas GPS en ruta.</p>
+        <details class="faq__item" data-cat="patio">
+          <summary><span class="faq__q">¿Sirve para varios patios o sub-plazas?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><div class="faq__aIn">
+              <p>Sí. Una cuenta puede cubrir varias plazas y sub-plazas: cambias de plaza desde el encabezado y ves la estructura completa.</p>
+              <a class="more" href="resumen-extendido.html#multi-plaza">Ver cómo funcionan las plazas <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div></div>
         </details>
-        <details class="faq__item">
-          <summary>¿Quién puede entrar y qué puede hacer cada quien?<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
-          <p>Solo entra quien invitas. Cada persona entra con Google, con un código por SMS o con Face ID o huella de su dispositivo, y ve y hace solo lo que permite su rol.</p>
+        <details class="faq__item" data-cat="patio">
+          <summary><span class="faq__q">¿Puedo cargar las unidades que ya tengo?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><div class="faq__aIn">
+              <p>Sí. Importas tu flota desde Excel o CSV y la exportas cuando quieras. También das de alta unidades una por una y generas estampas QR.</p>
+              <a class="more" href="resumen-extendido.html#unidades-busqueda">Ver unidades y búsqueda <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div></div>
         </details>
-        <details class="faq__item">
-          <summary>¿MapGestión tiene inteligencia artificial?<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
-          <p>Estamos terminando de activar el asistente con IA del mapa: le preguntas por una unidad o le das una orden (mover de cajón, cambiar estado, alta o baja) y te responde en pantalla y en voz, siempre dentro de los permisos de tu rol. Los usos en el mostrador, como verificar a un cliente o preparar un expediente, están en desarrollo.</p>
+        <details class="faq__item" data-cat="patio">
+          <summary><span class="faq__q">¿Es un GPS?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><div class="faq__aIn">
+              <p>No. Es un mapa virtual de tu patio: un plano digital donde ves cada unidad y su estado, no coordenadas GPS en ruta.</p>
+          </div></div>
         </details>
-        <details class="faq__item">
-          <summary>¿Qué es un expediente 110?<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
-          <p>Es un caso formal que una arrendadora registra por un incidente grave, por ejemplo una unidad no devuelta o un fraude de identidad o de documentos. Debe tener evidencia verificable (contrato, papeleta, fotos o folio de autoridad) y pasar por revisión antes de activarse.</p>
+        <details class="faq__item" data-cat="patio">
+          <summary><span class="faq__q">¿Quién puede entrar y qué puede hacer cada quien?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><div class="faq__aIn">
+              <p>Solo entra quien invitas. Cada persona entra con Google, con un código por SMS o con Face ID o huella de su dispositivo, y ve y hace solo lo que permite su rol.</p>
+              <a class="more" href="resumen-extendido.html#roles">Ver roles y permisos <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div></div>
         </details>
-        <details class="faq__item">
-          <summary>¿La verificación 110 es una lista negra?<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
-          <p>No. Nadie descarga ni recorre una lista: se verifica una identidad concreta, con un motivo declarado, y se recibe una respuesta limitada. Cada coincidencia explica qué dato coincidió, y la decisión de rentar es siempre de tu equipo.</p>
+        <details class="faq__item" data-cat="ia">
+          <summary><span class="faq__q">¿MapGestión tiene inteligencia artificial?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><div class="faq__aIn">
+              <p>Estamos terminando de activar el asistente con IA del mapa: le preguntas por una unidad o le das una orden (mover de cajón, cambiar estado, alta o baja) y te responde en pantalla y en voz, siempre dentro de los permisos de tu rol. Los usos en el mostrador, como verificar a un cliente o preparar un expediente, están en desarrollo.</p>
+              <a class="more" href="resumen-extendido.html#ia">Ver qué hará la IA <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div></div>
         </details>
-        <details class="faq__item">
-          <summary>¿La IA decide si se le renta a alguien?<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
-          <p>No. La IA lee documentos, busca coincidencias, resume y prepara borradores. No puede activar ni borrar un expediente ni cambiar el estado de una persona: eso lo hace alguien con permiso, y queda registrado.</p>
+        <details class="faq__item" data-cat="ia">
+          <summary><span class="faq__q">¿La IA decide si se le renta a alguien?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><div class="faq__aIn">
+              <p>No. La IA lee documentos, busca coincidencias, resume y prepara borradores. No puede activar ni borrar un expediente ni cambiar el estado de una persona: eso lo hace alguien con permiso, y queda registrado.</p>
+          </div></div>
         </details>
-        <details class="faq__item">
-          <summary>¿Qué pasa si alguien aparece por error?<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
-          <p>Puede pedir la rectificación. El expediente pasa a disputa, la arrendadora que lo creó lo revisa y, si fue un error, se marca como registro incorrecto y deja de aparecer en las coincidencias de inmediato. Todo queda en el historial.</p>
+        <details class="faq__item" data-cat="110">
+          <summary><span class="faq__q">¿Qué es un expediente 110?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><div class="faq__aIn">
+              <p>Es un caso formal que una arrendadora registra por un incidente grave, por ejemplo una unidad no devuelta o un fraude de identidad o de documentos. Debe tener evidencia verificable (contrato, papeleta, fotos o folio de autoridad) y pasar por revisión antes de activarse.</p>
+              <a class="more" href="resumen-extendido.html#clientes-110">Explicado paso a paso <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div></div>
         </details>
-        <details class="faq__item">
-          <summary>¿Qué datos ve otra arrendadora?<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
-          <p>Solo lo mínimo: la referencia del expediente, el tipo de incidente, la fecha, el estado y qué datos coincidieron. Nunca la INE completa, el domicilio, el teléfono, el correo, fotos ni el contrato.</p>
+        <details class="faq__item" data-cat="110">
+          <summary><span class="faq__q">¿La verificación 110 es una lista negra?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><div class="faq__aIn">
+              <p>No. Nadie descarga ni recorre una lista: se verifica una identidad concreta, con un motivo declarado, y se recibe una respuesta limitada. Cada coincidencia explica qué dato coincidió, y la decisión de rentar es siempre de tu equipo.</p>
+              <a class="more" href="resumen-extendido.html#red-api">Cómo funciona la red <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div></div>
         </details>
-        <details class="faq__item">
-          <summary>¿Cuándo estará disponible la verificación 110?<span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
-          <p>Clientes, verificación 110 y la API para arrendadoras están en desarrollo. La red compartida se activará después de la revisión jurídica y de los contratos entre arrendadoras. Si quieres estar entre las primeras, pídelo en tu demo.</p>
+        <details class="faq__item" data-cat="110">
+          <summary><span class="faq__q">¿Qué pasa si alguien aparece por error?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><div class="faq__aIn">
+              <p>Puede pedir la rectificación. El expediente pasa a disputa, la arrendadora que lo creó lo revisa y, si fue un error, se marca como registro incorrecto y deja de aparecer en las coincidencias de inmediato. Todo queda en el historial.</p>
+              <a class="more" href="resumen-extendido.html#c110-error">Qué pasa si el dato está mal <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div></div>
+        </details>
+        <details class="faq__item" data-cat="110">
+          <summary><span class="faq__q">¿Qué datos ve otra arrendadora?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><div class="faq__aIn">
+              <p>Solo lo mínimo: la referencia del expediente, el tipo de incidente, la fecha, el estado y qué datos coincidieron. Nunca la INE completa, el domicilio, el teléfono, el correo, fotos ni el contrato.</p>
+              <a class="more" href="resumen-extendido.html#c110-datos">Qué se guarda y qué se comparte <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div></div>
+        </details>
+        <details class="faq__item" data-cat="110">
+          <summary><span class="faq__q">¿Cuándo estará disponible la verificación 110?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><div class="faq__aIn">
+              <p>Clientes, verificación 110 y la API para arrendadoras están en desarrollo. La red compartida se activará después de la revisión jurídica y de los contratos entre arrendadoras. Si quieres estar entre las primeras, pídelo en tu demo.</p>
+          </div></div>
         </details>
       </div>
+      <p class="faq__foot">¿Quieres el detalle técnico (API, privacidad, conservación)? <a class="more" href="resumen-extendido.html#faq-tecnico">Preguntas técnicas en el Resumen extendido <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a></p>
     </div>
   </section>
 
@@ -957,16 +984,16 @@
         <a href="#operacion">Patio</a>
         <a href="#ia">IA</a>
         <a href="#verificacion">Verificación 110</a>
-        <a href="#red">Red y API</a>
+        <a href="#red">Red entre arrendadoras</a>
+        <a href="resumen-extendido.html">Resumen extendido</a>
         <a href="#faq">Preguntas</a>
         <a href="terminos.html">Términos</a>
         <a href="terminos.html#privacidad">Privacidad</a>
         <!--email_off--><a href="mailto:contacto@mapgestion.com">contacto@mapgestion.com</a><!--/email_off-->
         <a href="https://wa.me/524778024682" target="_blank" rel="noopener">WhatsApp</a>
-        <a href="https://app.mapgestion.com" class="btn btn--ghost btn--sm foot__login">Iniciar sesión</a>
       </nav>
     </div>
-    <p class="foot__copy">© <span id="year"></span> MapGestión. Todos los derechos reservados.</p>
+    <p class="foot__copy">© <span id="year"></span> MapGestión. Todos los derechos reservados. <span class="foot__sep" aria-hidden="true">·</span> <a class="foot__login" href="https://app.mapgestion.com">Iniciar sesión</a></p>
   </footer>
 
   <!-- Barra de acción fija (solo móvil; la muestra app.js después del hero) -->
@@ -977,7 +1004,7 @@
 
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script defer src="app.js?v=20260927b"></script>
+  <script defer src="app.js?v=20260929a"></script>
 </body>
 
 </html>

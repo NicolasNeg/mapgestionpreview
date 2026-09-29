@@ -73,8 +73,8 @@ function headlines() {
 
 /* ---------- 3. Reveals por lotes (tarjetas y filas en cascada) ---------- */
 const REVEAL_SEL = [
-  '.specs li', '.scene', '.shot', '.rules li', '.flow li', '.vfcard', '.guard li', '.pipe',
-  '.sec__col', '.how__steps li', '.faq__item', '.net__note', '.netmap', '.code',
+  '.specs li', '.scene', '.shot', '.phone', '.rules li', '.flow li', '.vfcard', '.guard li', '.pipe',
+  '.sec__col', '.how__steps li', '.net__note', '.netmap', '.net__points li', '.code', '.rx-card', '.rx-step', '.rx-tile',
 ].join(', ');
 function reveals(extra = []) {
   const items = [...new Set([...gsap.utils.toArray(REVEAL_SEL), ...extra])];
@@ -105,18 +105,6 @@ function productShots() {
       scale: 1, yPercent: 0, ease: 'none',
       scrollTrigger: { trigger: el, start: 'top bottom', end: 'top 40%', scrub: 0.6, invalidateOnRefresh: true },
     });
-  });
-}
-
-/* ---------- 6. Mapa: unidades que llegan a su cajón (sin rebote) ---------- */
-function mapSpots() {
-  const map = document.getElementById('mapSim');
-  const spots = gsap.utils.toArray('#mapSim .spot');
-  if (!map || !spots.length) return;
-  gsap.set(spots, { xPercent: -50, yPercent: -50 });
-  gsap.fromTo(spots, { opacity: 0, y: () => -map.offsetHeight * 0.06, scale: 0.9 }, {
-    opacity: 1, y: 0, scale: 1, duration: 0.9, ease: EASE, stagger: 0.07,
-    scrollTrigger: { trigger: map, start: 'top 72%', once: true, invalidateOnRefresh: true },
   });
 }
 
@@ -302,7 +290,6 @@ if (HAS_GSAP) {
       () => (pinnable ? chaosPinned() : undefined),
       headlines,
       productShots,
-      mapSpots,
       imageParallax,
       () => iaStory(stickyChat),
       vfSequence,
@@ -371,6 +358,104 @@ if (HAS_GSAP) {
     rail.railGo = go;
     requestAnimationFrame(() => setTimeout(update, 0));
   });
+})();
+
+/* FAQ: <details> nativo (funciona sin JS). Con JS: altura animada, filtros por tema y entrada escalonada.
+   Con prefers-reduced-motion no se anima nada: abre y cierra al instante. Teclado: Enter / Espacio en el summary. */
+document.querySelectorAll('.faq').forEach(function faq(root) {
+  const items = [...root.querySelectorAll('.faq__item')];
+  if (!items.length) return;
+  root.classList.add('faq--ready');
+  const DUR = 420;
+  const EZ = 'cubic-bezier(.16, 1, .3, 1)';
+  const anims = new WeakMap();
+
+  const run = (d, opening) => {
+    const panel = d.querySelector('.faq__a');
+    if (!panel) { d.open = opening; return; }
+    if (REDUCED || !panel.animate) { d.open = opening; return; }
+    const prev = anims.get(panel);
+    const from = prev ? panel.getBoundingClientRect().height : (opening ? 0 : panel.offsetHeight);
+    if (prev) prev.cancel();
+    if (opening) {
+      d.classList.remove('is-closing');
+      d.open = true;
+    } else {
+      d.classList.add('is-closing');
+    }
+    const to = opening ? panel.scrollHeight : 0;
+    panel.style.overflow = 'hidden';
+    const a = panel.animate({ height: [from + 'px', to + 'px'] }, { duration: DUR, easing: EZ });
+    anims.set(panel, a);
+    a.onfinish = () => {
+      anims.delete(panel);
+      panel.style.overflow = '';
+      if (!opening) { d.open = false; d.classList.remove('is-closing'); }
+    };
+    a.oncancel = () => { panel.style.overflow = ''; };
+  };
+
+  items.forEach((d) => {
+    const sum = d.querySelector('summary');
+    sum.addEventListener('click', (e) => {
+      e.preventDefault();
+      const opening = !d.open || d.classList.contains('is-closing');
+      run(d, opening);
+    });
+  });
+
+  // Filtros por tema
+  const chips = [...root.querySelectorAll('.faq__chip')];
+  chips.forEach((c) => c.addEventListener('click', () => {
+    const cat = c.dataset.cat;
+    chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+    items.forEach((d) => { d.hidden = cat !== 'todas' && d.dataset.cat !== cat; });
+    const shown = items.filter((d) => !d.hidden);
+    shown.forEach((d, i) => { d.style.setProperty('--i', i); });
+    if (!REDUCED) {
+      shown.forEach((d) => d.classList.remove('is-in', 'is-settled'));
+      requestAnimationFrame(() => requestAnimationFrame(() => shown.forEach((d) => d.classList.add('is-in'))));
+    }
+    const live = root.querySelector('.faq__live');
+    if (live) live.textContent = `${shown.length} preguntas`;
+  }));
+
+  // Entrada escalonada al llegar a la lista
+  const showAll = () => items.forEach((d) => d.classList.add('is-in', 'is-settled'));
+  if (REDUCED || !('IntersectionObserver' in window)) { showAll(); return; }
+  items.forEach((d, i) => d.style.setProperty('--i', i));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      const d = e.target;
+      d.classList.add('is-in');
+      setTimeout(() => d.classList.add('is-settled'), 1200);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+  items.forEach((d) => io.observe(d));
+});
+
+/* Resumen extendido: el índice marca el capítulo que se está leyendo (sin GSAP) */
+(function tocSpy() {
+  const links = [...document.querySelectorAll('.toc a')];
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  const map = new Map(links.map((a) => [a.getAttribute('href').slice(1), a]));
+  const secs = [...map.keys()].map((id) => document.getElementById(id)).filter(Boolean);
+  const set = (id) => {
+    links.forEach((a) => a.setAttribute('aria-current', String(a === map.get(id))));
+    const a = map.get(id);
+    const bar = a && a.closest('.toc');
+    if (bar && bar.scrollWidth > bar.clientWidth) bar.scrollTo({ left: Math.max(0, a.offsetLeft - 24), behavior: REDUCED ? 'auto' : 'smooth' });
+  };
+  const visible = new Set();
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) visible.add(e.target.id); else visible.delete(e.target.id); });
+    const first = secs.find((s) => visible.has(s.id));
+    if (first) set(first.id);
+  }, { rootMargin: '-20% 0px -65% 0px' });
+  secs.forEach((s) => io.observe(s));
+  set(secs[0].id);
 })();
 
 /* Barra fija en móvil: aparece después del hero y se oculta al llegar al formulario / footer */
