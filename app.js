@@ -74,7 +74,7 @@ function headlines() {
 /* ---------- 3. Reveals por lotes (tarjetas y filas en cascada) ---------- */
 const REVEAL_SEL = [
   '.specs li', '.scene', '.shot', '.phone', '.rules li', '.flow li', '.vfcard', '.guard li', '.pipe',
-  '.sec__col', '.how__steps li', '.net__note', '.netmap', '.net__points li', '.code', '.rx-card', '.rx-step', '.rx-tile',
+  '.sec__col', '.how__steps li', '.s3', '.net__note', '.netmap', '.net__points li', '.code', '.rx-card', '.rx-step', '.rx-tile',
 ].join(', ');
 function reveals(extra = []) {
   const items = [...new Set([...gsap.utils.toArray(REVEAL_SEL), ...extra])];
@@ -187,8 +187,10 @@ function vfSequence() {
 
 /* ---------- 9. Historia: chat → Excel → tabla (escena fija con scroll) ---------- */
 const CHAOS_SCENES = [
-  { title: 'Hoy preguntas', sub: 'Radio o WhatsApp: “¿El D5256 está lleno?”' },
-  { title: 'Revisas registros desactualizados', sub: 'El Excel eterno… lleno de dudas y celdas a medias' },
+  { title: 'Hoy preguntas', sub: 'Chat y radio, con respuestas que se contradicen' },
+  { title: 'Revisas registros desactualizados', sub: 'El Excel eterno… lleno de dudas' },
+  { title: 'O usas un sistema viejo', sub: 'Un solo estado, sin plaza ni ubicación' },
+  { title: 'Con MapGestión, cada dato en su lugar', sub: 'Estado, ubicación, cajón y gasolina, por separado' },
   { title: 'Con MapGestión solo miras', sub: 'D5256: gasolina, km, estado y ubicación — al instante' },
 ];
 function setChaosScene(i) {
@@ -205,7 +207,9 @@ function chaosPinned() {
   const chat = document.getElementById('chaosChat');
   const xls = document.getElementById('chaosXls');
   const table = document.getElementById('chaosTable');
-  if (!pin || !chat || !xls || !table) return undefined;
+  const old = document.getElementById('chaosOld');
+  const neu = document.getElementById('chaosNew');
+  if (!pin || !chat || !xls || !table || !old || !neu) return undefined;
 
   root.classList.add('is-pinned');
   setChaosScene(0);
@@ -223,34 +227,61 @@ function chaosPinned() {
   };
 
   // Burbujas del chat: aparecen como conversación al llegar a la escena
-  gsap.fromTo(chat.querySelectorAll('.wa__bubble, .wa__typing'), { opacity: 0, y: rise }, {
+  gsap.fromTo(chat.querySelectorAll('.wa__bubble, .wa__typing, .radio__msg'), { opacity: 0, y: rise }, {
     opacity: 1, y: 0, duration: 0.6, ease: EASE_SOFT, stagger: 0.18,
     scrollTrigger: { trigger: root, start: 'top 65%', once: true },
   });
 
-  gsap.set([xls, table], { opacity: 0, yPercent: 8, scale: 0.96 });
+  gsap.set([xls, old, neu, table], { opacity: 0, yPercent: 8, scale: 0.96 });
   gsap.timeline({
     defaults: { ease: 'none' },
     scrollTrigger: {
       trigger: root,
       start: 'top top',
-      end: () => '+=' + Math.round(window.innerHeight * 2.4),
+      end: () => '+=' + Math.round(window.innerHeight * 3.6),
       scrub: 0.6,
       pin: pin,
       anticipatePin: 1,
       refreshPriority: 1,
       invalidateOnRefresh: true,
-      onUpdate: (self) => swap(self.progress < 0.36 ? 0 : self.progress < 0.68 ? 1 : 2),
+      onUpdate: (self) => {
+        const p = self.progress;
+        swap(p < 0.23 ? 0 : p < 0.43 ? 1 : p < 0.63 ? 2 : p < 0.83 ? 3 : 4);
+      },
     },
   })
-    .to(chat, { opacity: 0, yPercent: -6, scale: 0.94, duration: 0.14 }, 0.24)
-    .to(xls, { opacity: 1, yPercent: 0, scale: 1, duration: 0.14 }, 0.3)
-    .fromTo(xls.querySelectorAll('.xls__grid tbody tr'), { opacity: 0.25 }, { opacity: 1, stagger: 0.02, duration: 0.06 }, 0.36)
-    .to(xls, { opacity: 0, yPercent: -6, scale: 0.94, duration: 0.14 }, 0.58)
-    .to(table, { opacity: 1, yPercent: 0, scale: 1, duration: 0.14 }, 0.64)
-    .to({}, { duration: 0.22 }, 0.78);
+    .to(chat, { opacity: 0, yPercent: -6, scale: 0.94, duration: 0.12 }, 0.14)
+    .to(xls, { opacity: 1, yPercent: 0, scale: 1, duration: 0.12 }, 0.2)
+    .fromTo(xls.querySelectorAll('.xls__grid tbody tr'), { opacity: 0.25 }, { opacity: 1, stagger: 0.015, duration: 0.05 }, 0.24)
+    .to(xls, { opacity: 0, yPercent: -6, scale: 0.94, duration: 0.12 }, 0.34)
+    .to(old, { opacity: 1, yPercent: 0, scale: 1, duration: 0.12 }, 0.4)
+    .to(old, { opacity: 0, yPercent: -6, scale: 0.94, duration: 0.12 }, 0.54)
+    .to(neu, { opacity: 1, yPercent: 0, scale: 1, duration: 0.12 }, 0.6)
+    .to(neu, { opacity: 0, yPercent: -6, scale: 0.94, duration: 0.12 }, 0.74)
+    .to(table, { opacity: 1, yPercent: 0, scale: 1, duration: 0.12 }, 0.8)
+    .to({}, { duration: 0.08 }, 0.92);
 
   return () => { root.classList.remove('is-pinned'); setChaosScene(0); gsap.set(head, { clearProps: 'all' }); };
+}
+
+/* ---------- 8b. 110 en 4 pasos: los pasos se encienden con el scroll (sin JS o con reduced-motion: todos visibles) ---------- */
+function stepper() {
+  const root = document.getElementById('st4');
+  if (!root) return undefined;
+  const steps = [...root.querySelectorAll('.st4__step')];
+  root.classList.add('st4--anim');
+  const set = (p) => {
+    root.style.setProperty('--p', p.toFixed(3));
+    const n = Math.min(steps.length, Math.floor(p * steps.length * 0.999) + 1);
+    steps.forEach((s, i) => s.classList.toggle('is-on', i < n));
+  };
+  set(0);
+  const st = ScrollTrigger.create({
+    trigger: root, start: 'top 72%', end: 'bottom 55%',
+    onUpdate: (self) => set(self.progress),
+    onRefresh: (self) => set(self.progress),
+  });
+  return () => { st.kill(); root.classList.remove('st4--anim'); root.style.removeProperty('--p'); steps.forEach((s) => s.classList.remove('is-on')); };
 }
 
 /* ---------- 10. Formulario ---------- */
@@ -293,6 +324,7 @@ if (HAS_GSAP) {
       imageParallax,
       () => iaStory(stickyChat),
       vfSequence,
+      stepper,
       formReveal,
       // Pantallas bajas (p. ej. 844×390, 320×568): sin pin; cada escena entra con fade + subida
       () => reveals(pinnable ? [] : gsap.utils.toArray('.chaos__layer')),
@@ -316,6 +348,78 @@ if (HAS_GSAP) {
     document.fonts.ready.then(() => { if (document.readyState === 'complete') ScrollTrigger.refresh(); });
   }
 }
+
+/* Barra de progreso del recorrido (sin GSAP; se oculta con reduced-motion por CSS) */
+(function progress() {
+  const bar = document.querySelector('#progress i');
+  if (!bar || REDUCED) return;
+  let raf = 0;
+  const upd = () => {
+    raf = 0;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, window.scrollY / max) : 0).toFixed(4) + ')';
+  };
+  window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
+  window.addEventListener('resize', upd);
+  upd();
+})();
+
+/* Clips: se reproducen solo cuando están a la vista. Sin audio, en bucle, con botón de pausa.
+   prefers-reduced-motion o ahorro de datos: solo el póster (y el botón para verlo a demanda si hay ahorro de datos). */
+(function clips() {
+  const figs = [...document.querySelectorAll('.clip')];
+  if (!figs.length) return;
+  const conn = navigator.connection || {};
+  const saver = !!conn.saveData;
+  if (REDUCED) return; // se queda el póster; sin botón
+  document.documentElement.classList.add('clips--ready');
+  const icon = (f, name) => { const i = f.querySelector('.clip__btn .material-symbols-outlined'); if (i) i.textContent = name; };
+  const state = new WeakMap();
+  const play = (f) => {
+    const v = f.querySelector('video');
+    const p = v.play();
+    f.classList.add('is-playing', 'has-played'); icon(f, 'pause');
+    f.querySelector('.clip__btn').setAttribute('aria-label', 'Pausar animación');
+    if (p && p.catch) p.catch(() => { f.classList.remove('is-playing'); icon(f, 'play_arrow'); });
+  };
+  const pause = (f) => {
+    f.querySelector('video').pause();
+    f.classList.remove('is-playing'); icon(f, 'play_arrow');
+    f.querySelector('.clip__btn').setAttribute('aria-label', 'Reproducir animación');
+  };
+  figs.forEach((f) => {
+    state.set(f, { manual: false });
+    f.querySelector('.clip__btn').addEventListener('click', () => {
+      const s = state.get(f);
+      if (f.classList.contains('is-playing')) { s.manual = true; pause(f); } else { s.manual = false; play(f); }
+    });
+  });
+  if (saver || !('IntersectionObserver' in window)) return; // ahorro de datos: solo a demanda
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      const f = e.target; const s = state.get(f);
+      if (e.isIntersecting && e.intersectionRatio >= 0.5) { if (!s.manual && !f.classList.contains('is-playing')) play(f); }
+      else if (f.classList.contains('is-playing')) pause(f);
+    });
+  }, { threshold: [0, 0.5, 0.75] });
+  figs.forEach((f) => io.observe(f));
+  document.addEventListener('visibilitychange', () => { if (document.hidden) figs.forEach((f) => { if (f.classList.contains('is-playing')) pause(f); }); });
+})();
+
+/* Zoom a la zona destacada: mouse encima (CSS) o toque / Enter (aquí) */
+(function zoomShots() {
+  document.querySelectorAll('.shot[data-zoom]').forEach((fig) => {
+    const frame = fig.querySelector('.shot__frame');
+    if (!frame) return;
+    frame.tabIndex = 0;
+    frame.setAttribute('role', 'button');
+    frame.setAttribute('aria-pressed', 'false');
+    frame.setAttribute('aria-label', 'Acercar a la zona destacada: ' + (fig.querySelector('strong') ? fig.querySelector('strong').textContent : 'captura'));
+    const toggle = () => { const on = fig.classList.toggle('is-zoom'); frame.setAttribute('aria-pressed', String(on)); };
+    frame.addEventListener('click', toggle);
+    frame.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+  });
+})();
 
 /* Carruseles (rail): scroll-snap nativo + chips/flechas sincronizados. Independiente de GSAP. */
 (function rails() {
@@ -456,6 +560,65 @@ document.querySelectorAll('.faq').forEach(function faq(root) {
   }, { rootMargin: '-20% 0px -65% 0px' });
   secs.forEach((s) => io.observe(s));
   set(secs[0].id);
+})();
+
+/* Resumen extendido: paneles plegables (details). Animación de altura con WAAPI; sin reduced-motion. Sin JS todo queda abierto.
+   Un enlace con #ancla (desde la home o el índice) abre el panel que contiene el destino. */
+(function rxMore() {
+  const panels = [...document.querySelectorAll('.rx-more')];
+  if (!panels.length) return;
+  const DUR = 380;
+  const EZ = 'cubic-bezier(.16, 1, .3, 1)';
+  const anims = new WeakMap();
+  const run = (d, opening) => {
+    const panel = d.querySelector('.rx-more__a');
+    if (!panel || REDUCED || !panel.animate) { d.open = opening; return; }
+    const prev = anims.get(panel);
+    const from = prev ? panel.getBoundingClientRect().height : (opening ? 0 : panel.offsetHeight);
+    if (prev) prev.cancel();
+    if (opening) { d.classList.remove('is-closing'); d.open = true; } else { d.classList.add('is-closing'); }
+    const to = opening ? panel.scrollHeight : 0;
+    panel.style.overflow = 'hidden';
+    const a = panel.animate({ height: [from + 'px', to + 'px'] }, { duration: DUR, easing: EZ });
+    anims.set(panel, a);
+    a.onfinish = () => { anims.delete(panel); panel.style.overflow = ''; if (!opening) { d.open = false; d.classList.remove('is-closing'); } };
+    a.oncancel = () => { panel.style.overflow = ''; };
+  };
+  panels.forEach((d) => {
+    d.querySelector('summary').addEventListener('click', (e) => {
+      e.preventDefault();
+      run(d, !d.open || d.classList.contains('is-closing'));
+      syncAll();
+    });
+  });
+  const all = document.getElementById('rxAll');
+  const syncAll = () => {
+    if (!all) return;
+    const allOpen = panels.every((d) => d.open && !d.classList.contains('is-closing'));
+    all.textContent = allOpen ? 'Cerrar todo' : 'Abrir todo';
+  };
+  if (all) {
+    all.hidden = false;
+    syncAll();
+    all.addEventListener('click', () => {
+      const allOpen = panels.every((d) => d.open);
+      panels.forEach((d) => { d.open = !allOpen; });
+      syncAll();
+    });
+  }
+  const openFor = (id) => {
+    if (!id) return;
+    let t = null;
+    try { t = document.getElementById(decodeURIComponent(id)); } catch (e) { t = null; }
+    const d = t && t.closest('.rx-more');
+    if (!d) return;
+    if (!d.open) { d.open = true; syncAll(); }
+    requestAnimationFrame(() => t.scrollIntoView({ block: 'start' }));
+  };
+  window.addEventListener('hashchange', () => openFor(location.hash.slice(1)));
+  openFor(location.hash.slice(1));
+  // Las imágenes y fuentes mueven el diseño después del primer salto: reubicar una vez al terminar de cargar
+  if (location.hash.length > 1) window.addEventListener('load', () => setTimeout(() => openFor(location.hash.slice(1)), 250), { once: true });
 })();
 
 /* Barra fija en móvil: aparece después del hero y se oculta al llegar al formulario / footer */
