@@ -193,9 +193,9 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <!-- Iconos: solo los glifos usados (icon_names en orden alfabético); display=block evita ver el nombre del ícono como texto -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=admin_panel_settings,arrow_downward,arrow_forward,arrow_upward,badge,bolt,chat,check_circle,chevron_left,chevron_right,close,cloud,code,description,directions_car,document_scanner,done_all,fact_check,fingerprint,forum,gavel,graphic_eq,help,history,hub,info,label,lightbulb,local_fire_department,local_gas_station,local_parking,location_city,location_on,lock,mail,map,menu,menu_book,pause,play_arrow,receipt_long,rocket_launch,search,send,shield,smart_toy,smartphone,support_agent,unfold_more,verified_user,volume_up,zoom_in&display=block" rel="stylesheet" media="print" onload="this.media='all'" />
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=admin_panel_settings,arrow_downward,arrow_forward,arrow_upward,badge,bolt,chat,check_circle,chevron_left,chevron_right,close,cloud,code,description,directions_car,document_scanner,done_all,fact_check,fingerprint,forum,gavel,graphic_eq,help,history,hub,info,label,lightbulb,local_fire_department,local_gas_station,local_parking,location_city,location_on,lock,mail,map,menu,menu_book,pause,play_arrow,receipt_long,rocket_launch,search,send,shield,smart_toy,smartphone,support_agent,unfold_more,verified_user,volume_up,zoom_in&display=block" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=20260930a" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=admin_panel_settings,arrow_downward,arrow_forward,arrow_upward,badge,bolt,chat,close,code,document_scanner,fact_check,fingerprint,forum,gavel,help,history,hub,info,label,lightbulb,location_city,lock,map,menu,menu_book,pause,play_arrow,receipt_long,rocket_launch,search,shield,smart_toy,unfold_more,verified_user,volume_up&display=block" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=admin_panel_settings,arrow_downward,arrow_forward,arrow_upward,badge,bolt,chat,close,code,document_scanner,fact_check,fingerprint,forum,gavel,help,history,hub,info,label,lightbulb,location_city,lock,map,menu,menu_book,pause,play_arrow,receipt_long,rocket_launch,search,shield,smart_toy,unfold_more,verified_user,volume_up&display=block" rel="stylesheet" /></noscript>
+  <link rel="stylesheet" href="styles.css?v=20261001a" />
   <script>document.documentElement.classList.add('js');</script>
 </head>
 
@@ -210,10 +210,9 @@
         <img src="assets/brand/mapgestion_logo.svg" alt="MapGestión" width="111" height="26" />
       </a>
       <div class="nav__links">
-        <a href="index.html#operacion">Patio</a>
+        <a href="index.html#clips">Patio</a>
         <a href="index.html#ia">IA</a>
         <a href="index.html#verificacion">Verificación 110</a>
-        <a href="index.html#seguridad">Seguridad</a>
         <a href="resumen-extendido.html" aria-current="page">Resumen extendido</a>
       </div>
       <div class="nav__actions">
@@ -229,11 +228,10 @@
       <img src="assets/brand/mapgestion_logo.svg" alt="MapGestión" width="111" height="26" />
       <button id="menuClose" class="nav__menuBtn nav__menuBtn--close" type="button" aria-label="Cerrar menú"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
     </div>
-    <a href="index.html#operacion">Operación del patio</a>
+    <a href="index.html#producto">Cómo funciona</a>
+    <a href="index.html#clips">Patio en movimiento</a>
     <a href="index.html#ia">Asistente con IA</a>
-    <a href="index.html#verificacion">Clientes y verificación 110</a>
-    <a href="index.html#red">Red entre arrendadoras</a>
-    <a href="index.html#seguridad">Seguridad y privacidad</a>
+    <a href="index.html#verificacion">Verificación 110</a>
     <a href="resumen-extendido.html" aria-current="page">Resumen extendido</a>
     <a href="index.html#faq">Preguntas frecuentes</a>
     <div class="nav__drawerActions">
@@ -313,19 +311,13 @@
           <div class="rx-tile rx-tile--soon"><p class="rx-tile__k"><span class="st st--soon">Próximamente</span></p><h3>Asistente con IA</h3><ul class="rx-mini"><li>Pregunta por una unidad</li><li>Da una orden en el mapa</li><li>Respuesta en pantalla y en voz</li></ul></div>
           <div class="rx-tile rx-tile--dev"><p class="rx-tile__k"><span class="st st--dev">En desarrollo</span></p><h3>Clientes y verificación 110</h3><ul class="rx-mini"><li>Clientes y restricciones internas</li><li>Expedientes 110 con evidencia</li><li>Verificación en el mostrador</li><li>Red entre arrendadoras y API</li></ul></div>
         </div>
-        <div class="rx-split">
+        <div class="rx-split rx-split--flat1">
           <div class="rx-split__t">
             <p>Vive en la nube: entras desde el celular en el patio, en casa o de viaje, sin VPN de oficina ni depender de una PC de oficina.</p>
             <p>Todo lo que ves marcado como <b>“Funciona hoy”</b> está en producción y las capturas de esta página son de la aplicación real (con datos anonimizados). Lo marcado como <b>“Próximamente”</b> o <b>“En desarrollo”</b> todavía no se puede usar: te lo contamos con transparencia para que sepas qué viene.</p>
 <aside class="simple"><p class="simple__t"><span class="material-symbols-outlined" aria-hidden="true">lightbulb</span>En palabras simples</p><p>Lo de arriba lo usas hoy. Lo de abajo lo estamos construyendo, y aquí te decimos en qué etapa va cada cosa.</p></aside>
           </div>
-          <div class="rx-split__f">
-            <figure class="shot">
-              <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/avif" srcset="assets/screenshots/dashboard-512.avif 512w, assets/screenshots/dashboard-768.avif 768w" sizes="(min-width: 1000px) 520px, 92vw" /><source type="image/webp" srcset="assets/screenshots/dashboard-512.webp 512w, assets/screenshots/dashboard-768.webp 768w" sizes="(min-width: 1000px) 520px, 92vw" /><img src="assets/screenshots/dashboard-768.jpg" alt="Dashboard de la plaza con flota total, listas, sucias y unidades que requieren atención" width="768" height="525" loading="lazy" decoding="async" /></picture></div>
-              <figcaption><strong>Dashboard de la plaza</strong><span>Lo primero que ves al entrar: cómo va tu flota.</span></figcaption>
-            </figure>
-          </div>
-        </div>
+                  </div>
       </div></div>
         </details>
       </section>
@@ -362,13 +354,7 @@
             </ul>
 <aside class="simple"><p class="simple__t"><span class="material-symbols-outlined" aria-hidden="true">lightbulb</span>En palabras simples</p><p>Ya no preguntas por radio o WhatsApp “¿dónde está la unidad?”. La abres en el mapa y la ves.</p></aside>
           </div>
-          <div class="rx-split__f">
-            <figure class="shot">
-              <div class="shot__frame"><div class="shot__bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source type="image/avif" srcset="assets/screenshots/mapa-unidad-512.avif 512w, assets/screenshots/mapa-unidad-768.avif 768w" sizes="(min-width: 1000px) 520px, 92vw" /><source type="image/webp" srcset="assets/screenshots/mapa-unidad-512.webp 512w, assets/screenshots/mapa-unidad-768.webp 768w" sizes="(min-width: 1000px) 520px, 92vw" /><img src="assets/screenshots/mapa-unidad-768.jpg" alt="Mapa operativo con la ficha de una unidad abierta" width="768" height="525" loading="lazy" decoding="async" /></picture></div>
-              <figcaption><strong>Mapa y ficha de unidad</strong><span>Toca una unidad: estado, cajón, modelo y gasolina.</span></figcaption>
-            </figure>
-          </div>
-        </div>
+                  </div>
         <div class="rx-split rx-split--rev">
           <div class="rx-split__t">
             <h3>Unidades sin cajón</h3>
@@ -404,17 +390,6 @@
           <span class="st st--hoy">Funciona hoy</span>
         </header>
         <p class="rx-ten"><span class="material-symbols-outlined" aria-hidden="true">bolt</span><b>En 10 segundos</b><span>Tu flota en una lista: dashboard y cuadre de la plaza.</span></p>
-        <div class="rx-clip"><figure class="clip clip--rx">
-  <div class="clip__frame">
-    <img class="clip__poster" src="assets/clips/cuadre-poster.webp" alt="Cuadre: imagen de la animación" width="768" height="524" loading="lazy" decoding="async" />
-    <video class="clip__v" muted playsinline loop preload="none" width="768" height="524" aria-label="Cuadre: animación sobre capturas reales de la app" aria-hidden="true" tabindex="-1">
-      <source src="assets/clips/cuadre.webm" type="video/webm" />
-      <source src="assets/clips/cuadre.mp4" type="video/mp4" />
-    </video>
-    <button type="button" class="clip__btn" aria-label="Reproducir animación"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></button>
-  </div>
-  <figcaption><strong>Cuadre</strong><span>La flota en una lista</span></figcaption>
-</figure></div>
         <details class="rx-more" open data-more>
           <summary><span>Ver el detalle</span><i class="rx-more__ic" aria-hidden="true"></i></summary>
           <div class="rx-more__a"><div class="rx-more__in">
@@ -519,17 +494,6 @@
           <span class="st st--hoy">Funciona hoy</span>
         </header>
         <p class="rx-ten"><span class="material-symbols-outlined" aria-hidden="true">bolt</span><b>En 10 segundos</b><span>Solo entra quien invitas; cada quien hace lo que su rol permite.</span></p>
-        <div class="rx-clip"><figure class="clip clip--rx">
-  <div class="clip__frame">
-    <img class="clip__poster" src="assets/clips/roles-poster.webp" alt="Roles y permisos: imagen de la animación" width="768" height="524" loading="lazy" decoding="async" />
-    <video class="clip__v" muted playsinline loop preload="none" width="768" height="524" aria-label="Roles y permisos: animación sobre capturas reales de la app" aria-hidden="true" tabindex="-1">
-      <source src="assets/clips/roles.webm" type="video/webm" />
-      <source src="assets/clips/roles.mp4" type="video/mp4" />
-    </video>
-    <button type="button" class="clip__btn" aria-label="Reproducir animación"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span></button>
-  </div>
-  <figcaption><strong>Roles y permisos</strong><span>Cada quien, lo suyo</span></figcaption>
-</figure></div>
         <details class="rx-more" open data-more>
           <summary><span>Ver el detalle</span><i class="rx-more__ic" aria-hidden="true"></i></summary>
           <div class="rx-more__a"><div class="rx-more__in">
@@ -672,7 +636,69 @@
           <div class="rx-res rx-res--rev"><p class="rx-res__t"><span class="tag tag--rev">Posible coincidencia</span></p><p>Se parece a algo, pero no es seguro (por ejemplo, otra persona con el mismo nombre). Se revisa antes de decidir.</p></div>
           <div class="rx-res rx-res--no"><p class="rx-res__t"><span class="tag tag--no">Coincidencia con un 110 verificado</span></p><p>Los datos fuertes coinciden con un expediente activo. Ves la referencia y el motivo; la decisión sigue siendo tuya.</p></div>
         </div>
-        <p class="rx-note">En la pantalla ilustrativa de la página principal (nombres y folios ficticios) verás tres ejemplos: <b>Sin coincidencias</b> (cliente frecuente, con la acción “Nueva renta”), <b>Posible coincidencia · Requiere revisión</b> y <b>Expediente verificado</b> (con “Ver resumen” y “Solicitar revisión”). Si una fuente no responde, aparece “No se pudo verificar”.</p>
+        <p class="rx-note">En la pantalla ilustrativa de abajo (nombres y folios ficticios) verás tres ejemplos: <b>Sin coincidencias</b> (cliente frecuente, con la acción “Nueva renta”), <b>Posible coincidencia · Requiere revisión</b> y <b>Expediente verificado</b> (con “Ver resumen” y “Solicitar revisión”). Si una fuente no responde, aparece “No se pudo verificar”.</p>
+        <p class="rx-pill"><span class="soon soon--dev">En desarrollo</span><span>Pantalla ilustrativa</span></p>
+      <div class="vfapp rx-vfapp" id="vfApp">
+        <div class="vfapp__bar"><span class="vfapp__dots" aria-hidden="true"><i></i><i></i><i></i></span><strong>Verificar estatus 110</strong><em>Mostrador</em></div>
+        <div class="vfapp__body">
+          <div class="vfapp__capture">
+            <p class="vfapp__label">Identificación</p>
+            <div class="vfapp__scan"><span class="material-symbols-outlined" aria-hidden="true">document_scanner</span>Escanear identificación</div>
+            <dl class="vfapp__fields">
+              <div><dt>Nombre</dt><dd>Ana Muestra León</dd></div>
+              <div><dt>Nacimiento</dt><dd>12/04/1991</dd></div>
+              <div><dt>Licencia</dt><dd>••••••4827</dd></div>
+              <div><dt>Estado emisor</dt><dd>Guanajuato</dd></div>
+            </dl>
+            <p class="vfapp__purpose"><span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>Motivo: alta de renta · Contrato RA-00000</p>
+          </div>
+
+          <div class="vfapp__run">
+            <p class="vfapp__label">Verificación en curso</p>
+            <ul class="checks" id="vfChecks">
+              <li><span class="tick tick--ok" aria-hidden="true"></span><span>Documento</span><em>Datos procesados</em></li>
+              <li><span class="tick tick--ok" aria-hidden="true"></span><span>Base de clientes</span><em>Sin registro previo</em></li>
+              <li><span class="tick tick--ok" aria-hidden="true"></span><span>Restricciones internas</span><em>Sin restricciones</em></li>
+              <li><span class="tick tick--ok" aria-hidden="true"></span><span>110 de tu empresa</span><em>Sin coincidencias</em></li>
+              <li><span class="tick tick--warn" aria-hidden="true"></span><span>110 en la red</span><em>Coincidencia: MG-110-2026-000182</em></li>
+              <li><span class="tick tick--na" aria-hidden="true"></span><span>Licencia (proveedor)</span><em>No se pudo verificar</em></li>
+            </ul>
+          </div>
+
+          <div class="vfapp__result rail" data-rail>
+            <div class="rail__nav vfapp__seg" role="group" aria-label="Ver ejemplo de resultado">
+              <button type="button" class="rail__chip" data-go="0">Sin coincidencias</button>
+              <button type="button" class="rail__chip" data-go="1">Revisión</button>
+              <button type="button" class="rail__chip" data-go="2">Expediente</button>
+            </div>
+            <div class="rail__track vfapp__states" tabindex="0" role="region" aria-label="Ejemplos de resultado (desliza)">
+              <article class="state state--ok">
+                <p class="state__tag"><span class="tag tag--ok">Sin coincidencias</span></p>
+                <h3>Sofía Ejemplo Ruiz</h3>
+                <p class="state__meta">Cliente frecuente · Tarifa OPT1 · 19 rentas</p>
+                <ul class="match"><li><span>Restricciones</span><b>Ninguna activa</b></li><li><span>Expedientes 110</span><b>Sin coincidencias</b></li></ul>
+                <p class="state__actions"><span class="fakebtn fakebtn--primary">Nueva renta</span></p>
+              </article>
+              <article class="state state--rev">
+                <p class="state__tag"><span class="tag tag--rev">Posible coincidencia · Requiere revisión</span></p>
+                <h3>Luis Prueba Mora</h3>
+                <p class="state__meta">Posible homónimo con un expediente de la red</p>
+                <ul class="match"><li><span>Nombre</span><b>Similar</b></li><li><span>Nacimiento</span><b class="no">No coincide</b></li><li><span>Licencia</span><b class="no">No coincide</b></li><li><span>Teléfono</span><b class="na">No disponible</b></li></ul>
+                <p class="state__actions"><span class="fakebtn">Solicitar revisión</span></p>
+              </article>
+              <article class="state state--no">
+                <p class="state__tag"><span class="tag tag--no">Expediente verificado</span></p>
+                <h3>Ana Muestra León</h3>
+                <p class="state__meta">Coincidencia fuerte con <b>MG-110-2026-000182</b> · No devolución de unidad · Activo, confirmado por dos revisores</p>
+                <ul class="match"><li><span>Nombre</span><b>Coincide</b></li><li><span>Nacimiento</span><b>Exacto</b></li><li><span>Licencia + emisor</span><b>Exacta</b></li></ul>
+                <p class="state__actions"><span class="fakebtn">Ver resumen</span><span class="fakebtn">Solicitar revisión</span></p>
+                <p class="state__note">MapGestión informa la coincidencia. La decisión de rentar es de tu empresa.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+        <p class="vfapp__foot">Pantalla ilustrativa: nombres, datos y folios ficticios.</p>
+      </div>
         <div class="rx-callout rx-callout--soft">
           <h3>¿Qué tan segura es una coincidencia?</h3>
           <dl class="rx-dl">
@@ -747,6 +773,29 @@
         </figure>
 
         <div class="rx-dark">
+                  <figure class="netmap" aria-labelledby="netmapCap">
+            <svg class="netmap__svg" viewBox="0 0 400 300" role="img" aria-labelledby="netmapCap">
+              <g class="netmap__lines" fill="none" stroke-width="2">
+                <path d="M200 150 L70 60" /><path d="M200 150 L330 60" /><path d="M200 150 L70 240" /><path d="M200 150 L330 240" />
+              </g>
+              <g class="netmap__pulses" fill="none" stroke-width="3" stroke-linecap="round">
+                <path d="M70 60 L200 150" /><path d="M330 240 L200 150" /><path d="M200 150 L330 60" /><path d="M200 150 L70 240" />
+              </g>
+              <g class="netmap__nodes">
+                <circle cx="200" cy="150" r="34" class="netmap__hub" />
+                <circle cx="70" cy="60" r="20" /><circle cx="330" cy="60" r="20" /><circle cx="70" cy="240" r="20" /><circle cx="330" cy="240" r="20" />
+              </g>
+              <g class="netmap__labels" text-anchor="middle">
+                <text x="200" y="147">Red</text><text x="200" y="163">MapGestión</text>
+                <text x="70" y="98">Arrendadora A</text><text x="330" y="98">Arrendadora B</text>
+                <text x="70" y="278">Arrendadora C</text><text x="330" y="278">Tu empresa</text>
+              </g>
+              <g class="netmap__ini" text-anchor="middle" dominant-baseline="central">
+                <text x="70" y="60">A</text><text x="330" y="60">B</text><text x="70" y="240">C</text><text x="330" y="240">Tú</text>
+              </g>
+            </svg>
+            <figcaption id="netmapCap">Cada arrendadora conserva sus expedientes.</figcaption>
+          </figure>
           <div class="rx-dark__grid">
             <div>
               <h3>Consulta de ejemplo</h3>
@@ -884,7 +933,7 @@
           <p class="rx-chap__n">13</p>
           <h2 id="faq-general-t">Preguntas frecuentes, completas</h2>
         </header>
-        <p class="rx-ten"><span class="material-symbols-outlined" aria-hidden="true">bolt</span><b>En 10 segundos</b><span>Las respuestas completas a las preguntas de la página principal.</span></p>
+        <p class="rx-ten"><span class="material-symbols-outlined" aria-hidden="true">bolt</span><b>En 10 segundos</b><span>Las 14 preguntas más comunes, con la respuesta completa.</span></p>
         <div class="faq__list">
         <details class="faq__item">
           <summary><span class="faq__q">¿MapGestión se usa desde el celular?</span><span class="faq__icon" aria-hidden="true"></span></summary>
@@ -1024,10 +1073,9 @@
     <div class="container foot__inner">
       <img class="foot__logo" src="assets/brand/mapgestion_logo.svg" alt="MapGestión" width="111" height="26" loading="lazy" decoding="async" />
       <nav class="foot__links" aria-label="Pie de página">
-        <a href="index.html#operacion">Patio</a>
+        <a href="index.html#clips">Patio</a>
         <a href="index.html#ia">IA</a>
         <a href="index.html#verificacion">Verificación 110</a>
-        <a href="index.html#red">Red entre arrendadoras</a>
         <a href="resumen-extendido.html" aria-current="page">Resumen extendido</a>
         <a href="#faq-tecnico">Preguntas técnicas</a>
         <a href="terminos.html">Términos</a>
@@ -1055,7 +1103,7 @@
   </script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script defer src="app.js?v=20260930a"></script>
+  <script defer src="app.js?v=20261001a"></script>
 </body>
 
 </html>

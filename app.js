@@ -56,7 +56,7 @@ function heroScroll() {
 
 /* ---------- 2. Titulares: palabras que suben y aparecen ---------- */
 function headlines() {
-  gsap.utils.toArray('.section-title, .anywhere__title, .rail__title, .cta__inner h2').forEach((el) => {
+  gsap.utils.toArray('.section-title, .trust__title, .cta__inner h2').forEach((el) => {
     const words = splitWords(el);
     gsap.fromTo(words, { opacity: 0, yPercent: 55 }, {
       opacity: 1, yPercent: 0, duration: 1, ease: EASE, stagger: 0.04,
@@ -73,8 +73,7 @@ function headlines() {
 
 /* ---------- 3. Reveals por lotes (tarjetas y filas en cascada) ---------- */
 const REVEAL_SEL = [
-  '.specs li', '.scene', '.shot', '.phone', '.rules li', '.flow li', '.vfcard', '.guard li', '.pipe',
-  '.sec__col', '.how__steps li', '.s3', '.net__note', '.netmap', '.net__points li', '.code', '.rx-card', '.rx-step', '.rx-tile',
+  '.rules li', '.trust__grid li', '.vf__net', '.rx-card', '.rx-step', '.rx-tile', '.code', '.guard li', '.pipe',
 ].join(', ');
 function reveals(extra = []) {
   const items = [...new Set([...gsap.utils.toArray(REVEAL_SEL), ...extra])];
@@ -88,79 +87,7 @@ function reveals(extra = []) {
   });
 }
 
-/* ---------- 4. Imágenes: parallax interno (en %, fluido) ---------- */
-function imageParallax() {
-  gsap.utils.toArray('.scene__media img').forEach((img) => {
-    gsap.fromTo(img, { yPercent: -5, scale: 1.1 }, {
-      yPercent: 5, scale: 1.02, ease: 'none',
-      scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: 0.6 },
-    });
-  });
-}
-
-/* ---------- 5. Piezas de producto que se acercan con el scroll (mapa, mock 110, carrusel) ---------- */
-function productShots() {
-  gsap.utils.toArray('#mapSim, #vfApp, .rail--shots .rail__track').forEach((el) => {
-    gsap.fromTo(el, { scale: 0.92, yPercent: 5 }, {
-      scale: 1, yPercent: 0, ease: 'none',
-      scrollTrigger: { trigger: el, start: 'top bottom', end: 'top 40%', scrub: 0.6, invalidateOnRefresh: true },
-    });
-  });
-}
-
-/* ---------- 7. IA: usos rápidos. Escritorio alto = historia con scroll (panel fijo a la derecha) ---------- */
-function iaStory(sticky) {
-  const qu = document.getElementById('quRail');
-  if (!qu) return undefined;
-  const steps = gsap.utils.toArray('.qu__step', qu);
-  if (!sticky) {
-    reveals(steps);
-    return undefined;
-  }
-  const stage = qu.querySelector('.qu__stage');
-  qu.classList.add('is-story');
-  const bar = document.createElement('div');
-  bar.className = 'qu__bar';
-  bar.innerHTML = '<i></i><i></i><i></i><b>Asistente MapGestión</b><span></span>';
-  const where = bar.lastChild;
-  const cards = document.createElement('div');
-  cards.className = 'qu__cards';
-  steps.forEach((s) => {
-    const turn = document.createElement('div');
-    turn.className = 'qu__turn';
-    const q = document.createElement('p');
-    q.className = 'qu__bubble';
-    q.textContent = s.querySelector('.qu__prompt').textContent;
-    turn.append(q, s.querySelector('.aicard').cloneNode(true));
-    cards.appendChild(turn);
-  });
-  const input = document.createElement('div');
-  input.className = 'qu__input';
-  input.innerHTML = '<span>Pregunta o da una orden…</span><span class="material-symbols-outlined">send</span>';
-  stage.append(bar, cards, input);
-  let cur = -1;
-  const set = (i) => {
-    if (i === cur) return;
-    cur = i;
-    steps.forEach((s, j) => s.classList.toggle('is-active', j === i));
-    [...cards.children].forEach((c, j) => c.classList.toggle('is-active', j === i));
-    where.textContent = [...steps[i].querySelector('.qu__where').childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join('').trim();
-  };
-  set(0);
-  steps.forEach((s, i) => ScrollTrigger.create({
-    trigger: s, start: 'top 62%', end: 'bottom 62%',
-    onToggle: (self) => { if (self.isActive) set(i); },
-  }));
-  gsap.fromTo(stage, { opacity: 0, y: rise }, {
-    opacity: 1, y: 0, duration: 1, ease: EASE_SOFT,
-    scrollTrigger: { trigger: qu, start: 'top 80%', once: true },
-  });
-  return () => {
-    qu.classList.remove('is-story');
-    stage.innerHTML = '';
-    steps.forEach((s) => s.classList.remove('is-active'));
-  };
-}
+/* ---------- 4. IA: usos rápidos con pestañas (ver quTabs al final) ---------- */
 
 /* ---------- 8. Verificación 110: cada fuente se consulta en orden y aparece el resultado ---------- */
 function vfSequence() {
@@ -185,103 +112,114 @@ function vfSequence() {
   return () => { tl.kill(); items.forEach((_, i) => done(i)); };
 }
 
-/* ---------- 9. Historia: chat → Excel → tabla (escena fija con scroll) ---------- */
-const CHAOS_SCENES = [
-  { title: 'Hoy preguntas', sub: 'Chat y radio, con respuestas que se contradicen' },
-  { title: 'Revisas registros desactualizados', sub: 'El Excel eterno… lleno de dudas' },
-  { title: 'O usas un sistema viejo', sub: 'Un solo estado, sin plaza ni ubicación' },
-  { title: 'Con MapGestión, cada dato en su lugar', sub: 'Estado, ubicación, cajón y gasolina, por separado' },
-  { title: 'Con MapGestión solo miras', sub: 'D5256: gasolina, km, estado y ubicación — al instante' },
-];
-function setChaosScene(i) {
-  const cap = document.getElementById('chaosCap');
-  const sub = document.getElementById('chaosSub');
-  if (cap) cap.textContent = CHAOS_SCENES[i].title;
-  if (sub) sub.textContent = CHAOS_SCENES[i].sub;
-}
+/* ---------- 9. Historia: chat y radio → Excel → sistema viejo → MapGestión (escena fija de 5 pasos) ---------- */
+const CHAOS_IDS = ['chaosChat', 'chaosXls', 'chaosOld', 'chaosNew', 'chaosTable'];
+const CHAOS_VH = 4.2; // alto de scroll de la escena, en pantallas
 
 function chaosPinned() {
   const root = document.getElementById('transformacion');
   const pin = root && root.querySelector('.chaos__pin');
-  const head = root && root.querySelector('.chaos__head');
-  const chat = document.getElementById('chaosChat');
-  const xls = document.getElementById('chaosXls');
-  const table = document.getElementById('chaosTable');
-  const old = document.getElementById('chaosOld');
-  const neu = document.getElementById('chaosNew');
-  if (!pin || !chat || !xls || !table || !old || !neu) return undefined;
+  const capEl = document.getElementById('chaosCap');
+  const layers = CHAOS_IDS.map((id) => document.getElementById(id));
+  if (!pin || !capEl || layers.some((l) => !l)) return undefined;
+  const caps = layers.map((l) => (l.querySelector('.chaos__label h3') || {}).textContent.trim());
+  const dots = [...root.querySelectorAll('.chaos__dots button')];
+  const N = layers.length;
+  const S = 1 / N;
 
   root.classList.add('is-pinned');
-  setChaosScene(0);
+  capEl.textContent = caps[0];
   let cur = 0;
+  const mark = (i) => dots.forEach((d, j) => { d.classList.toggle('is-on', j <= i); d.setAttribute('aria-current', String(j === i)); });
+  mark(0);
   const swap = (i) => {
     if (i === cur) return;
     cur = i;
-    gsap.to(head, {
-      opacity: 0, yPercent: -12, duration: 0.18, ease: 'power2.in', overwrite: true,
+    mark(i);
+    gsap.to(capEl, {
+      opacity: 0, yPercent: -12, duration: 0.16, ease: 'power2.in', overwrite: true,
       onComplete: () => {
-        setChaosScene(i);
-        gsap.fromTo(head, { opacity: 0, yPercent: 12 }, { opacity: 1, yPercent: 0, duration: 0.55, ease: EASE });
+        capEl.textContent = caps[i];
+        gsap.fromTo(capEl, { opacity: 0, yPercent: 14 }, { opacity: 1, yPercent: 0, duration: 0.5, ease: EASE });
       },
     });
   };
 
-  // Burbujas del chat: aparecen como conversación al llegar a la escena
-  gsap.fromTo(chat.querySelectorAll('.wa__bubble, .wa__typing, .radio__msg'), { opacity: 0, y: rise }, {
-    opacity: 1, y: 0, duration: 0.6, ease: EASE_SOFT, stagger: 0.18,
+  // Burbujas del chat y de la radio: aparecen como conversación
+  gsap.fromTo(layers[0].querySelectorAll('.wa__bubble, .wa__typing, .radio__msg'), { opacity: 0, y: rise }, {
+    opacity: 1, y: 0, duration: 0.6, ease: EASE_SOFT, stagger: 0.2,
     scrollTrigger: { trigger: root, start: 'top 65%', once: true },
   });
 
-  gsap.set([xls, old, neu, table], { opacity: 0, yPercent: 8, scale: 0.96 });
-  gsap.timeline({
+  gsap.set(layers.slice(1), { opacity: 0, yPercent: 8, scale: 0.96 });
+  const tl = gsap.timeline({
     defaults: { ease: 'none' },
     scrollTrigger: {
       trigger: root,
       start: 'top top',
-      end: () => '+=' + Math.round(window.innerHeight * 3.6),
+      end: () => '+=' + Math.round(window.innerHeight * CHAOS_VH),
       scrub: 0.6,
       pin: pin,
       anticipatePin: 1,
       refreshPriority: 1,
       invalidateOnRefresh: true,
-      onUpdate: (self) => {
-        const p = self.progress;
-        swap(p < 0.23 ? 0 : p < 0.43 ? 1 : p < 0.63 ? 2 : p < 0.83 ? 3 : 4);
-      },
+      onUpdate: (self) => swap(Math.min(N - 1, Math.floor((self.progress + 0.03) / S))),
     },
-  })
-    .to(chat, { opacity: 0, yPercent: -6, scale: 0.94, duration: 0.12 }, 0.14)
-    .to(xls, { opacity: 1, yPercent: 0, scale: 1, duration: 0.12 }, 0.2)
-    .fromTo(xls.querySelectorAll('.xls__grid tbody tr'), { opacity: 0.25 }, { opacity: 1, stagger: 0.015, duration: 0.05 }, 0.24)
-    .to(xls, { opacity: 0, yPercent: -6, scale: 0.94, duration: 0.12 }, 0.34)
-    .to(old, { opacity: 1, yPercent: 0, scale: 1, duration: 0.12 }, 0.4)
-    .to(old, { opacity: 0, yPercent: -6, scale: 0.94, duration: 0.12 }, 0.54)
-    .to(neu, { opacity: 1, yPercent: 0, scale: 1, duration: 0.12 }, 0.6)
-    .to(neu, { opacity: 0, yPercent: -6, scale: 0.94, duration: 0.12 }, 0.74)
-    .to(table, { opacity: 1, yPercent: 0, scale: 1, duration: 0.12 }, 0.8)
-    .to({}, { duration: 0.08 }, 0.92);
+  });
+  for (let i = 0; i < N - 1; i++) {
+    tl.to(layers[i], { opacity: 0, yPercent: -6, scale: 0.94, duration: 0.05 }, (i + 1) * S - 0.05)
+      .to(layers[i + 1], { opacity: 1, yPercent: 0, scale: 1, duration: 0.05 }, (i + 1) * S - 0.03);
+  }
+  // Detalles que entran dentro de cada paso
+  tl.fromTo(layers[1].querySelectorAll('.xls__grid tbody tr'), { opacity: 0.2 }, { opacity: 1, stagger: 0.012, duration: 0.04 }, S + 0.03)
+    .fromTo(layers[2].querySelectorAll('.lgc__pin, .cmp__notes li'), { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, stagger: 0.012, duration: 0.03 }, 2 * S + 0.04)
+    .fromTo(layers[3].querySelectorAll('.cmp__facts li'), { opacity: 0, y: 14 }, { opacity: 1, y: 0, stagger: 0.015, duration: 0.04 }, 3 * S + 0.04)
+    .to({}, { duration: 0.04 }, 1 - 0.04);
 
-  return () => { root.classList.remove('is-pinned'); setChaosScene(0); gsap.set(head, { clearProps: 'all' }); };
+  const goTo = (i) => {
+    const st = tl.scrollTrigger;
+    const y = st.start + (st.end - st.start) * (i * S + S * 0.5 - (i === 0 ? 0 : 0.02));
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  };
+  const onDot = dots.map((d, i) => { const f = () => goTo(i); d.addEventListener('click', f); return f; });
+
+  return () => {
+    root.classList.remove('is-pinned');
+    capEl.textContent = caps[0];
+    gsap.set(capEl, { clearProps: 'all' });
+    dots.forEach((d, i) => d.removeEventListener('click', onDot[i]));
+  };
 }
 
-/* ---------- 8b. 110 en 4 pasos: los pasos se encienden con el scroll (sin JS o con reduced-motion: todos visibles) ---------- */
+/* ---------- 8b. Verificación 110 en 4 pasos: se enciende solo al llegar (y con "Repetir"); sin JS o con reduced-motion: 4 pasos visibles ---------- */
 function stepper() {
   const root = document.getElementById('st4');
   if (!root) return undefined;
   const steps = [...root.querySelectorAll('.st4__step')];
+  const btn = document.getElementById('st4Replay');
   root.classList.add('st4--anim');
-  const set = (p) => {
-    root.style.setProperty('--p', p.toFixed(3));
-    const n = Math.min(steps.length, Math.floor(p * steps.length * 0.999) + 1);
-    steps.forEach((s, i) => s.classList.toggle('is-on', i < n));
+  if (btn) btn.hidden = false;
+  const show = (n) => steps.forEach((s, i) => s.classList.toggle('is-on', i < n));
+  let tl = null;
+  const run = () => {
+    if (tl) tl.kill();
+    show(0);
+    gsap.set(root, { '--p': 0 });
+    tl = gsap.timeline();
+    steps.forEach((_, i) => {
+      tl.call(() => show(i + 1), null, 0.15 + i * 1.15);
+      if (i > 0) tl.to(root, { '--p': i / (steps.length - 1), duration: 0.9, ease: 'power2.inOut' }, 0.15 + i * 1.15 - 0.9);
+    });
   };
-  set(0);
-  const st = ScrollTrigger.create({
-    trigger: root, start: 'top 72%', end: 'bottom 55%',
-    onUpdate: (self) => set(self.progress),
-    onRefresh: (self) => set(self.progress),
-  });
-  return () => { st.kill(); root.classList.remove('st4--anim'); root.style.removeProperty('--p'); steps.forEach((s) => s.classList.remove('is-on')); };
+  show(0);
+  root.style.setProperty('--p', '0');
+  const st = ScrollTrigger.create({ trigger: root, start: 'top 75%', once: true, onEnter: run });
+  if (btn) btn.addEventListener('click', run);
+  return () => {
+    st.kill(); if (tl) tl.kill();
+    if (btn) { btn.hidden = true; btn.removeEventListener('click', run); }
+    root.classList.remove('st4--anim'); root.style.removeProperty('--p'); steps.forEach((s) => s.classList.remove('is-on'));
+  };
 }
 
 /* ---------- 10. Formulario ---------- */
@@ -307,10 +245,8 @@ if (HAS_GSAP) {
     motion: '(prefers-reduced-motion: no-preference)',
     // La escena fija solo si cabe en alto (cabecera + capa más alta ≈ 560px)
     pinnable: '(prefers-reduced-motion: no-preference) and (min-height: 600px)',
-    // Historia de la IA (panel fijo) solo en escritorio con alto suficiente
-    stickyChat: '(prefers-reduced-motion: no-preference) and (min-width: 1000px) and (min-height: 700px)',
   }, (ctx) => {
-    const { motion, pinnable, stickyChat } = ctx.conditions;
+    const { motion, pinnable } = ctx.conditions;
     if (!motion) return undefined;
     // Orden = orden en la página: el pin va ANTES que los triggers de abajo para que estos
     // cuenten el espacio que agrega. Se crea en tareas cortas (una por bloque) para no bloquear
@@ -320,9 +256,6 @@ if (HAS_GSAP) {
       heroScroll,
       () => (pinnable ? chaosPinned() : undefined),
       headlines,
-      productShots,
-      imageParallax,
-      () => iaStory(stickyChat),
       vfSequence,
       stepper,
       formReveal,
@@ -406,19 +339,119 @@ if (HAS_GSAP) {
   document.addEventListener('visibilitychange', () => { if (document.hidden) figs.forEach((f) => { if (f.classList.contains('is-playing')) pause(f); }); });
 })();
 
-/* Zoom a la zona destacada: mouse encima (CSS) o toque / Enter (aquí) */
-(function zoomShots() {
-  document.querySelectorAll('.shot[data-zoom]').forEach((fig) => {
-    const frame = fig.querySelector('.shot__frame');
-    if (!frame) return;
-    frame.tabIndex = 0;
-    frame.setAttribute('role', 'button');
-    frame.setAttribute('aria-pressed', 'false');
-    frame.setAttribute('aria-label', 'Acercar a la zona destacada: ' + (fig.querySelector('strong') ? fig.querySelector('strong').textContent : 'captura'));
-    const toggle = () => { const on = fig.classList.toggle('is-zoom'); frame.setAttribute('aria-pressed', String(on)); };
-    frame.addEventListener('click', toggle);
-    frame.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+/* Escaparate "Míralo en movimiento": 5 animaciones, una sola a la vez. Se reproduce al verse, avanza sola a la siguiente,
+   con pausa / repetir, pestañas y deslizar en el celular. Reduced-motion o ahorro de datos: cuadros fijos (sin autoplay). */
+(function showcase() {
+  const root = document.getElementById('show');
+  if (!root) return;
+  const stage = root.querySelector('.show__stage');
+  const posters = [...stage.querySelectorAll('.show__poster')];
+  const vids = [...stage.querySelectorAll('.show__v')];
+  const tabs = [...root.querySelectorAll('.show__tab')];
+  const capEl = root.querySelector('.show__cap');
+  const playBtn = root.querySelector('.show__play');
+  const repBtn = root.querySelector('.show__replay');
+  const n = vids.length;
+  if (!n || tabs.length !== n || posters.length !== n) return;
+  root.classList.add('show--ready');
+  const caps = tabs.map((t) => t.querySelector('small').textContent);
+  const saver = !!(navigator.connection && navigator.connection.saveData);
+  let idx = 0;
+  let inView = false;
+  let paused = REDUCED || saver; // el usuario (o el sistema) eligió no reproducir
+
+  const ui = () => {
+    const playing = !paused;
+    const ic = playBtn.querySelector('.material-symbols-outlined');
+    ic.textContent = playing ? 'pause' : 'play_arrow';
+    playBtn.setAttribute('aria-label', playing ? 'Pausar animación' : 'Reproducir animación');
+  };
+  const start = () => {
+    const v = vids[idx];
+    if (REDUCED || paused || !inView || document.hidden) return;
+    if (v.ended) v.currentTime = 0;
+    const p = v.play();
+    v.classList.add('has-played');
+    if (p && p.catch) p.catch(() => { paused = true; ui(); });
+  };
+  const select = (i, fromStart) => {
+    idx = (i + n) % n;
+    vids.forEach((v, j) => { if (j !== idx) { v.pause(); v.currentTime = 0; tabs[j].style.setProperty('--f', '0'); } });
+    posters.forEach((p, j) => p.classList.toggle('is-active', j === idx));
+    vids.forEach((v, j) => v.classList.toggle('is-active', j === idx));
+    tabs.forEach((t, j) => t.setAttribute('aria-current', String(j === idx)));
+    capEl.textContent = caps[idx];
+    const t = tabs[idx];
+    if (t.parentElement.scrollWidth > t.parentElement.clientWidth) {
+      t.parentElement.scrollTo({ left: Math.max(0, t.offsetLeft - 16), behavior: REDUCED ? 'auto' : 'smooth' });
+    }
+    if (fromStart) vids[idx].currentTime = 0;
+    start();
+  };
+  vids.forEach((v, i) => {
+    v.addEventListener('timeupdate', () => { if (v.duration) tabs[i].style.setProperty('--f', (v.currentTime / v.duration).toFixed(3)); });
+    v.addEventListener('ended', () => { tabs[i].style.setProperty('--f', '1'); if (!paused && !REDUCED) select(i + 1, true); });
   });
+  tabs.forEach((t, i) => t.addEventListener('click', () => {
+    if (!REDUCED) { paused = false; ui(); }
+    select(i, true);
+  }));
+  playBtn.addEventListener('click', () => {
+    paused = !paused; ui();
+    if (paused) vids[idx].pause(); else start();
+  });
+  repBtn.addEventListener('click', () => { paused = false; ui(); vids[idx].currentTime = 0; start(); });
+  // Deslizar en el celular
+  let x0 = null;
+  stage.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+  stage.addEventListener('touchend', (e) => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 45) { if (!REDUCED && !saver) { paused = false; ui(); } select(idx + (dx < 0 ? 1 : -1), true); }
+  }, { passive: true });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        inView = e.isIntersecting && e.intersectionRatio >= 0.4;
+        if (inView) start(); else vids[idx].pause();
+      });
+    }, { threshold: [0, 0.4, 0.7] }).observe(stage);
+  }
+  document.addEventListener('visibilitychange', () => { if (document.hidden) vids[idx].pause(); else start(); });
+  ui();
+  select(0, false);
+})();
+
+/* IA: usos rápidos. Pestañas + avance automático (la barra de cada pestaña es el temporizador, en CSS). Sin JS: las 5 tarjetas apiladas. */
+(function quTabs() {
+  const root = document.getElementById('quRail');
+  if (!root) return;
+  const steps = [...root.querySelectorAll('.qu__step')];
+  const tabs = [...root.querySelectorAll('.qu__tab')];
+  const ctl = root.querySelector('.qu__ctl');
+  const n = steps.length;
+  if (!n || tabs.length !== n) return;
+  root.classList.add('qu--ready');
+  let idx = 0;
+  let auto = !REDUCED;
+  let inView = false;
+  const apply = () => {
+    steps.forEach((s, j) => s.classList.toggle('is-active', j === idx));
+    tabs.forEach((t, j) => t.setAttribute('aria-current', String(j === idx)));
+    root.classList.toggle('qu--auto', auto && inView);
+    if (ctl) {
+      ctl.querySelector('.material-symbols-outlined').textContent = auto ? 'pause' : 'play_arrow';
+      ctl.querySelector('span:last-child').textContent = auto ? 'Pausar' : 'Seguir';
+      ctl.setAttribute('aria-label', auto ? 'Pausar demostración' : 'Seguir demostración');
+    }
+  };
+  tabs.forEach((t, i) => t.addEventListener('click', () => { idx = i; apply(); }));
+  if (ctl) ctl.addEventListener('click', () => { auto = !auto; apply(); });
+  root.addEventListener('animationend', (e) => { if (e.animationName === 'quFill') { idx = (idx + 1) % n; apply(); } });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => { inView = e.isIntersecting; apply(); }, { threshold: 0.35 }).observe(root);
+  }
+  apply();
 })();
 
 /* Carruseles (rail): scroll-snap nativo + chips/flechas sincronizados. Independiente de GSAP. */
