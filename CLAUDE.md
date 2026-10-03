@@ -93,6 +93,12 @@ Meta + OG (`assets/brand/og-mapgestion.png` 1200×630; `resumen-extendido.html` 
 - `assets/screenshots/` — anonymized v4 UI captures used by the resumen (+ `ficha-340.{avif,webp,jpg}`, the unit card used once in the home scene). See "Screenshots" above.
 - `assets/css/terminos.css` — precompiled Tailwind for `terminos.html`.
 
+## BIMI (logo en el correo)
+
+- El logo BIMI es `brand/bimi/mapgestion.svg` (URL pública `https://mapgestion.com/brand/bimi/mapgestion.svg`, servido por GitHub Pages + Cloudflare como `image/svg+xml`). Es el único SVG de marca para BIMI; no lo cambies por el icono de la app.
+- Reglas del archivo (SVG Tiny-PS): cuadrado (`viewBox` 384×384, `width/height` 512), `version="1.2"`, `baseProfile="tiny-ps"`, `<title>`, fondo sólido `#07111f`, sin scripts, imágenes, referencias externas, animaciones, gradientes ni `<style>`; menos de 32 KB. El logo va escalado (0.72) para que las esquinas no se recorten en los avatares circulares de Gmail/Apple.
+- DNS (Cloudflare, no vive en este repo): `default._bimi` TXT `v=BIMI1; l=https://mapgestion.com/brand/bimi/mapgestion.svg;`. Gmail y Apple Mail solo muestran el logo con un certificado VMC/CMC (`a=` con la URL del `.pem`), que aún no existe. DMARC debe seguir en `p=quarantine` o `p=reject` con `pct=100`. `/.well-known/bimi` no es parte del estándar (404 esperado).
+
 ## Respaldo de funciones (no inventar)
 
 Toda función o afirmación de la landing debe existir en el repo de la app (`NicolasNeg/MapGestion`, rama `main`) **y** funcionar en producción (la app corre sobre Supabase + API Nest desde el corte del 2026-09-18; varias colecciones legacy siguen en stub). Revisado el 2026-09-26:
