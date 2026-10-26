@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MapGestión — Del patio al mostrador: tu patio en la nube para arrendadoras</title>
-  <meta name="description" content="Plataforma para arrendadoras: mapa del patio en vivo, cuadre y flota desde el celular. En desarrollo: clientes frecuentes y verificación 110 en una red segura entre arrendadoras." />
+  <meta name="description" content="Plataforma para arrendadoras: mapa del patio en vivo, cuadre y flota, papeletas sin papel y contratos desde el celular. En desarrollo: verificación 110 en una red segura entre arrendadoras." />
   <link rel="canonical" href="https://mapgestion.com/" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0b1020" />
@@ -132,6 +132,22 @@
     "@type": "Answer",
     "text": "Está en desarrollo. La red se activará tras la revisión jurídica y los contratos. Pídela en tu demo."
    }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Puedo hacer contratos y cobrar?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sí. Cotizas, conviertes la reserva en contrato con folio por plaza, registras cobros y garantía, y al regreso sale el comprobante de cierre."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Sirve sin papel?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sí. La papeleta de salida y regreso se llena en el celular, con fotos, daños y firma del cliente, y el PDF le llega por correo."
+   }
   }
  ]
 }
@@ -149,9 +165,9 @@
     imagesrcset="assets/scenes/hero-index-desktop-800.webp 800w, assets/scenes/hero-index-desktop-1086.webp 1086w" imagesizes="100vw" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <!-- Iconos: solo los glifos usados (icon_names en orden alfabético); display=block evita ver el nombre del ícono como texto -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=admin_panel_settings,arrow_downward,arrow_forward,arrow_upward,badge,chat,close,code,dashboard,description,document_scanner,done_all,fact_check,fingerprint,gavel,graphic_eq,history,hub,info,label,local_gas_station,local_parking,location_on,lock,mail,map,menu,open_with,pause,play_arrow,replay,rocket_launch,search,shield,smart_toy,smartphone,tune,unfold_more,verified_user,volume_up&display=block" rel="stylesheet" media="print" onload="this.media='all'" />
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=admin_panel_settings,arrow_downward,arrow_forward,arrow_upward,badge,chat,close,code,dashboard,description,document_scanner,done_all,fact_check,fingerprint,gavel,graphic_eq,history,hub,info,label,local_gas_station,local_parking,location_on,lock,mail,map,menu,open_with,pause,play_arrow,replay,rocket_launch,search,shield,smart_toy,smartphone,tune,unfold_more,verified_user,volume_up&display=block" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=20261001a" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=admin_panel_settings,arrow_downward,arrow_forward,arrow_upward,badge,bolt,chat,close,code,contract_edit,dashboard,description,document_scanner,done_all,draw,enhanced_encryption,fact_check,fingerprint,gavel,graphic_eq,history,hub,info,label,local_gas_station,local_parking,location_on,lock,mail,map,menu,open_with,pause,person,photo_camera,play_arrow,receipt_long,replay,request_quote,rocket_launch,search,shield,smart_toy,smartphone,storefront,tune,unfold_more,verified_user,volume_up&display=block" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=admin_panel_settings,arrow_downward,arrow_forward,arrow_upward,badge,bolt,chat,close,code,contract_edit,dashboard,description,document_scanner,done_all,draw,enhanced_encryption,fact_check,fingerprint,gavel,graphic_eq,history,hub,info,label,local_gas_station,local_parking,location_on,lock,mail,map,menu,open_with,pause,person,photo_camera,play_arrow,receipt_long,replay,request_quote,rocket_launch,search,shield,smart_toy,smartphone,storefront,tune,unfold_more,verified_user,volume_up&display=block" rel="stylesheet" /></noscript>
+  <link rel="stylesheet" href="styles.css?v=20261026a" />
   <script>document.documentElement.classList.add('js');</script>
 </head>
 
@@ -168,6 +184,7 @@
       </a>
       <div class="nav__links">
         <a href="#clips">Patio</a>
+        <a href="#mostrador">Mostrador</a>
         <a href="#ia">IA</a>
         <a href="#verificacion">Verificación 110</a>
         <a href="resumen-extendido.html">Resumen extendido</a>
@@ -187,6 +204,7 @@
     </div>
     <a href="#producto">Cómo funciona</a>
     <a href="#clips">Patio en movimiento</a>
+    <a href="#mostrador">Del mostrador a la entrega</a>
     <a href="#ia">Asistente con IA</a>
     <a href="#verificacion">Verificación 110</a>
     <a href="resumen-extendido.html">Resumen extendido</a>
@@ -214,7 +232,7 @@
     <div class="hero__content">
       <p class="hero__brand gsap-fade">MapGestión · Para arrendadoras</p>
       <h1 class="hero__title"><span class="hero__line">Del patio al mostrador.</span> <span class="hero__line grad">Todo desde el celular.</span></h1>
-      <p class="hero__desc gsap-fade">Mapa del patio en vivo, cuadre y flota. Sin WhatsApp ni radio. <span class="hero__next">En desarrollo: clientes y verificación 110.</span></p>
+      <p class="hero__desc gsap-fade">Mapa del patio en vivo, cuadre y flota, papeletas sin papel y contratos. Sin WhatsApp ni radio. <span class="hero__next">En desarrollo: verificación 110.</span></p>
       <div class="hero__actions gsap-fade">
         <a class="btn btn--primary" href="#contacto">Solicitar demo</a>
         <a class="btn btn--ghost" href="#producto">Ver cómo funciona</a>
@@ -485,6 +503,31 @@
     </div>
   </section>
 
+  <!-- §3b Del mostrador a la entrega — EN PRODUCCIÓN (Ventas: cotizar, contratos, cobros; Papeletas). Sin capturas todavía: solo íconos. -->
+  <section class="desk" id="mostrador" aria-labelledby="deskTitle">
+    <div class="container">
+      <header class="shead">
+        <p class="eyebrow"><span class="material-symbols-outlined" aria-hidden="true">storefront</span>Ventas y papeletas</p>
+        <h2 class="section-title" id="deskTitle">Del mostrador a la entrega. <span class="grad">Sin papel.</span></h2>
+      </header>
+      <ol class="desk__flow" aria-label="Cotiza, contrato y papeleta">
+        <li class="desk__step"><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">request_quote</span></span><b>Cotiza</b><small>Categoría, días y precio con IVA</small></li>
+        <li class="desk__arrow" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></li>
+        <li class="desk__step"><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">contract_edit</span></span><b>Contrato</b><small>Folio, conductores y firma</small></li>
+        <li class="desk__arrow" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></li>
+        <li class="desk__step"><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></span><b>Papeleta</b><small>Fotos, daños y PDF al cliente</small></li>
+      </ol>
+      <ul class="desk__grid">
+        <li><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></span><span><b>Papeletas sin papel</b><small>Salida y regreso desde el celular, con fotos guiadas, daños marcados en la pieza exacta y firma del cliente. El PDF le llega por correo.</small></span></li>
+        <li><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">request_quote</span></span><span><b>Cotiza y renta en minutos</b><small>Elige la categoría con inventario real, el precio sale con IVA y la reserva se convierte en contrato con un toque.</small></span></li>
+        <li><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">receipt_long</span></span><span><b>Contratos y cobros en orden</b><small>Folio por plaza, conductores, garantía y pagos registrados. Al regresar la unidad, el saldo y el comprobante de cierre salen solos.</small></span></li>
+        <li><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">map</span></span><span><b>Un mapa que se lee de un vistazo</b><small>Cajones, MVA, placas y gasolina claros en celular, tablet y PC, y se mueve fluido aunque tengas cientos de unidades.</small></span></li>
+        <li><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">person</span></span><span><b>La ficha completa del cliente</b><small>Datos fiscales, expediente, tarifas y reservaciones en un solo lugar, con su información sensible protegida.</small></span></li>
+        <li><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">bolt</span></span><span><b>Más rápido para tu equipo</b><small>Abre donde lo dejaste, atajos de teclado en PC, cuadre en tarjetas en el celular y avisos solo cuando importan.</small></span></li>
+      </ul>
+    </div>
+  </section>
+
   <!-- §4 IA — PRÓXIMAMENTE (asistente del mapa); los usos en el mostrador están EN DESARROLLO -->
   <section class="ia" id="ia" aria-labelledby="iaTitle">
     <div class="container">
@@ -632,6 +675,8 @@
         <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">admin_panel_settings</span></span><span><b>Roles por área</b></span></li>
         <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">fingerprint</span></span><span><b>Google, SMS o Face ID</b></span></li>
         <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">lock</span></span><span><b>Sesiones a la vista</b></span></li>
+        <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">enhanced_encryption</span></span><span><b>Datos sensibles cifrados</b><small>CURP, clave de elector y contactos protegidos</small></span></li>
+        <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">draw</span></span><span><b>Firmas con PDF</b><small>Contrato y papeleta firmados, con copia al cliente</small></span></li>
         <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">rocket_launch</span></span><span><b>Llave en mano</b><small>Diagnóstico, mapeo, operación y soporte</small></span></li>
         <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">shield</span></span><span><b>Privacidad en 110</b><small>Derechos ARCO <span class="soon soon--dev">En desarrollo</span></small></span></li>
       </ul>
@@ -662,6 +707,18 @@
           <summary><span class="faq__q">¿Es un GPS?</span><span class="faq__icon" aria-hidden="true"></span></summary>
           <div class="faq__a"><div class="faq__aIn">
               <p>No. Es un mapa virtual de tu patio, no coordenadas en ruta.</p>
+          </div></div>
+        </details>
+        <details class="faq__item">
+          <summary><span class="faq__q">¿Puedo hacer contratos y cobrar?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><div class="faq__aIn">
+              <p>Sí. Cotizas, conviertes la reserva en contrato con folio por plaza, registras cobros y garantía, y al regreso sale el comprobante de cierre.</p>
+          </div></div>
+        </details>
+        <details class="faq__item">
+          <summary><span class="faq__q">¿Sirve sin papel?</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><div class="faq__aIn">
+              <p>Sí. La papeleta de salida y regreso se llena en el celular, con fotos, daños y firma del cliente, y el PDF le llega por correo.</p>
           </div></div>
         </details>
         <details class="faq__item">
@@ -704,6 +761,7 @@
         <label class="cform__field"><span>Me interesa</span>
           <select name="interes">
             <option>Operación del patio (mapa, cuadre, flota)</option>
+            <option>Ventas y contratos (cotizar, contratos, papeletas)</option>
             <option>Clientes y verificación 110</option>
             <option>Conectar mi arrendadora a la red (API)</option>
             <option>Todo</option>
@@ -729,6 +787,7 @@
       <img class="foot__logo" src="assets/brand/mapgestion_logo.svg" alt="MapGestión" width="111" height="26" loading="lazy" decoding="async" />
       <nav class="foot__links" aria-label="Pie de página">
         <a href="#clips">Patio</a>
+        <a href="#mostrador">Mostrador</a>
         <a href="#ia">IA</a>
         <a href="#verificacion">Verificación 110</a>
         <a href="resumen-extendido.html">Resumen extendido</a>
