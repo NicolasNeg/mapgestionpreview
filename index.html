@@ -165,9 +165,9 @@
     imagesrcset="assets/scenes/hero-index-desktop-800.webp 800w, assets/scenes/hero-index-desktop-1086.webp 1086w" imagesizes="100vw" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <!-- Iconos: solo los glifos usados (icon_names en orden alfabético); display=block evita ver el nombre del ícono como texto -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=admin_panel_settings,arrow_downward,arrow_forward,arrow_upward,badge,bolt,chat,close,code,contract_edit,dashboard,description,document_scanner,done_all,draw,enhanced_encryption,fact_check,fingerprint,gavel,graphic_eq,history,hub,info,label,local_gas_station,local_parking,location_on,lock,mail,map,menu,open_with,pause,person,photo_camera,play_arrow,receipt_long,replay,request_quote,rocket_launch,search,shield,smart_toy,smartphone,storefront,tune,unfold_more,verified_user,volume_up&display=block" rel="stylesheet" media="print" onload="this.media='all'" />
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=admin_panel_settings,arrow_downward,arrow_forward,arrow_upward,badge,bolt,chat,close,code,contract_edit,dashboard,description,document_scanner,done_all,draw,enhanced_encryption,fact_check,fingerprint,gavel,graphic_eq,history,hub,info,label,local_gas_station,local_parking,location_on,lock,mail,map,menu,open_with,pause,person,photo_camera,play_arrow,receipt_long,replay,request_quote,rocket_launch,search,shield,smart_toy,smartphone,storefront,tune,unfold_more,verified_user,volume_up&display=block" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=20261026a" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=admin_panel_settings,arrow_downward,arrow_forward,arrow_upward,badge,bolt,chat,check_circle,close,code,contract_edit,dashboard,description,directions_car,document_scanner,done_all,draw,enhanced_encryption,fact_check,fingerprint,gavel,graphic_eq,history,hub,info,label,local_gas_station,local_parking,location_on,lock,mail,map,menu,open_with,pause,payments,person,photo_camera,picture_as_pdf,play_arrow,receipt_long,replay,request_quote,rocket_launch,search,shield,smart_toy,smartphone,storefront,tune,unfold_more,verified_user,volume_up&display=block" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=admin_panel_settings,arrow_downward,arrow_forward,arrow_upward,badge,bolt,chat,check_circle,close,code,contract_edit,dashboard,description,directions_car,document_scanner,done_all,draw,enhanced_encryption,fact_check,fingerprint,gavel,graphic_eq,history,hub,info,label,local_gas_station,local_parking,location_on,lock,mail,map,menu,open_with,pause,payments,person,photo_camera,picture_as_pdf,play_arrow,receipt_long,replay,request_quote,rocket_launch,search,shield,smart_toy,smartphone,storefront,tune,unfold_more,verified_user,volume_up&display=block" rel="stylesheet" /></noscript>
+  <link rel="stylesheet" href="styles.css?v=20261026b" />
   <script>document.documentElement.classList.add('js');</script>
 </head>
 
@@ -428,14 +428,14 @@
     </div>
   </section>
 
-  <!-- §3 Míralo en movimiento: un solo escaparate con 5 animaciones (sobre capturas reales anonimizadas) -->
+  <!-- §3 Míralo en movimiento: un solo escaparate: 5 animaciones sobre capturas reales anonimizadas + 3 pantallas ilustrativas en HTML (Papeletas, Ventas, Celular) con datos ficticios -->
   <section class="show" id="clips" aria-labelledby="showTitle">
     <span class="anchor" id="operacion"></span>
     <div class="container">
       <header class="shead">
         <p class="eyebrow eyebrow--dark"><span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>Míralo en movimiento</p>
         <h2 class="section-title" id="showTitle">Tu patio, <span class="grad">en acción.</span></h2>
-        <p class="show__note"><span class="material-symbols-outlined" aria-hidden="true">smartphone</span>Animación sobre capturas reales de la app</p>
+        <p class="show__note"><span class="material-symbols-outlined" aria-hidden="true">smartphone</span>Capturas reales y pantallas ilustrativas con datos ficticios</p>
       </header>
     </div>
     <div class="show__wrap" id="show">
@@ -466,6 +466,120 @@
             <source src="assets/clips/roles.webm" type="video/webm" />
             <source src="assets/clips/roles.mp4" type="video/mp4" />
           </video>
+          <div class="show__poster show__mp" role="img" aria-label="Papeletas: fotos guiadas, daño en la pieza exacta, firma del cliente y PDF por correo (pantalla ilustrativa)"><div class="mk mk--pap">
+  <div class="mk__bar"><b>Papeleta de salida</b><span>MG-PAP-0001 · Pantalla ilustrativa</span></div>
+  <div class="mk__cols">
+    <div class="mk__col">
+      <p class="mk__h"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span>Fotos guiadas</p>
+      <div class="mk-shots">
+        <i class="mk-shot on" data-at="1"><span class="material-symbols-outlined" aria-hidden="true">directions_car</span><small>Frente</small></i>
+        <i class="mk-shot on" data-at="2"><span class="material-symbols-outlined" aria-hidden="true">directions_car</span><small>Lado izq.</small></i>
+        <i class="mk-shot on" data-at="3"><span class="material-symbols-outlined" aria-hidden="true">directions_car</span><small>Atrás</small></i>
+        <i class="mk-shot on" data-at="4"><span class="material-symbols-outlined" aria-hidden="true">directions_car</span><small>Lado der.</small></i>
+      </div>
+      <p class="mk__h"><span class="material-symbols-outlined" aria-hidden="true">draw</span>Firma del cliente</p>
+      <div class="mk-sigbox on" data-at="7"><svg class="mk-sig" viewBox="0 0 200 60" aria-hidden="true"><path d="M8 42 C 24 10, 34 12, 36 36 S 52 52, 62 26 S 80 8, 84 38 S 104 50, 114 28 C 122 14, 132 20, 128 36 S 150 48, 170 22 L 192 18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg><small>Cliente Ejemplo</small></div>
+    </div>
+    <div class="mk__col mk__col--car">
+      <p class="mk__h">Daños en la pieza exacta</p>
+      <div class="mk-cardiag"><svg class="mk-car" viewBox="0 0 120 220" aria-hidden="true"><rect x="18" y="8" width="84" height="204" rx="34" fill="none" stroke="currentColor" stroke-width="3"/><rect x="28" y="46" width="64" height="36" rx="10" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="28" y="140" width="64" height="30" rx="10" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="18" y1="110" x2="102" y2="110" stroke="currentColor" stroke-width="2" stroke-dasharray="4 5"/></svg>
+        <span class="mk-pin on" data-at="5" style="left:22%;top:58%"></span>
+        <span class="mk-tag on" data-at="6" style="left:30%;top:52%">Puerta trasera izq. · Rayón chico</span>
+      </div>
+    </div>
+  </div>
+  <div class="mk-toast on" data-at="8"><span class="material-symbols-outlined" aria-hidden="true">picture_as_pdf</span><span><b>PDF enviado</b> a cliente@ejemplo.com</span><span class="material-symbols-outlined" aria-hidden="true">check_circle</span></div>
+</div></div>
+          <div class="show__v show__m" data-dur="9000" aria-hidden="true"><div class="mk mk--pap">
+  <div class="mk__bar"><b>Papeleta de salida</b><span>MG-PAP-0001 · Pantalla ilustrativa</span></div>
+  <div class="mk__cols">
+    <div class="mk__col">
+      <p class="mk__h"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span>Fotos guiadas</p>
+      <div class="mk-shots">
+        <i class="mk-shot" data-at="1"><span class="material-symbols-outlined" aria-hidden="true">directions_car</span><small>Frente</small></i>
+        <i class="mk-shot" data-at="2"><span class="material-symbols-outlined" aria-hidden="true">directions_car</span><small>Lado izq.</small></i>
+        <i class="mk-shot" data-at="3"><span class="material-symbols-outlined" aria-hidden="true">directions_car</span><small>Atrás</small></i>
+        <i class="mk-shot" data-at="4"><span class="material-symbols-outlined" aria-hidden="true">directions_car</span><small>Lado der.</small></i>
+      </div>
+      <p class="mk__h"><span class="material-symbols-outlined" aria-hidden="true">draw</span>Firma del cliente</p>
+      <div class="mk-sigbox" data-at="7"><svg class="mk-sig" viewBox="0 0 200 60" aria-hidden="true"><path d="M8 42 C 24 10, 34 12, 36 36 S 52 52, 62 26 S 80 8, 84 38 S 104 50, 114 28 C 122 14, 132 20, 128 36 S 150 48, 170 22 L 192 18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg><small>Cliente Ejemplo</small></div>
+    </div>
+    <div class="mk__col mk__col--car">
+      <p class="mk__h">Daños en la pieza exacta</p>
+      <div class="mk-cardiag"><svg class="mk-car" viewBox="0 0 120 220" aria-hidden="true"><rect x="18" y="8" width="84" height="204" rx="34" fill="none" stroke="currentColor" stroke-width="3"/><rect x="28" y="46" width="64" height="36" rx="10" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="28" y="140" width="64" height="30" rx="10" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="18" y1="110" x2="102" y2="110" stroke="currentColor" stroke-width="2" stroke-dasharray="4 5"/></svg>
+        <span class="mk-pin" data-at="5" style="left:22%;top:58%"></span>
+        <span class="mk-tag" data-at="6" style="left:30%;top:52%">Puerta trasera izq. · Rayón chico</span>
+      </div>
+    </div>
+  </div>
+  <div class="mk-toast" data-at="8"><span class="material-symbols-outlined" aria-hidden="true">picture_as_pdf</span><span><b>PDF enviado</b> a cliente@ejemplo.com</span><span class="material-symbols-outlined" aria-hidden="true">check_circle</span></div>
+</div></div>
+          <div class="show__poster show__mp" role="img" aria-label="Ventas: cotización por categoría con IVA, contrato con folio y cobro (pantalla ilustrativa)"><div class="mk mk--ven">
+  <div class="mk__bar"><b>Ventas</b><span>Pantalla ilustrativa · datos ficticios</span></div>
+  <div class="mk-flow">
+    <div class="mk-pane">
+      <p class="mk__h"><span class="material-symbols-outlined" aria-hidden="true">request_quote</span>Cotizar</p>
+      <div class="mk-cats"><i>Compacto</i><i class="mk-cat on" data-at="1">SUV</i><i>Van</i></div>
+      <p class="mk-meta">3 días · Plaza Ejemplo</p>
+      <dl class="mk-sum"><div><dt>Tarifa</dt><dd class="mk-n on" data-at="2">$2,400.00</dd></div><div><dt>IVA 16 %</dt><dd class="mk-n on" data-at="2">$384.00</dd></div><div class="mk-tot"><dt>Total</dt><dd class="mk-n on" data-at="2">$2,784.00</dd></div></dl>
+      <span class="mk-btn on" data-at="3">Convertir en contrato</span>
+    </div>
+    <span class="mk-arrow on" data-at="4"><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+    <div class="mk-pane mk-pane--b on" data-at="4">
+      <p class="mk__h"><span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>Contrato</p>
+      <p class="mk-folio">Folio <b>EJ-0042</b></p>
+      <p class="mk-meta">Conductor: Cliente Ejemplo<br>Unidad: SUV · EJ-101</p>
+      <span class="mk-chip on" data-at="5">Abierto</span>
+    </div>
+    <span class="mk-arrow on" data-at="6"><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+    <div class="mk-pane mk-pane--b on" data-at="6">
+      <p class="mk__h"><span class="material-symbols-outlined" aria-hidden="true">payments</span>Cobro</p>
+      <p class="mk-big on" data-at="7">$2,784.00</p>
+      <p class="mk-meta">Tarjeta · registrado</p>
+      <p class="mk-ok on" data-at="8"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span>Garantía tomada</p>
+    </div>
+  </div>
+</div></div>
+          <div class="show__v show__m" data-dur="9000" aria-hidden="true"><div class="mk mk--ven">
+  <div class="mk__bar"><b>Ventas</b><span>Pantalla ilustrativa · datos ficticios</span></div>
+  <div class="mk-flow">
+    <div class="mk-pane">
+      <p class="mk__h"><span class="material-symbols-outlined" aria-hidden="true">request_quote</span>Cotizar</p>
+      <div class="mk-cats"><i>Compacto</i><i class="mk-cat" data-at="1">SUV</i><i>Van</i></div>
+      <p class="mk-meta">3 días · Plaza Ejemplo</p>
+      <dl class="mk-sum"><div><dt>Tarifa</dt><dd class="mk-n" data-at="2">$2,400.00</dd></div><div><dt>IVA 16 %</dt><dd class="mk-n" data-at="2">$384.00</dd></div><div class="mk-tot"><dt>Total</dt><dd class="mk-n" data-at="2">$2,784.00</dd></div></dl>
+      <span class="mk-btn" data-at="3">Convertir en contrato</span>
+    </div>
+    <span class="mk-arrow" data-at="4"><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+    <div class="mk-pane mk-pane--b" data-at="4">
+      <p class="mk__h"><span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>Contrato</p>
+      <p class="mk-folio">Folio <b>EJ-0042</b></p>
+      <p class="mk-meta">Conductor: Cliente Ejemplo<br>Unidad: SUV · EJ-101</p>
+      <span class="mk-chip" data-at="5">Abierto</span>
+    </div>
+    <span class="mk-arrow" data-at="6"><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+    <div class="mk-pane mk-pane--b" data-at="6">
+      <p class="mk__h"><span class="material-symbols-outlined" aria-hidden="true">payments</span>Cobro</p>
+      <p class="mk-big" data-at="7">$2,784.00</p>
+      <p class="mk-meta">Tarjeta · registrado</p>
+      <p class="mk-ok" data-at="8"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span>Garantía tomada</p>
+    </div>
+  </div>
+</div></div>
+          <div class="show__poster show__mp" role="img" aria-label="En el celular: mapa fluido y cuadre en tarjetas (pantalla ilustrativa)"><div class="mk mk--cel">
+  <div class="mk-phones">
+    <div class="mk-phone"><div class="mk-phone__top">Mapa · Plaza Ejemplo</div><div class="mk-mapvp"><div class="mk-map on" data-at="1"><i class="s-g"><b>E100</b></i><i class="s-g"><b>E101</b></i><i class="s-y"><b>E102</b></i><i class="s-g"><b>E103</b></i><i class="s-b"><b>E104</b></i><i class="s-g"><b>E105</b></i><i class="s-r"><b>E106</b></i><i class="s-g"><b>E107</b></i><i class="s-g"><b>E108</b></i><i class="s-y"><b>E109</b></i><i class="s-g"><b>E110</b></i><i class="s-g"><b>E111</b></i><i class="s-b"><b>E112</b></i><i class="s-g"><b>E113</b></i><i class="s-g"><b>E114</b></i><i class="s-g"><b>E115</b></i><i class="s-y"><b>E116</b></i><i class="s-g"><b>E117</b></i><i class="s-g"><b>E118</b></i><i class="s-r"><b>E119</b></i><i class="s-g"><b>E120</b></i><i class="s-g"><b>E121</b></i><i class="s-g"><b>E122</b></i><i class="s-b"><b>E123</b></i></div></div></div>
+    <div class="mk-phone"><div class="mk-phone__top">Cuadre</div><ul class="mk-qcards"><li class="mk-qc on" data-at="1"><i class="s-g"></i><b>E101</b><span>SUV</span><em>Listo</em></li><li class="mk-qc on" data-at="2"><i class="s-y"></i><b>E102</b><span>Compacto</span><em>Lavado</em></li><li class="mk-qc on" data-at="3"><i class="s-r"></i><b>E103</b><span>Van</span><em>Taller</em></li><li class="mk-qc on" data-at="4"><i class="s-g"></i><b>E104</b><span>SUV</span><em>Listo</em></li><li class="mk-qc on" data-at="5"><i class="s-b"></i><b>E105</b><span>Compacto</span><em>En renta</em></li></ul></div>
+  </div>
+  <p class="mk-lab">Pantalla ilustrativa · datos ficticios</p>
+</div></div>
+          <div class="show__v show__m" data-dur="8000" aria-hidden="true"><div class="mk mk--cel">
+  <div class="mk-phones">
+    <div class="mk-phone"><div class="mk-phone__top">Mapa · Plaza Ejemplo</div><div class="mk-mapvp"><div class="mk-map" data-at="1"><i class="s-g"><b>E100</b></i><i class="s-g"><b>E101</b></i><i class="s-y"><b>E102</b></i><i class="s-g"><b>E103</b></i><i class="s-b"><b>E104</b></i><i class="s-g"><b>E105</b></i><i class="s-r"><b>E106</b></i><i class="s-g"><b>E107</b></i><i class="s-g"><b>E108</b></i><i class="s-y"><b>E109</b></i><i class="s-g"><b>E110</b></i><i class="s-g"><b>E111</b></i><i class="s-b"><b>E112</b></i><i class="s-g"><b>E113</b></i><i class="s-g"><b>E114</b></i><i class="s-g"><b>E115</b></i><i class="s-y"><b>E116</b></i><i class="s-g"><b>E117</b></i><i class="s-g"><b>E118</b></i><i class="s-r"><b>E119</b></i><i class="s-g"><b>E120</b></i><i class="s-g"><b>E121</b></i><i class="s-g"><b>E122</b></i><i class="s-b"><b>E123</b></i></div></div></div>
+    <div class="mk-phone"><div class="mk-phone__top">Cuadre</div><ul class="mk-qcards"><li class="mk-qc" data-at="1"><i class="s-g"></i><b>E101</b><span>SUV</span><em>Listo</em></li><li class="mk-qc" data-at="2"><i class="s-y"></i><b>E102</b><span>Compacto</span><em>Lavado</em></li><li class="mk-qc" data-at="3"><i class="s-r"></i><b>E103</b><span>Van</span><em>Taller</em></li><li class="mk-qc" data-at="4"><i class="s-g"></i><b>E104</b><span>SUV</span><em>Listo</em></li><li class="mk-qc" data-at="5"><i class="s-b"></i><b>E105</b><span>Compacto</span><em>En renta</em></li></ul></div>
+  </div>
+  <p class="mk-lab">Pantalla ilustrativa · datos ficticios</p>
+</div></div>
           <div class="show__ctl">
             <button type="button" class="show__btn show__play" aria-label="Pausar animación"><span class="material-symbols-outlined" aria-hidden="true">pause</span></button>
             <button type="button" class="show__btn show__replay" aria-label="Repetir animación"><span class="material-symbols-outlined" aria-hidden="true">replay</span></button>
@@ -497,6 +611,21 @@
             <button type="button" class="show__tab" data-go="4" aria-controls="showStage">
               <span class="show__ic"><span class="material-symbols-outlined" aria-hidden="true">admin_panel_settings</span></span>
               <span class="show__tx"><strong>Roles</strong><small>Cada quien, lo suyo.</small></span>
+              <i class="show__fill" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="show__tab" data-go="5" aria-controls="showStage">
+              <span class="show__ic"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></span>
+              <span class="show__tx"><strong>Papeletas</strong><small>Fotos, daños, firma y PDF.</small></span>
+              <i class="show__fill" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="show__tab" data-go="6" aria-controls="showStage">
+              <span class="show__ic"><span class="material-symbols-outlined" aria-hidden="true">request_quote</span></span>
+              <span class="show__tx"><strong>Ventas</strong><small>Cotiza, contrato y cobro.</small></span>
+              <i class="show__fill" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="show__tab" data-go="7" aria-controls="showStage">
+              <span class="show__ic"><span class="material-symbols-outlined" aria-hidden="true">smartphone</span></span>
+              <span class="show__tx"><strong>Celular</strong><small>Mapa fluido y cuadre en tarjetas.</small></span>
               <i class="show__fill" aria-hidden="true"></i>
             </button>
       </div>
@@ -826,7 +955,7 @@
 
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script defer src="app.js?v=20261026a"></script>
+  <script defer src="app.js?v=20261026b"></script>
 </body>
 
 </html>
