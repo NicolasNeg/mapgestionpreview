@@ -1787,26 +1787,44 @@ html.menu-open { overflow: hidden; }
 .rx-dark .netmap figcaption { color: #cbd5e1; }
 .show__stage { touch-action: pan-y; overscroll-behavior-x: contain; }
 
-/* ── §3b Del mostrador a la entrega (2026-10-26) ── */
-.desk { position: relative; z-index: 2; background: var(--surface, #fff); padding-block: clamp(3rem, 7vw, 5.5rem); }
-.desk__ic { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: var(--accent-pale); color: var(--accent-strong); }
-.desk__flow { list-style: none; margin: 0 auto clamp(1.75rem, 4vw, 2.75rem); padding: 0; max-width: 860px; display: flex; flex-direction: column; align-items: stretch; gap: .5rem; }
-.desk__step { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: .8rem; align-items: center; padding: .9rem 1rem; border-radius: 16px; background: var(--bg); border: 1px solid var(--border); }
-.desk__step .desk__ic { grid-row: 1 / 3; }
-.desk__step b { font-size: 1.0625rem; color: var(--text-strong); line-height: 1.2; }
-.desk__step small { font-size: .8125rem; color: var(--muted); line-height: 1.35; }
-.desk__arrow { display: grid; place-items: center; color: var(--accent-strong); transform: rotate(90deg); }
-.desk__grid { list-style: none; margin: 0 auto; padding: 0; display: grid; gap: .75rem; grid-template-columns: minmax(0, 1fr); max-width: 1040px; }
-.desk__grid li { display: flex; align-items: flex-start; gap: .8rem; padding: 1rem; border-radius: 16px; background: var(--surface, #fff); border: 1px solid var(--border); box-shadow: var(--shadow-sm); transition: transform .25s ease, box-shadow .25s ease; }
-.desk__grid li:hover { transform: translateY(-2px); box-shadow: var(--shadow-md, var(--shadow-sm)); }
-.desk__grid b { display: block; font-size: 1rem; line-height: 1.25; color: var(--text-strong); }
-.desk__grid small { display: block; margin-top: .3rem; font-size: .875rem; line-height: 1.45; color: var(--muted); }
-@media (min-width: 640px) {
-  .desk__flow { flex-direction: row; align-items: center; }
-  .desk__step { flex: 1 1 0; }
-  .desk__arrow { transform: none; }
-  .desk__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* ── §3b Del mostrador a la entrega (2026-10-26) — editorial, sin tarjetas ── */
+.desk { position: relative; z-index: 2; background: var(--surface); padding-block: clamp(4rem, 9vw, 8rem); overflow: hidden; }
+/* Línea de tiempo */
+.desk__line { list-style: none; margin: 0 auto clamp(4rem, 9vw, 7rem); padding: 0; max-width: 1080px; position: relative; display: grid; gap: 2.25rem; padding-left: 3.25rem; }
+.desk__track { position: absolute; left: 1rem; top: .6rem; bottom: .6rem; width: 2px; background: var(--border); border-radius: 2px; }
+.desk__fill { position: absolute; inset: 0; background: linear-gradient(180deg, var(--accent-strong), #7c3aed); transform-origin: top; transform: scaleY(var(--p, 1)); border-radius: inherit; }
+.desk__step { position: relative; }
+.desk__dot { position: absolute; left: calc(-2.25rem - 7px); top: .9rem; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 3px solid var(--accent-strong); box-shadow: 0 0 0 6px var(--accent-pale); }
+.desk__num { display: block; font-size: clamp(3.5rem, 2rem + 6vw, 6.5rem); font-weight: 800; letter-spacing: -.05em; line-height: .9; background: linear-gradient(135deg, var(--accent-strong), #7c3aed); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.desk__step b { display: block; margin-top: .5rem; font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem); font-weight: 700; letter-spacing: -.03em; color: var(--text-strong); }
+.desk__stxt { display: block; margin-top: .25rem; font-size: 1.0625rem; line-height: 1.45; color: var(--muted); }
+@media (min-width: 760px) {
+  .desk__line { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; padding-left: 0; padding-top: 2.75rem; }
+  .desk__track { left: 0; right: 0; top: 0; bottom: auto; width: auto; height: 2px; }
+  .desk__fill { transform-origin: left; transform: scaleX(var(--p, 1)); background: linear-gradient(90deg, var(--accent-strong), #7c3aed); }
+  .desk__dot { left: 0; top: calc(-2.75rem - 7px); }
 }
-@media (min-width: 1000px) { .desk__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* Filas editoriales alternadas */
+.desk__rows { list-style: none; margin: 0 auto; padding: 0; max-width: 1080px; }
+.desk__row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.75rem; align-items: center; padding-block: clamp(2.5rem, 6vw, 4.5rem); border-top: 1px solid var(--border); }
+.desk__row:last-child { border-bottom: 1px solid var(--border); }
+.desk__copy h3 { margin: 0; font-size: clamp(1.875rem, 1.1rem + 3vw, 3.25rem); font-weight: 700; letter-spacing: -.035em; line-height: 1.05; color: var(--text-strong); text-wrap: balance; }
+.desk__copy p { margin: 1rem 0 0; max-width: 34rem; font-size: clamp(1.0625rem, 1rem + .35vw, 1.25rem); line-height: 1.55; color: var(--muted); }
+.desk__art { position: relative; display: grid; place-items: center; aspect-ratio: 16 / 10; max-height: 170px; width: 100%; order: -1; }
+.desk__halo { position: absolute; width: min(70%, 260px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 35%, rgba(59,130,246,.35), rgba(124,58,237,.18) 55%, transparent 72%); filter: blur(6px); }
+.desk__art .material-symbols-outlined { position: relative; font-size: clamp(96px, 14vw, 168px); font-variation-settings: 'wght' 200, 'opsz' 48; background: linear-gradient(135deg, var(--accent-strong), #7c3aed); -webkit-background-clip: text; background-clip: text; color: transparent; }
+@media (min-width: 760px) {
+  .desk__row { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 5rem); }
+  .desk__art { order: 0; max-height: 300px; }
+  .desk__row:nth-child(even) .desk__art { order: -1; }
+}
+/* Aparición al hacer scroll (solo con JS y sin reduced-motion) */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .desk [data-rv] { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); transition-delay: calc(var(--i, 0) * 140ms); }
+  html.js .desk [data-rv].is-in { opacity: 1; transform: none; }
+  html.js .desk__row[data-rv] .desk__art .material-symbols-outlined { transform: scale(.88); transition: transform 1.2s cubic-bezier(.2,.7,.2,1) .15s; }
+  html.js .desk__row.is-in .desk__art .material-symbols-outlined { transform: none; }
+  html.js .desk__fill { --p: 0; transition: transform 1.4s cubic-bezier(.2,.7,.2,1); }
+  html.js .desk__line.is-in .desk__fill { --p: 1; }
+}
 @media (min-width: 1100px) { .trust__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1200px; } }
-@media (prefers-reduced-motion: reduce) { .desk__grid li { transition: none; } .desk__grid li:hover { transform: none; } }

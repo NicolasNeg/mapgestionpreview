@@ -503,27 +503,44 @@
     </div>
   </section>
 
-  <!-- §3b Del mostrador a la entrega — EN PRODUCCIÓN (Ventas: cotizar, contratos, cobros; Papeletas). Sin capturas todavía: solo íconos. -->
+  <!-- §3b Del mostrador a la entrega — EN PRODUCCIÓN (Ventas: cotizar, contratos, cobros; Papeletas). Editorial, sin tarjetas ni capturas. -->
   <section class="desk" id="mostrador" aria-labelledby="deskTitle">
     <div class="container">
       <header class="shead">
         <p class="eyebrow"><span class="material-symbols-outlined" aria-hidden="true">storefront</span>Ventas y papeletas</p>
         <h2 class="section-title" id="deskTitle">Del mostrador a la entrega. <span class="grad">Sin papel.</span></h2>
       </header>
-      <ol class="desk__flow" aria-label="Cotiza, contrato y papeleta">
-        <li class="desk__step"><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">request_quote</span></span><b>Cotiza</b><small>Categoría, días y precio con IVA</small></li>
-        <li class="desk__arrow" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></li>
-        <li class="desk__step"><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">contract_edit</span></span><b>Contrato</b><small>Folio, conductores y firma</small></li>
-        <li class="desk__arrow" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></li>
-        <li class="desk__step"><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></span><b>Papeleta</b><small>Fotos, daños y PDF al cliente</small></li>
+      <ol class="desk__line" aria-label="Cotiza, contrato y papeleta">
+        <li class="desk__track" aria-hidden="true"><span class="desk__fill"></span></li>
+        <li class="desk__step" data-rv style="--i:0"><span class="desk__num" aria-hidden="true">01</span><span class="desk__dot" aria-hidden="true"></span><b>Cotiza</b><span class="desk__stxt">Categoría, días y precio con IVA.</span></li>
+        <li class="desk__step" data-rv style="--i:1"><span class="desk__num" aria-hidden="true">02</span><span class="desk__dot" aria-hidden="true"></span><b>Contrato</b><span class="desk__stxt">Folio, conductores y firma.</span></li>
+        <li class="desk__step" data-rv style="--i:2"><span class="desk__num" aria-hidden="true">03</span><span class="desk__dot" aria-hidden="true"></span><b>Papeleta</b><span class="desk__stxt">Fotos, daños y PDF al cliente.</span></li>
       </ol>
-      <ul class="desk__grid">
-        <li><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></span><span><b>Papeletas sin papel</b><small>Salida y regreso desde el celular, con fotos guiadas, daños marcados en la pieza exacta y firma del cliente. El PDF le llega por correo.</small></span></li>
-        <li><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">request_quote</span></span><span><b>Cotiza y renta en minutos</b><small>Elige la categoría con inventario real, el precio sale con IVA y la reserva se convierte en contrato con un toque.</small></span></li>
-        <li><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">receipt_long</span></span><span><b>Contratos y cobros en orden</b><small>Folio por plaza, conductores, garantía y pagos registrados. Al regresar la unidad, el saldo y el comprobante de cierre salen solos.</small></span></li>
-        <li><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">map</span></span><span><b>Un mapa que se lee de un vistazo</b><small>Cajones, MVA, placas y gasolina claros en celular, tablet y PC, y se mueve fluido aunque tengas cientos de unidades.</small></span></li>
-        <li><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">person</span></span><span><b>La ficha completa del cliente</b><small>Datos fiscales, expediente, tarifas y reservaciones en un solo lugar, con su información sensible protegida.</small></span></li>
-        <li><span class="desk__ic"><span class="material-symbols-outlined" aria-hidden="true">bolt</span></span><span><b>Más rápido para tu equipo</b><small>Abre donde lo dejaste, atajos de teclado en PC, cuadre en tarjetas en el celular y avisos solo cuando importan.</small></span></li>
+      <ul class="desk__rows">
+        <li class="desk__row" data-rv>
+          <div class="desk__copy"><h3>Papeletas sin papel</h3><p>Salida y regreso desde el celular, con fotos guiadas, daños marcados en la pieza exacta y firma del cliente. El PDF le llega por correo.</p></div>
+          <div class="desk__art" aria-hidden="true"><span class="desk__halo"></span><span class="material-symbols-outlined">photo_camera</span></div>
+        </li>
+        <li class="desk__row" data-rv>
+          <div class="desk__copy"><h3>Cotiza y renta en minutos</h3><p>Elige la categoría con inventario real, el precio sale con IVA y la reserva se convierte en contrato con un toque.</p></div>
+          <div class="desk__art" aria-hidden="true"><span class="desk__halo"></span><span class="material-symbols-outlined">request_quote</span></div>
+        </li>
+        <li class="desk__row" data-rv>
+          <div class="desk__copy"><h3>Contratos y cobros en orden</h3><p>Folio por plaza, conductores, garantía y pagos registrados. Al regresar la unidad, el saldo y el comprobante de cierre salen solos.</p></div>
+          <div class="desk__art" aria-hidden="true"><span class="desk__halo"></span><span class="material-symbols-outlined">receipt_long</span></div>
+        </li>
+        <li class="desk__row" data-rv>
+          <div class="desk__copy"><h3>Un mapa que se lee de un vistazo</h3><p>Cajones, MVA, placas y gasolina claros en celular, tablet y PC, y se mueve fluido aunque tengas cientos de unidades.</p></div>
+          <div class="desk__art" aria-hidden="true"><span class="desk__halo"></span><span class="material-symbols-outlined">map</span></div>
+        </li>
+        <li class="desk__row" data-rv>
+          <div class="desk__copy"><h3>La ficha completa del cliente</h3><p>Datos fiscales, expediente, tarifas y reservaciones en un solo lugar, con su información sensible protegida.</p></div>
+          <div class="desk__art" aria-hidden="true"><span class="desk__halo"></span><span class="material-symbols-outlined">person</span></div>
+        </li>
+        <li class="desk__row" data-rv>
+          <div class="desk__copy"><h3>Más rápido para tu equipo</h3><p>Abre donde lo dejaste, atajos de teclado en PC, cuadre en tarjetas en el celular y avisos solo cuando importan.</p></div>
+          <div class="desk__art" aria-hidden="true"><span class="desk__halo"></span><span class="material-symbols-outlined">bolt</span></div>
+        </li>
       </ul>
     </div>
   </section>
@@ -809,7 +826,7 @@
 
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script defer src="app.js?v=20261001a"></script>
+  <script defer src="app.js?v=20261026a"></script>
 </body>
 
 </html>

@@ -999,3 +999,15 @@ document.querySelectorAll('.faq').forEach(function faq(root) {
   });
   shell.tabIndex = 0;
 })();
+
+/* ---------- 3b. Del mostrador a la entrega: aparición al hacer scroll (sin JS o reduced-motion: todo visible por CSS) ---------- */
+(() => {
+  const root = document.getElementById('mostrador');
+  if (!root) return;
+  const els = [root.querySelector('.desk__line'), ...root.querySelectorAll('[data-rv]')].filter(Boolean);
+  if (!('IntersectionObserver' in window)) { els.forEach((el) => el.classList.add('is-in')); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
+  els.forEach((el) => io.observe(el));
+})();
