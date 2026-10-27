@@ -130,7 +130,7 @@
    "name": "¿Cuándo estará disponible la verificación 110?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Está en desarrollo. La red se activará tras la revisión jurídica y los contratos. Pídela en tu demo."
+    "text": "Está en desarrollo. La red se activará tras la revisión jurídica y los contratos."
    }
   },
   {
@@ -138,7 +138,7 @@
    "name": "¿Puedo hacer contratos y cobrar?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Sí. Cotizas, conviertes la reserva en contrato con folio por plaza, registras cobros y garantía, y al regreso sale el comprobante de cierre."
+    "text": "Sí. Cotizas, haces el contrato y registras cobros y garantía."
    }
   },
   {
@@ -146,7 +146,7 @@
    "name": "¿Sirve sin papel?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Sí. La papeleta de salida y regreso se llena en el celular, con fotos, daños y firma del cliente, y el PDF le llega por correo."
+    "text": "Sí. La papeleta se llena en el celular y el cliente recibe su PDF."
    }
   }
  ]
@@ -163,11 +163,11 @@
     imagesrcset="assets/scenes/hero-index-full-1086.webp 1086w" imagesizes="100vw" />
   <link rel="preload" as="image" type="image/webp" fetchpriority="high" media="(min-width: 701px) and (min-aspect-ratio: 1001/1000)"
     imagesrcset="assets/scenes/hero-index-desktop-800.webp 800w, assets/scenes/hero-index-desktop-1086.webp 1086w" imagesizes="100vw" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700&display=swap" rel="stylesheet" />
   <!-- Iconos: solo los glifos usados (icon_names en orden alfabético); display=block evita ver el nombre del ícono como texto -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=admin_panel_settings,arrow_downward,arrow_forward,arrow_upward,badge,bolt,chat,check_circle,close,code,contract_edit,dashboard,description,directions_car,document_scanner,done_all,draw,enhanced_encryption,fact_check,fingerprint,gavel,graphic_eq,history,hub,info,label,local_gas_station,local_parking,location_on,lock,mail,map,menu,open_with,pause,payments,person,photo_camera,picture_as_pdf,play_arrow,receipt_long,replay,request_quote,rocket_launch,search,shield,smart_toy,smartphone,storefront,tune,unfold_more,verified_user,volume_up&display=block" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=admin_panel_settings,arrow_downward,arrow_forward,arrow_upward,badge,bolt,chat,check_circle,close,code,contract_edit,dashboard,description,directions_car,document_scanner,done_all,draw,enhanced_encryption,fact_check,fingerprint,gavel,graphic_eq,history,hub,info,label,local_gas_station,local_parking,location_on,lock,mail,map,menu,open_with,pause,payments,person,photo_camera,picture_as_pdf,play_arrow,receipt_long,replay,request_quote,rocket_launch,search,shield,smart_toy,smartphone,storefront,tune,unfold_more,verified_user,volume_up&display=block" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=20261026b" />
+  <link rel="stylesheet" href="styles.css?v=20261027a" />
   <script>document.documentElement.classList.add('js');</script>
 </head>
 
@@ -188,9 +188,7 @@
         <a href="#ia">IA</a>
         <a href="#verificacion">Verificación 110</a>
         <a href="resumen-extendido.html">Resumen extendido</a>
-      </div>
-      <div class="nav__actions">
-        <a href="#contacto" class="btn btn--primary btn--sm">Solicitar demo</a>
+        <a href="#contacto">Contacto</a>
       </div>
     </div>
   </nav>
@@ -207,11 +205,10 @@
     <a href="#mostrador">Del mostrador a la entrega</a>
     <a href="#ia">Asistente con IA</a>
     <a href="#verificacion">Verificación 110</a>
-    <a href="resumen-extendido.html">Resumen extendido</a>
+    <a href="#confianza">Seguridad</a>
     <a href="#faq">Preguntas frecuentes</a>
-    <div class="nav__drawerActions">
-      <a href="#contacto" class="btn btn--primary">Solicitar demo</a>
-    </div>
+    <a href="resumen-extendido.html">Resumen extendido</a>
+    <a href="#contacto">Contacto</a>
   </div>
 
   <header class="hero" id="hero">
@@ -232,9 +229,8 @@
     <div class="hero__content">
       <p class="hero__brand gsap-fade">MapGestión · Para arrendadoras</p>
       <h1 class="hero__title"><span class="hero__line">Del patio al mostrador.</span> <span class="hero__line grad">Todo desde el celular.</span></h1>
-      <p class="hero__desc gsap-fade">Mapa del patio en vivo, cuadre y flota, papeletas sin papel y contratos. Sin WhatsApp ni radio. <span class="hero__next">En desarrollo: verificación 110.</span></p>
+      <p class="hero__desc gsap-fade">El patio, el mostrador y la entrega en una sola app. <span class="hero__next">En desarrollo: verificación 110.</span></p>
       <div class="hero__actions gsap-fade">
-        <a class="btn btn--primary" href="#contacto">Solicitar demo</a>
         <a class="btn btn--ghost" href="#producto">Ver cómo funciona</a>
       </div>
     </div>
@@ -647,27 +643,27 @@
       </ol>
       <ul class="desk__rows">
         <li class="desk__row" data-rv>
-          <div class="desk__copy"><h3>Papeletas sin papel</h3><p>Salida y regreso desde el celular, con fotos guiadas, daños marcados en la pieza exacta y firma del cliente. El PDF le llega por correo.</p></div>
+          <div class="desk__copy"><h3>Papeletas sin papel</h3><p>Fotos, daños y firma desde el celular. El PDF llega al cliente.</p></div>
           <div class="desk__art" aria-hidden="true"><span class="desk__halo"></span><span class="material-symbols-outlined">photo_camera</span></div>
         </li>
         <li class="desk__row" data-rv>
-          <div class="desk__copy"><h3>Cotiza y renta en minutos</h3><p>Elige la categoría con inventario real, el precio sale con IVA y la reserva se convierte en contrato con un toque.</p></div>
+          <div class="desk__copy"><h3>Cotiza y renta en minutos</h3><p>Precio con IVA por categoría y contrato en un toque.</p></div>
           <div class="desk__art" aria-hidden="true"><span class="desk__halo"></span><span class="material-symbols-outlined">request_quote</span></div>
         </li>
         <li class="desk__row" data-rv>
-          <div class="desk__copy"><h3>Contratos y cobros en orden</h3><p>Folio por plaza, conductores, garantía y pagos registrados. Al regresar la unidad, el saldo y el comprobante de cierre salen solos.</p></div>
+          <div class="desk__copy"><h3>Contratos y cobros en orden</h3><p>Folio, garantía y pagos. El cierre sale solo.</p></div>
           <div class="desk__art" aria-hidden="true"><span class="desk__halo"></span><span class="material-symbols-outlined">receipt_long</span></div>
         </li>
         <li class="desk__row" data-rv>
-          <div class="desk__copy"><h3>Un mapa que se lee de un vistazo</h3><p>Cajones, MVA, placas y gasolina claros en celular, tablet y PC, y se mueve fluido aunque tengas cientos de unidades.</p></div>
+          <div class="desk__copy"><h3>Un mapa que se lee de un vistazo</h3><p>Claro en celular, tablet y PC. Fluido con cientos de unidades.</p></div>
           <div class="desk__art" aria-hidden="true"><span class="desk__halo"></span><span class="material-symbols-outlined">map</span></div>
         </li>
         <li class="desk__row" data-rv>
-          <div class="desk__copy"><h3>La ficha completa del cliente</h3><p>Datos fiscales, expediente, tarifas y reservaciones en un solo lugar, con su información sensible protegida.</p></div>
+          <div class="desk__copy"><h3>La ficha completa del cliente</h3><p>Datos, expediente y reservaciones, protegidos.</p></div>
           <div class="desk__art" aria-hidden="true"><span class="desk__halo"></span><span class="material-symbols-outlined">person</span></div>
         </li>
         <li class="desk__row" data-rv>
-          <div class="desk__copy"><h3>Más rápido para tu equipo</h3><p>Abre donde lo dejaste, atajos de teclado en PC, cuadre en tarjetas en el celular y avisos solo cuando importan.</p></div>
+          <div class="desk__copy"><h3>Más rápido para tu equipo</h3><p>Abre donde lo dejaste y avisa solo lo importante.</p></div>
           <div class="desk__art" aria-hidden="true"><span class="desk__halo"></span><span class="material-symbols-outlined">bolt</span></div>
         </li>
       </ul>
@@ -821,9 +817,9 @@
         <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">admin_panel_settings</span></span><span><b>Roles por área</b></span></li>
         <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">fingerprint</span></span><span><b>Google, SMS o Face ID</b></span></li>
         <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">lock</span></span><span><b>Sesiones a la vista</b></span></li>
-        <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">enhanced_encryption</span></span><span><b>Datos sensibles cifrados</b><small>CURP, clave de elector y contactos protegidos</small></span></li>
-        <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">draw</span></span><span><b>Firmas con PDF</b><small>Contrato y papeleta firmados, con copia al cliente</small></span></li>
-        <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">rocket_launch</span></span><span><b>Llave en mano</b><small>Diagnóstico, mapeo, operación y soporte</small></span></li>
+        <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">enhanced_encryption</span></span><span><b>Datos sensibles cifrados</b><small>Información personal protegida</small></span></li>
+        <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">draw</span></span><span><b>Firmas con PDF</b><small>Copia para el cliente</small></span></li>
+        <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">rocket_launch</span></span><span><b>Llave en mano</b><small>Te acompañamos de inicio a fin</small></span></li>
         <li><span class="trust__ic"><span class="material-symbols-outlined" aria-hidden="true">shield</span></span><span><b>Privacidad en 110</b><small>Derechos ARCO <span class="soon soon--dev">En desarrollo</span></small></span></li>
       </ul>
       <p class="trust__more"><a class="more" href="resumen-extendido.html#seguridad-privacidad">Seguridad y privacidad <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a><a class="more" href="resumen-extendido.html#implementacion">Implementación <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a></p>
@@ -858,13 +854,13 @@
         <details class="faq__item">
           <summary><span class="faq__q">¿Puedo hacer contratos y cobrar?</span><span class="faq__icon" aria-hidden="true"></span></summary>
           <div class="faq__a"><div class="faq__aIn">
-              <p>Sí. Cotizas, conviertes la reserva en contrato con folio por plaza, registras cobros y garantía, y al regreso sale el comprobante de cierre.</p>
+              <p>Sí. Cotizas, haces el contrato y registras cobros y garantía.</p>
           </div></div>
         </details>
         <details class="faq__item">
           <summary><span class="faq__q">¿Sirve sin papel?</span><span class="faq__icon" aria-hidden="true"></span></summary>
           <div class="faq__a"><div class="faq__aIn">
-              <p>Sí. La papeleta de salida y regreso se llena en el celular, con fotos, daños y firma del cliente, y el PDF le llega por correo.</p>
+              <p>Sí. La papeleta se llena en el celular y el cliente recibe su PDF.</p>
           </div></div>
         </details>
         <details class="faq__item">
@@ -882,7 +878,7 @@
         <details class="faq__item">
           <summary><span class="faq__q">¿Cuándo estará disponible la verificación 110?</span><span class="faq__icon" aria-hidden="true"></span></summary>
           <div class="faq__a"><div class="faq__aIn">
-              <p>Está en desarrollo. La red se activará tras la revisión jurídica y los contratos. Pídela en tu demo.</p>
+              <p>Está en desarrollo. La red se activará tras la revisión jurídica y los contratos.</p>
           </div></div>
         </details>
       </div>
@@ -893,8 +889,8 @@
   <!-- §10 CTA final -->
   <section class="cta" id="contacto" aria-labelledby="ctaTitle">
     <div class="container cta__inner">
-      <h2 id="ctaTitle">Ve tu patio en vivo. <span class="grad">Agenda una demo.</span></h2>
-      <p>Cuéntanos cuántas unidades y plazas manejas. Te contactamos.</p>
+      <h2 id="ctaTitle">Hablemos.</h2>
+      <p>Cuéntanos de tu operación y te escribimos.</p>
       <form class="cform" id="contactForm" action="https://formspree.io/f/xgojgakq" method="POST">
         <div class="cform__row">
           <label class="cform__field"><span>Nombre *</span><input name="nombre" required autocomplete="name" placeholder="Tu nombre" /></label>
@@ -915,13 +911,13 @@
         </label>
         <label class="cform__field"><span>Mensaje</span><textarea name="mensaje" rows="3" placeholder="¿Cuántas unidades y plazas manejas?"></textarea></label>
         <input type="hidden" name="_subject" value="Nuevo lead — MapGestión" />
-        <button type="submit" class="btn btn--primary btn--lg" id="cformBtn">Solicitar demo</button>
+        <button type="submit" class="btn btn--primary btn--lg" id="cformBtn">Enviar</button>
         <p class="cform__status" id="cformStatus" role="status" aria-live="polite"></p>
       </form>
 
       <p class="cform__alt cform__alt--rx"><a class="btn btn--ghost" href="resumen-extendido.html">Resumen extendido <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a></p>
       <p class="cform__alt">¿Prefieres WhatsApp?
-        <a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20solicitar%20una%20demo%20de%20MapGesti%C3%B3n" target="_blank" rel="noopener">Escríbenos aquí</a>.
+        <a href="https://wa.me/524778024682?text=Hola%2C%20quiero%20informaci%C3%B3n%20de%20MapGesti%C3%B3n" target="_blank" rel="noopener">Escríbenos aquí</a>.
       </p>
     </div>
   </section>
@@ -947,15 +943,9 @@
     <p class="foot__copy">© <span id="year"></span> MapGestión. Todos los derechos reservados. <span class="foot__sep" aria-hidden="true">·</span> <a class="foot__login" href="https://app.mapgestion.com">Iniciar sesión</a></p>
   </footer>
 
-  <!-- Barra de acción fija (solo móvil; la muestra app.js después del hero) -->
-  <div class="mbar" id="mbar">
-    <a class="btn btn--primary" href="#contacto">Solicitar demo</a>
-    <a class="btn btn--ghost mbar__wa" href="https://wa.me/524778024682?text=Hola%2C%20quiero%20solicitar%20una%20demo%20de%20MapGesti%C3%B3n" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><span class="material-symbols-outlined" aria-hidden="true">chat</span>WhatsApp</a>
-  </div>
-
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script defer src="app.js?v=20261026b"></script>
+  <script defer src="app.js?v=20261027a"></script>
 </body>
 
 </html>
