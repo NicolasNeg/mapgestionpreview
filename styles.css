@@ -1963,3 +1963,18 @@ h1, h2, h3, .section-title, .hero__title, .trust__title, .desk__num, .desk__copy
   .nav__drawer > a:hover { background: none; }
   .nav__overlay { background: rgba(15, 17, 20, .35); }
 }
+
+/* ── §2b Funciones (2026-10-28): lista editorial en 3 grupos, sin tarjetas ── */
+.fx { position: relative; z-index: 2; background: var(--surface); padding-block: clamp(4rem, 9vw, 7.5rem); }
+.fx__groups { display: grid; gap: clamp(2.5rem, 5vw, 3.5rem); max-width: 1120px; margin-inline: auto; }
+.fx__gt { margin: 0 0 .5rem; font-size: .8125rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-strong); font-family: 'Inter', sans-serif; }
+.fx__list { margin: 0; }
+.fx__item { padding: 1.1rem 0; border-top: 1px solid var(--border); }
+.fx__item dt { font-family: 'Inter Tight', 'Inter', sans-serif; font-size: clamp(1.125rem, 1rem + .45vw, 1.375rem); font-weight: 600; letter-spacing: -.02em; color: var(--text-strong); display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.fx__item dd { margin: .3rem 0 0; font-size: 1rem; line-height: 1.55; color: var(--muted); max-width: 30rem; }
+@media (min-width: 900px) { .fx__groups { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(2rem, 4vw, 3.5rem); } }
+@media (prefers-reduced-motion: no-preference) {
+  html.js .fx [data-rv] { opacity: 0; transform: translateY(24px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); }
+  html.js .fx [data-rv]:nth-child(2) { transition-delay: .12s; } html.js .fx [data-rv]:nth-child(3) { transition-delay: .24s; }
+  html.js .fx [data-rv].is-in { opacity: 1; transform: none; }
+}
