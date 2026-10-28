@@ -339,6 +339,36 @@ if (HAS_GSAP) {
   document.addEventListener('visibilitychange', () => { if (document.hidden) figs.forEach((f) => { if (f.classList.contains('is-playing')) pause(f); }); });
 })();
 
+/* Pantallas ilustrativas en HTML dentro del escaparate (.show__m): se comportan como un <video> (play/pause/currentTime/duration/ended
+   + eventos timeupdate/ended) para que el escaparate las trate igual. Cada elemento [data-at="n"] se enciende en el paso n. */
+(function mockVideos() {
+  document.querySelectorAll('.show__m').forEach((el) => {
+    const dur = (+el.dataset.dur || 9000) / 1000;
+    const items = [...el.querySelectorAll('[data-at]')];
+    const max = Math.max(1, ...items.map((i) => +i.dataset.at));
+    let t = 0; let raf = 0; let last = 0; let ended = false; let paused = true;
+    const paint = () => {
+      const step = Math.floor((t / dur) * (max + 2));
+      items.forEach((i) => i.classList.toggle('on', +i.dataset.at <= step));
+    };
+    const tick = (now) => {
+      t = Math.min(dur, t + (now - last) / 1000); last = now; paint();
+      el.dispatchEvent(new Event('timeupdate'));
+      if (t >= dur) { ended = true; paused = true; raf = 0; el.dispatchEvent(new Event('ended')); return; }
+      raf = requestAnimationFrame(tick);
+    };
+    Object.defineProperties(el, {
+      duration: { get: () => dur },
+      ended: { get: () => ended },
+      paused: { get: () => paused },
+      currentTime: { get: () => t, set: (v) => { t = Math.max(0, +v || 0); ended = false; paint(); } },
+    });
+    el.play = () => { if (!paused) return Promise.resolve(); if (ended) { t = 0; ended = false; } paused = false; last = performance.now(); raf = requestAnimationFrame(tick); return Promise.resolve(); };
+    el.pause = () => { paused = true; if (raf) cancelAnimationFrame(raf); raf = 0; };
+    paint();
+  });
+})();
+
 /* Escaparate "Míralo en movimiento": 5 animaciones, una sola a la vez. Se reproduce al verse, avanza sola a la siguiente,
    con pausa / repetir, pestañas y deslizar en el celular. Reduced-motion o ahorro de datos: cuadros fijos (sin autoplay). */
 (function showcase() {
@@ -998,4 +1028,25 @@ document.querySelectorAll('.faq').forEach(function faq(root) {
     if (e.key === 'ArrowLeft') video.currentTime = Math.max(0, video.currentTime - 5);
   });
   shell.tabIndex = 0;
+})();
+
+/* ---------- 3b. Del mostrador a la entrega: aparición al hacer scroll (sin JS o reduced-motion: todo visible por CSS) ---------- */
+(() => {
+  const root = document.getElementById('mostrador');
+  if (!root) return;
+  const els = [root.querySelector('.desk__line'), ...root.querySelectorAll('[data-rv]')].filter(Boolean);
+  if (!('IntersectionObserver' in window)) { els.forEach((el) => el.classList.add('is-in')); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
+  els.forEach((el) => io.observe(el));
+})();
+
+/* ---------- 2b. Funciones: aparición al hacer scroll ---------- */
+(() => {
+  const els = [...document.querySelectorAll('#funciones [data-rv]')];
+  if (!els.length) return;
+  if (!('IntersectionObserver' in window)) { els.forEach((el) => el.classList.add('is-in')); return; }
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+  els.forEach((el) => io.observe(el));
 })();
